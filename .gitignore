@@ -1,0 +1,3 @@
+# Datasheet PDFs are large — regenerate with: jlcpcb datasheet CXXXXX --pdf -o docs/datasheets/
+docs/datasheets/*.pdf
+docs/datasheets/*.PDF

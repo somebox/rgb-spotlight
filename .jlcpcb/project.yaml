@@ -1,0 +1,68 @@
+name: rgb-spotlight
+description: 25mm circular chainable RGB spotlight pixel, WS2811 + 3x PT4115
+created: '2026-03-16'
+selections:
+- ref: C1-C4
+  lcsc: C1525
+  quantity: 4
+  notes: 100nF X7R bypass caps
+- ref: C5-C8
+  lcsc: C15850
+  quantity: 4
+  notes: 10uF X5R 25V input bulk caps
+- ref: D1-D3
+  lcsc: C64885
+  quantity: 3
+  notes: B5819W 40V/1A Schottky freewheeling diode
+- ref: J1-J2
+  lcsc: C265101
+  quantity: 2
+  notes: JST PH 2.0mm 3P SMT RA, in/out connectors
+- ref: L1-L3
+  lcsc: C168095
+  quantity: 3
+  notes: 100uH 1A shielded inductor
+- ref: LED1
+  lcsc: C49237857
+  quantity: 1
+  notes: HD2525 Red 625nm
+- ref: LED2
+  lcsc: C49237859
+  quantity: 1
+  notes: HD2525 Green 525nm
+- ref: LED3
+  lcsc: C49237860
+  quantity: 1
+  notes: HD2525 Blue 455nm
+- ref: R1-R3
+  lcsc: C247160
+  quantity: 3
+  notes: 0.22R current sense, 454mA per channel
+- ref: R4-R6
+  lcsc: C25900
+  quantity: 3
+  notes: 4.7k pull-up for WS2811 open-drain outputs
+- ref: R7
+  lcsc: C25744
+  quantity: 1
+  notes: 10k pull-down, U7 OE enable
+- ref: U1
+  lcsc: C114581
+  quantity: 1
+  notes: WS2811 pixel controller, SET pin floated for 800kHz
+- ref: U2-U4
+  lcsc: C347356
+  quantity: 3
+  notes: PT4115 buck LED driver, one per RGB channel
+- ref: U5
+  lcsc: C71136
+  quantity: 1
+  notes: 78L05 5V regulator, basic part
+- ref: U6
+  lcsc: C5590
+  quantity: 1
+  notes: 74HC04 hex inverter, WS2811 open-drain inversion
+- ref: U7
+  lcsc: C350557
+  quantity: 1
+  notes: SN74AHCT1G125 3.3V-to-5V level shifter on DIN
