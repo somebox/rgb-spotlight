@@ -24,16 +24,21 @@
 
 ## BOM
 
-16 line items, ~$2.26/unit at qty 1 pricing. 10 extended parts = $30 one-time setup fee.
+16 line items, ~$2.24/unit at qty 1 pricing. 10 extended parts = $30 one-time setup fee.
 
-View the full BOM with `jlcpcb bom` or see [rgb-spotlight-bom.md](rgb-spotlight-bom.md) for component selection rationale and connection tables.
+Project BOM config now lives at `.bomi/project.yaml` (migrated from legacy `.jlcpcb/project.yaml`).
 
+Use `bomi` to inspect/refresh the BOM and export files:
+
+```bash
+bomi status                                # overview + warnings
+bomi fetch --all --force                   # refresh all selected parts from API
+bomi list --check                          # validate BOM against latest catalog data
+bomi list --format markdown > docs/BOM_rgb-spotlight.md
+bomi list --format csv > docs/BOM_rgb-spotlight.csv
 ```
-jlcpcb status           # overview
-jlcpcb bom              # full BOM table
-jlcpcb bom --check      # refresh stock/prices from JLCPCB API
-jlcpcb bom --format csv # export for ordering
-```
+
+See [docs/BOM_rgb-spotlight.md](docs/BOM_rgb-spotlight.md) for the latest part snapshot and [rgb-spotlight-bom.md](rgb-spotlight-bom.md) for design rationale/connection tables.
 
 ## Design Decisions
 

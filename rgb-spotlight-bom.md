@@ -2,7 +2,7 @@
 
 30mm circular chainable RGB spotlight. WS2811 pixel controller + 74HC04 inverter + 3× PT4115 buck LED drivers + XINGLIGHT HD2525 high-power LEDs. Input: 12V / DIN / GND (3-wire chain). ~4.73W per pixel at 450mA/channel.
 
-> All LCSC part numbers verified in stock as of 2026-03-05.
+> Live stock/pricing is tracked in `docs/BOM_rgb-spotlight.md` (refreshed via `bomi` on 2026-03-28). This file focuses on design rationale and connectivity notes.
 
 ## ICs
 
