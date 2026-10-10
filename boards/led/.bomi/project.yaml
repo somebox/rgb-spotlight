@@ -1,0 +1,16 @@
+name: rgb-spotlight-led
+description: 'RGB Spotlight v2 LED board (aluminium, 1 layer): 3x XINGLIGHT HD2525'
+created: '2026-10-05'
+selections:
+- ref: LED1
+  lcsc: C49237857
+  quantity: 1
+  notes: HD2525 red 620nm
+- ref: LED2
+  lcsc: C49237859
+  quantity: 1
+  notes: HD2525 green 525nm
+- ref: LED3
+  lcsc: C49237860
+  quantity: 1
+  notes: HD2525 blue 455nm

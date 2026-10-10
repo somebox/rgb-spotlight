@@ -1,0 +1,81 @@
+name: rgb-spotlight-driver
+description: RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the
+  aluminium LED board
+created: '2026-03-16'
+selections:
+- ref: C1-C4
+  lcsc: C1525
+  quantity: 4
+  notes: '100nF X7R bypass: C1 WS2811, C2 74HC04, C3 74AHCT1G125, C4 78L05 out'
+- ref: C5
+  lcsc: C15850
+  quantity: 1
+  notes: 10uF 25V 0805, 78L05 input
+- ref: C6-C8
+  lcsc: C13585
+  quantity: 3
+  notes: 10uF 50V X5R 1206, PT4115 VIN bypass (>=4.7uF after DC bias at 12V)
+- ref: C9
+  lcsc: C12891
+  quantity: 1
+  notes: 22uF 25V X5R 1206, 12V input bulk
+- ref: D1-D3
+  lcsc: C64885
+  quantity: 3
+  notes: B5819W 40V/1A Schottky freewheeling diode
+- ref: D4
+  lcsc: C19077535
+  quantity: 1
+  notes: SMAJ15A TVS on +12V (hot-plugged chain cables)
+- ref: J1-J2
+  lcsc: C144394
+  quantity: 2
+  notes: 'JST XH 3P vertical THT (3 A), IN/OUT on the back: 1=12V 2=DATA 3=GND'
+- ref: J3
+  lcsc: C131342
+  quantity: 1
+  notes: 'JST PH 6P vertical THT, LED harness: R+ R- G+ G- B+ B-'
+- ref: L1-L3
+  lcsc: C168091
+  quantity: 3
+  notes: 68uH FNR6045S680MT, Isat 1.1A; PT4115 table 47-68uH for 0.4-0.8A
+- ref: R1-R3
+  lcsc: C2907349
+  quantity: 3
+  notes: '0.22R 1% 1206 300ppm, current sense: 0.1V/0.22R = 455mA'
+- ref: R4-R6
+  lcsc: C25900
+  quantity: 3
+  notes: 4.7k pull-up for WS2811 open-drain outputs
+- ref: R7
+  lcsc: C25744
+  quantity: 1
+  notes: 10k DIN pull-down (defined low when unplugged)
+- ref: R8
+  lcsc: C25105
+  quantity: 1
+  notes: 33R series on DOUT (cable source termination)
+- ref: R10
+  lcsc: C25076
+  quantity: 1
+  notes: 100R series on DIN
+- ref: U1
+  lcsc: C114581
+  quantity: 1
+  notes: WS2811 pixel controller, SET pin floated for 800kHz
+- ref: U2-U4
+  lcsc: C347356
+  quantity: 3
+  notes: PT4115 buck LED driver, one per RGB channel
+- ref: U5
+  lcsc: C71136
+  quantity: 1
+  notes: 78L05 5V regulator, basic part
+- ref: U6
+  lcsc: C5590
+  quantity: 1
+  notes: 74HC04 hex inverter, WS2811 open-drain inversion
+- ref: U7
+  lcsc: C350557
+  quantity: 1
+  notes: SN74AHCT1G125 3.3V-to-5V level shifter on DIN

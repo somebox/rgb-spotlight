@@ -1,0 +1,4 @@
+Ref,LCSC,Qty,Part,Manufacturer,Package,Description,Price,Stock,Type,Notes,Datasheet,JLCPCB URL
+LED1,C49237857,1,XL-HD2525SURC-A4,XINGLIGHT,SMD,-40℃~+135℃ 120° 2.4V 2.5mm x 2.5mm square LED 3W 620nm 625nm 700mA Discrete Diode Red Water Clear SMD LED Indication - Discrete ROHS,0.2728,2625,expand,HD2525 red 620nm,,https://jlcpcb.com/partdetail/XINGLIGHT-XL_HD2525SURCA4/C49237857
+LED2,C49237859,1,XL-HD2525UGC-A4,XINGLIGHT,SMD,-40℃~+135℃ 120° 2.5mm x 2.5mm square LED 3.4V 3W 525nm 525nm 700mA Discrete Diode Green Water Clear SMD LED Indication - Discrete ROHS,0.2925,325,expand,HD2525 green 525nm,,https://jlcpcb.com/partdetail/XINGLIGHT-XL_HD2525UGCA4/C49237859
+LED3,C49237860,1,XL-HD2525UBC-A4,XINGLIGHT,SMD,-40℃~+135℃ 120° 2.5mm x 2.5mm square LED 27lm~45lm 3.4V 3000V 3W 455nm 455nm 700mA Blue Discrete Diode Water Clear SMD LED Indication - Discrete ROHS,0.2080,1331,expand,HD2525 blue 455nm,,https://jlcpcb.com/partdetail/XINGLIGHT-XL_HD2525UBCA4/C49237860
