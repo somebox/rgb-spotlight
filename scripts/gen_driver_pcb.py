@@ -107,9 +107,9 @@ ds.m_MinSilkTextHeight = mm(0.8); ds.m_MinSilkTextThickness = mm(0.15)
 ns = ds.m_NetSettings
 dc = ns.GetDefaultNetclass()
 dc.SetTrackWidth(mm(0.25)); dc.SetClearance(mm(0.2)); dc.SetViaDiameter(mm(0.6)); dc.SetViaDrill(mm(0.3))
-# +12V passes through to the next light (J1 -> J2): up to ~3 A for a chain of 7
 # 0.2 mm clearance throughout (12 V needs nothing more; scripts/route_driver.py routes to 0.2 mm)
-for name, w, clr, vd, vdr, pats in (("PWR", 1.5, 0.2, 0.8, 0.4, ["+12V", "GND"]),
+# PWR is the taps' width: the 1.5 mm J1 -> J2 pass-through ring is drawn explicitly by scripts/route_driver.py
+for name, w, clr, vd, vdr, pats in (("PWR", 0.8, 0.2, 0.8, 0.4, ["+12V", "GND"]),
                                     ("LED", 0.6, 0.2, 0.8, 0.4, ["/CSN_*", "/LEDK_*", "/SW_*"]),
                                     ("LOGIC_PWR", 0.4, 0.2, 0.6, 0.3, ["+5V"])):
     k = pcbnew.NETCLASS(name); k.SetTrackWidth(mm(w)); k.SetClearance(mm(clr)); k.SetViaDiameter(mm(vd)); k.SetViaDrill(mm(vdr))

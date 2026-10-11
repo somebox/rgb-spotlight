@@ -1,16 +1,19 @@
 # RGB Spotlight
 
+Status (2026-10-11): v2 schematics and both boards done (DRC clean); one LED channel simulated. Next: v1 bench tests, the housing decision, then the order.
+
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 
 ![v2 boards: LED board (aluminium) and driver board](docs/previews/v2-boards.png)
 
-> **Status (2026-10-05):** v1 (EasyEDA, one FR4 board) was built but never lit: the PT4115 stages were wired as the wrong kind of buck, and the 74HC04 was unpowered.
->
-> **v2 is a KiCad restart with two boards:**
-> - **LED board:** routed, DRC clean.
-> - **Driver board:** fully routed by script, DRC clean.
->
-> See [DESIGN.md](DESIGN.md) for the v1 post-mortem, the v2 design, the thermal estimate and the open items.
+- **v1** (EasyEDA, one FR4 board) was built but never lit: the PT4115 stages were wired as the wrong kind of buck, and the 74HC04 was unpowered.
+- **v2** is a KiCad restart with two boards.
+
+| Document | What's in it |
+| --- | --- |
+| [DESIGN.md](DESIGN.md) | requirements, the v1 post-mortem, numbered decisions, circuit, thermal estimate, simulation (§2.7), open items |
+| [LAYOUT.md](LAYOUT.md) | both PCBs: floor plans, rules, scripted copper and routing, outline presets, checks |
+| [PRODUCTION.md](PRODUCTION.md) | order files, order checklist (polarity!), harness and bring-up, costs |
 
 ## What it does
 
@@ -31,9 +34,10 @@ A high-power, addressable RGB pixel for spotlights and creative lighting. It spe
 - **Supply:** 12 V (the PT4115 regulates down to about 6 V at the end of a chain)
 - **Data:** WS2811 protocol, 800 kHz, single wire; 3.3 V or 5 V at DIN
 - **LED current:** about 455 mA per channel (`I = 0.1 V / 0.22 Ω`); LEDs rated 1 A / 3 W
-- **Full white:** about 4.5 W, 0.38 A at 12 V per light
-- **Chaining:** JST XH connectors (3 A) pass 12 V/GND through, so about 7 lights per power feed. Inject power again after that.
-- **Heat:** about 2.7 W in the LED board, which needs a heatsink: the housing's heat plate. About 0.9 W in the driver. See DESIGN.md §2.6.
+- **Full white:** 5.0 W, 0.42 A at 12 V per light (simulated, DESIGN.md §2.7); drivers about 80 % efficient
+- **Chaining:** JST XH connectors (3 A) pass 12 V/GND through: up to 6 lights per power feed (2.5 A). Inject power again after that.
+- **Heat:** about 2.7 W in the LED board, which needs a heatsink: the housing's heat plate. About 0.9 W in the driver, mostly in the three Schottky diodes. See DESIGN.md §2.6–2.7.
+- **Dimming:** brightness follows the 8-bit level within 5 % above 20 % and within 20 % down to 5 %. The lowest few levels are unreliable (DESIGN.md §2.7).
 
 ## Connections
 
@@ -54,16 +58,20 @@ J1 and J2 share one pin order, so chain with pin-1-to-pin-1 cables. v1 had J2 mi
 
 - `boards/led/`, `boards/driver/`: KiCad 10 projects. Schematics come from `scripts/sch_led.py` / `scripts/sch_driver.py`; boards from `scripts/make_led_pcb.sh` / `scripts/make_driver_pcb.sh`.
 - `lib/`: project symbols, footprints and 3D models (`scripts/make_lib.py`).
-- `scripts/`: generators and checks (`netcheck.py`, `ratsnest.py`, `make_previews.sh`). The shared parts (schematic builder, silkscreen placer, DRC/ERC summaries, previews, JLC fab files) come from [pcb-kit](https://github.com/somebox/pcb-kit): `uv tool install -e ~/src/pcb-kit && pcbkit link`.
+- `scripts/`: generators and checks (`netcheck.py`, `ratsnest.py`, `make_previews.sh`, `make_fab.sh`). The shared parts (schematic builder, silkscreen placer, DRC/ERC/board checks, previews, JLC fab files, ngspice runner) come from [pcb-kit](https://github.com/somebox/pcb-kit): `uv tool install -e ~/src/pcb-kit && pcbkit link`.
+- `sim/`: ngspice simulation of one LED channel (`sim/channel.py`); tables and plots in `sim/results/`.
 - `docs/previews/<board>/`: schematic PDF, board PNGs, 3D renders. `docs/previews/outline-presets.png` compares the board outline options.
-- **Board outline:** everything sits in a 50 mm core. The edge is a preset, `disc50` (current), `disc55`, `disc60` or `tabs3` (screw tabs). Change it with `scripts/set_outline.py`; see DESIGN.md §7.3.
+- **Board outline:** everything sits in a 50 mm core. The edge is a preset, `disc50` (current), `disc55`, `disc60` or `tabs3` (screw tabs). Change it with `scripts/set_outline.py`; see LAYOUT.md.
 - `archive/v1-easyeda/`: the v1 EasyEDA exports, a KiCad import of the v1 board, its as-built netlist and the bodge guide.
 
 ```bash
 python3 scripts/sch_driver.py && python3 scripts/sch_led.py
 pcbkit erc boards/driver/driver.kicad_sch && python3 scripts/netcheck.py
 scripts/make_led_pcb.sh && scripts/make_driver_pcb.sh --force --route
+pcbkit drc boards/driver/driver.kicad_pcb --save && pcbkit check boards/driver/driver.kicad_pcb
 scripts/make_previews.sh all
+scripts/make_fab.sh driver && scripts/make_fab.sh led       # order files in build/fab/
+python3 sim/channel.py                                      # LED channel simulation
 ```
 
 ## BOM

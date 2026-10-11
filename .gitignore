@@ -11,3 +11,9 @@ fp-info-cache
 drc.rpt
 __pycache__/
 .DS_Store
+
+# order files (scripts/make_fab.sh) and raw simulation waveforms (sim/channel.py --plot); the tables and PNGs are kept
+build/
+sim/results/*_full.txt
+sim/results/*_pwm*.txt
+sim/results/deck.cir

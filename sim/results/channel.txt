@@ -1,0 +1,27 @@
+# PT4115 channel simulation (sim/channel.py, ngspice via pcbkit.spice)
+# 12 V through 0.1 ohm + 1 uH; Rs 0.22 ohm; 68 uH / 0.33 ohm; Cin ~6 uF; comparator delay 150 ns
+
+## Q1  full brightness (DIM high)
+colour  I_LED mA  ripple mA pp  f_sw kHz  P_LED W   P_Rs   P_sw    P_D    P_L  P_in W  eff %  Vin pp mV  Iin pp mA
+red          461           163       206     1.07  0.047  0.034  0.159  0.071    1.38   77.5         32         20
+green        459           163       240     1.48  0.047  0.044  0.144  0.070    1.78   82.9         32         16
+blue         458           163       243     1.52  0.047  0.044  0.141  0.070    1.83   83.4         32         17
+
+Temperature rise (datasheet RthJA; both are best-case figures with generous copper):
+  red    PT4115 switch   1.5 C (45 C/W)   B5819W  25.5 C (160 C/W)
+  green  PT4115 switch   2.0 C (45 C/W)   B5819W  23.0 C (160 C/W)
+  blue   PT4115 switch   2.0 C (45 C/W)   B5819W  22.6 C (160 C/W)
+  light at full white: 4.99 W in, 416 mA at 12 V (three channels, logic not included)
+
+## Q2/Q3  PWM on DIM at 4 kHz (green), brightness linearity and the 12 V input
+ duty % level/255  I_LED avg mA  ideal mA  ratio  I_in avg mA  I_in peak mA  Vin dip mV
+ 100.00     255.0         458.9     459.3   1.00        148.7           157          32
+  50.00     127.5         235.0     229.6   1.02         75.9           288          77
+  20.00      51.0          96.6      91.9   1.05         31.1           288          77
+  10.00      25.5          50.7      45.9   1.10         16.2           288          77
+   5.00      12.8          27.5      23.0   1.20          8.7           288          77
+   2.00       5.1          15.2       9.2   1.66          4.7           233          77
+   1.00       2.6           4.1       4.6   0.90          1.2            61          21
+   1.57       4.0          10.7       7.2   1.49          3.3           163          55
+   0.78       2.0           2.4       3.6   0.66          0.7            34          12
+   0.39       1.0           0.4       1.8   0.21          0.1             5           2

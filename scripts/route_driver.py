@@ -155,13 +155,14 @@ print(stamp(), f"1. cells: {n1} connections, failed {sorted(set(f1)) or 'none'}"
 R_RING, W_RING = 23.3, 1.5
 v12 = b.FindNet("+12V")
 ring = [(X0 + R_RING * math.cos(math.radians(k)), Y0 - R_RING * math.sin(math.radians(k))) for k in range(0, 361, 6)]
-n_ring = sum(try_track([p_, q_], W_RING, v12, B_) for p_, q_ in zip(ring, ring[1:]))
+# open at 270 deg (the logic side, no taps there) so the trunk is a C, not a closed loop (pcbkit check flags loops)
+n_ring = sum(try_track([p_, q_], W_RING, v12, B_) for k, (p_, q_) in enumerate(zip(ring, ring[1:])) if k * 6 != 270)
 for j in ("J1", "J2"):
     x, y = pc(j, "1"); r = math.hypot(x - X0, y - Y0)
     try_track([(x, y), (X0 + (x - X0) * R_RING / r, Y0 + (y - Y0) * R_RING / r)], W_RING, v12, B_)
 n2b, f2b = route([(r"\+12V", [F_, B_], 0.8)])
 f2a = []
-print(stamp(), f"2. +12V: ring {n_ring}/{len(ring) - 1} segments + J1/J2 stubs (skipped {skipped or 'none'}), taps {n2b} (failed {sorted(set(f2b)) or 'none'})")
+print(stamp(), f"2. +12V: ring {n_ring}/{len(ring) - 2} segments + J1/J2 stubs (skipped {skipped or 'none'}), taps {n2b} (failed {sorted(set(f2b)) or 'none'})")
 
 # ---- 3. GND vias ----------------------------------------------------------------------------------------------
 def plane_vias(net_name, size, per_pad=lambda ref, q: 1, radius=3.0, step=0.2):

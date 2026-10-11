@@ -16,8 +16,12 @@ outlines. Parts and tracks are not touched.
 Holes outside the core get a copper keep-out (screw head + margin) on every copper layer, so the screws touch no
 circuit copper (chassis stays isolated). Inner holes keep the placement-time clearance only.
 """
-import math, os
+import math, os, sys
 import pcbnew
+try:
+    import pcbkit  # noqa: F401
+except ImportError:  # an interpreter pcbkit is not linked into: use the checkout
+    sys.path.insert(0, os.path.expanduser(os.environ.get("PCBKIT_ROOT", "~/src/pcb-kit")))
 
 CORE_D = 50.0
 CORE_R = CORE_D / 2
@@ -121,46 +125,28 @@ def draw_outline(b, V, p):
 
 def strip_outline_file(path, X0, Y0):
     """Remove the edge (not inner cut-outs), the board-only H# mounting holes, their MH_KEEPOUT rule areas and the GND
-    vias outside the core (edge stitching), by editing the .kicad_pcb text. Done as text because KiCad 10's Python
-    segfaults on Remove() for a board loaded with its project (and after any FootprintLoad). Returns items removed."""
+    vias outside the core (edge stitching), by editing the .kicad_pcb text (pcbnew's Remove() corrupts its bindings
+    mid-run; see pcb-kit's CONVENTIONS). Blocks come from pcbkit.mech.top_level_blocks. Returns items removed."""
     import re
+    from pcbkit.mech import top_level_blocks
     txt = open(path).read()
-    head = txt.index("(kicad_pcb") + len("(kicad_pcb")
-    items, depth, start, i = [], 0, None, head            # top-level children: (start, end) spans
-    while i < len(txt):
-        c = txt[i]
-        if c == '"':                                        # skip quoted strings (may contain parentheses)
-            i += 1
-            while txt[i] != '"':
-                i += 2 if txt[i] == "\\" else 1
-        elif c == "(":
-            if depth == 0:
-                start = i
-            depth += 1
-        elif c == ")":
-            if depth == 0:
-                break                                       # closing paren of kicad_pcb
-            depth -= 1
-            if depth == 0:
-                items.append((start, i + 1))
-        i += 1
     num = r"(-?[0-9.]+)"
-    def drop(it):
-        if it.startswith(("(gr_line", "(gr_arc", "(gr_circle", "(gr_rect", "(gr_poly")) and '(layer "Edge.Cuts")' in it:
-            if it.startswith("(gr_circle"):
+    def drop(head, it):
+        if head in ("gr_line", "gr_arc", "gr_circle", "gr_rect", "gr_poly") and '(layer "Edge.Cuts")' in it:
+            if head == "gr_circle":
                 (cx, cy), (ex, ey) = (tuple(map(float, re.search(rf"\({k} {num} {num}\)", it).groups())) for k in ("center", "end"))
                 if math.hypot(ex - cx, ey - cy) < CORE_R - 5:
                     return False                            # an inner cut-out
             return True
-        if it.startswith("(footprint") and "board_only" in it and re.search(r'\(property "Reference" "H\d+"', it):
+        if head == "footprint" and "board_only" in it and re.search(r'\(property "Reference" "H\d+"', it):
             return True
-        if it.startswith("(zone") and re.search(r'\(name "MH_KEEPOUT', it):
+        if head == "zone" and re.search(r'\(name "MH_KEEPOUT', it):
             return True
-        if it.startswith("(via") and '(net "GND")' in it:
+        if head == "via" and '(net "GND")' in it:
             x, y = map(float, re.search(rf"\(at {num} {num}\)", it).groups())
             return math.hypot(x - X0, y - Y0) > CORE_R + 0.3
         return False
-    gone = [(a, z) for a, z in items if drop(txt[a:z])]
+    gone = [(a, z) for a, z, head in top_level_blocks(txt) if drop(head, txt[a:z])]
     for a, z in reversed(gone):
         ws = a
         while ws > 0 and txt[ws - 1] in " \t\n":           # take the item's leading newline/indent with it
