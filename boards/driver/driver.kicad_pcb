@@ -9273,7 +9273,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "RGB Spotlight driver v2"
+	(gr_text "RGB Spotlight driver v2.0"
 		(at 150 115.6 0)
 		(layer "B.SilkS")
 		(uuid "870e7712-0d3d-40b1-8284-552b10d004f2")

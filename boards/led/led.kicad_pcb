@@ -1547,8 +1547,8 @@
 			)
 		)
 	)
-	(gr_text "RGB LED v2"
-		(at 150 113.4 90)
+	(gr_text "RGB LED v2.0"
+		(at 150 112.2 90)
 		(layer "F.SilkS")
 		(uuid "a5a2416e-a6c7-491e-94bd-59712627ee40")
 		(effects

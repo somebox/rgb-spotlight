@@ -1,0 +1,11 @@
+# pcb-kit's settings for this project: which boards it has, how they are released (pcbkit release) and where the
+# production record lives (pcbkit production). Defaults and keys: templates/project/pcbkit.toml in pcb-kit.
+
+[boards]
+folders = ["boards/*"]                 # boards/driver (FR4, 2 layers) and boards/led (aluminium, 1 layer)
+
+[release]
+fab = ["jlcpcb"]                       # JLC builds both boards; PCBWay's files can be added back here
+previews_dir = "docs/previews/{key}"   # what scripts/make_previews.sh writes
+
+[production]

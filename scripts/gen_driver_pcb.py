@@ -219,7 +219,7 @@ text("LED", x_left - 1.3, pad_xy(j3, "1")[1] - 2.0, 0.8)
 # back: connector legends and board text
 for ref, a, title in (("J1", 150, "IN"), ("J2", 30, "OUT")):     # beside the connector, on the side away from the cells
     text(title, *polar(R_CONN, a + (21 if a > 90 else -24)), 1.2, pcbnew.B_SilkS, (a + 90) % 360 if a > 90 else (a - 90) % 360)
-text("RGB Spotlight driver v2", 0, 15.6, 1.2, pcbnew.B_SilkS)          # back, below J3's pins and the bottom hole
+text("RGB Spotlight driver v2.0", 0, 15.6, 1.2, pcbnew.B_SilkS)          # back, below J3's pins and the bottom hole
 text("J1 IN / J2 OUT: 1=12V 2=DATA 3=GND", 0, 18.2, 0.9, pcbnew.B_SilkS)
 text("JLCJLCJLCJLC", 0, 20.6, 1.0, pcbnew.B_SilkS)
 REF_W = 0.8

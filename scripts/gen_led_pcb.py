@@ -155,7 +155,7 @@ for ch, (n, a) in CH.items():
     text(ch, *polar(R_LED + 3.2, a), 1.2, (a - 90) % 360)
 for ref in ("LED1", "LED2", "LED3"):
     b.FindFootprintByReference(ref).Reference().SetLayer(pcbnew.F_Fab)
-text("RGB LED v2", 0, 13.4, 0.8, 90)          # in the bare gap between the green and blue islands
+text("RGB LED v2.0", 0, 12.2, 0.8, 90)          # in the bare gap between the green and blue islands
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
 pcbnew.SaveBoard(OUT, b)
 print(f"led board: {len(comps)} footprints + wire cutout in the {mech.CORE_D:.0f} mm core, LEDs at r = {R_LED} mm, routed; "

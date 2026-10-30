@@ -58,7 +58,7 @@ J1 and J2 share one pin order, so chain with pin-1-to-pin-1 cables. v1 had J2 mi
 
 - `boards/led/`, `boards/driver/`: KiCad 10 projects. Schematics come from `scripts/sch_led.py` / `scripts/sch_driver.py`; boards from `scripts/make_led_pcb.sh` / `scripts/make_driver_pcb.sh`.
 - `lib/`: project symbols, footprints and 3D models (`scripts/make_lib.py`).
-- `scripts/`: generators and checks (`netcheck.py`, `ratsnest.py`, `make_previews.sh`, `make_fab.sh`). The shared parts (schematic builder, silkscreen placer, DRC/ERC/board checks, previews, JLC fab files, ngspice runner) come from [pcb-kit](https://github.com/somebox/pcb-kit): `uv tool install -e ~/src/pcb-kit && pcbkit link`.
+- `scripts/`: generators and checks (`netcheck.py`, `ratsnest.py`, `make_previews.sh`, `make_fab.sh`); `pcbkit.toml` sets up pcb-kit's release and production record. The shared parts (schematic builder, silkscreen placer, DRC/ERC/board checks, previews, JLC fab files, ngspice runner) come from [pcb-kit](https://github.com/somebox/pcb-kit): `uv tool install -e ~/src/pcb-kit && pcbkit link`.
 - `sim/`: ngspice simulation of one LED channel (`sim/channel.py`); tables and plots in `sim/results/`.
 - `docs/previews/<board>/`: schematic PDF, board PNGs, 3D renders. `docs/previews/outline-presets.png` compares the board outline options.
 - **Board outline:** everything sits in a 50 mm core. The edge is a preset, `disc50` (current), `disc55`, `disc60` or `tabs3` (screw tabs). Change it with `scripts/set_outline.py`; see LAYOUT.md.
@@ -70,7 +70,7 @@ pcbkit erc boards/driver/driver.kicad_sch && python3 scripts/netcheck.py
 scripts/make_led_pcb.sh && scripts/make_driver_pcb.sh --force --route
 pcbkit drc boards/driver/driver.kicad_pcb --save && pcbkit check boards/driver/driver.kicad_pcb
 scripts/make_previews.sh all
-scripts/make_fab.sh driver && scripts/make_fab.sh led       # order files in build/fab/
+pcbkit release --dry-run                                    # then pcbkit release: versioned order files in releases/ (PRODUCTION.md)
 python3 sim/channel.py                                      # LED channel simulation
 ```
 

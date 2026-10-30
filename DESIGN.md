@@ -32,7 +32,8 @@ scripts/make_led_pcb.sh                             # LED board: placement, rout
 scripts/make_driver_pcb.sh --force --route          # driver board: placement + routing (about 6 min) + DRC; refuses hand-edited boards without --force
 pcbkit drc boards/<b>/<b>.kicad_pcb --save && pcbkit check boards/<b>/<b>.kicad_pcb   # board checks (LAYOUT.md)
 scripts/make_previews.sh [driver|led|all]           # docs/previews/<board>/
-scripts/make_fab.sh <driver|led>                    # order files in build/fab/<board>/ (PRODUCTION.md)
+pcbkit release [--dry-run]                          # versioned order files in releases/<board>/v<version>/ (PRODUCTION.md, pcbkit.toml)
+scripts/make_fab.sh <driver|led>                    # unversioned order files in build/fab/<board>/, for a look before releasing
 python3 sim/channel.py                              # LED channel simulation (§2.7); add --plot under uv for the PNGs
 <KiCad python> scripts/set_outline.py <driver|led|all> <disc50|disc55|disc60|tabs3>   # change the board edge in place (LAYOUT.md)
 bomi --project boards/driver list --check           # stock check; same for boards/led
