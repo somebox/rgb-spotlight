@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-10-11): v2 schematics and both boards done (DRC clean); one LED channel simulated. Next: v1 bench tests, the housing decision, then the order.
+Status (2026-11-03): v2 schematics and both boards done (DRC clean), with a failure review whose changes are planned but not yet applied. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 
@@ -11,9 +11,11 @@ Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminiu
 
 | Document | What's in it |
 | --- | --- |
+| [HANDOVER.md](HANDOVER.md) | how we got here, decisions, the work remaining |
 | [DESIGN.md](DESIGN.md) | requirements, the v1 post-mortem, numbered decisions, circuit, thermal estimate, simulation (§2.7), open items |
 | [LAYOUT.md](LAYOUT.md) | both PCBs: floor plans, rules, scripted copper and routing, outline presets, checks |
 | [PRODUCTION.md](PRODUCTION.md) | order files, order checklist (polarity!), harness and bring-up, costs |
+| [docs/reviews/](docs/reviews/) | pre-order failure review: findings, bench list, firmware duties |
 
 ## What it does
 
@@ -35,7 +37,7 @@ A high-power, addressable RGB pixel for spotlights and creative lighting. It spe
 - **Data:** WS2811 protocol, 800 kHz, single wire; 3.3 V or 5 V at DIN
 - **LED current:** about 455 mA per channel (`I = 0.1 V / 0.22 Ω`); LEDs rated 1 A / 3 W
 - **Full white:** 5.0 W, 0.42 A at 12 V per light (simulated, DESIGN.md §2.7); drivers about 80 % efficient
-- **Chaining:** JST XH connectors (3 A) pass 12 V/GND through: up to 6 lights per power feed (2.5 A). Inject power again after that.
+- **Chaining:** JST XH connectors (3 A) pass 12 V/GND through: up to 5 lights per fused 12 V feed, 2.2–2.6 A (DESIGN.md §2.4). Use a 36 W supply for 4 lights and 60 W for 5, and add a feed per group after that.
 - **Heat:** about 2.7 W in the LED board, which needs a heatsink: the housing's heat plate. About 0.9 W in the driver, mostly in the three Schottky diodes. See DESIGN.md §2.6–2.7.
 - **Dimming:** brightness follows the 8-bit level within 5 % above 20 % and within 20 % down to 5 %. The lowest few levels are unreliable (DESIGN.md §2.7).
 

@@ -1,6 +1,6 @@
 # RGB Spotlight — design notes
 
-Status (2026-10-11): both boards routed and DRC clean, `pcbkit check` clean or explained (LAYOUT.md). One LED channel simulated (§2.7). Next: the v1 bench tests (§5), the open items (§6), then the order (PRODUCTION.md).
+Status (2026-10-31): both boards routed and DRC clean, `pcbkit check` clean or explained (LAYOUT.md). One LED channel simulated (§2.7). Failure review in `docs/reviews/2026-10-30-v2.md`; its accepted changes are planned, not yet applied (§6, "Planned changes"). Next: apply them, settle LED polarity, then the order (PRODUCTION.md).
 
 Chainable, WS2811-addressed RGB spotlight: three 3 W LEDs, each on its own PT4115 constant-current buck, run from a 12 V chain. Two boards in an aluminium cylinder:
 - an **aluminium LED board** (50 mm, 1 layer) carrying only the LEDs;
@@ -57,7 +57,14 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D10 | 2026-10-05 | SMAJ15A TVS + 22 µF on the 12 V input | hot-plugged chain cables ring to ~2 × 12 V |
 | D11 | 2026-10-06 | Parts and copper inside a 50 mm core; board edge from an outline preset | the housing (size, mounting) is not decided yet |
 | D12 | 2026-10-11 | 12 V trunk as an arc from J1 over the top to the blue cell (no closed ring); PWR net class 0.8 mm, the 1.5 mm pass-through drawn explicitly | `pcbkit check`: no loops, class width = tap width |
-| D13 | 2026-10-11 | Chain at most 6 lights per 12 V feed (2.5 A); 7 is at the XH connector's 3 A | simulated 0.42 A per light at full white (§2.7) |
+| D13 | 2026-10-11 | Chain at most 6 lights per 12 V feed (2.5 A); 7 is at the XH connector's 3 A. Replaced by D14 | simulated 0.42 A per light at full white (§2.7) |
+| D14 | 2026-10-31 | One 12 V feed runs at most 5 lights, up to 3 m apart on 22 AWG: 36 W supply for 4 lights plus controller, 60 W for 5 (§2.4). Replaces D13 | at the tolerance corners 5 lights draw 2.43–2.62 A, 6 about 2.9 A or more, on a 3 A connector with no derating for a warm housing. The board can't run from 5 V (review, "Power and data") |
+| D15 | 2026-10-31 | 3 A fuse per feed at the supply end. Longer chains get another feed per group of 5, pin 1 open between groups | the supply can outrun the XH rating, and it limits a reversed cable (review R5, R7). No board change |
+| D16 | 2026-10-31 | No extra repeater on the board | each light already has pcb-kit's repeater part on its input (U7) and the WS2811 reshapes on its output. Simulated clean over 8 m (review, "Power and data"), and the datasheet allows 4 m |
+| D17 | 2026-10-31 | Planned: U6 74HC04 → 74HC14D (C5605, Basic) | WS2811 edges can be 120 µs; the 74HC04 needs under 139 ns/V or may oscillate (review R4). Same pinout |
+| D18 | 2026-10-31 | Planned: C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702). Replaces D6's 100 Ω | datasheet's Ci for VDD (R3); limits the clamp current from 12 V on the data pin and from cable ringing (R6) |
+| D19 | 2026-10-31 | Planned: "+" on the LED board's silk at pad 2 of each LED, polarity in the order remark | the part's dot marks the anode, our silk and LCSC's dot mark pad 1, the cathode (R1) |
+| D20 | 2026-10-31 | Nylon washers or screws on the driver; a sleeve or grommet through the LED board's wire hole | the housing floats and can isolate the board, so no keep-out re-route is needed (R8, R9) |
 
 ---
 
@@ -96,6 +103,8 @@ Rs sees 0 mV, so the comparator holds the switch on permanently. Forcing DIM hig
 The schematic used two power names, `+5V` and `5V`. U6 pin 14 and C2 sat on `+5V`, which connects only to C2 (copper trace confirms: U6.14 → C2.2 only). The inverter was unpowered or back-fed through its input clamps, so the DIM pins were undefined. This is probably one of the "miswirings" fixed by hand. v2 has one `+5V` net, and `netcheck.py` asserts every logic VCC is on it.
 
 ### F3 — WS2811 receives data but its outputs never change (open)
+
+2026-10-31: the owner recalls later seeing PWM from the chip on a scope, but v1 had too many faults for that to settle anything, so F3 stays open. Treat the WS2811 as untested until v2 bring-up.
 
 Copper was checked pad by pad on the import:
 
@@ -155,8 +164,23 @@ WS2811 outputs are 20 V-tolerant constant-current sinks (≈ 16 mA) and sink whe
 
 **12 V input:** an SMAJ15A TVS (breakdown ≥ 16.7 V, clamps 24.4 V) and a 22 µF 1206 at J1. Hot-plugging a cable onto ceramic-only inputs can ring to about 2 × 12 V; the PT4115 is rated to 35 V and the caps to 25/50 V.
 - J1 → J2 carry +12V and GND straight through; JST XH is rated 3 A.
-- At ≈ 0.42 A per light (full white, simulated in §2.7), one feed powers **up to 6 lights** (2.5 A); a seventh puts the XH connector at its 3 A rating (D13).
-- 1 m of 22 AWG between lights drops under 1 V over 6 lights. The PT4115 runs down to about 6 V, so voltage is not the limit; connector current is. Inject power again after 6 lights.
+**Power for one feed (D14).** A feed is one 12 V supply output, fused, running up to 5 lights at full white. Worst case means the high-current corner with the highest LED VF bins (5.51 W per light); typical is the simulated 5.0 W (§2.7). The worst case stays at 5.51 W as the voltage falls, so the current rises. Numbers are in `sim/results/worst_case.txt`, with 22 AWG and XH contacts assumed at 20 mΩ each.
+
+| Lights | Spacing | Typical | Worst case | Share of XH 3 A | Last light |
+| --- | --- | --- | --- | --- | --- |
+| 4 | 1 m | 1.71 A, 21 W | 1.89 A, 23 W | 63 % | 11.4 V |
+| 4 | 3 m | 1.77 A, 21 W | 1.96 A, 24 W | 65 % | 10.7 V |
+| 5 | 1 m | 2.19 A, 26 W | 2.43 A, 29 W | 81 % | 10.9 V |
+| 5 | 3 m | 2.34 A, 28 W | 2.62 A, 31 W | 87 % | 9.6 V |
+
+- **Feed voltage:** regulated 12 V, 11.4–13 V at the first light. Stay under 15 V, the TVS's standoff. The PT4115 needs 6 V and the 78L05 7 V, so voltage isn't the limit; connector current is.
+- **Supply size:** 36 W (12 V 3 A) for 4 lights plus a controller, 60 W (12 V 5 A) for 5 lights plus a controller. Allow about 3 W for an ESP32 controller on a 12 V to 5 V stepdown. A 36 W supply would run at 96 % for 5 lights and a controller in the worst case.
+- **Fuse:** 3 A at the supply end of each feed (D15). The supply can deliver more than the connectors are rated for.
+- **Spacing:** up to 3 m between lights on 22 AWG. The WS2811 datasheet gives 4 m between two chips as its limit.
+- **Longer chains:** start a new group at the sixth light, with its own feed and fuse. Leave pin 1 (12 V) open on the cable between groups and keep data and GND connected, so that two feeds never run in parallel through a connector. No board change.
+- **Dark:** about 10 mA per light at 12 V (estimate, from the §2.4 logic load plus regulator quiescent current).
+- **Switch-on:** 62 µF nominal per light, about half at 12 V bias, so up to 310 µF on a feed. It's small for a 3 A fuse, but the first power is still through a current-limited supply.
+- **At PWM mid-levels:** a channel's average current falls with level, but its peak doesn't, so the feed still sees steps of about 0.45 A per light at 4 kHz (§2.7 Q3).
 
 ### 2.5 Mechanical: two boards in an aluminium cylinder (2026-10-05)
 - **LED board** (aluminium, 1 layer, 50 mm):
@@ -218,7 +242,7 @@ Full white at 455 mA. Assumptions:
 - **The Schottky is the hottest part.** At 0.14–0.16 W and 160 °C/W (the datasheet figure, which assumes a large pad) it rises about 25 °C. With the small SOD-123 pads, expect 35–40 °C, so about 80 °C in a 40 °C housing. That is within its rating.
   - A lower-VF Schottky in SMA (SS14 class) would save about 0.05 W per channel and run cooler. It's worth it if the housing runs warm.
 - **The PT4115** dissipates only about 0.04 W in its switch: a 2 °C rise.
-- **Whole light at full white:** 5.0 W, 0.42 A at 12 V, 4.07 W of it into the LEDs (D13).
+- **Whole light at full white:** 5.0 W, 0.42 A at 12 V, 4.07 W of it into the LEDs (D14).
 
 **Q2: PWM linearity.** The WS2811 drives DIM at about 4 kHz (250 µs period). Green, average LED current against duty × 459 mA:
 
@@ -239,7 +263,7 @@ Full white at 455 mA. Assumptions:
 - With PWM it draws pulses of up to about 290 mA at 4 kHz, and the board's 12 V dips 77 mV per channel (1 m cable).
 - The WS2811 starts all three channels' PWM periods together. Expect steps of about 0.45 A per light and a dip of about 0.2 V at 4 kHz. That's harmless to the PT4115s and the 78L05.
 - **Bench check:** ceramic caps (C6–C9) can sing audibly at 4 kHz.
-- **Long chains:** the steps add up along the cable. Inject power at the start of each group of 6 (D13).
+- **Long chains:** the steps add up along the cable. Inject power at the start of each group of 5 (D14).
 
 ## 3. Parts (bomi: `docs/BOM_driver.md` 19 lines ≈ $2.18; `docs/BOM_led.md` 3 lines ≈ $0.77, qty 1)
 
@@ -337,6 +361,22 @@ If the supply hits its current limit, power off and check the new diode's direct
 5. **Housing fit:** pick the outline preset once the housing is known (§7.3): `disc50` (current) / `disc55` / `disc60` / `tabs3`, or add one to `scripts/mech.py`.
    - Check the back-cap cut-outs over J1/J2 at r = 19.5 mm, 30° / 150°.
 6. **Aluminium board order:** 1 layer, 1.6 mm, 1–2 W/mK. JLC assembles the LEDs.
+
+### Planned changes (2026-10-31, not applied)
+
+From the failure review; D17–D19 and D20's assembly steps.
+
+| Change | Files | Layout |
+| --- | --- | --- |
+| U6 → `74xx:74HC14`, value 74HC14, C5605, MPN 74HC14D,653 | `scripts/sch_driver.py`, `scripts/netcheck.py` messages, value on the board, bomi, DESIGN §3 | none |
+| C1 → 1 µF, C52923 | as above | none, same 0402 |
+| R10 → 1 kΩ, C11702 | as above, DESIGN §2.2 | none, same 0402 |
+| "+" at pad 2 of LED1–3 | `scripts/gen_led_pcb.py`, the LED board as an incremental edit | silk only |
+| Harness sleeve, nylon hardware, order remark | PRODUCTION.md | none |
+
+Then `pcbkit erc`, `scripts/netcheck.py`, `pcbkit cleanup`, `pcbkit drc --save`, `pcbkit check`, the previews and BOMs, and `pcbkit release --dry-run`. Boards stay at v2.0 until released.
+
+**Before ordering:** diode-test a v1 LED and check all three in JLC's preview (§6 item 1). Order the smallest assembled run, since neither the WS2811 (F3) nor the PT4115 stage has been proven on hardware. R9 stays as a footprint in case pin 7 turns out to matter.
 
 ## 7. PCBs
 

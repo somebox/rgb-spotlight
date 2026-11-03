@@ -1,0 +1,48 @@
+== LED current, worst corners (VCSN spread, Rs 1 %, +40 °C on Rs)
+  I_LED min 422 mA  nom 449 mA  max 476 mA; LED abs max 1000 mA
+  inductor peak ≈ 578 mA against Isat 1100 mA: margin x1.9
+
+== Schottky D1-D3 at the high-current corner, VF at ~0.5 A (typ; inferred max)
+  red   VF_d 0.45 V, θJA 250 °C/W: P_D 170 mW, Tj ≈  82 °C at 40 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  red   VF_d 0.45 V, θJA 250 °C/W: P_D 170 mW, Tj ≈  97 °C at 55 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  red   VF_d 0.70 V, θJA 300 °C/W: P_D 259 mW, Tj ≈ 118 °C at 40 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  red   VF_d 0.70 V, θJA 300 °C/W: P_D 259 mW, Tj ≈ 133 °C at 55 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  green VF_d 0.45 V, θJA 250 °C/W: P_D 157 mW, Tj ≈  79 °C at 40 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  green VF_d 0.45 V, θJA 250 °C/W: P_D 157 mW, Tj ≈  94 °C at 55 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  green VF_d 0.70 V, θJA 300 °C/W: P_D 240 mW, Tj ≈ 112 °C at 40 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+  green VF_d 0.70 V, θJA 300 °C/W: P_D 240 mW, Tj ≈ 127 °C at 55 °C  (Tj max 125 °C; P_D derates to 0 at 125 °C)
+
+== Chain current per 12 V feed (worst light: high-current corner, blue/green VF max, red VF max)
+  per light: 4.64 W nominal, 5.51 W worst
+  4 lights: 1.86 A through the first J1/J2 (62 % of 3 A, ok); last light at 11.70 V
+  5 lights: 2.35 A through the first J1/J2 (78 % of 3 A, ok); last light at 11.50 V
+  6 lights: 2.87 A through the first J1/J2 (96 % of 3 A, tight); last light at 11.23 V
+  7 lights: 3.41 A through the first J1/J2 (114 % of 3 A, OVER); last light at 10.89 V
+
+== 78L05 (UTC: 350 mW SOT-89 at 25 °C, Vin 7-20 V operating, 30 V abs max)
+  Vin 12.0 V:  75 mW
+  Vin 13.2 V:  85 mW
+  Vin 16.7 V: 116 mW  (TVS breakdown min)
+  Vin 24.4 V: 184 mW  (TVS clamp at 16 A)
+
+== DIM drive (PT4115: high 2.5-5 V for full current, 6 V abs max; 74HC04 VOH ≈ VCC)
+  78L05 at 4.80 V -> DIM high ≈ 4.80 V: inside 2.5-5 V
+  78L05 at 5.00 V -> DIM high ≈ 5.00 V: inside 2.5-5 V
+  78L05 at 5.20 V -> DIM high ≈ 5.20 V: above the 5 V the PWM formula assumes, under 6 V abs max
+
+== 5 V feed (PT4115: VIN 6-30 V, UVLO 5.1 V falling + 0.5 V hysteresis; 78L05: dropout 1.7 V; WS2811: VDD 3.5 V min)
+  PT4115 at 5.0 V: below 6 V and below the 5.6 V restart level, so it stays off
+  78L05 at 5.0 V: output ≈ 3.3 V, below the WS2811's 3.5 V
+  with a 5 V LED driver instead: ≈ 0.96 A per light, 3 lights on a 3 A connector at nominal
+
+== Power for one feed, lights spaced along 22 AWG (per span both conductors plus 4 XH contacts at 20 mΩ, assumed; board trunk 0.03 Ω)
+   worst light 5.51 W is constant power, so current rises as the voltage falls; PT4115 needs 6 V, 78L05 7 V
+  4 lights, 1 m apart: typ 1.71 A 20.6 W; worst 1.89 A 22.7 W (63 % of 3 A), last light 11.38 V, 0.7 W lost in cable
+  4 lights, 2 m apart: typ 1.74 A 20.9 W; worst 1.93 A 23.1 W (64 % of 3 A), last light 11.05 V, 1.1 W lost in cable
+  4 lights, 3 m apart: typ 1.77 A 21.2 W; worst 1.96 A 23.6 W (65 % of 3 A), last light 10.70 V, 1.5 W lost in cable
+  5 lights, 1 m apart: typ 2.19 A 26.3 W; worst 2.43 A 29.1 W (81 % of 3 A), last light 10.93 V, 1.6 W lost in cable
+  5 lights, 2 m apart: typ 2.26 A 27.1 W; worst 2.51 A 30.1 W (84 % of 3 A), last light 10.32 V, 2.6 W lost in cable
+  5 lights, 3 m apart: typ 2.34 A 28.0 W; worst 2.62 A 31.4 W (87 % of 3 A), last light 9.64 V, 3.9 W lost in cable
+  5 lights, 3 m apart, feed 11.4 V: 2.81 A, last light 8.84 V
+  5 lights, 3 m apart, feed 13.0 V: 2.35 A, last light 10.90 V
+  input capacitance 62 µF per light nominal, so 248-310 µF on a feed

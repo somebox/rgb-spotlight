@@ -57,7 +57,8 @@ The things that went wrong before, or could:
   - Solder them to the LED board's pads (R+ R− G+ G− B+ B−) and pass them through the centre hole.
   - Crimp them into a JST PHR-6 housing (SPH-002T contacts) in the same order, pin 1 = R+.
   - Aluminium boards pull heat away fast, so use a hot iron or preheat.
-- **Chain cables:** JST XH 3-pin, wired pin 1 to pin 1 (D4). Up to 6 lights per 12 V feed (D13).
+- **Chain cables:** JST XH 3-pin, wired pin 1 to pin 1 (D4). Up to 5 lights per 12 V feed, up to 3 m apart on 22 AWG, with a 3 A fuse at the supply end (D14, D15). Between groups, leave pin 1 open.
+- **Assembly:** nylon washers or screws on the driver; a sleeve or grommet on the harness through the LED board's hole (D20).
 - **Bring-up:**
   - 12 V with a current-limited supply at 0.6 A for one light: 0.42 A expected at full white.
   - Check 5 V at U1 pin 8, then the DIM pins with data.
