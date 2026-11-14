@@ -1,7 +1,7 @@
 # RGB Spotlight: handover
 
-Status (2026-11-03): v2.0 is designed, routed and DRC clean on both boards, and has had a pre-order failure review. The
-review's accepted changes are **planned, not applied**. Nothing has been ordered. This page is the way in; the detail
+Status (2026-11-14): v2.0 is designed, routed and DRC clean on both boards, and has had a pre-order failure review. The
+review's accepted changes (D17–D19) are **applied**. Nothing has been ordered. This page is the way in; the detail
 stays in the documents it links to.
 
 ## How we got here
@@ -27,6 +27,9 @@ stays in the documents it links to.
    block was checked against its datasheet, with worst-case numbers (`sim/worst_case.py`) and a data-cable
    simulation (`sim/data_cable.py`). The owner's answers are recorded there and turned into decisions D14–D20 in
    DESIGN.md.
+5. **Planned changes applied (2026-11-14):** U6 is a 74HC14, C1 is 1 µF and R10 is 1 kΩ; the LED board has a "+" at
+   pad 2 of each LED. The schematic and both boards were edited in place, keeping their UUIDs. Details and check
+   results: DESIGN §6, "Planned changes".
 
 ## Decisions made in the review (DESIGN.md, D14–D20)
 
@@ -35,9 +38,9 @@ stays in the documents it links to.
 | D14 | One 12 V feed runs at most 5 lights, up to 3 m apart on 22 AWG. Power table in DESIGN §2.4. Replaces D13's 6 | in the docs |
 | D15 | 3 A fuse per feed at the supply end; longer chains get a feed per group of 5, with pin 1 open between groups | in the docs |
 | D16 | No extra repeater: U7 (SN74AHCT1G125) is pcb-kit's repeater part already, and each WS2811 regenerates the data | in the docs |
-| D17 | U6 74HC04 → 74HC14D (C5605), for the WS2811's slow output edges | **planned** |
-| D18 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702) | **planned** |
-| D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | **planned** |
+| D17 | U6 74HC04 → 74HC14D (C5605), for the WS2811's slow output edges | applied 2026-11-14 |
+| D18 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702) | applied 2026-11-14 |
+| D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | applied 2026-11-14 |
 | D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md |
 
 **Power, in short:**
@@ -50,7 +53,8 @@ stays in the documents it links to.
 
 - **Checked:**
   - Pinouts, values and voltages for every IC against its datasheet (the review's "Verified OK" list).
-  - ERC 0, DRC 0/0 with parity, and `netcheck.py` 0 failures on 2026-10-29. Re-run them after the planned edits.
+  - ERC 0, DRC 0/0 with parity, `netcheck.py` 0 failures, `pcbkit check` and `pcbkit courtyards` clean on 2026-11-14,
+    after the planned edits. `pcbkit release --dry-run`: both boards would release as v2.0.
 - **Not proven on hardware:**
   - **The WS2811 (F3, review R2).** The owner recalls PWM from the chip on v1, but v1 had too many faults for that to
     count.
@@ -63,13 +67,7 @@ stays in the documents it links to.
 
 ## Work remaining, in order
 
-1. **Apply the planned changes.** The edit list is in DESIGN §6, "Planned changes":
-   - `scripts/sch_driver.py` and the netcheck messages;
-   - incremental edits to the boards, keeping UUIDs (never regenerate a routed board);
-   - bomi and the BOM docs.
-
-   Then run `pcbkit erc`, `scripts/netcheck.py`, `pcbkit cleanup`, `pcbkit drc --save`, `pcbkit check`, and
-   regenerate the previews.
+1. **Apply the planned changes.** Done 2026-11-14 (DESIGN §6, "Planned changes").
 2. **LED polarity (R1).**
    - Diode-test one v1 LED. This tests the part, so v1's faults don't matter.
    - Then check all three LEDs in JLC's placement preview: the part's dot is the anode (pad 2).
@@ -77,7 +75,7 @@ stays in the documents it links to.
    - `pcbkit release --dry-run`, then `pcbkit release`;
    - an order under `production/orders/`;
    - PRODUCTION.md's checklist, including the never-checked SOT-89 and SOT-353 rotations (R11);
-   - order soon after: blue LED stock was 704 (R14).
+   - check LED stock again: it had recovered by 2026-11-14 (blue 3,102, green 2,475; R14 found 704 blue).
 4. **Bring-up:** the review's bench list. Use a current-limited first power, then one colour at a time. Record the
    results in the review, dated:
    - D1's temperature (R10);

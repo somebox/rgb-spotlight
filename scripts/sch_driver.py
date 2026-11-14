@@ -30,10 +30,10 @@ def c(ref, val, lcsc, x, y, p1, p2="GND", fp=C0402, mpn=None):
     return d
 
 comps = [
-    # ---- data in: J1 -> R10 100R -> (R7 10k pull-down) -> 74AHCT1G125 (3.3 V -> 5 V) -> WS2811 DIN
+    # ---- data in: J1 -> R10 1k -> (R7 10k pull-down) -> 74AHCT1G125 (3.3 V -> 5 V) -> WS2811 DIN
     dict(ref="J1", lib="Connector_Generic:Conn_01x03", val="IN 12V/DATA/GND", fp=XH3, x=30.48, y=60.96, mirror="y",
          lcsc="C144394", fields={"MPN": "B3B-XH-A(LF)(SN)"}, pins={"1": None, "2": "DIN", "3": None}),
-    r("R10", "100", "C25076", 45.72, 76.2, "DIN", "DIN_IN"),
+    r("R10", "1k", "C11702", 45.72, 76.2, "DIN", "DIN_IN"),   # 1k limits the clamp current from 12 V or ringing on DIN (D18)
     r("R7", "10k", "C25744", 55.88, 76.2, "DIN_IN", "GND"),
     dict(ref="U7", lib="74xGxx:74AHCT1G125", val="74AHCT1G125", fp="Package_TO_SOT_SMD:SOT-353_SC-70-5",
          x=76.2, y=60.96, lcsc="C350557", fields={"MPN": "SN74AHCT1G125DCKR"},
@@ -42,7 +42,7 @@ comps = [
     dict(ref="D4", lib="Diode:SMAJ15A", val="SMAJ15A", fp="Diode_SMD:D_SMA", x=30.48, y=99.06, rot=90, lcsc="C19077535",
          pins={"1": "+12V", "2": "GND"}),
     c("C9", "22uF 25V", "C12891", 43.18, 99.06, "+12V", fp=C1206, mpn="CL31A226KAHNNNE"),
-    # ---- WS2811: open-drain outputs, pulled up to 5 V, inverted by the 74HC04 (DESIGN.md §2.3)
+    # ---- WS2811: open-drain outputs, pulled up to 5 V, inverted by the 74HC14 (DESIGN.md §2.3)
     dict(ref="U1", lib="Driver_LED:WS2811", val="WS2811", fp="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
          x=111.76, y=60.96, lcsc="C114581",
          pins={"1": "OUT_R", "2": "OUT_G", "3": "OUT_B", "4": "GND", "5": "DOUT_RAW", "6": "DIN_5V", "7": "SET", "8": "+5V"}),
@@ -53,18 +53,18 @@ comps = [
     r("R8", "33", "C25105", 116.84, 99.06, "DOUT_RAW", None, rot=90),
     dict(ref="J2", lib="Connector_Generic:Conn_01x03", val="OUT 12V/DATA/GND", fp=XH3, x=139.7, y=99.06,
          lcsc="C144394", fields={"MPN": "B3B-XH-A(LF)(SN)"}, pins={"1": None, "2": None, "3": None}),
-    # ---- 74HC04: gates 1-3 invert OUT_x -> DIM_x; gates 4-6 inputs to GND, outputs open; unit 7 = power
-    dict(ref="U6", unit=1, lib="74xx:74HC04", val="74HC04", fp="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
-         x=177.8, y=50.8, lcsc="C5590", fields={"MPN": "74HC04D,653"}, pins={"1": "OUT_R", "2": "DIM_R"}),
-    dict(ref="U6", unit=2, lib="74xx:74HC04", x=177.8, y=63.5, pins={"3": "OUT_G", "4": "DIM_G"}),
-    dict(ref="U6", unit=3, lib="74xx:74HC04", x=177.8, y=76.2, pins={"5": "OUT_B", "6": "DIM_B"}),
-    dict(ref="U6", unit=4, lib="74xx:74HC04", x=210.82, y=50.8, pins={"9": "GND", "8": "NC"}),
-    dict(ref="U6", unit=5, lib="74xx:74HC04", x=210.82, y=63.5, pins={"11": "GND", "10": "NC"}),
-    dict(ref="U6", unit=6, lib="74xx:74HC04", x=210.82, y=76.2, pins={"13": "GND", "12": "NC"}),
-    dict(ref="U6", unit=7, lib="74xx:74HC04", x=236.22, y=63.5, pins={"14": "+5V", "7": "GND"}),
+    # ---- 74HC14 (Schmitt inputs for the WS2811's slow edges, D17): gates 1-3 invert OUT_x -> DIM_x; gates 4-6 inputs to GND, outputs open; unit 7 = power
+    dict(ref="U6", unit=1, lib="74xx:74HC14", val="74HC14", fp="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+         x=177.8, y=50.8, lcsc="C5605", fields={"MPN": "74HC14D,653"}, pins={"1": "OUT_R", "2": "DIM_R"}),
+    dict(ref="U6", unit=2, lib="74xx:74HC14", x=177.8, y=63.5, pins={"3": "OUT_G", "4": "DIM_G"}),
+    dict(ref="U6", unit=3, lib="74xx:74HC14", x=177.8, y=76.2, pins={"5": "OUT_B", "6": "DIM_B"}),
+    dict(ref="U6", unit=4, lib="74xx:74HC14", x=210.82, y=50.8, pins={"9": "GND", "8": "NC"}),
+    dict(ref="U6", unit=5, lib="74xx:74HC14", x=210.82, y=63.5, pins={"11": "GND", "10": "NC"}),
+    dict(ref="U6", unit=6, lib="74xx:74HC14", x=210.82, y=76.2, pins={"13": "GND", "12": "NC"}),
+    dict(ref="U6", unit=7, lib="74xx:74HC14", x=236.22, y=63.5, pins={"14": "+5V", "7": "GND"}),
     # ---- logic decoupling (one per IC, place at the VCC pin)
-    c("C1", "100nF", "C1525", 167.64, 101.6, "+5V"),   # U1 WS2811
-    c("C2", "100nF", "C1525", 177.8, 101.6, "+5V"),    # U6 74HC04
+    c("C1", "1uF", "C52923", 167.64, 101.6, "+5V"),    # U1 WS2811: the datasheet's Ci (D18)
+    c("C2", "100nF", "C1525", 177.8, 101.6, "+5V"),    # U6 74HC14
     c("C3", "100nF", "C1525", 187.96, 101.6, "+5V"),   # U7 74AHCT1G125
     # ---- 5 V logic rail
     c("C5", "10uF", "C15850", 271.78, 63.5, "+12V", fp=C0805),
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     notes = [
         ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged.", 22.86, 40.64),
         ("12 V in: SMAJ15A TVS + 22 uF for hot-plugged chain cables. J1/J2 12V and GND pass straight through (3 A).", 22.86, 116.84),
-        ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC04 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
+        ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC14 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
         ("J1 and J2 (JST XH, back of the board) share one pinout: 1 = 12V, 2 = data, 3 = GND.", 101.6, 121.92),
         ("PT4115 loop (datasheet): +12V -> Rs -> J3 x+ -> LED -> J3 x- -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA", 30.48, 137.16),
         ("J3 = LED harness (JST PH 6, front of the board): 1 R+  2 R-  3 G+  4 G-  5 B+  6 B-. Twist each +/- pair.", 30.48, 142.24),

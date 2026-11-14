@@ -1089,7 +1089,15 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "74xx:74HC04"
+		(symbol "74xx:74HC14"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "U"
 				(at 0 1.27 0)
 				(show_name no)
@@ -1100,7 +1108,7 @@
 					)
 				)
 			)
-			(property "Value" "74HC04"
+			(property "Value" "74HC14"
 				(at 0 -1.27 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1121,7 +1129,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+			(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1132,7 +1140,7 @@
 					)
 				)
 			)
-			(property "Description" "Hex Inverter"
+			(property "Description" "Hex inverter schmitt trigger"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1143,34 +1151,6 @@
 					)
 				)
 			)
-			(property "ki_keywords" "HCMOS not inv"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "DIP*W7.62mm* SSOP?14* TSSOP?14*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(embedded_fonts no)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
 			(property "ki_locked" ""
 				(at 0 0 0)
 				(show_name no)
@@ -1181,7 +1161,29 @@
 					)
 				)
 			)
-			(symbol "74HC04_1_0"
+			(property "ki_keywords" "HCMOS not inverter"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "DIP*W7.62mm*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "74HC14_1_0"
 				(polyline
 					(pts
 						(xy -3.81 3.81)
@@ -1234,7 +1236,38 @@
 					)
 				)
 			)
-			(symbol "74HC04_2_0"
+			(symbol "74HC14_1_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.27)
+						(xy -0.635 -1.27)
+						(xy -0.635 1.27)
+						(xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -1.27)
+						(xy -1.905 1.27)
+						(xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_2_0"
 				(polyline
 					(pts
 						(xy -3.81 3.81)
@@ -1287,7 +1320,38 @@
 					)
 				)
 			)
-			(symbol "74HC04_3_0"
+			(symbol "74HC14_2_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.27)
+						(xy -0.635 -1.27)
+						(xy -0.635 1.27)
+						(xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -1.27)
+						(xy -1.905 1.27)
+						(xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_3_0"
 				(polyline
 					(pts
 						(xy -3.81 3.81)
@@ -1340,7 +1404,38 @@
 					)
 				)
 			)
-			(symbol "74HC04_4_0"
+			(symbol "74HC14_3_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.27)
+						(xy -0.635 -1.27)
+						(xy -0.635 1.27)
+						(xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -1.27)
+						(xy -1.905 1.27)
+						(xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_4_0"
 				(polyline
 					(pts
 						(xy -3.81 3.81)
@@ -1393,7 +1488,38 @@
 					)
 				)
 			)
-			(symbol "74HC04_5_0"
+			(symbol "74HC14_4_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.27)
+						(xy -0.635 -1.27)
+						(xy -0.635 1.27)
+						(xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -1.27)
+						(xy -1.905 1.27)
+						(xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_5_0"
 				(polyline
 					(pts
 						(xy -3.81 3.81)
@@ -1446,7 +1572,38 @@
 					)
 				)
 			)
-			(symbol "74HC04_6_0"
+			(symbol "74HC14_5_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.27)
+						(xy -0.635 -1.27)
+						(xy -0.635 1.27)
+						(xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -1.27)
+						(xy -1.905 1.27)
+						(xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_6_0"
 				(polyline
 					(pts
 						(xy -3.81 3.81)
@@ -1499,7 +1656,38 @@
 					)
 				)
 			)
-			(symbol "74HC04_7_0"
+			(symbol "74HC14_6_1"
+				(polyline
+					(pts
+						(xy -2.54 -1.27)
+						(xy -0.635 -1.27)
+						(xy -0.635 1.27)
+						(xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -1.27)
+						(xy -1.905 1.27)
+						(xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_7_0"
 				(pin power_in line
 					(at 0 -12.7 90)
 					(length 5.08)
@@ -1537,7 +1725,7 @@
 					)
 				)
 			)
-			(symbol "74HC04_7_1"
+			(symbol "74HC14_7_1"
 				(rectangle
 					(start -5.08 7.62)
 					(end 5.08 -7.62)
@@ -1550,6 +1738,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Regulator_Linear:L78L05_SOT89"
 			(property "Reference" "U"
@@ -3814,7 +4003,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "501c04ed-4ca6-4d20-b1bb-f1628ccc0497")
   )
-  (text "WS2811 outputs sink when ON; R4-R6 pull up; 74HC04 inverts so DIM is HIGH = LED on."
+  (text "WS2811 outputs sink when ON; R4-R6 pull up; 74HC14 inverts so DIM is HIGH = LED on."
     (at 116.84 30.48 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "f29dc420-5820-4d3e-96d6-6a5b6748bbd4")
@@ -3929,7 +4118,7 @@
 				)
 			)
 		)
-		(property "Value" "100"
+		(property "Value" "1k"
 			(at 45.72 76.2 90)
 			(effects
 				(font
@@ -3964,7 +4153,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25076"
+		(property "LCSC" "C11702"
 			(at 45.72 76.2 0)
 			(hide yes)
 			(effects
@@ -4771,7 +4960,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 177.8 50.8 0)
 		(unit 1)
 		(in_bom yes)
@@ -4786,7 +4975,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 177.8 52.07 0)
 			(effects
 				(font
@@ -4803,7 +4992,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 177.8 50.8 0)
 			(hide yes)
 			(effects
@@ -4812,7 +5001,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 177.8 50.8 0)
 			(hide yes)
 			(effects
@@ -4821,7 +5010,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 177.8 50.8 0)
 			(hide yes)
 			(effects
@@ -4830,7 +5019,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 177.8 50.8 0)
 			(hide yes)
 			(effects
@@ -4849,7 +5038,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 177.8 63.5 0)
 		(unit 2)
 		(in_bom yes)
@@ -4864,7 +5053,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 177.8 64.77 0)
 			(effects
 				(font
@@ -4881,7 +5070,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 177.8 63.5 0)
 			(hide yes)
 			(effects
@@ -4890,7 +5079,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 177.8 63.5 0)
 			(hide yes)
 			(effects
@@ -4899,7 +5088,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 177.8 63.5 0)
 			(hide yes)
 			(effects
@@ -4908,7 +5097,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 177.8 63.5 0)
 			(hide yes)
 			(effects
@@ -4927,7 +5116,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 177.8 76.2 0)
 		(unit 3)
 		(in_bom yes)
@@ -4942,7 +5131,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 177.8 77.47 0)
 			(effects
 				(font
@@ -4959,7 +5148,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 177.8 76.2 0)
 			(hide yes)
 			(effects
@@ -4968,7 +5157,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 177.8 76.2 0)
 			(hide yes)
 			(effects
@@ -4977,7 +5166,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 177.8 76.2 0)
 			(hide yes)
 			(effects
@@ -4986,7 +5175,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 177.8 76.2 0)
 			(hide yes)
 			(effects
@@ -5005,7 +5194,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 210.82 50.8 0)
 		(unit 4)
 		(in_bom yes)
@@ -5020,7 +5209,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 210.82 52.07 0)
 			(effects
 				(font
@@ -5037,7 +5226,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 210.82 50.8 0)
 			(hide yes)
 			(effects
@@ -5046,7 +5235,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 210.82 50.8 0)
 			(hide yes)
 			(effects
@@ -5055,7 +5244,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 210.82 50.8 0)
 			(hide yes)
 			(effects
@@ -5064,7 +5253,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 210.82 50.8 0)
 			(hide yes)
 			(effects
@@ -5083,7 +5272,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 210.82 63.5 0)
 		(unit 5)
 		(in_bom yes)
@@ -5098,7 +5287,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 210.82 64.77 0)
 			(effects
 				(font
@@ -5115,7 +5304,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 210.82 63.5 0)
 			(hide yes)
 			(effects
@@ -5124,7 +5313,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 210.82 63.5 0)
 			(hide yes)
 			(effects
@@ -5133,7 +5322,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 210.82 63.5 0)
 			(hide yes)
 			(effects
@@ -5142,7 +5331,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 210.82 63.5 0)
 			(hide yes)
 			(effects
@@ -5161,7 +5350,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 210.82 76.2 0)
 		(unit 6)
 		(in_bom yes)
@@ -5176,7 +5365,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 210.82 77.47 0)
 			(effects
 				(font
@@ -5193,7 +5382,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 210.82 76.2 0)
 			(hide yes)
 			(effects
@@ -5202,7 +5391,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 210.82 76.2 0)
 			(hide yes)
 			(effects
@@ -5211,7 +5400,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 210.82 76.2 0)
 			(hide yes)
 			(effects
@@ -5220,7 +5409,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 210.82 76.2 0)
 			(hide yes)
 			(effects
@@ -5239,7 +5428,7 @@
 		)
 	)
 	(symbol
-		(lib_id "74xx:74HC04")
+		(lib_id "74xx:74HC14")
 		(at 236.22 63.5 0)
 		(unit 7)
 		(in_bom yes)
@@ -5254,7 +5443,7 @@
 				)
 			)
 		)
-		(property "Value" "74HC04"
+		(property "Value" "74HC14"
 			(at 236.22 64.77 0)
 			(effects
 				(font
@@ -5271,7 +5460,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
 			(at 236.22 63.5 0)
 			(hide yes)
 			(effects
@@ -5280,7 +5469,7 @@
 				)
 			)
 		)
-		(property "Description" "Hex Inverter"
+		(property "Description" "Hex inverter schmitt trigger"
 			(at 236.22 63.5 0)
 			(hide yes)
 			(effects
@@ -5289,7 +5478,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5590"
+		(property "LCSC" "C5605"
 			(at 236.22 63.5 0)
 			(hide yes)
 			(effects
@@ -5298,7 +5487,7 @@
 				)
 			)
 		)
-		(property "MPN" "74HC04D,653"
+		(property "MPN" "74HC14D,653"
 			(at 236.22 63.5 0)
 			(hide yes)
 			(effects
@@ -5333,7 +5522,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "1uF"
 			(at 168.275 104.14 0)
 			(effects
 				(font
@@ -5369,7 +5558,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1525"
+		(property "LCSC" "C52923"
 			(at 167.64 101.6 0)
 			(hide yes)
 			(effects

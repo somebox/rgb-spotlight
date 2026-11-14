@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-11-03): v2 schematics and both boards done (DRC clean), with a failure review whose changes are planned but not yet applied. Start with [HANDOVER.md](HANDOVER.md).
+Status (2026-11-14): v2 schematics and both boards done (DRC clean), with the failure review's changes applied. Next: the LED polarity check, then release and order. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 
@@ -78,7 +78,7 @@ python3 sim/channel.py                                      # LED channel simula
 
 ## BOM
 
-- Driver: 19 lines, about $2.18 at qty 1. LED board: 3 lines, about $0.77 (bomi, 2026-10-05).
+- Driver: 20 lines, about $1.70 at qty 1. LED board: 3 lines, about $0.79 (bomi, 2026-11-14).
 - Each board has its own bomi project:
 
 ```bash

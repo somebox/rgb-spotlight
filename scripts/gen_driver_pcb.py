@@ -13,7 +13,7 @@ counter-clockwise from +x.
   Rs and L innermost (their LED-side pads face J3), then D, then the PT4115 with Cin beside it, so the switching loop
   SW -> D -> VIN/Cin -> GND tab stays a few mm across.
 - Gaps between the cells: 150 deg = J1 + input protection (TVS, bulk) + level shifter; 30 deg = J2 + 78L05;
-  270 deg = WS2811 + 74HC04. M3 holes at r = 11 mm in the three gaps.
+  270 deg = WS2811 + 74HC14. M3 holes at r = 11 mm in the three gaps.
 - GND pour on both layers.
 - Everything stays inside the 50 mm core (mech.CORE_D). The board edge and mounting holes come from an outline preset
   (MECH=disc50|disc55|disc60|tabs3, default disc50; see scripts/mech.py); scripts/set_outline.py changes it later.
@@ -89,7 +89,7 @@ P.update({
     "U7": (-9.6, -16.6, 0), "C3": (-9.6, -19.0, 0), "R7": (-12.2, -17.4, 90), "R10": (-12.2, -15.2, 90),
     # 30 deg gap: J2 (back) + 78L05 (front)
     "U5": (6.8, -19.5, 0), "C5": (10.6, -18.0, 90), "C4": (9.9, -21.3, 90),
-    # 270 deg gap: WS2811 + 74HC04 with pull-ups between, decoupling at the ends
+    # 270 deg gap: WS2811 + 74HC14 with pull-ups between, decoupling at the ends
     "U6": (-5.0, 18.5, 270), "C2": (-10.9, 17.7, 90), "R4": (0.7, 16.3, 90), "R5": (0.7, 18.5, 90), "R6": (0.7, 20.7, 90),
     "U1": (4.5, 18.5, 90), "C1": (8.8, 16.9, 90), "R8": (8.8, 19.3, 90), "R9": (8.8, 21.6, 90),
 })

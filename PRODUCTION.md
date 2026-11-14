@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-10-29): both boards pass `pcbkit release --dry-run` (ERC, DRC with parity, nothing unconnected) and would be released as v2.0; nothing released or ordered for v2 yet. Before ordering: DESIGN.md §5 (v1 bench tests) and §6 (open items), and the housing decision (outline preset, LAYOUT.md).
+Status (2026-11-14): with the review's changes in (DESIGN D17–D19), both boards pass `pcbkit release --dry-run` (ERC, DRC with parity, nothing unconnected) and would be released as v2.0; nothing released or ordered for v2 yet. Before ordering: DESIGN.md §5 (v1 bench tests) and §6 (open items), and the housing decision (outline preset, LAYOUT.md).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -25,7 +25,7 @@ Each release folder holds:
 
 | Board | PCB | Assembly |
 | --- | --- | --- |
-| **driver** | FR4, 2 layers, 1.6 mm, 1 oz, 50 mm round (`disc50`) | Top side: 33 placements, 18 BOM lines. J1/J2 (JST XH, back) and J3 (JST PH 6, front) are through-hole: JLC THT assembly, or hand-solder. R9 is DNP (no LCSC number, out of the BOM) |
+| **driver** | FR4, 2 layers, 1.6 mm, 1 oz, 50 mm round (`disc50`) | Top side: 33 placements, 19 BOM lines. J1/J2 (JST XH, back) and J3 (JST PH 6, front) are through-hole: JLC THT assembly, or hand-solder. R9 is DNP (no LCSC number, out of the BOM) |
 | **led** | **aluminium**, 1 layer, 1.6 mm, 1 W/mK (2 W/mK if offered cheaply), 50 mm round | Top side: 3 placements (the LEDs) |
 
 The LED board's Gerber zip also holds empty back layers; on a 1-layer aluminium order JLC uses only F.Cu, F.Mask, F.Silkscreen, Edge.Cuts and the drill files.
@@ -38,6 +38,8 @@ The things that went wrong before, or could:
   - The datasheet's top view puts the package dot at the anode; LCSC's footprint puts it at pad 1.
   - Before paying, check JLC's placement preview: each LED's cathode must be on the pad wired to "x−".
   - Diode-test a v1 LED first if that's still open.
+  - The silk has a "+" just past pad 2, the anode, of each LED (D19).
+  - Order remark: "LED1–LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode."
 - **Schottky D1–D3 (SOD-123).** The cathode band faces the 12 V side (Rs / VIN). Inverted, the diode shorts SW to 12 V.
 - **TVS D4 (SMA).** The cathode band goes to +12V. Inverted, it conducts the moment 12 V is applied.
 - **Placement checklist first.** Its **never** rows have rotation rules that have never been checked in JLC's preview:
@@ -49,7 +51,7 @@ The things that went wrong before, or could:
 - **J1/J2 (JST XH, back).** They are in the `-back` BOM/CPL and the `-both` files. For a top-only order, hand-solder them (through-hole).
 - **BOM matching.** JLC must say "Your BOM: JLCPCB Part #". With an `LCSC` header it matches by value instead (pcb-kit lesson).
 - **Order number:** choose "specify position" (`JLCJLCJLCJLC` on the driver's back silk).
-- **Stock:** `bomi --project boards/driver list --check` and the same for `boards/led`. Green LED C49237859 had 325 left on 2026-10-05.
+- **Stock:** `bomi --project boards/driver list --check` and the same for `boards/led`. On 2026-11-14 the LEDs had 2,570 red, 2,475 green and 3,102 blue, and the scarcest driver part was U7 at 13k.
 
 ## After the boards arrive
 
@@ -68,6 +70,8 @@ The things that went wrong before, or could:
 
 | Date | Board | Qty | Item | Cost |
 | --- | --- | --- | --- | --- |
+| 2026-11-14 | driver | 1 | BOM, bomi qty-1 pricing, after D17/D18 (prices refreshed) | ≈ $1.70 plus the Extended-part fees listed in docs/BOM_driver.md |
+| 2026-11-14 | led | 1 | BOM, bomi qty-1 pricing | ≈ $0.79 (3 Extended LEDs) |
 | 2026-10-05 | driver | 1 | BOM, bomi qty-1 pricing | ≈ $2.18 plus the Extended-part fees listed in docs/BOM_driver.md |
 | 2026-10-05 | led | 1 | BOM, bomi qty-1 pricing | ≈ $0.77 (3 Extended LEDs) |
 

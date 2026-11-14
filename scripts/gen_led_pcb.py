@@ -155,6 +155,11 @@ for ch, (n, a) in CH.items():
     text(ch, *polar(R_LED + 3.2, a), 1.2, (a - 90) % 360)
 for ref in ("LED1", "LED2", "LED3"):
     b.FindFootprintByReference(ref).Reference().SetLayer(pcbnew.F_Fab)
+    # "+" just past pad 2 (anode), on the line from the slug through it: the part's own dot marks the anode, while
+    # the silk bracket (and LCSC's footprint dot) mark pad 1, the cathode (D19, review R1)
+    (cx, cy), (px, py) = pad_xy(ref, "3"), pad_xy(ref, "2")
+    d = math.hypot(px - cx, py - cy)
+    text("+", px + (px - cx) / d * 1.4, py + (py - cy) / d * 1.4, 0.8)
 text("RGB LED v2.0", 0, 12.2, 0.8, 90)          # in the bare gap between the green and blue islands
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
 pcbnew.SaveBoard(OUT, b)

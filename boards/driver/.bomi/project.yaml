@@ -3,10 +3,14 @@ description: RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on th
   aluminium LED board
 created: '2026-03-16'
 selections:
-- ref: C1-C4
+- ref: C1
+  lcsc: C52923
+  quantity: 1
+  notes: '1uF X5R 25V, WS2811 VDD: the datasheet''s Ci (D18)'
+- ref: C2-C4
   lcsc: C1525
-  quantity: 4
-  notes: '100nF X7R bypass: C1 WS2811, C2 74HC04, C3 74AHCT1G125, C4 78L05 out'
+  quantity: 3
+  notes: '100nF X7R bypass: C2 74HC14, C3 74AHCT1G125, C4 78L05 out'
 - ref: C5
   lcsc: C15850
   quantity: 1
@@ -56,9 +60,9 @@ selections:
   quantity: 1
   notes: 33R series on DOUT (cable source termination)
 - ref: R10
-  lcsc: C25076
+  lcsc: C11702
   quantity: 1
-  notes: 100R series on DIN
+  notes: '1k series on DIN: limits clamp current from 12 V or ringing (D18)'
 - ref: U1
   lcsc: C114581
   quantity: 1
@@ -72,9 +76,10 @@ selections:
   quantity: 1
   notes: 78L05 5V regulator, basic part
 - ref: U6
-  lcsc: C5590
+  lcsc: C5605
   quantity: 1
-  notes: 74HC04 hex inverter, WS2811 open-drain inversion
+  notes: 74HC14 hex Schmitt inverter, WS2811 open-drain inversion; takes the WS2811's
+    slow edges (D17)
 - ref: U7
   lcsc: C350557
   quantity: 1

@@ -1,6 +1,6 @@
 # RGB Spotlight — design notes
 
-Status (2026-10-31): both boards routed and DRC clean, `pcbkit check` clean or explained (LAYOUT.md). One LED channel simulated (§2.7). Failure review in `docs/reviews/2026-10-30-v2.md`; its accepted changes are planned, not yet applied (§6, "Planned changes"). Next: apply them, settle LED polarity, then the order (PRODUCTION.md).
+Status (2026-11-14): both boards routed and DRC clean, `pcbkit check` clean or explained (LAYOUT.md). One LED channel simulated (§2.7). Failure review in `docs/reviews/2026-10-30-v2.md`; its accepted changes D17–D19 are applied (§6, "Planned changes"). Next: settle LED polarity on a v1 LED, then the release and order (PRODUCTION.md).
 
 Chainable, WS2811-addressed RGB spotlight: three 3 W LEDs, each on its own PT4115 constant-current buck, run from a 12 V chain. Two boards in an aluminium cylinder:
 - an **aluminium LED board** (50 mm, 1 layer) carrying only the LEDs;
@@ -61,9 +61,9 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D14 | 2026-10-31 | One 12 V feed runs at most 5 lights, up to 3 m apart on 22 AWG: 36 W supply for 4 lights plus controller, 60 W for 5 (§2.4). Replaces D13 | at the tolerance corners 5 lights draw 2.43–2.62 A, 6 about 2.9 A or more, on a 3 A connector with no derating for a warm housing. The board can't run from 5 V (review, "Power and data") |
 | D15 | 2026-10-31 | 3 A fuse per feed at the supply end. Longer chains get another feed per group of 5, pin 1 open between groups | the supply can outrun the XH rating, and it limits a reversed cable (review R5, R7). No board change |
 | D16 | 2026-10-31 | No extra repeater on the board | each light already has pcb-kit's repeater part on its input (U7) and the WS2811 reshapes on its output. Simulated clean over 8 m (review, "Power and data"), and the datasheet allows 4 m |
-| D17 | 2026-10-31 | Planned: U6 74HC04 → 74HC14D (C5605, Basic) | WS2811 edges can be 120 µs; the 74HC04 needs under 139 ns/V or may oscillate (review R4). Same pinout |
-| D18 | 2026-10-31 | Planned: C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702). Replaces D6's 100 Ω | datasheet's Ci for VDD (R3); limits the clamp current from 12 V on the data pin and from cable ringing (R6) |
-| D19 | 2026-10-31 | Planned: "+" on the LED board's silk at pad 2 of each LED, polarity in the order remark | the part's dot marks the anode, our silk and LCSC's dot mark pad 1, the cathode (R1) |
+| D17 | 2026-10-31 | U6 74HC04 → 74HC14D (C5605, Basic). Applied 2026-11-14 | WS2811 edges can be 120 µs; the 74HC04 needs under 139 ns/V or may oscillate (review R4). Same pinout |
+| D18 | 2026-10-31 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702). Replaces D6's 100 Ω. Applied 2026-11-14 | datasheet's Ci for VDD (R3); limits the clamp current from 12 V on the data pin and from cable ringing (R6) |
+| D19 | 2026-10-31 | "+" on the LED board's silk at pad 2 of each LED, polarity in the order remark. Applied 2026-11-14 | the part's dot marks the anode, our silk and LCSC's dot mark pad 1, the cathode (R1) |
 | D20 | 2026-10-31 | Nylon washers or screws on the driver; a sleeve or grommet through the LED board's wire hole | the housing floats and can isolate the board, so no keep-out re-route is needed (R8, R9) |
 
 ---
@@ -142,11 +142,11 @@ v1 used J1 = 12V/DIN/GND and J2 = GND/DOUT/12V, so the chain depends on a revers
 
   Both are under the 1 MHz limit.
 - **Input cap** 10 µF 50 V X5R 1206. The datasheet asks for at least 4.7 µF; v1's 0805 25 V part keeps only about 3–4 µF at 12 V bias.
-- **DIM:** 0 V = off, > 2.5 V = full, internal 200 kΩ pull-up to 5 V, abs max 6 V. It is driven by 74HC04 outputs at 5 V.
+- **DIM:** 0 V = off, > 2.5 V = full, internal 200 kΩ pull-up to 5 V, abs max 6 V. It is driven by 74HC14 outputs at 5 V.
   - WS2811 PWM runs at about 4 kHz. The PT4115 holds its 0.02 % minimum duty at 100 Hz but needs 4 % at 20 kHz. Expect roughly the bottom 1 % (2–3 of 255 levels) to be dark or non-linear.
 
 ### 2.2 Data path
-- **J1.2 → R10 100 Ω → (R7 10k to GND) → 74AHCT1G125 → WS2811 DIN.** R10 limits current into the buffer input when a hot-plugged cable rings.
+- **J1.2 → R10 1 kΩ → (R7 10k to GND) → 74AHCT1G125 → WS2811 DIN.** R10 limits the current into the buffer's input clamp: from a hot-plugged cable's ringing, or about 10 mA if 12 V reaches the data pin (D18, review R6). With about 10 pF at the input the RC is 10 ns, against a 220 ns minimum T0H.
   - AHCT input VIH = 2.0 V, so 3.3 V or 5 V controllers both work; WS2811 VIH is 0.55·VDD = 2.75 V.
   - R7 holds the line low when unplugged, which also keeps the WS2811 in reset.
   - OE is tied straight to GND. v1's R7 pull-down on OE did the same job; that resistor now goes to DIN.
@@ -156,8 +156,9 @@ v1 used J1 = 12V/DIN/GND and J2 = GND/DOUT/12V, so the chain depends on a revers
 ### 2.3 Inversion (unchanged idea, now powered)
 WS2811 outputs are 20 V-tolerant constant-current sinks (≈ 16 mA) and sink when a channel is on.
 - R4–R6 (4.7 kΩ to 5 V) limit that to 1.06 mA, so the outputs pull fully low.
-- The 74HC04 inverts, so DIM is high when the channel is on: 0xFF → full on, 0x00 → off, with standard NeoPixel software.
+- The 74HC14 inverts, so DIM is high when the channel is on: 0xFF → full on, 0x00 → off, with standard NeoPixel software.
 - Gates 4–6: inputs to GND, outputs open.
+- Schmitt-trigger inputs (D17): the WS2811's output edges can take up to 120 µs, and a plain 74HC04 may oscillate on edges that slow.
 
 ### 2.4 Logic supply and 12 V input
 78L05 (SOT-89, O-G-I) from 12 V, with 10 µF in and 100 nF out. Load is about 5 mA: WS2811 0.3 mA, 3 × 1.06 mA pull-ups, R7 up to 0.5 mA, gate quiescent. That dissipates ≈ 35 mW. Each logic IC has its own 100 nF.
@@ -265,16 +266,16 @@ Full white at 455 mA. Assumptions:
 - **Bench check:** ceramic caps (C6–C9) can sing audibly at 4 kHz.
 - **Long chains:** the steps add up along the cable. Inject power at the start of each group of 5 (D14).
 
-## 3. Parts (bomi: `docs/BOM_driver.md` 19 lines ≈ $2.18; `docs/BOM_led.md` 3 lines ≈ $0.77, qty 1)
+## 3. Parts (bomi, 2026-11-14: `docs/BOM_driver.md` 20 lines ≈ $1.70; `docs/BOM_led.md` 3 lines ≈ $0.79, qty 1)
 
 | Board | Ref | Part | LCSC | Note / change from v1 |
 |---|---|---|---|---|
-| LED | LED1–3 | XL-HD2525 SURC / UGC / UBC | C49237857 / 859 / 860 | **green stock low** (bomi check: 325) |
+| LED | LED1–3 | XL-HD2525 SURC / UGC / UBC | C49237857 / 859 / 860 | stock 2,570 / 2,475 / 3,102 (2026-11-14) |
 | LED | TP1–TP6 | wire pads 2.2 × 3.5 mm | — | not in the BOM; hand-soldered wires |
 | driver | U1 | WS2811 SOP-8 | C114581 | |
 | driver | U2–U4 | PT4115 SOT-89-5 | C347356 | stock KiCad `SOT-89-5` footprint (pad 2 = tab = GND) |
 | driver | U5 | 78L05G-AB3-R | C71136 | Basic |
-| driver | U6 | 74HC04D | C5590 | |
+| driver | U6 | 74HC14D | C5605 | was 74HC04D (C5590); Schmitt inputs (D17) |
 | driver | U7 | SN74AHCT1G125DCKR | C350557 | |
 | driver | L1–L3 | FNR6045S680MT 68 µH | C168091 | was 100 µH C168095 |
 | driver | D1–D3 | B5819W | C64885 | now SW → 12 V |
@@ -284,8 +285,9 @@ Full white at 455 mA. Assumptions:
 | driver | R7 | 10 kΩ 0402 | C25744 | now the DIN pull-down |
 | driver | R8 | 33 Ω 0402 | C25105 | new: DOUT series |
 | driver | R9 | 0 Ω 0402 | — | new, **DNP**: SET strap |
-| driver | R10 | 100 Ω 0402 | C25076 | new: DIN series |
-| driver | C1–C4 | 100 nF 0402 | C1525 | |
+| driver | R10 | 1 kΩ 0402 | C11702 | new: DIN series; 1 kΩ, not 100 Ω (D18) |
+| driver | C1 | 1 µF 25 V X5R 0402 | C52923 | WS2811 VDD, the datasheet's Ci (D18) |
+| driver | C2–C4 | 100 nF 0402 | C1525 | |
 | driver | C5 | 10 µF 25 V 0805 | C15850 | |
 | driver | C6–C8 | 10 µF 50 V 1206 | C13585 | was 0805 25 V |
 | driver | C9 | 22 µF 25 V 1206 | C12891 | new: 12 V input bulk |
@@ -299,7 +301,7 @@ Full white at 455 mA. Assumptions:
 - **`scripts/netcheck.py`** (63 assertions, driver) checks the v1 failure points directly:
   - each channel's 12 V → Rs → CSN / J3 x+ … J3 x− → L → SW, and D from SW to 12 V;
   - the CSN, LED-cathode and SW nodes hold nothing else;
-  - DIM comes from a 74HC04 output;
+  - DIM comes from a 74HC14 output;
   - every logic VCC is on +5V; the 78L05 pinout; the TVS orientation; R10/R7; the connector pinout; no single-node nets.
 - **DRC with schematic parity:** both boards clean (the driver is unrouted).
 
@@ -355,14 +357,15 @@ If the supply hits its current limit, power off and check the new diode's direct
    - Our footprint has pad 1 = cathode at −x, with silk closing that side.
    - Check on a v1 board: diode-test LED1, red probe on the L1-side pad (v1 pad 2), black on GND (pad 1). It should glow faintly.
    - Then confirm polarity in JLC's DFM preview.
+   - v2's LED board has a "+" on the silk just past pad 2 (D19).
 2. **WS2811 behaviour (F3)** from §5. If it stays unexplained, consider another 12 V WS2811-protocol controller.
 3. **Chain cables:** J1/J2 now share one pinout, so use pin-1-to-pin-1 XH cables or pigtails.
-4. **Green LED stock:** 325 at the last check. Order early, or find an alternate.
+4. **LED stock:** 2,570 red, 2,475 green and 3,102 blue on 2026-11-14 (green was 325 on 2026-10-05, blue 704 on 2026-10-30). Check again before ordering.
 5. **Housing fit:** pick the outline preset once the housing is known (§7.3): `disc50` (current) / `disc55` / `disc60` / `tabs3`, or add one to `scripts/mech.py`.
    - Check the back-cap cut-outs over J1/J2 at r = 19.5 mm, 30° / 150°.
 6. **Aluminium board order:** 1 layer, 1.6 mm, 1–2 W/mK. JLC assembles the LEDs.
 
-### Planned changes (2026-10-31, not applied)
+### Planned changes (2026-10-31, applied 2026-11-14)
 
 From the failure review; D17–D19 and D20's assembly steps.
 
@@ -375,6 +378,13 @@ From the failure review; D17–D19 and D20's assembly steps.
 | Harness sleeve, nylon hardware, order remark | PRODUCTION.md | none |
 
 Then `pcbkit erc`, `scripts/netcheck.py`, `pcbkit cleanup`, `pcbkit drc --save`, `pcbkit check`, the previews and BOMs, and `pcbkit release --dry-run`. Boards stay at v2.0 until released.
+
+**Applied 2026-11-14:**
+- The driver schematic was edited in place, keeping its UUIDs. With UUIDs masked it is identical to what `scripts/sch_driver.py` writes now.
+- The driver board's U6, C1 and R10 took the new fields in place. The LED board got its three "+" texts from `scripts/gen_led_pcb.py`, added in place; the board is otherwise the generator's output.
+- `pcbkit cleanup` merged 7 collinear track pieces on the driver; no copper changed.
+- Checks: driver ERC 0, LED ERC the 3 known warnings (§4), netcheck 0 failures, DRC 0/0 with parity 0 on both, `pcbkit check` only the explained flags (LAYOUT.md), `pcbkit courtyards` 0. `pcbkit release --dry-run`: both would release as v2.0.
+- Harness sleeve and nylon hardware are in PRODUCTION.md's assembly steps; the polarity remark is in its order checklist.
 
 **Before ordering:** diode-test a v1 LED and check all three in JLC's preview (§6 item 1). Order the smallest assembled run, since neither the WS2811 (F3) nor the PT4115 stage has been proven on hardware. R9 stays as a footprint in case pin 7 turns out to matter.
 

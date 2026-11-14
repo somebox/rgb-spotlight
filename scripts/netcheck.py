@@ -2,7 +2,7 @@
 """Assert the intended topology of the driver board netlist (ERC only proves the wiring is legal).
 
 Each check targets a v1 failure mode (DESIGN.md §1): the PT4115 current loop (now through the LED harness J3),
-the 74HC04 supply, and the J1/J2 pinout. Usage: python3 scripts/netcheck.py   (exports the netlist; exit 1 on failure)
+the 74HC14 supply (v1's 74HC04), and the J1/J2 pinout. Usage: python3 scripts/netcheck.py   (exports the netlist; exit 1 on failure)
 Parsing and the expect/same helpers come from pcb-kit (pcbkit.checks.netlist).
 """
 import os, sys
@@ -31,16 +31,16 @@ for i, ch in enumerate("RGB"):
     nl.expect(len(nl.nets[nl.pin[K]]) == 2, f"LED cathode node has only J3 - and L: {sorted(nl.nets[nl.pin[K]])}")
     nl.expect(len(nl.nets[nl.pin[(U, "1")]]) == 3, f"SW node has only SW, L, D: {sorted(nl.nets[nl.pin[(U, '1')]])}")
     nl.expect(nl.pin[(U, "2")] == "GND", "PT4115 GND")
-    nl.expect(nl.pin[(U, "3")] == f"DIM_{ch}" and ("U6", {"R": "2", "G": "4", "B": "6"}[ch]) in nl.nets[f"DIM_{ch}"], "DIM driven by a 74HC04 output")
+    nl.expect(nl.pin[(U, "3")] == f"DIM_{ch}" and ("U6", {"R": "2", "G": "4", "B": "6"}[ch]) in nl.nets[f"DIM_{ch}"], "DIM driven by a 74HC14 output")
 
 print("-- logic")
 for p in [("U1", "8"), ("U6", "14"), ("U7", "5"), ("U5", "1")]:
     nl.expect(nl.pin[p] == "+5V", f"{p} on +5V (v1 had U6 VCC on a separate '+5V' net)")
 nl.expect(nl.pin[("U5", "3")] == "+12V" and nl.pin[("U5", "2")] == "GND", "78L05 SOT-89 pinout O-G-I")
 for a, y in [("1", "2"), ("3", "4"), ("5", "6")]:
-    nl.expect(len(nl.nets[nl.pin[("U6", a)]]) == 3, f"74HC04 input {a}: WS2811 out + pull-up + gate {sorted(nl.nets[nl.pin[('U6', a)]])}")
+    nl.expect(len(nl.nets[nl.pin[("U6", a)]]) == 3, f"74HC14 input {a}: WS2811 out + pull-up + gate {sorted(nl.nets[nl.pin[('U6', a)]])}")
 for a in ["9", "11", "13"]:
-    nl.expect(nl.pin[("U6", a)] == "GND", f"unused 74HC04 input {a} tied to GND")
+    nl.expect(nl.pin[("U6", a)] == "GND", f"unused 74HC14 input {a} tied to GND")
 nl.expect(nl.pin[("U1", "6")] == nl.pin[("U7", "4")], "WS2811 DIN from the level shifter")
 nl.expect(nl.pin[("U7", "1")] == "GND", "74AHCT1G125 OE enabled")
 nl.expect(nl.nets.get("SET") == {("U1", "7"), ("R9", "2")} and nl.pin[("R9", "1")] == "+5V", "WS2811 SET (pin 7) on the DNP strap R9 to +5V")
