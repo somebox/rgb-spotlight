@@ -85,7 +85,7 @@ stays in the documents it links to.
 
 ## Open questions
 
-- Housing: which outline preset (DESIGN §6 item 5), and do the back-cap cut-outs line up with J1/J2?
+- Housing: which outline preset (DESIGN §6 item 5), and do the back-cap cut-outs line up with J1/J2? `docs/assembly/index.html` (2026-11-14) has the stack, what a housing must provide, five example housings and the questions to settle.
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
 

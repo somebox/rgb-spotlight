@@ -16,6 +16,7 @@ Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminiu
 | [LAYOUT.md](LAYOUT.md) | both PCBs: floor plans, rules, scripted copper and routing, outline presets, checks |
 | [PRODUCTION.md](PRODUCTION.md) | order files, order checklist (polarity!), harness and bring-up, costs |
 | [docs/reviews/](docs/reviews/) | pre-order failure review: findings, bench list, firmware duties |
+| [docs/assembly/](docs/assembly/index.html) | assembly overview (HTML, open in a browser): exploded view of both boards, section sketch, outline presets, housing options and the questions to settle |
 
 ## What it does
 
