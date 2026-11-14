@@ -38,6 +38,7 @@ Board centre = origin, millimetres, top view, angles counter-clockwise from +x. 
 ## Stackup and rules
 
 - **LED board:** aluminium, 1.6 mm, 1–2 W/mK; copper on F.Cu only. 0.3 mm clearance, 0.5 mm edge clearance.
+  - The board file carries an aluminium stackup: aluminium core, no back mask, green front mask with white silk (the mask colour is a placeholder for the order). It only sets render colours. `gen_led_pcb.py` writes it, and `make_previews.sh` renders the LED board with it.
 - **Driver board:** FR4, 2 layers, 1.6 mm, GND pour on both layers. 0.2 mm clearance everywhere: the router routes to 0.2 mm, and 12 V needs no more.
 - **Driver net classes:**
   - PWR 0.8 mm (+12V, GND), the taps' width. The 1.5 mm pass-through is drawn explicitly (D12).

@@ -784,7 +784,7 @@ ol.qs p { color: var(--ink-2); font-size: 14px; margin-top: 2px; }
   </ul>
   <div>To make the renders again, after a board change:</div>
   <ul>
-    <li>Stack images: <code>pcb render -w 1400 -h 1000 --rotate -60,0,30 --zoom 1.1 --quality high</code> on each board, both cropped to x 120–1260, y 150–900. That puts the board centre at (567.3, 341.7) in both, where the drawing expects it.</li>
+    <li>Stack images: <code>pcb render -w 1400 -h 1000 --rotate -60,0,30 --zoom 1.1 --quality high</code> on each board (the LED board with <code>--use-board-stackup-colors</code>, for its aluminium core), both cropped to x 120–1260, y 150–900. That puts the board centre at (567.3, 341.7) in both, where the drawing expects it.</li>
     <li>Driver back: the same with <code>--side bottom</code>, cropped to the board and scaled to 1000 px wide.</li>
     <li>Top views: <code>docs/previews/led/render-top.png</code> and <code>docs/previews/driver/render-top.png</code> scaled to 800 px. All saved as WebP in <code>img/</code>.</li>
   </ul>
