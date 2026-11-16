@@ -96,6 +96,12 @@ for i, ch in enumerate("RGB"):
         c(f"C{n + 5}", "10uF 50V", "C13585", Ux + 33.02, Uy, None, fp=C1206, mpn="CL31A106KBHNNNE"),
     ]
 
+# ---- D5 after the channels, so the power symbols numbered before it keep their numbers.
+#      DIN_IN clamp to +5V: U7's input is rated to 7 V with no clamp above it, so 12 V on the data pin (a mis-crimped
+#      cable) would leave ~10.9 V there; D5 holds it near 5.4 V, R10 limiting the current to ~6 mA (D28).
+comps.append(dict(ref="D5", lib="Device:D_Schottky", val="RB751V-40", fp="Diode_SMD:D_SOD-323", x=66.04, y=76.2, rot=270,
+                  lcsc="C7502691", fields={"MPN": "RB751V-40"}, pins={"1": "+5V", "2": "DIN_IN"}))
+
 def channel_wires(L):
     """Wires and junctions for each channel, computed from the real pin endpoints."""
     pt = lambda ref, p: L[(ref, p)][:2]
@@ -152,7 +158,7 @@ if __name__ == "__main__":
     open(P + SHEET, "w").write(txt[:j] + blk + txt[i:])
     k = Konnect(); k.load("sch_wiring", "sch_components", "sch_batch", "sch_analysis")
     notes = [
-        ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged.", 22.86, 40.64),
+        ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V.", 22.86, 40.64),
         ("12 V in: SMAJ15A TVS + 22 uF for hot-plugged chain cables. J1/J2 12V and GND pass straight through (3 A).", 22.86, 116.84),
         ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC14 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
         ("J1 and J2 (JST XH, back of the board) share one pinout: 1 = 12V, 2 = data, 3 = GND.", 101.6, 121.92),

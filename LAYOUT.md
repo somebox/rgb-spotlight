@@ -28,7 +28,7 @@ Board centre = origin, millimetres, top view, angles counter-clockwise from +x. 
 | --- | --- |
 | centre, front | J3 LED harness (PH 6 vertical); pin 1 at the top, towards the red cell; legend R+ … B− beside it |
 | driver cells at 90° / 210° / 330° | identical (red rotated ±120°): Rs and L innermost (their LED-side pads face J3), then D, then the PT4115 with Cin |
-| 150° gap | J1 IN on the **back** (pin row tangential at r = 19.5 mm); TVS D4 + C9, level shifter U7 + R7/R10/C3 on the front |
+| 150° gap | J1 IN on the **back** (pin row tangential at r = 19.5 mm); TVS D4 + C9, level shifter U7 + R7/R10/C3, and D5 (the input clamp, D28) left of R7, on the front |
 | 30° gap | J2 OUT on the **back**; 78L05 U5 + C4/C5 on the front |
 | 270° gap | U6 74HC14 and U1 WS2811 side by side, pull-ups R4–R6 between them; C1/C2, R8/R9 |
 | r = 11 mm, 30° / 150° / 270° | M3 standoff holes (`disc50`, `disc55`) |

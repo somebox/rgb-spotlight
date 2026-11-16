@@ -2,27 +2,28 @@
 
 RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium LED board
 
-**20 line items (20 unique parts), ~$1.70 estimated (qty 1)**
+**21 line items (21 unique parts), ~$1.71 estimated (qty 1)**
 
 ## BOM
 
 | Ref | Qty | LCSC | Package | Note | Stock | Price |
 | --- | --- | --- | --- | --- | --- | --- |
-| [C1](#c52923) | 1 | C52923 | 0402 | 1uF X5R 25V, WS2811 VDD: the datasheet's Ci (D18) | 9.62m | $0.0055 |
-| [C2-C4](#c1525) | 3 | C1525 | 0402 | 100nF X7R bypass: C2 74HC14, C3 74AHCT1G125, C4 78L05 out | 37.31m | $0.0024 |
+| [C1](#c52923) | 1 | C52923 | 0402 | 1uF X5R 25V, WS2811 VDD: the datasheet's Ci (D18) | 9.64m | $0.0055 |
+| [C2-C4](#c1525) | 3 | C1525 | 0402 | 100nF X7R bypass: C2 74HC14, C3 74AHCT1G125, C4 78L05 out | 37.27m | $0.0024 |
 | [C5](#c15850) | 1 | C15850 | 0805 | 10uF 25V 0805, 78L05 input | 8.94m | $0.0311 |
-| [C6-C8](#c13585) | 3 | C13585 | 1206 | 10uF 50V X5R 1206, PT4115 VIN bypass (>=4.7uF after DC bias at 12V) | 4.45m | $0.1210 |
+| [C6-C8](#c13585) | 3 | C13585 | 1206 | 10uF 50V X5R 1206, PT4115 VIN bypass (>=4.7uF after DC bias at 12V) | 4.44m | $0.1210 |
 | [C9](#c12891) | 1 | C12891 | 1206 | 22uF 25V X5R 1206, 12V input bulk | 2.61m | $0.1028 |
 | [D1-D3](#c64885) | 3 | C64885 | SOD-123 | B5819W 40V/1A Schottky freewheeling diode | 533k | $0.0195 |
 | [D4](#c19077535) | 1 | C19077535 | DO-214AC(SMA) | SMAJ15A TVS on +12V (hot-plugged chain cables) | 69k | $0.0374 |
+| [D5](#c7502691) | 1 | C7502691 | SOD-323 | RB751V-40 Schottky, DIN_IN clamp to +5V: holds U7's input near 5.4 V if 12 V reaches the data pin (D28) | 574k | $0.0136 |
 | [J1-J2](#c144394) | 2 | C144394 | Plugin,P=2.5mm | JST XH 3P vertical THT (3 A), IN/OUT on the back: 1=12V 2=DATA 3=GND | 84k | $0.0529 |
 | [J3](#c131342) | 1 | C131342 | Plugin,P=2mm | JST PH 6P vertical THT, LED harness: R+ R- G+ G- B+ B- | 71k | $0.0727 |
 | [L1-L3](#c168091) | 3 | C168091 | SMD,6x6mm | 68uH FNR6045S680MT, Isat 1.1A; PT4115 table 47-68uH for 0.4-0.8A | 65k | $0.0699 |
 | [R1-R3](#c2907349) | 3 | C2907349 | 1206 | 0.22R 1% 1206 300ppm, current sense: 0.1V/0.22R = 455mA | 201k | $0.0071 |
-| [R4-R6](#c25900) | 3 | C25900 | 0402 | 4.7k pull-up for WS2811 open-drain outputs | 13.96m | $0.0017 |
-| [R7](#c25744) | 1 | C25744 | 0402 | 10k DIN pull-down (defined low when unplugged) | 20.58m | $0.0015 |
+| [R4-R6](#c25900) | 3 | C25900 | 0402 | 4.7k pull-up for WS2811 open-drain outputs | 13.94m | $0.0017 |
+| [R7](#c25744) | 1 | C25744 | 0402 | 10k DIN pull-down (defined low when unplugged) | 20.59m | $0.0015 |
 | [R8](#c25105) | 1 | C25105 | 0402 | 33R series on DOUT (cable source termination) | 3.28m | $0.0011 |
-| [R10](#c11702) | 1 | C11702 | 0402 | 1k series on DIN: limits clamp current when DIN rings below GND (D18); no 12 V fix | 31.06m | $0.0013 |
+| [R10](#c11702) | 1 | C11702 | 0402 | 1k series on DIN: limits clamp current when DIN rings below GND (D18); no 12 V fix | 31.02m | $0.0013 |
 | [U1](#c114581) | 1 | C114581 | SOP-8 | WS2811 pixel controller, SET pin floated for 800kHz | 124k | $0.0478 |
 | [U2-U4](#c347356) | 3 | C347356 | SOT-89-5 | PT4115 buck LED driver, one per RGB channel | 91k | $0.1112 |
 | [U5](#c71136) | 1 | C71136 | SOT-89-3 | 78L05 5V regulator, basic part | 283k | $0.0783 |
@@ -45,7 +46,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 1 |
 | **Description** | 1uF 25V X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS |
 | **Notes** | 1uF X5R 25V, WS2811 VDD: the datasheet's Ci (D18) |
-| **Stock** | 9,618,730 |
+| **Stock** | 9,641,573 |
 | **Pricing** | $0.0055 (≥1), $0.0042 (≥1000), $0.0035 (≥3000), $0.0031 (≥10000), $0.0029 (≥50000), $0.0028 (≥100000) |
 | **Capacitance** | 1uF |
 | **Temperature Coefficient** | X5R |
@@ -68,7 +69,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 3 |
 | **Description** | 100nF 16V X7R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS |
 | **Notes** | 100nF X7R bypass: C2 74HC14, C3 74AHCT1G125, C4 78L05 out |
-| **Stock** | 37,307,603 |
+| **Stock** | 37,269,503 |
 | **Pricing** | $0.0024 (≥1), $0.0018 (≥1000), $0.0015 (≥3000), $0.0013 (≥10000), $0.0012 (≥50000), $0.0012 (≥50200) |
 | **Capacitance** | 100nF |
 | **Temperature Coefficient** | X7R |
@@ -114,7 +115,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 3 |
 | **Description** | 10uF 50V X5R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS |
 | **Notes** | 10uF 50V X5R 1206, PT4115 VIN bypass (>=4.7uF after DC bias at 12V) |
-| **Stock** | 4,449,871 |
+| **Stock** | 4,438,639 |
 | **Pricing** | $0.1210 (≥1), $0.1002 (≥100), $0.0894 (≥300), $0.0806 (≥2000), $0.0775 (≥4000), $0.0753 (≥10000) |
 | **Capacitance** | 10uF |
 | **Temperature Coefficient** | X5R |
@@ -203,6 +204,33 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **level of protection** | IEC 61000-4-2 |
 | **Datasheet** | https://www.lcsc.com/datasheet/lcsc_datasheet_2411041728_hongjiacheng-SMAJ15A_C19077535.pdf |
 | **JLCPCB** | https://jlcpcb.com/partdetail/hongjiacheng-SMAJ15A/C19077535 |
+
+<a id="c7502691"></a>
+### C7502691
+
+| | |
+|---|---|
+| **Designator** | D5 |
+| **Part** | RB751V-40 |
+| **LCSC** | C7502691 |
+| **Manufacturer** | hongjiacheng |
+| **Package** | SOD-323 |
+| **Type** | Extended |
+| **Quantity** | 1 |
+| **Description** | 200mA 30mA 370mV@1mA 40V 500nA Independent SOD-323 Schottky Diodes ROHS |
+| **Notes** | RB751V-40 Schottky, DIN_IN clamp to +5V: holds U7's input near 5.4 V if 12 V reaches the data pin (D28) |
+| **Stock** | 574,361 |
+| **Pricing** | $0.0136 (≥1), $0.0124 (≥500), $0.0104 (≥3000), $0.0100 (≥6000), $0.0096 (≥24000), $0.0094 (≥51000) |
+| **Current - Rectified** | 30mA |
+| **Diode Configuration** | Standalone |
+| **Non-Repetitive Peak Forward Surge Current** | 200mA |
+| **Operating Junction Temperature Range** | - |
+| **Power Dissipation** | 200mW |
+| **Reverse Leakage Current (Ir)** | 500nA |
+| **Voltage - DC Reverse(Vr)** | 40V |
+| **Voltage - Forward(Vf@If)** | 370mV@1mA |
+| **Datasheet** | https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2308281443_hongjiacheng-RB751V-40_C7502691.pdf |
+| **JLCPCB** | https://jlcpcb.com/partdetail/hongjiacheng-RB751V40/C7502691 |
 
 <a id="c144394"></a>
 ### C144394
@@ -348,7 +376,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 3 |
 | **Description** | -55℃~+155℃ 4.7kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS |
 | **Notes** | 4.7k pull-up for WS2811 open-drain outputs |
-| **Stock** | 13,955,611 |
+| **Stock** | 13,941,293 |
 | **Pricing** | $0.0017 (≥1), $0.0013 (≥1000), $0.0011 (≥3000), $0.0010 (≥10000), $0.0009 (≥50000), $0.0009 (≥50200) |
 | **Operating Temperature** | -55℃~+155℃ |
 | **Power(Watts)** | 62.5mW |
@@ -374,7 +402,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 1 |
 | **Description** | -55℃~+155℃ 10kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS |
 | **Notes** | 10k DIN pull-down (defined low when unplugged) |
-| **Stock** | 20,583,906 |
+| **Stock** | 20,593,797 |
 | **Pricing** | $0.0015 (≥1), $0.0011 (≥1000), $0.0010 (≥3000), $0.0009 (≥10000), $0.0008 (≥50000), $0.0008 (≥50200) |
 | **Operating Temperature** | -55℃~+155℃ |
 | **Power(Watts)** | 62.5mW |
@@ -400,7 +428,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 1 |
 | **Description** | -55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS |
 | **Notes** | 33R series on DOUT (cable source termination) |
-| **Stock** | 3,279,371 |
+| **Stock** | 3,277,066 |
 | **Pricing** | $0.0011 (≥1), $0.0008 (≥1000), $0.0007 (≥3000), $0.0006 (≥10000), $0.0005 (≥50000), $0.0005 (≥50200) |
 | **Operating Temperature** | -55℃~+155℃ |
 | **Power(Watts)** | 62.5mW |
@@ -426,7 +454,7 @@ RGB Spotlight v2 driver board (FR4), WS2811 + 3x PT4115, LEDs on the aluminium L
 | **Quantity** | 1 |
 | **Description** | -55℃~+155℃ 1kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS |
 | **Notes** | 1k series on DIN: limits clamp current when DIN rings below GND (D18); no 12 V fix |
-| **Stock** | 31,057,168 |
+| **Stock** | 31,020,093 |
 | **Pricing** | $0.0013 (≥1), $0.0011 (≥1000), $0.0010 (≥3000), $0.0009 (≥10000), $0.0009 (≥50000), $0.0009 (≥50200) |
 | **Operating Temperature** | -55℃~+155℃ |
 | **Power(Watts)** | 62.5mW |

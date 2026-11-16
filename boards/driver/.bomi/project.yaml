@@ -31,6 +31,11 @@ selections:
   lcsc: C19077535
   quantity: 1
   notes: SMAJ15A TVS on +12V (hot-plugged chain cables)
+- ref: D5
+  lcsc: C7502691
+  quantity: 1
+  notes: 'RB751V-40 Schottky, DIN_IN clamp to +5V: holds U7''s input near 5.4 V if
+    12 V reaches the data pin (D28)'
 - ref: J1-J2
   lcsc: C144394
   quantity: 2
@@ -62,7 +67,8 @@ selections:
 - ref: R10
   lcsc: C11702
   quantity: 1
-  notes: '1k series on DIN: limits clamp current when DIN rings below GND (D18); no 12 V fix'
+  notes: '1k series on DIN: limits clamp current when DIN rings below GND (D18); no
+    12 V fix'
 - ref: U1
   lcsc: C114581
   quantity: 1

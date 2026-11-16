@@ -43,6 +43,7 @@ the way in; the detail stays in the documents it links to.
 | D18 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702) | applied 2026-11-14 |
 | D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | applied 2026-11-14 |
 | D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md |
+| D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).

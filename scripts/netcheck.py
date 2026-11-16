@@ -50,6 +50,8 @@ for j in ("J1", "J2"):
 nl.expect(nl.pin[("J1", "2")] == "DIN" and nl.pin[("R10", "1")] == "DIN", "J1.2 -> R10")
 nl.same(("R10", "2"), ("U7", "2"), "R10 -> level shifter input"); nl.same(("R7", "1"), ("U7", "2"), "R7 pull-down at the shifter input")
 nl.expect(nl.pin[("R7", "2")] == "GND", "R7 to GND")
+nl.same(("D5", "2"), ("U7", "2"), "D5 anode on the shifter input")
+nl.expect(nl.pin[("D5", "1")] == "+5V", "D5 cathode on +5V: clamps the shifter input (D28)")
 nl.expect(nl.pin[("D4", "1")] == "+12V" and nl.pin[("D4", "2")] == "GND", "TVS D4 cathode on +12V, anode on GND")
 nl.expect(nl.pin[("C9", "1")] == "+12V" and nl.pin[("C9", "2")] == "GND", "bulk C9 across +12V")
 nl.same(("J2", "2"), ("R8", "2"), "J2.2 through R8 from WS2811 DO")

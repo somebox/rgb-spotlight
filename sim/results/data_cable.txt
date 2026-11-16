@@ -1,14 +1,15 @@
-T0H 250 ns from WS2811 DO through R8, a chain cable and R10, at U7's input (1.5 V threshold, no clamp in the model)
+T0H 250 ns from WS2811 DO through R8, a chain cable and R10, at U7's input with D5 to +5V (1.5 V threshold, U7's own clamp not modelled)
 cable  R8  R10    Vin max  Vin min  clamp mA  T0H at U7  edges  pass
-  1 m  33   100    5.28   -0.37     0.00     277 ns  clean  yes
+  1 m  33   100    5.24   -0.36     0.00     277 ns  clean  yes
   1 m  33  1000    4.52    0.00     0.00     278 ns  clean  yes
-  1 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
-  2 m  33   100    5.88   -0.97     4.70     276 ns  clean  NO
-  2 m  33  1000    4.59   -0.07     0.00     277 ns  clean  yes
-  2 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
-  4 m  33   100    6.08   -1.17     6.69     276 ns  clean  NO
-  4 m  33  1000    5.29   -0.78     0.28     277 ns  clean  yes
-  4 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
-  8 m  33   100    6.08   -1.18     6.84     276 ns  clean  NO
-  8 m  33  1000    5.58   -1.07     0.57     277 ns  clean  yes
-  8 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
+  1 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+  2 m  33   100    5.35   -0.96     4.63     276 ns  clean  NO
+  2 m  33  1000    4.52   -0.01     0.00     277 ns  clean  yes
+  2 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+  4 m  33   100    5.35   -1.17     6.69     276 ns  clean  NO
+  4 m  33  1000    5.20   -0.73     0.23     277 ns  clean  yes
+  4 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+  8 m  33   100    5.35   -1.17     6.74     276 ns  clean  NO
+  8 m  33  1000    5.27   -1.06     0.56     277 ns  clean  yes
+  8 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+12 V on the data pin (a mis-crimped cable, review R6), 1 m, R8 33, R10 1k: U7 input 5.39 V, 5.6 mA through D5 into +5V (U7 abs max 7 V; without D5, 12 V x 10k/11k = 10.9 V)

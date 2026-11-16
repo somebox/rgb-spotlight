@@ -87,6 +87,7 @@ P.update({
     # 150 deg gap: J1 (back) + input protection and level shifter (front)
     "D4": (*polar(16.4, 150), 60), "C9": (*polar(22.3, 150), 60),
     "U7": (-9.6, -16.6, 0), "C3": (-9.6, -19.0, 0), "R7": (-12.2, -17.4, 90), "R10": (-12.2, -15.2, 90),
+    "D5": (-13.8, -17.95, 270),              # DIN_IN clamp to +5V (D28), left of R7; added to the routed board in place
     # 30 deg gap: J2 (back) + 78L05 (front)
     "U5": (6.8, -19.5, 0), "C5": (10.6, -18.0, 90), "C4": (9.9, -21.3, 90),
     # 270 deg gap: WS2811 + 74HC14 with pull-ups between, decoupling at the ends

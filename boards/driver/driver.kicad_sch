@@ -3683,6 +3683,16 @@
 		)
 		(uuid "6f1c175d-aec6-448b-a8e8-6ed2e07070b8")
 	)
+	(label "DIN_IN"
+		(at 66.04 80.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "660c2332-c629-48c5-a61a-d0a6504e2ed9")
+	)
 	(label "DIN_5V"
 		(at 88.9 60.96 0)
 		(effects
@@ -3993,7 +4003,7 @@
 		)
 		(uuid "288bc6f5-1f4c-4a03-83d9-6e14cb648722")
 	)
-  (text "DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged."
+  (text "DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V."
     (at 22.86 40.64 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "ca760030-be77-4793-b462-522ef2fadee8")
@@ -7418,6 +7428,84 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D_Schottky")
+		(at 66.04 76.2 270)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d259890a-f5c7-4045-9c14-7b9b509fca94")
+		(property "Reference" "D5"
+			(at 68.58 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RB751V-40"
+			(at 63.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SOD-323"
+			(at 66.04 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 66.04 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Schottky diode"
+			(at 66.04 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C7502691"
+			(at 66.04 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "RB751V-40"
+			(at 66.04 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "driver"
+				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 55.88 80.01 0)
 		(unit 1)
@@ -9852,6 +9940,67 @@
 			(project "driver"
 				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
 					(reference "#PWR0040")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 66.04 72.39 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9e814ea5-24f4-410a-a678-b4bfabb0af26")
+		(property "Reference" "#PWR0041"
+			(at 66.04 76.2 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 66.04 68.834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 66.04 72.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 66.04 72.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 66.04 72.39 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "driver"
+				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
+					(reference "#PWR0041")
 					(unit 1)
 				)
 			)
