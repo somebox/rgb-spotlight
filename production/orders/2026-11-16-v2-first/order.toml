@@ -2,7 +2,7 @@
 # housing and optic carriers for 5 lamps from JLCCNC and JLC3DP, all in one JLC cart. Written by hand (or by Claude when
 # told what happened); `pcbkit production` makes ORDER.md and upload/ from it. Add an [[event]] for each step: status =
 # draft, submitted, in-production, shipped, received, problem or cancelled; order_no, price and currency once known.
-title = "driver v2.2 and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps"
+title = "driver v2.2 and LED board v2.0, 2 of each assembled, with the round-7 housing for 5 lamps"
 house = "jlcpcb"
 fab = [
   "LED board: aluminium, 1 layer, 1.6 mm, 1 oz, 1 W/mK (the only conductivity JLC offers on 1-layer aluminium), 3000 V, white mask, black silkscreen, HASL with lead, JLC's mark removed, single PCBs",
@@ -11,7 +11,7 @@ fab = [
   "Driver: FR4, 2 layers, 1.6 mm, 1 oz, green mask, white silkscreen, HASL with lead (JLC now defaults to OSP), tented vias, JLC's default 0.3 mm via option (all 69 vias are 0.3 mm drills), JLC's mark removed. PCB remark: the JLCJLCJLCJLC text on the bottom silk is an old order-number placeholder, to be left off",
   "Driver PCBA: Economic, top side, 2 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.2 from 2026-11-16) (the release's CPL less J1/J2, which sit on the back). J3 (JST PH 6, through-hole) placed by JLC: hand-soldering fee $3.61 and manual assembly $0.20",
   "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left, as the never-checked ^SOT-353 (+180) left it a quarter turn out; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed on branch jlc-rotations-spotlight",
-  "Housing: JLCCNC sheet metal, Al 5052, black matte powder coat on shell, cap, hood, doors and yoke, plate/fins/spacers bare; the plate's 10 x M3 threads and the cap's 4 press nuts by drawing (mech/housing/order6/*.pdf), priced after JLCCNC's review. Carriers: JLC3DP MJF PA12-HP, dyed black",
+  "Housing: JLCCNC sheet metal, Al 5052, black matte powder coat on shell, cap, hood, doors and yoke, plate/fins/spacers bare; the plate's 10 x M3 threads (mech/housing/order6/rgb-spotlight-plate-threads.pdf) and the cap's 4 press nuts, round 7: 2 x PEM S-M3-2, 2 x S-M4-2 (mech/housing/order7/rgb-spotlight-cap-press-nuts.pdf) by drawing, priced after JLCCNC's review. Round 7 (DESIGN D30) changes only the shell, cap and yoke (mech/housing/order7/); the other parts are round 6's (order6/). Carriers: JLC3DP MJF PA12-HP, dyed black",
   "Customs: boards 'Research/Education/DIY, DIY - HS 902300'; sheet metal HS 761699; carriers 'Plastic Bracket' HS 392690",
 ]
 notes = [
@@ -41,10 +41,35 @@ buy = "LCSC C144394"
 note = "driver J1, J2 on the back, 2 per assembled board; buy a few spare"
 
 [[extra]]
-part = "Housing sheet metal for 5 lamps (round 6)"
+part = "Housing sheet metal for 5 lamps (round 7)"
 qty = 1
-buy = "JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204)"
-note = "shell x5, cap x5, hood x5, door x20, yoke x5 (black powder coat); plate x5, fin x20, spacer x40 (bare): $156.95 before threads and press nuts"
+buy = "JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204, round 6: the shell, cap and yoke to be replaced by round 7's)"
+note = "shell x5, cap x5, hood x5, door x20, yoke x5 (black powder coat); plate x5, fin x20, spacer x40 (bare): $156.95 for round 6, before threads and press nuts"
+
+# The yoke pivot and cap screws (housing round 7, DESIGN D30): bought, fitted by hand. Per lamp 2 of each.
+[[extra]]
+part = "Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud"
+qty = 10
+buy = "Elesa or a distributor"
+note = "yoke pivot knobs, 2 per lamp"
+
+[[extra]]
+part = "Washer DIN 9021 4.3 (M4), steel, 4.3 x 12 x 1.0"
+qty = 10
+buy = "any"
+note = "under each knob's hub"
+
+[[extra]]
+part = "Washer DIN 125-A 4.3 (M4), polyamide, 4.3 x 9 x 0.8"
+qty = 10
+buy = "any"
+note = "between yoke and shell: the pivot's friction face"
+
+[[extra]]
+part = "Screw ISO 7380 M3 x 6, button head"
+qty = 10
+buy = "any"
+note = "cap to shell, top and bottom, into the cap's S-M3-2 nuts"
 
 [[extra]]
 part = "Optic carrier, MJF PA12 dyed black"
@@ -105,3 +130,8 @@ date = 2026-11-16
 status = "draft"
 pcb = "driver"
 note = "driver moves to v2.2 before payment: R11 (470 ohm, +5V to GND) sinks D5's clamp current, which the 78L05 can't (DESIGN D29; releases/driver/v2.2, commit 2dc7d45). Without it, 12 V on the data pin would lift the whole +5V rail of a v2.1 board. The cart's v2.1 items (PCB Y174-2642684A, PCBA SMT026111664196-2642684A) are to be replaced by v2.2 with the same options; in the preview U7 needs the same hand turn, and R11 is a resistor (no orientation)"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+note = "housing moves to round 7 before payment (DESIGN D30, mech/housing/order7/): the yoke pivot as real parts, M4 knobs into PEM S-M4-2 nuts. The cart's round-6 shell, cap and yoke are to be replaced by order7's, with the same options, and quoted again: round 6's cap asked for M5 nuts in 7.14 mm holes 6.0 mm from the rim's edge, which PEM's M5 nut (SS-M5, hole 6.35, edge 7.1) can't meet"

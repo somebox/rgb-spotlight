@@ -62,6 +62,7 @@ D_TOP, D_SIDE = 5.0, 6.5                    # leaf back face in front of its pin
 TIP = 0.5                                   # closed doors stop 0.5 mm short of the axis
 # yoke
 Y_T, Y_IN, Y_BASE, Y_HZ = 3.0, W2 + 1.0, -66.0, 12.0
+PIVOT_HOLE = 5.5                            # the pivot's clearance hole in the yoke and the shell
 
 
 def polar(r, a):
@@ -160,13 +161,14 @@ def shell():
         for zc_ in SLOT_Z_STACK:
             tools.append(slot("x", s * W2 - 3, s * W2 + 3, "y", -SLOT_L, SLOT_L, "z", zc_, SLOT_W))
         tools.append(cyl("y", s * W2 - 3, s * W2 + 3, {"x": 0, "z": Z_NUT}, 3.4))     # cap screws M3
-        tools.append(cyl("x", s * W2 - 3, s * W2 + 3, {"y": 0, "z": Z_NUT}, 5.5))     # yoke knobs M5
+        tools.append(cyl("x", s * W2 - 3, s * W2 + 3, {"y": 0, "z": Z_NUT}, PIVOT_HOLE))  # yoke knobs
     return cut(sh, tools)
 
 
 # ---------------------------------------------------------------- back cap
 J_CUT = [(16.45, 9.5), (-16.45, 9.5)]          # J2 and J1 on the driver's back face
 NUT_M3, NUT_M5 = 4.22, 7.14                    # press-nut mounting holes (PEM S-M3-1, S-M5-1)
+NUT_PIVOT = NUT_M5                             # the side rims' nut, for the yoke knobs
 
 
 def cap():
@@ -186,7 +188,7 @@ def cap():
                      .edges("|Z").fillet(2).val())
     for s in (-1, 1):
         tools.append(cyl("y", s * w - 3, s * w + 3, {"x": 0, "z": Z_NUT}, NUT_M3))
-        tools.append(cyl("x", s * w - 3, s * w + 3, {"y": 0, "z": Z_NUT}, NUT_M5))
+        tools.append(cyl("x", s * w - 3, s * w + 3, {"y": 0, "z": Z_NUT}, NUT_PIVOT))
     return cut(c, tools)
 
 
@@ -268,7 +270,7 @@ def yoke():
         parts.append(bx((s * Y_IN, s * (Y_IN + t)), (Y_BASE + r, 0), (z0, z1)))
         parts.append(cyl("x", *sorted((s * Y_IN, s * (Y_IN + t))), {"y": 0, "z": Z_NUT}, 2 * Y_HZ))
     y = fuse(parts)
-    tools = [cyl("x", -45, 45, {"y": 0, "z": Z_NUT}, 5.5)]
+    tools = [cyl("x", -45, 45, {"y": 0, "z": Z_NUT}, PIVOT_HOLE)]
     tools += [cyl("y", Y_BASE - t - 1, Y_BASE + 1, {"x": x, "z": Z_NUT}, d) for x, d in ((0, 6.6), (-22, 4.5), (22, 4.5))]
     return cut(y, tools)
 

@@ -2,7 +2,7 @@
 
 Status (2026-11-16): the driver is **released as v2.2** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29), the
 LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**, its driver to be swapped there for v2.2
-before payment (the cart holds v2.0 and v2.1): 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
+and the housing's shell, cap and yoke for round 7's (D30) before payment: 2 of each board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
 JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -46,6 +46,7 @@ the way in; the detail stays in the documents it links to.
 | D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md |
 | D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
 | D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin | applied 2026-11-16, driver v2.2 |
+| D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/`, not yet in the cart |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
@@ -84,6 +85,8 @@ the way in; the detail stays in the documents it links to.
    SOT-89 and D5 were right. Then released again as v2.2 with R11 (D29). Left to do:
    - swap the cart's driver for v2.2: remove v2.0 (PCB Y173, PCBA SMT026111662992) and v2.1 (PCB Y174, PCBA
      SMT026111664196), add v2.2 with the same options and turn U7 by hand again;
+   - swap the cart's round-6 shell, cap and yoke for round 7's (`mech/housing/order7/`, D30), with the same options;
+   - buy the pivot parts (the order's extras): 10 Elesa VC.692/25 p-M4x10 knobs, M4 washers, ISO 7380 M3 × 6;
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
    - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself.
@@ -96,7 +99,7 @@ the way in; the detail stays in the documents it links to.
 
 ## Open questions
 
-- Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 6 of the sheet-metal design, `mech/housing/` (D21–D27).
+- Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 7 of the sheet-metal design, `mech/housing/` (D21–D27, D30): round 6 with the yoke pivot from real parts.
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
 

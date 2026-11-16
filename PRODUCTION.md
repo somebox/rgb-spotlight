@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): the driver released as v2.2 (D5, a clamp on the data input, DESIGN D28, and R11, which takes D5's current off the +5V rail, D29) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.2 and is in the JLC cart, unpaid, still with driver v2.1 (Y174) beside v2.0's (Y173): both are to go, v2.2 to come in, before paying. 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-16): the driver released as v2.2 (D5, a clamp on the data input, DESIGN D28, and R11, which takes D5's current off the +5V rail, D29) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.2 and is in the JLC cart, unpaid, still with driver v2.1 (Y174) beside v2.0's (Y173): both are to go, v2.2 to come in, before paying. The housing moved to round 7 (DESIGN D30): the cart's round-6 shell, cap and yoke are to be replaced by `mech/housing/order7/`'s and quoted again. 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -100,6 +100,8 @@ The things that went wrong before, or could:
 | spacer (3 mm) | 40 | bare | 15.60 | |
 | **Sheet metal** | | | **156.95** | ≈ 145.75 |
 
+**Round 7 (D30), not yet quoted.** The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and the cap 2 × PEM S-M4-2 nuts (hole 5.41) in rims 1.5 mm longer, instead of M5 nuts in 7.14 mm holes 6.0 mm from the edge, which PEM's M5 nut (SS-M5: hole 6.35, 7.1 mm from the edge) can't meet. Files: `mech/housing/order7/` (shell, cap, yoke and the cap's drawing); the rest stays round 6's. Bought for the pivot, per lamp: 2 × Elesa VC.692/25 p-M4x10 knob, 2 × DIN 9021 and 2 × DIN 125 polyamide M4 washers, and 2 × ISO 7380 M3 × 6 for the cap (the order's extras).
+
 Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the back). JLC solders J3.
 
 ## Overview
@@ -111,7 +113,7 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.2 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.60 USD | driver moves to v2.2 before payment: R11 (470 ohm, +5V to GND) sinks D5's clamp current, which the 78L05 can't (DESIGN D29; releases/driver/v2.2, commit 2dc7d45). Without it, 12 V on the data pin would lift the whole +5V rail of a v2.1 board. The cart's v2.1 items (PCB Y174-2642684A, PCBA SMT026111664196-2642684A) are to be replaced by v2.2 with the same options; in the preview U7 needs the same hand turn, and R11 is a resistor (no orientation) |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.2 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.60 USD |  |
 | [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
 
 ### Boards
@@ -130,14 +132,18 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | part | needed | on hand | to buy | where |
 | --- | --- | --- | --- | --- |
 | B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 4 | 0 | 4 | LCSC C144394 |
-| Housing sheet metal for 5 lamps (round 6) | 1 | 0 | 1 | JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204) |
+| Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor |
+| Housing sheet metal for 5 lamps (round 7) | 1 | 0 | 1 | JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204, round 6: the shell, cap and yoke to be replaced by round 7's) |
 | Optic carrier, MJF PA12 dyed black | 7 | 0 | 7 | JLC3DP, in the JLC cart (D2026111615500272, -280, -287) |
+| Screw ISO 7380 M3 x 6, button head | 10 | 0 | 10 | any |
+| Washer DIN 125-A 4.3 (M4), polyamide, 4.3 x 9 x 0.8 | 10 | 0 | 10 | any |
+| Washer DIN 9021 4.3 (M4), steel, 4.3 x 12 x 1.0 | 10 | 0 | 10 | any |
 
 ### Orders
 
 | order | what | status | last event |
 | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.2 and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps | draft | 2026-11-16 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.2 and LED board v2.0, 2 of each assembled, with the round-7 housing for 5 lamps | draft | 2026-11-16 |
 
 ### Problems
 
