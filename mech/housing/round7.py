@@ -1,4 +1,5 @@
-"""RGB Spotlight, square lamp, round 7: round 6 with the yoke pivot drawn from real parts (DESIGN D30).
+"""RGB Spotlight, square lamp, round 7: round 6 with every fastener a real part, mounts on the cap's back and a wider
+harness bore (DESIGN D30-D33). First, the yoke pivot (D30).
 
 ROT=45 uv run --python 3.12 --with cadquery python round7.py OUTDIR
 
@@ -36,6 +37,10 @@ standoff as its nut, and no screws under the driver. Round 7, on each of the thr
   screw     polyamide pan head M3 x 6 from the back
 The three LED screws are ISO 7380 M3 x 20 and the four shell screws ISO 7380 M3 x 6, the type of the cap screws and
 door pins.
+
+The hole down the middle of the plate, spacers and fins is 12 mm (was 8), so the LED harness's three JST XH 2-pin plugs
+(XHP-2: 7.4 x 5.75 mm, 9.4 across the diagonal) pass through it one at a time, beside the wires of those already
+through (DESIGN D33). The driver's three sockets stand 7.0 mm high, 9.8 with the plugs on, in the 14.9 mm behind the stack.
 """
 import os
 import sys
@@ -51,6 +56,9 @@ import sheet as S  # noqa: E402
 from sheet import cut, cyl  # noqa: E402
 
 PIVOT_HOLE = 4.5                    # M4 medium clearance (ISO 273)
+STACK_BORE = 12.0                   # the stack's middle hole: passes a JST XHP-2 plug with wires beside it (D33)
+XH_PLUG = dict(w=7.4, d=5.75, header=7.0, mated=9.8)     # JST XH, 2 circuits (JST's XH sheet): plug section, heights
+XH_PINS = dict(row=5.555, shift=1.63)                    # the driver's three sockets: pin row from the centre, its shift (gen_driver_pcb.py)
 CAP_FRONT = -50.5                   # cap rims' front edge: 7.5 mm from the nut holes
 NUT_M4 = dict(hole=5.41, shank_d=5.38, shank=1.38, head_d=7.87, head=2.0)    # PEM S-M4-2
 NUT_M3 = dict(hole=4.22, shank_d=4.2, shank=1.38, head_d=6.35, head=1.5)     # PEM S-M3-2
@@ -74,17 +82,18 @@ DRV_Z = Z_STANDOFF - 1.6                            # the driver's back face, -5
 
 
 def patched(fn):
-    """Call fn with sheet.py's pivot sizes and cap rims set to round 7's."""
-    saved = (S.PIVOT_HOLE, S.NUT_PIVOT, S.CAP_FRONT)
-    S.PIVOT_HOLE, S.NUT_PIVOT, S.CAP_FRONT = PIVOT_HOLE, NUT_M4["hole"], CAP_FRONT
+    """Call fn with sheet.py's pivot sizes, cap rims and stack bore set to round 7's."""
+    saved = (S.PIVOT_HOLE, S.NUT_PIVOT, S.CAP_FRONT, S.STACK_BORE)
+    S.PIVOT_HOLE, S.NUT_PIVOT, S.CAP_FRONT, S.STACK_BORE = PIVOT_HOLE, NUT_M4["hole"], CAP_FRONT, STACK_BORE
     try:
         return fn()
     finally:
-        S.PIVOT_HOLE, S.NUT_PIVOT, S.CAP_FRONT = saved
+        S.PIVOT_HOLE, S.NUT_PIVOT, S.CAP_FRONT, S.STACK_BORE = saved
 
 
 def build():
-    """Round 6's parts; the shell, cap and yoke rebuilt with round 7's holes and rims, the cap's back with four nut holes."""
+    """Round 6's parts; the shell, cap, yoke, plate, fins and spacers rebuilt with round 7's holes and rims, and the
+    cap's back with four nut holes."""
     p = patched(R6.build)
     p["cap"] = cut(p["cap"], [cyl("z", S.ZB - 1, S.ZB + S.SH_T + 1, {"x": x, "y": y}, NUT_M3["hole"]) for x, y in BACK_NUTS])
     return p
@@ -193,7 +202,7 @@ lamp = R6.lamp
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     parts = build()
-    for name in ("shell", "cap", "yoke"):
+    for name in ("shell", "cap", "yoke", "plate", "fin", "spacer"):
         s = parts[name]
         cq.exporters.export(cq.Workplane().add(s), os.path.join(OUT, f"rgb-spotlight-r7-{name}.step"))
         print(f"{name:6s} valid {s.isValid()} solids {len(s.Solids())} vol {s.Volume() / 1000:.3f} cm3")

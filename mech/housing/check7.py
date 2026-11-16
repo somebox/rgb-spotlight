@@ -8,6 +8,7 @@ ROT=45 uv run --python 3.12 --with cadquery python check7.py OUTDIR
 4. The press nuts' distance to the cap rims' edge, and the back nuts' to the cable cut-outs, against PEM's minimum.
 5. Room for a box on the cap's back (D31): a 64 x 64 mm block of each depth, turned with the lamp against the yoke.
 6. The heat stack's fasteners (D32): thread lengths, what sticks out where, and their clearance to the driver's parts.
+7. The LED harness (D33): the XH plug through the stack's bore, the sockets' height behind the stack, the pins under the bore.
 Needs the boards' STEPs in ../out (driver.step, led.step), exported centred on the board:
 kicad-cli pcb export step --subst-models --no-dnp --user-origin 150x100mm -o ../out/driver.step boards/driver/driver.kicad_pcb
 """
@@ -133,5 +134,20 @@ fast["driver screw heads: to the cap's back face"] = (R.DRV_Z - R.DRV_SCREW["hea
 for k, v in fast.items():
     print(f"6. {k:48s} {v:6.2f} mm")
 res["stack"] = {k: round(v, 2) for k, v in fast.items()}
+
+xh, gap = R.XH_PLUG, S.STACK_BACK - R.Z_STANDOFF
+diag = math.hypot(xh["w"], xh["d"])
+pins = [math.hypot(R.XH_PINS["shift"] + dt, R.XH_PINS["row"]) for dt in (-1.25, 1.25)]
+harness = {
+    f"XH 2-pin plug {xh['w']} x {xh['d']}, {diag:.2f} across, in the {R.STACK_BORE:g} mm bore: room at its corners": (R.STACK_BORE - diag) / 2,
+    "room beside the plug's long faces, for the wires already through": (R.STACK_BORE - xh["d"]) / 2,
+    "bore to the tie rods' holes": 11 - 1.6 - R.STACK_BORE / 2,
+    "sockets with their plugs on, to the last fin": gap - xh["mated"],
+    "nearest pin to the lamp's axis": min(pins),
+    "farthest pin to the lamp's axis (bore radius %g)" % (R.STACK_BORE / 2): max(pins),
+}
+for k, v in harness.items():
+    print(f"7. {k:86s} {v:6.2f} mm")
+res["harness"] = {k: round(v, 2) for k, v in harness.items()}
 os.makedirs(OUT, exist_ok=True)
 json.dump(res, open(os.path.join(OUT, f"check7-rot{R.R6.ROT:g}.json"), "w"), indent=1)

@@ -68,7 +68,7 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D21 | 2026-11-16 | Barn doors: one part four times, 40 mm from hinge to tip and 71 mm wide past the ears, straight sides, on M3 × 8 pins in the hood's eight lugs (housing review, round 5) | standing at 90° the four close the corners: 0.70 % of the lenses' worst-case light gets out the sides, against 9.4 % for 62 mm doors cut to meet at 60° |
 | D22 | 2026-11-16 | The doors shape the beam one pair at a time: a pair closes until its tips meet, at 32°, while the other stands at 90° or folds back | follows from D21: doors that wide no longer close all four together |
 | D23 | 2026-11-16 | The LED board sits turned 45° in the housing: LEDs at 135° / 255° / 15°, its M3 screws into the heat plate at 75° / 195° / 315°. The board itself is unchanged | each LED then has its own height and side position, so every door edge splits the beam into three colour bands (D8's intended effect). At 0° two LEDs share a height; at 30° two share a side position |
-| D24 | 2026-11-16 | LED harness: 24 AWG wire with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), not silicone. J3 stays one JST PH 6 | 24 AWG silicone is 1.5–2.0 mm across, over the PH contact's 0.8–1.5 mm insulation crimp, and six of them crowd the sleeve in the 6.4 mm hole (D20). Thicker wire gains nothing at 0.45 A per LED (about 6 mV over 8 cm), and three 2-pin PH plugs would take the same wire sizes while letting colours be swapped |
+| D24 | 2026-11-16 | LED harness: 24 AWG wire with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), not silicone. J3 stays one JST PH 6 (the connector changed by D33; the wire stays) | 24 AWG silicone is 1.5–2.0 mm across, over the PH contact's 0.8–1.5 mm insulation crimp, and six of them crowd the sleeve in the 6.4 mm hole (D20). Thicker wire gains nothing at 0.45 A per LED (about 6 mV over 8 cm), and three 2-pin PH plugs would take the same wire sizes while letting colours be swapped |
 | D25 | 2026-11-16 | Housing finish: black matte powder coat on the shell, cap, hood, doors and yoke; the plate, fins and spacers bare aluminium. The cap's press nuts go in after coating | the housing review's recommendation over anodizing, accepted for the first order; JLCCNC quoted it at the review's estimates (PRODUCTION.md) |
 | D26 | 2026-11-16 | The 78 mm hood keeps its 1.5 mm sheet where it clamps the lenses | traced with the review's beam model (each lens face at σ 12.7° behind its Ø18.6 window): the clamp stops 0.26 % of a lens's light, 0.54 % at σ 15°, against 0.09 % at 1.2 mm and 0.03 % at 1.0 mm. No real loss |
 | D27 | 2026-11-16 | First housing order: one carrier 0.5 mm and one 1.0 mm taller besides the five, to test the focus; a dab of black silicone seals the wire hole; the door pins are M3 × 8 with nylock nuts | the housing review's recommendations, accepted for the first order |
@@ -77,6 +77,7 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D30 | 2026-11-16 | Yoke pivot from real parts (housing round 7): an Elesa VC.692/25 p-M4x10 knob (Ø25 five-lobe, M4 × 10 stud) on each side, a DIN 9021 steel washer under it and a DIN 125 polyamide washer between yoke and shell, Ø4.5 holes in yoke and shell, a PEM S-M4-2 press nut in each side rim of the cap, whose rims run 1.5 mm further forward; the top and bottom cap screws ISO 7380 M3 × 6 into PEM S-M3-2. Replaces round 6's shell, cap and yoke (`mech/housing/order7/`) | round 6 drew the pivot as a hex placeholder with no stud over a Ø7.14 cap hole and Ø5.5 holes: no real part matched. PEM's M5 nut (SS-M5) takes Ø6.35 and needs 7.1 mm to the sheet's edge, where the rims gave 6.0; M4 needs 6.9 and gets 7.5. M4 holds with margin and the holes shrink: the lamp (≈ 0.38 kg, its centre of mass 43 mm in front of the pivot) needs 0.16 N·m when level, and a 0.5 N·m finger turn on each knob clamps about 600 N, roughly 1 N·m of friction per side (μ 0.25, estimated). Checked (`check7.py`): no overlaps with the doors standing, closed or folded back; the tilt limit unchanged (the yoke base at 55°); inside the cap the nearest fastener, a nut head, is 2.6 mm from the driver board and 6.3 mm from its parts |
 | D31 | 2026-11-16 | Four PEM S-M3-2 press nuts in the cap's back face on a 46 × 46 mm square, centred, heads inside: a mount for a box with a controller and power supply. Housing round 7 | the owner's request. Press nuts, not tapped holes: a thread tapped in 1.5 mm aluminium has three turns. M3 because M4 needs 6.9 mm to the cable cut-outs and there is no room for a square; M3 gets 6.2 (PEM: 4.8), its heads 1.8 mm short of the bends and 8 mm or more from the driver's parts. A 64 × 64 mm box up to 40 mm deep keeps the whole tilt range; 50 mm deep stops it at about 50° the other way (`check7.py`) |
 | D32 | 2026-11-16 | The heat stack's fasteners as real parts (housing round 7), on each of the three tie rods: an M3 × 45 threaded stud locked into the plate, its end 0.2 mm below the plate's front face; a DIN 125 washer and an ISO 4032 steel nut behind the last fin; a 12 mm polyamide standoff (was 15) on the stud behind the nut; a polyamide M3 × 6 from the back of the driver. LED screws ISO 7380 M3 × 20, shell screws ISO 7380 M3 × 6. No sheet-metal part changes | the model had a bare 44.8 mm rod with the nylon standoff as the stack's only nut, and no screws under the driver: the exploded view could not say what to buy. A steel nut clamps the greased aluminium joints; nylon thread would hold a few hundred newtons at best and creeps when warm (an estimate, not measured). The driver moves 0.1 mm forward. Checked (`check7.py`): no overlaps; stud 2.8 mm in the plate and 3.3 mm in the standoff; driver screw 4.4 mm in the standoff, 4.3 mm from the stud's end, its head 2.0 mm from J1/J2; LED screws' tips 2.6 mm behind the plate, 3.4 mm short of the first fin |
+| D33 | 2026-11-16 | The LED harness plugs in as three pairs: three JST XH 2-pin sockets on the driver's front, J3 red, J4 green, J5 blue (B2B-XH-A, C158012; pin 1 +), in place of J3's PH 6, with XHP-2 plugs and SXH-001T-P0.6 contacts on the wires. The hole down the middle of the plate, spacers and fins grows from 8 to 12 mm (housing round 7). Driver v2.3 | the owner's decision: one good connector type to keep in stock (genuine JST XH, also the chain's J1/J2), and plugs that pass the heat stack. An XHP-2 plug is 7.4 × 5.75 mm, 9.4 across: in a 12 mm bore it has 1.3 mm at its corners and 3.1 mm beside its long faces for the pairs already through. The sockets stand as a pinwheel round the board's centre, each beside its cell's Rs and L, pin rows 5.6 mm out and shifted 1.63 mm (the one place where their courtyards clear each other, the inductors and the standoffs, by 0.15 mm); the pins are 5.6–6.3 mm from the axis, under the bore, and the plugs 9.8 mm high in the 14.9 mm behind the stack. XH contacts take insulation up to 1.9 mm, but six wires still share the LED board's 6.4 mm hole, so D24's thin wire stays. On the board, edited in place: J3 out, three sockets in, six links laid again, the thin +12V link and the +5V feed on the back moved round the new pads. ERC 0, `netcheck.py` 66 checks, DRC 0/0 with parity. The bore takes 10 % of the spacers' contact area |
 
 ---
 
@@ -203,10 +204,10 @@ WS2811 outputs are 20 V-tolerant constant-current sinks (≈ 16 mA) and sink whe
   - Each LED sits on its own large copper island (`HEAT_R/G/B`), never joined. That makes the slug-isolation question moot, and the dielectric isolates the islands from the aluminium.
   - A 6.4 mm centre hole passes the wires. The six wire pads around it are soldered on the front; the wires go straight through the hole.
   - Three M3 holes at r = 19 mm (30° / 150° / 270°) bolt it to the housing's heat plate with thermal paste or a pad. In the housing the board sits turned 45° (D23): the holes land at 75° / 195° / 315° there, and the LEDs at 135° / 255° / 15°.
-- **Harness:** six 24 AWG wires with thin insulation, at most 1.5 mm across (D24), twisted per colour, soldered to the LED board and crimped into a JST PH 6 housing. Pin order: R+ R− G+ G− B+ B−.
+- **Harness:** six 24 AWG wires with thin insulation, at most 1.5 mm across (D24), twisted per colour, soldered to the LED board (pads R+ R− G+ G− B+ B−) and crimped, a pair per LED, into three JST XH 2-pin plugs for J3 (red), J4 (green) and J5 (blue), pin 1 = + (D33). The plugs pass the heat stack's 12 mm bore one at a time.
   - The LED pins are not the switching node (that is SW, between L and the PT4115 on the driver board). The wires carry DC with about ±15 % ripple at 240–290 kHz, so 4–6 cm is no problem.
 - **Driver board** (FR4, 2 layers, 50 mm, about 1 W):
-  - Front faces the LED board: all SMD parts, plus J3 (PH 6 vertical) at the centre.
+  - Front faces the LED board: all SMD parts, plus J3–J5 (XH 2 vertical, one per LED) round the centre.
   - Back faces the housing's back: J1 IN and J2 OUT (XH 3 vertical, through-hole). They are reachable through cut-outs in the back cap, or by short pigtails to panel connectors.
   - Three M3 holes at r = 11 mm for standoffs.
 - **Power per light at full white** (simulated, §2.7):
@@ -280,7 +281,7 @@ Full white at 455 mA. Assumptions:
 - **Bench check:** ceramic caps (C6–C9) can sing audibly at 4 kHz.
 - **Long chains:** the steps add up along the cable. Inject power at the start of each group of 5 (D14).
 
-## 3. Parts (bomi, qty 1: `docs/BOM_driver.md` 22 lines ≈ $1.71 on 2026-11-16; `docs/BOM_led.md` 3 lines ≈ $0.79 on 2026-11-14)
+## 3. Parts (bomi, qty 1: `docs/BOM_driver.md` 22 lines ≈ $1.76 on 2026-11-16; `docs/BOM_led.md` 3 lines ≈ $0.79 on 2026-11-14)
 
 | Board | Ref | Part | LCSC | Note / change from v1 |
 |---|---|---|---|---|
@@ -308,14 +309,14 @@ Full white at 455 mA. Assumptions:
 | driver | C6–C8 | 10 µF 50 V 1206 | C13585 | was 0805 25 V |
 | driver | C9 | 22 µF 25 V 1206 | C12891 | new: 12 V input bulk |
 | driver | J1, J2 | JST B3B-XH-A, vertical THT, back side | C144394 | was PH SMD right-angle; 3 A for chaining |
-| driver | J3 | JST B6B-PH-K-S, vertical THT | C131342 | new: LED harness |
+| driver | J3–J5 | JST B2B-XH-A, vertical THT | C158012 | LED harness, one socket per LED (D33); was one B6B-PH-K-S (C131342) |
 
 ## 4. Verification
 
 - **Driver ERC:** 0 errors, 0 warnings (`scripts/erc.py`).
 - **LED ERC:** 3 warnings, `isolated_pin_label` on HEAT_R/G/B. They are benign: each island is meant to connect to one pad only.
 - **`scripts/netcheck.py`** (66 assertions, driver) checks the v1 failure points directly:
-  - each channel's 12 V → Rs → CSN / J3 x+ … J3 x− → L → SW, and D from SW to 12 V;
+  - each channel's 12 V → Rs → CSN / socket + … socket − → L → SW, and D from SW to 12 V;
   - the CSN, LED-cathode and SW nodes hold nothing else;
   - DIM comes from a 74HC14 output;
   - every logic VCC is on +5V; the 78L05 pinout; the TVS orientation; R10/R7, D5 and R11; the connector pinout; no single-node nets.

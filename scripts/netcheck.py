@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assert the intended topology of the driver board netlist (ERC only proves the wiring is legal).
 
-Each check targets a v1 failure mode (DESIGN.md §1): the PT4115 current loop (now through the LED harness J3),
+Each check targets a v1 failure mode (DESIGN.md §1): the PT4115 current loop (now through the LED sockets J3-J5),
 the 74HC14 supply (v1's 74HC04), and the J1/J2 pinout. Usage: python3 scripts/netcheck.py   (exports the netlist; exit 1 on failure)
 Parsing and the expect/same helpers come from pcb-kit (pcbkit.checks.netlist).
 """
@@ -17,18 +17,18 @@ nl = Netlist(os.path.join(ROOT, "boards/driver/driver.kicad_sch"))
 
 for i, ch in enumerate("RGB"):
     n = i + 1; U = f"U{n + 1}"; R = f"R{n}"; L = f"L{n}"; D = f"D{n}"
-    A, K = ("J3", str(2 * n - 1)), ("J3", str(2 * n))      # LED harness: anode, cathode of this channel's LED
-    print(f"-- channel {ch}: {U} {R} {L} {D}, LED on J3.{A[1]} (+) / J3.{K[1]} (-)")
+    J = f"J{n + 2}"; A, K = (J, "1"), (J, "2")            # this channel's LED socket (XH 2): anode, cathode
+    print(f"-- channel {ch}: {U} {R} {L} {D}, LED on {J}.1 (+) / {J}.2 (-)")
     nl.same((U, "5"), (R, "1"), "Rs from VIN")
     nl.same((R, "1"), (D, "1"), "Schottky cathode on VIN")
     nl.expect(nl.pin[(U, "5")] == "+12V", "VIN on +12V")
     nl.same((R, "2"), (U, "4"), "Rs to CSN")
-    nl.same((R, "2"), A, "LED anode (J3 +) on CSN node (LED current flows through Rs)")
-    nl.same(K, (L, "1"), "LED cathode (J3 -) to inductor")
+    nl.same((R, "2"), A, f"LED anode ({J} +) on CSN node (LED current flows through Rs)")
+    nl.same(K, (L, "1"), f"LED cathode ({J} -) to inductor")
     nl.same((L, "2"), (U, "1"), "inductor to SW")
     nl.same((D, "2"), (U, "1"), "Schottky anode on SW")
-    nl.expect(len(nl.nets[nl.pin[(R, "2")]]) == 3, f"CSN node has only Rs, CSN, J3 +: {sorted(nl.nets[nl.pin[(R, '2')]])}")
-    nl.expect(len(nl.nets[nl.pin[K]]) == 2, f"LED cathode node has only J3 - and L: {sorted(nl.nets[nl.pin[K]])}")
+    nl.expect(len(nl.nets[nl.pin[(R, "2")]]) == 3, f"CSN node has only Rs, CSN, {J} +: {sorted(nl.nets[nl.pin[(R, '2')]])}")
+    nl.expect(len(nl.nets[nl.pin[K]]) == 2, f"LED cathode node has only {J} - and L: {sorted(nl.nets[nl.pin[K]])}")
     nl.expect(len(nl.nets[nl.pin[(U, "1")]]) == 3, f"SW node has only SW, L, D: {sorted(nl.nets[nl.pin[(U, '1')]])}")
     nl.expect(nl.pin[(U, "2")] == "GND", "PT4115 GND")
     nl.expect(nl.pin[(U, "3")] == f"DIM_{ch}" and ("U6", {"R": "2", "G": "4", "B": "6"}[ch]) in nl.nets[f"DIM_{ch}"], "DIM driven by a 74HC14 output")

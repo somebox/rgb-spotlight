@@ -6,11 +6,11 @@ No routing yet.
 
 Sits 4-6 cm behind the LED board in the housing. Board centre = origin, KiCad coordinates (y down), angles
 counter-clockwise from +x.
-- Front (faces the LED board): every SMD part and J3, the LED harness socket (JST PH 6 vertical), at the centre.
+- Front (faces the LED board): every SMD part and J3-J5, the three LED sockets (JST XH 2 vertical), round the centre.
 - Back (faces the housing's back): J1 IN and J2 OUT (JST XH 3 vertical, through-hole), reachable through the back
-  cap or by pigtails to panel connectors. Everything else is SMD on the front: one-sided SMT plus 3 THT parts.
+  cap or by pigtails to panel connectors. Everything else is SMD on the front: one-sided SMT plus 5 THT parts.
 - Each PT4115 channel is one "cell", drawn for red at the top (90 deg) and rotated +-120 deg for green and blue:
-  Rs and L innermost (their LED-side pads face J3), then D, then the PT4115 with Cin beside it, so the switching loop
+  Rs and L innermost (their LED-side pads face the centre), then D, then the PT4115 with Cin beside it, so the switching loop
   SW -> D -> VIN/Cin -> GND tab stays a few mm across.
 - Gaps between the cells: 150 deg = J1 + input protection (TVS, bulk) + level shifter; 30 deg = J2 + 78L05;
   270 deg = WS2811 + 74HC14. M3 holes at r = 11 mm in the three gaps.
@@ -71,18 +71,21 @@ def rot(x, y, a):
 polar = lambda r, a: (r * math.cos(math.radians(a)), -r * math.sin(math.radians(a)))
 tangent = lambda a: (-math.sin(math.radians(a)), -math.cos(math.radians(a)))      # counter-clockwise unit vector
 
-# red cell at the top; {n}: channel 1-3. Rs pad 2 (CSN = LED +) and L pad 1 (LED -) face J3 at the centre.
+# red cell at the top; {n}: channel 1-3. Rs pad 2 (CSN = LED +) and L pad 1 (LED -) face the cell's socket at the centre.
+# J{j}: the cell's LED socket (XH 2 vertical, D33), pin 1 (+) at the footprint's origin. The three form a pinwheel: pin row
+# 5.555 mm from the centre, shifted 1.63 mm towards L, where their courtyards clear each other, the inductors and the
+# standoffs by 0.15 mm. Placed and linked on the routed board in place (a 45 deg leg from Rs and from L, then a radial one).
 CELL = {"R{n}": (-4.0, -12.0, 270),          # Rs: pad 1 (+12V) outer, pad 2 (CSN, LED anode) inner
         "L{n}": (3.4, -12.0, 90),            # pad 1 (LED K) inner, pad 2 (SW) outer
         "D{n}": (0.0, -16.7, 0),             # K (pad 1, +12V) left, A (pad 2, SW) right
         "U{u}": (0.0, -20.5, 180),           # VIN lower-left, SW lower-right, CSN upper-left, DIM upper-right
-        "C{c}": (-5.0, -20.0, 90)}           # Cin: pad 1 (+12V) inner, pad 2 (GND) outer
+        "C{c}": (-5.0, -20.0, 90),           # Cin: pad 1 (+12V) inner, pad 2 (GND) outer
+        "J{j}": (0.38, -5.555, 0)}           # LED socket: pin 1 (+) left, towards Rs; pin 2 (-) right, towards L
 CH_ANGLE = {1: 0, 2: 120, 3: -120}           # rotation of the red cell: R top, G lower-left, B lower-right
 P, BACK = {}, {"J1", "J2"}
 for n, a in CH_ANGLE.items():
     for tmpl, (x, y, r) in CELL.items():
-        P[tmpl.format(n=n, u=n + 1, c=n + 5)] = (*rot(x, y, a), (r + a) % 360)
-P["J3"] = (0.0, -5.0, 270)                   # PH 6 vertical: pin 1 at the top (towards the red cell), pins downwards
+        P[tmpl.format(n=n, u=n + 1, c=n + 5, j=n + 2)] = (*rot(x, y, a), (r + a) % 360)
 P.update({
     # 150 deg gap: J1 (back) + input protection and level shifter (front)
     "D4": (*polar(16.4, 150), 60), "C9": (*polar(22.3, 150), 60),
@@ -175,9 +178,6 @@ for ref, c in comps.items():
         continue
     x, y, r = P[ref]
     fp.SetPosition(V(x, y)); fp.SetOrientationDegrees(r)
-    if ref == "J3":                          # centre the 6-pin row on the board centre
-        (x1, y1), (x6, y6) = pad_xy(fp, "1"), pad_xy(fp, "6")
-        fp.SetPosition(V(x - (x1 + x6) / 2, y - 5.0 - (y1 + y6) / 2 + 5.0))
 
 # ---- zones: GND on both layers -------------------------------------------------------------------------------
 for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
@@ -211,17 +211,13 @@ def text(s, x, y, size, layer=pcbnew.F_SilkS, angle=0):
         tx.SetMirrored(True)
     b.Add(tx); pl.commit(tx, "B" if layer == pcbnew.B_SilkS else "F")
     return tx
-# J3 pin legend, left of the pin column
-j3 = b.FindFootprintByReference("J3")
-x_left = pcbnew.ToMM(j3.GetCourtyard(pcbnew.F_CrtYd).BBox().GetLeft()) - X0
-for num, lab in zip("123456", ("R+", "R-", "G+", "G-", "B+", "B-")):
-    _, y = pad_xy(j3, num)
-    text(lab, x_left - 1.3, y, 0.8)
-text("LED", x_left - 1.3, pad_xy(j3, "1")[1] - 2.0, 0.8)
+# which LED each socket is for, on its pin 1 (+) side
+for n, a in CH_ANGLE.items():
+    text("RGB"[n - 1] + "+", *rot(-4.1, -7.4, a), 1.0)
 # back: connector legends and board text
 for ref, a, title in (("J1", 150, "IN"), ("J2", 30, "OUT")):     # beside the connector, on the side away from the cells
     text(title, *polar(R_CONN, a + (21 if a > 90 else -24)), 1.2, pcbnew.B_SilkS, (a + 90) % 360 if a > 90 else (a - 90) % 360)
-text("RGB Spotlight driver v2.0", 0, 15.6, 1.2, pcbnew.B_SilkS)          # back, below J3's pins and the bottom hole
+text("RGB Spotlight driver v2.0", 0, 15.6, 1.2, pcbnew.B_SilkS)          # back, below the bottom hole
 text("J1 IN / J2 OUT: 1=12V 2=DATA 3=GND", 0, 18.2, 0.9, pcbnew.B_SilkS)
 text("JLCJLCJLCJLC", 0, 20.6, 1.0, pcbnew.B_SilkS)
 REF_W = 0.8

@@ -1,8 +1,8 @@
 """Thread and press-nut drawings for JLC's "Threads and Tapped Holes" upload (A4 landscape, mm).
 
 python3 drawings_sheet.py OUTDIR [plate|cap]  ->  rgb-spotlight-plate-threads.svg, rgb-spotlight-cap-press-nuts.svg
-(rsvg-convert -f pdf to make the PDFs). The cap is round 7's (M4 nuts on the sides, rims to 16.1; DESIGN D30); the
-round-6 cap drawing it replaces is in order6/.
+(rsvg-convert -f pdf to make the PDFs). Both are round 7's: the cap with M4 nuts on the sides, rims to 16.1 and four
+M3 nuts in its back (DESIGN D30, D31), the plate with a 12 mm middle hole (D33). Round 6's drawings are in order6/.
 """
 import math
 import os
@@ -89,7 +89,7 @@ def plate():
     d = Sheet()
     s, cx, cy, W = 2.0, 80, 100, 58.5
     d.rect(cx - W / 2 * s, cy - W / 2 * s, W * s, W * s, 2 * s)
-    d.circle(cx, cy, 4 * s)
+    d.circle(cx, cy, 6 * s)                    # the harness bore, 12 mm in round 7 (D33)
     d.line(cx - 34 * s, cy, cx + 34 * s, cy, C); d.line(cx, cy - 34 * s, cx, cy + 34 * s, C)
     LED_ANG = (75, 195, 315)                   # round 6: the LED board turned 45 deg (D23)
     TIE_ANG = (30, 150, 270)
@@ -101,7 +101,7 @@ def plate():
     for sx in (-1, 1):
         for sy in (-1, 1):
             d.thread(cx + sx * 24 * s, cy - sy * 24 * s, s)
-    d.text(cx, cy - W / 2 * s - 9, "PLATE (round 6), front view (LED board side), 2 : 1", 3.4, "middle", "bold")
+    d.text(cx, cy - W / 2 * s - 9, "PLATE (round 7), front view (LED board side), 2 : 1", 3.4, "middle", "bold")
     d.dim(cx - W / 2 * s, cy + W / 2 * s + 6, cx + W / 2 * s, cy + W / 2 * s + 6, "58.5", 0, 3.6)
     d.dim(cx + W / 2 * s + 6, cy - W / 2 * s, cx + W / 2 * s + 6, cy + W / 2 * s, "", 0, 0)
     d.text(cx + W / 2 * s + 7.5, cy - 3, "58.5", 2.6)
@@ -110,8 +110,8 @@ def plate():
     d.leader(cx + x * s, cy - y * s, cx + 72, cy - 45, "3× M3×0.5 THRU, PCD 38 at 75°, 195°, 315° (LED board)")
     x, y = polar(11, 150)
     d.leader(cx + x * s, cy - y * s, cx + 72, cy - 36, "3× M3×0.5 THRU, PCD 22 at 30°, 150°, 270° (tie rods)", "start")
-    d.leader(cx + 24 * s, cy - 24 * s, cx + 72, cy - 54, "4× M3×0.5 THRU at (±24, ±24) (shell standoffs)")
-    d.leader(cx + 4 * s * 0.7, cy + 4 * s * 0.7, cx + 72, cy + 30, "Ø8 THRU (no thread)")
+    d.leader(cx + 24 * s, cy - 24 * s, cx + 72, cy - 54, "4× M3×0.5 THRU at (±24, ±24) (shell screws)")
+    d.leader(cx + 6 * s * 0.7, cy + 6 * s * 0.7, cx + 72, cy + 30, "Ø12 THRU (no thread)")
     d.notes(200, 118, [("NOTES", True),
                       ("1. Al 5052, 3 mm sheet, laser cut. No finish.", False),
                       ("2. Threads: 10× M3×0.5 through the 3 mm sheet.", False),

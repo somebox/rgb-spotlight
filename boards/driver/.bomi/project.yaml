@@ -40,10 +40,11 @@ selections:
   lcsc: C144394
   quantity: 2
   notes: 'JST XH 3P vertical THT (3 A), IN/OUT on the back: 1=12V 2=DATA 3=GND'
-- ref: J3
-  lcsc: C131342
-  quantity: 1
-  notes: 'JST PH 6P vertical THT, LED harness: R+ R- G+ G- B+ B-'
+- ref: J3-J5
+  lcsc: C158012
+  quantity: 3
+  notes: 'JST XH 2P vertical THT (3 A), one per LED on the front: J3 red, J4 green,
+    J5 blue; 1 = +, 2 = - (D33)'
 - ref: L1-L3
   lcsc: C168091
   quantity: 3

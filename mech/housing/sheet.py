@@ -41,6 +41,7 @@ T = 3.0
 N_FINS, PITCH = 4, 9.0
 STACK_BACK = -N_FINS * PITCH                # -36
 PLATE_W, FIN_W = 58.5, 61.0
+STACK_BORE = 8.0                            # the hole down the stack's middle, for the LED harness
 STANDOFF = 15.0
 DRV_Z = STACK_BACK - STANDOFF - 1.6         # driver board's back face, -52.6
 CORNER = 24.0                               # front screws / standoffs at (+-24, +-24)
@@ -118,7 +119,7 @@ def flat_sq(w, r, z0, t):
 # ---------------------------------------------------------------- stack
 def plate():
     p = flat_sq(PLATE_W, 2.0, 0.0, T)
-    holes = [cyl("z", -1, T + 1, {"x": 0, "y": 0}, 8.0)]
+    holes = [cyl("z", -1, T + 1, {"x": 0, "y": 0}, STACK_BORE)]
     holes += [cyl("z", -1, T + 1, dict(zip("xy", polar(r, a))), 2.5) for r in (19, 11) for a in ANG]
     holes += [cyl("z", -1, T + 1, {"x": sx * CORNER, "y": sy * CORNER}, 2.5) for sx in (-1, 1) for sy in (-1, 1)]
     return cut(p, holes)
@@ -126,13 +127,13 @@ def plate():
 
 def fin(z0=0.0):
     p = flat_sq(FIN_W, 3.0, z0, T)
-    holes = [cyl("z", z0 - 1, z0 + T + 1, {"x": 0, "y": 0}, 8.0)]
+    holes = [cyl("z", z0 - 1, z0 + T + 1, {"x": 0, "y": 0}, STACK_BORE)]
     holes += [cyl("z", z0 - 1, z0 + T + 1, dict(zip("xy", polar(r, a))), 3.2) for r in (19, 11) for a in ANG]
     return cut(p, holes)
 
 
 def spacer(z0=0.0):
-    p = cyl("z", z0, z0 + T, {"x": 0, "y": 0}, 30.0).cut(cyl("z", z0 - 1, z0 + T + 1, {"x": 0, "y": 0}, 8.0))
+    p = cyl("z", z0, z0 + T, {"x": 0, "y": 0}, 30.0).cut(cyl("z", z0 - 1, z0 + T + 1, {"x": 0, "y": 0}, STACK_BORE))
     return cut(p, [cyl("z", z0 - 1, z0 + T + 1, dict(zip("xy", polar(11, a))), 3.2) for a in ANG])
 
 

@@ -25,7 +25,7 @@ Each release folder holds:
 
 | Board | PCB | Assembly |
 | --- | --- | --- |
-| **driver** | FR4, 2 layers, 1.6 mm, 1 oz, 50 mm round (`disc50`) | Top side: 33 placements, 19 BOM lines. J1/J2 (JST XH, back) and J3 (JST PH 6, front) are through-hole: JLC THT assembly, or hand-solder. R9 is DNP (no LCSC number, out of the BOM) |
+| **driver** | FR4, 2 layers, 1.6 mm, 1 oz, 50 mm round (`disc50`) | Top side: 33 placements, 19 BOM lines. J1/J2 (JST XH 3, back) and J3–J5 (JST XH 2, front) are through-hole: JLC THT assembly, or hand-solder. R9 is DNP (no LCSC number, out of the BOM) |
 | **led** | **aluminium**, 1 layer, 1.6 mm, 1 W/mK (2 W/mK if offered cheaply), 50 mm round | Top side: 3 placements (the LEDs) |
 
 The LED board's Gerber zip also holds empty back layers; on a 1-layer aluminium order JLC uses only F.Cu, F.Mask, F.Silkscreen, Edge.Cuts and the drill files.
@@ -55,11 +55,11 @@ The things that went wrong before, or could:
 
 ## After the boards arrive
 
-- **LED harness:** six 24 AWG wires with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), about 8 cm, twisted per colour (D24).
-  - Not silicone: 24 AWG silicone wire is 1.5–2.0 mm across, too thick for the contact's insulation crimp (0.8–1.5 mm), and six of them leave no room for the sleeve in the 6.4 mm hole.
-  - Solder them to the LED board's pads (R+ R− G+ G− B+ B−) and pass them through the centre hole.
-  - Crimp them into a JST PHR-6 housing (C157952) with SPH-002T-P0.5S contacts (C111515) in the same order, pin 1 = R+.
-  - Or buy ready-made PH 6-pin leads with loose ends (often 26 AWG, enough at 0.45 A per LED): pass the loose ends forward through the stack and the hole, and solder them to the LED board last.
+- **LED harness:** six 24 AWG wires with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), about 8 cm, twisted per colour (D24), a pair per LED with its own JST XH 2-pin plug (D33).
+  - Not silicone: 24 AWG silicone wire is 1.5–2.0 mm across, and six of them leave no room for the sleeve in the LED board's 6.4 mm hole. (The XH contact itself takes insulation up to 1.9 mm.)
+  - Crimp each pair into a JST XHP-2 housing (C144401) with SXH-001T-P0.6 contacts (C140573), pin 1 = +. Red goes to J3, green to J4, blue to J5.
+  - Or buy ready-made XH 2-pin leads with loose ends (26 AWG is enough at 0.45 A per LED).
+  - Pass the loose ends through the LED board's centre hole from behind and solder them to its pads (R+ R− G+ G− B+ B−). The plugs then go back through the heat stack's 12 mm bore one at a time.
   - Aluminium boards pull heat away fast, so use a hot iron or preheat.
 - **Chain cables:** JST XH 3-pin, wired pin 1 to pin 1 (D4). Up to 5 lights per 12 V feed, up to 3 m apart on 22 AWG, with a 3 A fuse at the supply end (D14, D15). Between groups, leave pin 1 open.
 - **Assembly:** the housing's fasteners and the order to fit them are in [mech/housing/README.md](mech/housing/README.md) (D30, D32): the driver sits on polyamide standoffs with polyamide screws (D20). A sleeve or grommet on the harness through the LED board's hole (D20).
@@ -102,7 +102,7 @@ The things that went wrong before, or could:
 
 **Round 7 (D30, D31), not yet quoted.** The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and the cap 2 × PEM S-M4-2 nuts (hole 5.41) in rims 1.5 mm longer, instead of M5 nuts in 7.14 mm holes 6.0 mm from the edge, which PEM's M5 nut (SS-M5: hole 6.35, 7.1 mm from the edge) can't meet. The cap's back face also takes 4 × S-M3-2 for a box (D31): 8 press nuts a cap. Files: `mech/housing/order7/` (shell, cap, yoke and the cap's drawing); the rest stays round 6's. Bought for the pivot, per lamp: 2 × Elesa VC.692/25 p-M4x10 knob, 2 × DIN 9021 and 2 × DIN 125 polyamide M4 washers, and 2 × ISO 7380 M3 × 6 for the cap (the order's extras).
 
-Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the back). JLC solders J3.
+Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the back). JLC solders J3–J5 (JST B2B-XH-A, C158012).
 
 ## Overview
 

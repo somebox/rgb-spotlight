@@ -1,8 +1,9 @@
 # Housing (sheet metal, round 7)
 
-The square sheet-metal lamp: round 7 is the design of record (DESIGN.md D21–D24, D30). It is round 6, which was quoted on
-2026-11-16 (PRODUCTION.md, Orders), with the yoke pivot built from real parts: the shell, cap and yoke changed, nothing
-else. These are the scripts that build it and the files to order it from.
+The square sheet-metal lamp: round 7 is the design of record (DESIGN.md D21–D24, D30–D33). It is round 6, which was quoted
+on 2026-11-16 (PRODUCTION.md, Orders), with every fastener a real part, four nuts in the cap's back for a box, and a
+12 mm bore down the stack for the LED plugs: the shell, cap, yoke, plate, fins and spacers changed. These are the scripts
+that build it and the files to order it from.
 
 | Part | Shop | Material, finish | Per lamp |
 | --- | --- | --- | --- |
@@ -14,10 +15,9 @@ else. These are the scripts that build it and the files to order it from.
 
 `order6/` holds one STEP per part (`rgb-spotlight-r6-<part>.step`) and the two drawings JLCCNC needs with them:
 `rgb-spotlight-plate-threads.pdf` (10 × M3 threads in the plate) and `rgb-spotlight-cap-press-nuts.pdf` (round 6's cap).
-`order7/` holds what round 7 changes, to be ordered in place of round 6's: `rgb-spotlight-r7-shell.step`,
-`rgb-spotlight-r7-cap.step`, `rgb-spotlight-r7-yoke.step` and the cap's drawing (8 press nuts: 2 × M3 and 2 × M4 in the
-rims, 4 × M3 in the back face). The other
-parts, and the plate's drawing, stay in `order6/`.
+`order7/` holds what round 7 changes, to be ordered in place of round 6's: the shell, cap, yoke, plate, fin and spacer
+(`rgb-spotlight-r7-<part>.step`), the cap's drawing (8 press nuts: 2 × M3 and 2 × M4 in the rims, 4 × M3 in the back
+face) and the plate's (10 × M3 threads, Ø12 middle hole). Only the hood, the door and the carriers stay round 6's.
 
 **The yoke pivot (round 7, D30),** on each side from the outside in. Bought parts, 2 of each per lamp:
 
@@ -60,10 +60,10 @@ Assembly order:
 2. Onto the studs with a film of paste: two spacers, a fin, four times. Washers and nuts, tightened evenly (about
    0.5 N·m), then the standoffs against the nuts.
 3. The stack into the shell from the back, paste on the plate's front rim; four M3 × 6 through the shell's face.
-4. The harness through the stack's bore before its contacts go into the PH plug (the plug is wider than the 8 mm bore).
-   LED board on the plate with paste, turned 45° (D23); carrier, lenses, hood; three M3 × 20. They clamp the LED board
+4. LED board on the plate with paste, turned 45° (D23), its three wire pairs behind it; each pair's XH plug through the
+   stack's 12 mm bore, one at a time (D33). Carrier, lenses, hood; three M3 × 20. They clamp the LED board
    through the lens flanges and the carrier, so tighten them evenly.
-5. Plug J3, seat the driver on the standoffs, three polyamide M3 × 6 from the back.
+5. Plug red into J3, green into J4, blue into J5; seat the driver on the standoffs, three polyamide M3 × 6 from the back.
 6. Door pins and nylocks; cables through the cap's cut-outs, cap in, two M3 × 6; yoke, washers and knobs.
 
 **A box on the back (D31).** The cap's back face takes 4 × PEM S-M3-2 on a 46 × 46 mm square, centred, heads inside and
@@ -81,8 +81,7 @@ kicad-cli pcb export step --subst-models --no-dnp --user-origin 150x100mm -o ../
 kicad-cli pcb export step --subst-models --user-origin 150x100mm -o ../out/led.step ../../boards/led/led.kicad_pcb
 ROT=45 uv run --python 3.12 --with cadquery python order6.py order6
 ROT=45 uv run --python 3.12 --with cadquery python round7.py order7
-python3 drawings_sheet.py order6 plate && python3 drawings_sheet.py order7 cap
-(cd order6 && for f in *.svg; do rsvg-convert -f pdf -o "${f%.svg}.pdf" "$f"; done)
+python3 drawings_sheet.py order7
 (cd order7 && for f in *.svg; do rsvg-convert -f pdf -o "${f%.svg}.pdf" "$f"; done)
 ```
 

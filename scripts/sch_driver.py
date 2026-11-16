@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate boards/driver/driver.kicad_sch (single sheet) through Konnect: the FR4 driver / interface board.
 
-The LEDs are on the aluminium LED board (scripts/sch_led.py); here they are the 3 units of J3 (LED harness socket,
-JST PH 6: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B-), each drawn in its channel's current loop where the LED would be.
+The LEDs are on the aluminium LED board (scripts/sch_led.py); here each is a 2-pin harness socket, J3 red, J4 green,
+J5 blue (JST XH 2: 1 +, 2 -; D33), drawn in its channel's current loop where the LED would be.
 
 Rebuilds the whole sheet: `reset` blanks it (keeping its uuid), `build` places, powers and labels every pin.
 Run from anywhere:  python3 scripts/sch_driver.py
@@ -77,16 +77,16 @@ comps = [
 
 # ---- three PT4115 channels, drawn as explicit wires so the current loop reads at a glance.
 #      Datasheet topology (high-side sense, low-side switch):
-#      +12V -> Rs -> CSN node -> J3 x+ ... LED on the LED board ... J3 x- -> L -> SW ;  Schottky A=SW, K=+12V
+#      +12V -> Rs -> CSN node -> Jx + ... LED on the LED board ... Jx - -> L -> SW ;  Schottky A=SW, K=+12V
 CH = []   # (n, ch, Ux, Uy)
 for i, ch in enumerate("RGB"):
     n = i + 1; Ux = 73.66 + 127 * i; Uy = 175.26; X = Ux - 25.4
     CH.append((n, ch, Ux, Uy))
     comps += [
         r(f"R{n}", "0.22R 1%", "C2907349", X, Uy - 12.7, None, None, fp=R1206, mpn="FRL1206FR220TS"),
-        dict(ref="J3", unit=n, lib="rgb-spotlight:LED_PORT", val="LED harness", x=X, y=Uy + 5.08,
-             fp="Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical", lcsc="C131342", fields={"MPN": "B6B-PH-K-S(LF)(SN)"},
-             pins={str(2 * n - 1): None, str(2 * n): None}),
+        dict(ref=f"J{n + 2}", lib="rgb-spotlight:LED_OUT", val=f"LED {ch}", x=X, y=Uy + 5.08,
+             fp="Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical", lcsc="C158012", fields={"MPN": "B2B-XH-A(LF)(SN)"},
+             pins={"1": None, "2": None}),
         dict(ref=f"L{n}", lib="Device:L", val="68uH", fp="Inductor_SMD:L_Changjiang_FNR6045S", x=X, y=Uy + 24.13,
              lcsc="C168091", fields={"MPN": "FNR6045S680MT"}, pins={"1": None, "2": None}),
         dict(ref=f"D{n}", lib="Device:D_Schottky", val="B5819W", fp="Diode_SMD:D_SOD-123", x=Ux + 20.32, y=Uy - 7.62,
@@ -115,7 +115,7 @@ def channel_wires(L):
     for n, ch, Ux, Uy in CH:
         U, R, Lr, D, C = f"U{n + 1}", f"R{n}", f"L{n}", f"D{n}", f"C{n + 5}"
         rail = Uy - 20.32
-        r1, r2 = pt(R, "1"), pt(R, "2"); la, lk = pt("J3", str(2 * n - 1)), pt("J3", str(2 * n))
+        r1, r2 = pt(R, "1"), pt(R, "2"); la, lk = pt(f"J{n + 2}", "1"), pt(f"J{n + 2}", "2")
         l1, l2 = pt(Lr, "1"), pt(Lr, "2"); dk, da = pt(D, "1"), pt(D, "2")
         vin, csn, sw = pt(U, "5"), pt(U, "4"), pt(U, "1"); c1 = pt(C, "1")
         assert r2[0] == la[0] == lk[0] == l1[0] and r2[1] < csn[1] < la[1], (r2, la, csn)
@@ -166,8 +166,8 @@ if __name__ == "__main__":
         ("12 V in: SMAJ15A TVS + 22 uF for hot-plugged chain cables. J1/J2 12V and GND pass straight through (3 A).", 22.86, 116.84),
         ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC14 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
         ("J1 and J2 (JST XH, back of the board) share one pinout: 1 = 12V, 2 = data, 3 = GND.", 101.6, 121.92),
-        ("PT4115 loop (datasheet): +12V -> Rs -> J3 x+ -> LED -> J3 x- -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA", 30.48, 137.16),
-        ("J3 = LED harness (JST PH 6, front of the board): 1 R+  2 R-  3 G+  4 G-  5 B+  6 B-. Twist each +/- pair.", 30.48, 142.24),
+        ("PT4115 loop (datasheet): +12V -> Rs -> Jx + -> LED -> Jx - -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA", 30.48, 137.16),
+        ("J3 / J4 / J5 = LED red / green / blue (JST XH 2, front of the board): 1 = +, 2 = -. Twist each pair.", 30.48, 142.24),
     ]
     for t, x, y in notes:
         k.call("add_schematic_text", {"schematic": P + SHEET, "text": t, "x": x, "y": y})

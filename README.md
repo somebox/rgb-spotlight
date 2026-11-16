@@ -48,8 +48,8 @@ A high-power, addressable RGB pixel for spotlights and creative lighting. It spe
 | --- | --- | --- |
 | J1 IN | driver, back (JST XH 3, vertical) | 1 `12V`, 2 `DATA`, 3 `GND` |
 | J2 OUT | driver, back (JST XH 3, vertical) | 1 `12V`, 2 `DATA`, 3 `GND` |
-| J3 LED | driver, front (JST PH 6, vertical) | 1 `R+`, 2 `R-`, 3 `G+`, 4 `G-`, 5 `B+`, 6 `B-` |
-| TP1–TP6 | LED board, around the centre hole | same order as J3; solder the wires here |
+| J3 / J4 / J5 LED | driver, front (JST XH 2, vertical): red, green, blue | 1 `+`, 2 `-` |
+| TP1–TP6 | LED board, around the centre hole | `R+` `R-` `G+` `G-` `B+` `B-`; solder the wires here, a pair to each socket |
 
 J1 and J2 share one pin order, so chain with pin-1-to-pin-1 cables. v1 had J2 mirrored.
 

@@ -47,7 +47,7 @@ def hood():
 def plate():
     """The front plate with its three LED-screw threads at the turned positions; the tie-rod holes at r 11 stay."""
     p = S.flat_sq(S.PLATE_W, 2.0, 0.0, S.T)
-    holes = [cyl("z", -1, S.T + 1, {"x": 0, "y": 0}, 8.0)]
+    holes = [cyl("z", -1, S.T + 1, {"x": 0, "y": 0}, S.STACK_BORE)]
     holes += [cyl("z", -1, S.T + 1, dict(zip("xy", polar(19, a))), 2.5) for a in ANG6]
     holes += [cyl("z", -1, S.T + 1, dict(zip("xy", polar(11, a))), 2.5) for a in S.ANG]
     holes += [cyl("z", -1, S.T + 1, {"x": sx * S.CORNER, "y": sy * S.CORNER}, 2.5) for sx in (-1, 1) for sy in (-1, 1)]

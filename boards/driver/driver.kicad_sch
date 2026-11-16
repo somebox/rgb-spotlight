@@ -2017,7 +2017,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "rgb-spotlight:LED_PORT"
+		(symbol "rgb-spotlight:LED_OUT"
 			(pin_names
 				(offset 0.508)
 				(hide yes)
@@ -2033,7 +2033,7 @@
 					)
 				)
 			)
-			(property "Value" "LED_PORT"
+			(property "Value" "LED_OUT"
 				(at 3.81 -1.27 0)
 				(effects
 					(font
@@ -2041,7 +2041,7 @@
 					)
 				)
 			)
-			(property "Footprint" "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+			(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -2059,7 +2059,7 @@
 					)
 				)
 			)
-			(property "Description" "LED harness socket, 6 pins as 3 units: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B- (+ = LED anode)"
+			(property "Description" "LED harness socket for one LED, 2 pins: 1 + (LED anode), 2 - (cathode)"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -2068,7 +2068,7 @@
 					)
 				)
 			)
-			(symbol "LED_PORT_1_1"
+			(symbol "LED_OUT_1_1"
 				(rectangle
 					(start -2.54 2.54)
 					(end 2.54 -2.54)
@@ -2080,7 +2080,7 @@
 						(type background)
 					)
 				)
-				(text "R"
+				(text "LED"
 					(at 0 0 0)
 					(effects
 						(font
@@ -2091,7 +2091,7 @@
 				(pin passive line
 					(at 0 5.08 270)
 					(length 2.54)
-					(name "R+"
+					(name "+"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2109,7 +2109,7 @@
 				(pin passive line
 					(at 0 -5.08 90)
 					(length 2.54)
-					(name "R-"
+					(name "-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2117,120 +2117,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "LED_PORT_2_1"
-				(rectangle
-					(start -2.54 2.54)
-					(end 2.54 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(text "G"
-					(at 0 0 0)
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 5.08 270)
-					(length 2.54)
-					(name "G+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 2.54)
-					(name "G-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "LED_PORT_3_1"
-				(rectangle
-					(start -2.54 2.54)
-					(end 2.54 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(text "B"
-					(at 0 0 0)
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 5.08 270)
-					(length 2.54)
-					(name "B+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 2.54)
-					(name "B-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4023,12 +3909,12 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "b30ee93f-77e7-49c5-a536-d0bc7d5e5590")
   )
-  (text "PT4115 loop (datasheet): +12V -> Rs -> J3 x+ -> LED -> J3 x- -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA"
+  (text "PT4115 loop (datasheet): +12V -> Rs -> Jx + -> LED -> Jx - -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA"
     (at 30.48 137.16 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "6a873f50-b610-48ad-962a-282993f12ba3")
   )
-  (text "J3 = LED harness (JST PH 6, front of the board): 1 R+  2 R-  3 G+  4 G-  5 B+  6 B-. Twist each +/- pair."
+  (text "J3 / J4 / J5 = LED red / green / blue (JST XH 2, front of the board): 1 = +, 2 = -. Twist each pair."
     (at 30.48 142.24 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "c84e886e-47ae-45cb-87a6-ec192694a66e")
@@ -6150,13 +6036,13 @@
 		)
 	)
 	(symbol
-		(lib_id "rgb-spotlight:LED_PORT")
+		(lib_id "rgb-spotlight:LED_OUT")
 		(at 48.26 180.34 0)
 		(unit 1)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "edaf286b-4c16-4e29-be4f-d95903413791")
+		(uuid "d9ae3226-7ade-48b5-b2d9-6cd1d97849c3")
 		(property "Reference" "J3"
 			(at 52.07 179.07 0)
 			(effects
@@ -6165,7 +6051,7 @@
 				)
 			)
 		)
-		(property "Value" "LED harness"
+		(property "Value" "LED R"
 			(at 52.07 181.61 0)
 			(effects
 				(font
@@ -6173,7 +6059,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 48.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6191,7 +6077,7 @@
 				)
 			)
 		)
-		(property "Description" "LED harness socket, 6 pins as 3 units: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B- (+ = LED anode)"
+		(property "Description" "LED harness socket for one LED, 2 pins: 1 + (LED anode), 2 - (cathode)"
 			(at 48.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6200,7 +6086,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C131342"
+		(property "LCSC" "C158012"
 			(at 48.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6209,7 +6095,7 @@
 				)
 			)
 		)
-		(property "MPN" "B6B-PH-K-S(LF)(SN)"
+		(property "MPN" "B2B-XH-A(LF)(SN)"
 			(at 48.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6602,14 +6488,14 @@
 		)
 	)
 	(symbol
-		(lib_id "rgb-spotlight:LED_PORT")
+		(lib_id "rgb-spotlight:LED_OUT")
 		(at 175.26 180.34 0)
-		(unit 2)
+		(unit 1)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6421b798-ec60-4504-b4a6-ecc6e0c3febb")
-		(property "Reference" "J3"
+		(uuid "57ab915a-d555-4038-a8c7-c7df672b7998")
+		(property "Reference" "J4"
 			(at 179.07 179.07 0)
 			(effects
 				(font
@@ -6617,7 +6503,7 @@
 				)
 			)
 		)
-		(property "Value" "LED harness"
+		(property "Value" "LED G"
 			(at 179.07 181.61 0)
 			(effects
 				(font
@@ -6625,7 +6511,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 175.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6643,7 +6529,7 @@
 				)
 			)
 		)
-		(property "Description" "LED harness socket, 6 pins as 3 units: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B- (+ = LED anode)"
+		(property "Description" "LED harness socket for one LED, 2 pins: 1 + (LED anode), 2 - (cathode)"
 			(at 175.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6652,7 +6538,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C131342"
+		(property "LCSC" "C158012"
 			(at 175.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6661,7 +6547,7 @@
 				)
 			)
 		)
-		(property "MPN" "B6B-PH-K-S(LF)(SN)"
+		(property "MPN" "B2B-XH-A(LF)(SN)"
 			(at 175.26 180.34 0)
 			(hide yes)
 			(effects
@@ -6673,8 +6559,8 @@
 		(instances
 			(project "driver"
 				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
-					(reference "J3")
-					(unit 2)
+					(reference "J4")
+					(unit 1)
 				)
 			)
 		)
@@ -7054,14 +6940,14 @@
 		)
 	)
 	(symbol
-		(lib_id "rgb-spotlight:LED_PORT")
+		(lib_id "rgb-spotlight:LED_OUT")
 		(at 302.26 180.34 0)
-		(unit 3)
+		(unit 1)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9fc4c552-b29d-4800-bfb2-9b8c1d5cb593")
-		(property "Reference" "J3"
+		(uuid "a2ff34d4-f035-4795-9f65-da2591ef917a")
+		(property "Reference" "J5"
 			(at 306.07 179.07 0)
 			(effects
 				(font
@@ -7069,7 +6955,7 @@
 				)
 			)
 		)
-		(property "Value" "LED harness"
+		(property "Value" "LED B"
 			(at 306.07 181.61 0)
 			(effects
 				(font
@@ -7077,7 +6963,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 302.26 180.34 0)
 			(hide yes)
 			(effects
@@ -7095,7 +6981,7 @@
 				)
 			)
 		)
-		(property "Description" "LED harness socket, 6 pins as 3 units: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B- (+ = LED anode)"
+		(property "Description" "LED harness socket for one LED, 2 pins: 1 + (LED anode), 2 - (cathode)"
 			(at 302.26 180.34 0)
 			(hide yes)
 			(effects
@@ -7104,7 +6990,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C131342"
+		(property "LCSC" "C158012"
 			(at 302.26 180.34 0)
 			(hide yes)
 			(effects
@@ -7113,7 +6999,7 @@
 				)
 			)
 		)
-		(property "MPN" "B6B-PH-K-S(LF)(SN)"
+		(property "MPN" "B2B-XH-A(LF)(SN)"
 			(at 302.26 180.34 0)
 			(hide yes)
 			(effects
@@ -7125,8 +7011,8 @@
 		(instances
 			(project "driver"
 				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
-					(reference "J3")
-					(unit 3)
+					(reference "J5")
+					(unit 1)
 				)
 			)
 		)
