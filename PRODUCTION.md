@@ -100,7 +100,7 @@ The things that went wrong before, or could:
 | spacer (3 mm) | 40 | bare | 15.60 | |
 | **Sheet metal** | | | **156.95** | ≈ 145.75 |
 
-**Round 7 (D30), not yet quoted.** The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and the cap 2 × PEM S-M4-2 nuts (hole 5.41) in rims 1.5 mm longer, instead of M5 nuts in 7.14 mm holes 6.0 mm from the edge, which PEM's M5 nut (SS-M5: hole 6.35, 7.1 mm from the edge) can't meet. Files: `mech/housing/order7/` (shell, cap, yoke and the cap's drawing); the rest stays round 6's. Bought for the pivot, per lamp: 2 × Elesa VC.692/25 p-M4x10 knob, 2 × DIN 9021 and 2 × DIN 125 polyamide M4 washers, and 2 × ISO 7380 M3 × 6 for the cap (the order's extras).
+**Round 7 (D30, D31), not yet quoted.** The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and the cap 2 × PEM S-M4-2 nuts (hole 5.41) in rims 1.5 mm longer, instead of M5 nuts in 7.14 mm holes 6.0 mm from the edge, which PEM's M5 nut (SS-M5: hole 6.35, 7.1 mm from the edge) can't meet. The cap's back face also takes 4 × S-M3-2 for a box (D31): 8 press nuts a cap. Files: `mech/housing/order7/` (shell, cap, yoke and the cap's drawing); the rest stays round 6's. Bought for the pivot, per lamp: 2 × Elesa VC.692/25 p-M4x10 knob, 2 × DIN 9021 and 2 × DIN 125 polyamide M4 washers, and 2 × ISO 7380 M3 × 6 for the cap (the order's extras).
 
 Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the back). JLC solders J3.
 

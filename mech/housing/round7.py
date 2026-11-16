@@ -19,6 +19,10 @@ The cap's rims run 1.5 mm further forward (front edge -50.5, was -52.0), so the 
 4.22, head 6.35 x 1.5), the same sizes as before. Unchanged: the pivot's position (Z_NUT), the yoke's shape, the parts
 in front of the cap. The knob's grip is drawn from the catalogue's D, L and d1 only: right for fit and clearance, not
 for looks.
+
+The cap's back face also takes four PEM S-M3-2 nuts on a 46 mm square, heads inside, for a box behind the lamp (a
+controller and power supply, DESIGN D31). They sit 6.2 mm from the cable cut-outs (PEM's minimum 4.8) and their heads
+1.8 mm short of the face's bends; M4 (6.9 mm from an edge) leaves no room for a square there.
 """
 import os
 import sys
@@ -30,7 +34,7 @@ from cadquery import Vector as V  # noqa: E402
 
 import round6 as R6  # noqa: E402
 import sheet as S  # noqa: E402
-from sheet import cyl  # noqa: E402
+from sheet import cut, cyl  # noqa: E402
 
 PIVOT_HOLE = 4.5                    # M4 medium clearance (ISO 273)
 CAP_FRONT = -50.5                   # cap rims' front edge: 7.5 mm from the nut holes
@@ -41,6 +45,7 @@ KNOB = dict(D=25.0, L=20.0, hub_d=12.0, hub=6.0, stud=10.0, thread=4.0)      # E
 W_OUT = dict(d=12.0, t=1.0)         # DIN 9021 4.3, steel, under the knob
 W_IN = dict(d=9.0, t=0.8)           # DIN 125-A 4.3, polyamide, yoke to shell
 M3_SCREW = dict(head_d=5.7, head=1.65, d=3.0, L=6.0)                         # ISO 7380 M3 x 6
+BACK_NUTS = [(sx * 23.0, sy * 23.0) for sx in (-1, 1) for sy in (-1, 1)]    # S-M3-2 on the cap's back, 46 mm square
 
 
 def patched(fn):
@@ -54,8 +59,10 @@ def patched(fn):
 
 
 def build():
-    """Round 6's parts; the shell, cap and yoke rebuilt with round 7's holes and rims, nothing else changes."""
-    return patched(R6.build)
+    """Round 6's parts; the shell, cap and yoke rebuilt with round 7's holes and rims, the cap's back with four nut holes."""
+    p = patched(R6.build)
+    p["cap"] = cut(p["cap"], [cyl("z", S.ZB - 1, S.ZB + S.SH_T + 1, {"x": x, "y": y}, NUT_M3["hole"]) for x, y in BACK_NUTS])
+    return p
 
 
 def ring(axis, a, b, c, d_out, d_in):
@@ -106,11 +113,20 @@ def cap_screw(s):
     return [("nut", nut), ("m3", screw)]
 
 
+def back_nut(x, y):
+    """A PEM S-M3-2 in the cap's back face: shank in the sheet, head on the inside, flush outside where the box sits."""
+    c, inner = {"x": x, "y": y}, S.ZB + S.SH_T
+    return (cyl("z", inner - NUT_M3["shank"], inner, c, NUT_M3["shank_d"])
+            .fuse(cyl("z", inner, inner + NUT_M3["head"], c, NUT_M3["head_d"])).clean()
+            .cut(cyl("z", inner - 5, inner + 5, c, M3_SCREW["d"])))
+
+
 def hardware():
     """Round 6's boards and bought parts, its knob placeholders replaced by the real pivot parts and the cap screws."""
     hw = [h for h in R6.hardware() if h[0] != "knob"]
     for s in (-1, 1):
         hw += pivot(s) + cap_screw(s)
+    hw += [("nut_back", back_nut(x, y)) for x, y in BACK_NUTS]
     return hw
 
 

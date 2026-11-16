@@ -133,6 +133,14 @@ def cap():
     d.rect(cx - (W / 2 - 1.5) * s, cy - (W / 2 - 1.5) * s, (W - 3) * s, (W - 3) * s, 1.25 * s, HID)
     for x, y in ((16.45, 9.5), (-16.45, 9.5)):     # seen from the back: x mirrored
         d.rect(cx + (-x - 7) * s, cy - (y + 7.5) * s, 14 * s, 15 * s, 2 * s)
+    for x, y in ((23, 23), (-23, 23), (23, -23), (-23, -23)):   # 4 x M3 for a box on the back (D31)
+        d.circle(cx + x * s, cy - y * s, 4.22 / 2 * s)
+        d.circle(cx + x * s, cy - y * s, 6.35 / 2 * s, HID)
+    d.dim(cx + W / 2 * s + 6, cy - 23 * s, cx + W / 2 * s + 6, cy + 23 * s, "", 0, 0)
+    d.text(cx + W / 2 * s + 7.5, cy + 1, "46", 2.6)
+    d.leader(cx - 23 * s - 1.5, cy + 23 * s + 1.5, cx - W / 2 * s + 4, cy + W / 2 * s + 16,
+             "4× PRESS NUT M3 (PEM S-M3-2 or equal), hole Ø4.22, back face, on a 46 × 46 square,")
+    d.text(cx - W / 2 * s + 5, cy + W / 2 * s + 20.2, "centred; head on the INSIDE, flush outside: a box mounts there", 2.6)
     d.line(cx - 36 * s, cy, cx + 36 * s, cy, C); d.line(cx, cy - 36 * s, cx, cy + 36 * s, C)
     d.text(cx, cy - W / 2 * s - D * s - 13, "BACK CAP (round 7), seen from the back (outside), 1.5 : 1", 3.4, "middle", "bold")
     d.dim(cx - W / 2 * s, cy + W / 2 * s + 6, cx + W / 2 * s, cy + W / 2 * s + 6, "61.4", 0, 3.6)
@@ -157,14 +165,16 @@ def cap():
     d.text(sx0 + D * s + 9, cy + 26.4, "head on the INSIDE", 2.6)
     d.dim(sx0, cy - W / 2 * s - 4, sx0 + D * s, cy - W / 2 * s - 4, "16.1", 0, -1.2)
     d.dim(sx0, cy - W / 2 * s - 10, sx0 + 8.6 * s, cy - W / 2 * s - 10, "8.6", 0, -1.2)
-    d.text(cx, cy + W / 2 * s + 16, "Back face is at the left/bottom edge of the rim views; rims point into the lamp.", 2.4, "middle")
+    d.text(cx, cy + W / 2 * s + 28, "Back face is at the left/bottom edge of the rim views; rims point into the lamp.", 2.4, "middle")
     d.notes(200, 22, [("NOTES", True),
                       ("1. Al 5052, 1.5 mm, bent. Finish: black powder coat.", False),
                       ("2. Press nuts after powder coating, heads on the inside", False),
                       ("    of the cap, flush on the outside: the rims slide", False),
                       ("    into the lamp's shell and must stay flat outside.", False),
-                      ("3. 4 nuts in all: 2× M3 (top, bottom), 2× M4 (sides),", False),
-                      ("    each 7.5 from the rim's front edge (PEM: M4 6.9 min).", False),
+                      ("3. 8 nuts: 2× M3 in the top and bottom rims and 2× M4", False),
+                      ("    in the side rims, 7.5 from the rims' front edge", False),
+                      ("    (PEM: M4 6.9 min); 4× M3 in the back face, 6.2 from", False),
+                      ("    the cut-outs (PEM: 4.8 min).", False),
                       ("4. Two 14 × 15 cut-outs R2 for the cables.", False),
                       ("5. General tolerances ISO 2768-m.", False)])
     d.title("RGB Spotlight back cap", "rgb-spotlight-cap", "Al 5052, 1.5 mm", 1, "26 g")

@@ -15,7 +15,8 @@ else. These are the scripts that build it and the files to order it from.
 `order6/` holds one STEP per part (`rgb-spotlight-r6-<part>.step`) and the two drawings JLCCNC needs with them:
 `rgb-spotlight-plate-threads.pdf` (10 × M3 threads in the plate) and `rgb-spotlight-cap-press-nuts.pdf` (round 6's cap).
 `order7/` holds what round 7 changes, to be ordered in place of round 6's: `rgb-spotlight-r7-shell.step`,
-`rgb-spotlight-r7-cap.step`, `rgb-spotlight-r7-yoke.step` and the cap's drawing (2 × M3 and 2 × M4 press nuts). The other
+`rgb-spotlight-r7-cap.step`, `rgb-spotlight-r7-yoke.step` and the cap's drawing (8 press nuts: 2 × M3 and 2 × M4 in the
+rims, 4 × M3 in the back face). The other
 parts, and the plate's drawing, stay in `order6/`.
 
 **The yoke pivot (round 7, D30),** on each side from the outside in. Bought parts, 2 of each per lamp:
@@ -33,6 +34,14 @@ The cap's top and bottom screws: ISO 7380 M3 × 6 into PEM S-M3-2 (hole Ø4.22, 
 from PEM's bulletin CL (2022, page CL-5) and Elesa's VC.692 sheet. Round 6 drew the pivot as a hex placeholder over a
 Ø7.14 cap hole: PEM's M5 nut (SS-M5) takes Ø6.35, and both its and the M4's minimum distance to the sheet's edge (7.1 and
 6.9 mm) were more than the cap's rims gave (6.0). Round 7's rims run 1.5 mm further forward, to 7.5 mm.
+
+**A box on the back (D31).** The cap's back face takes 4 × PEM S-M3-2 on a 46 × 46 mm square, centred, heads inside and
+flush outside, for a box with a controller and power supply. They sit 6.2 mm from the cable cut-outs (PEM's minimum
+4.8), the heads 1.8 mm short of the bends, and 8 mm or more from the driver's parts; nothing lies behind them for
+20 mm, so the screw length doesn't matter. A box up to 64 × 64 mm (the yoke's arms are 67 mm apart) and 40 mm deep
+never meets the yoke (`check7.py`); at 50 mm deep it stops the tilt at about 50° the other way too. The J1/J2 cut-outs
+open into the box, so its cables can plug straight into the driver. M4 doesn't fit as a square here: it needs 6.9 mm
+from the cut-outs.
 
 Rebuild them (CadQuery under uv; the boards' STEPs go in `../out`, centred on the board):
 

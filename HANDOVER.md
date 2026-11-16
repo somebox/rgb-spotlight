@@ -47,6 +47,7 @@ the way in; the detail stays in the documents it links to.
 | D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
 | D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin | applied 2026-11-16, driver v2.2 |
 | D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/`, not yet in the cart |
+| D31 | Four M3 press nuts on a 46 mm square in the cap's back face, for a box with a controller and power supply (up to 64 × 64 × 40 mm keeps the full tilt) | in round 7's cap |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
