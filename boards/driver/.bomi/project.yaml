@@ -62,7 +62,7 @@ selections:
 - ref: R10
   lcsc: C11702
   quantity: 1
-  notes: '1k series on DIN: limits clamp current from 12 V or ringing (D18)'
+  notes: '1k series on DIN: limits clamp current when DIN rings below GND (D18); no 12 V fix'
 - ref: U1
   lcsc: C114581
   quantity: 1

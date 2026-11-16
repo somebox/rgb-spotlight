@@ -33,7 +33,7 @@ comps = [
     # ---- data in: J1 -> R10 1k -> (R7 10k pull-down) -> 74AHCT1G125 (3.3 V -> 5 V) -> WS2811 DIN
     dict(ref="J1", lib="Connector_Generic:Conn_01x03", val="IN 12V/DATA/GND", fp=XH3, x=30.48, y=60.96, mirror="y",
          lcsc="C144394", fields={"MPN": "B3B-XH-A(LF)(SN)"}, pins={"1": None, "2": "DIN", "3": None}),
-    r("R10", "1k", "C11702", 45.72, 76.2, "DIN", "DIN_IN"),   # 1k limits the clamp current from 12 V or ringing on DIN (D18)
+    r("R10", "1k", "C11702", 45.72, 76.2, "DIN", "DIN_IN"),   # 1k limits the clamp current when DIN rings below GND (D18); no 12 V fix (DESIGN 2.2)
     r("R7", "10k", "C25744", 55.88, 76.2, "DIN_IN", "GND"),
     dict(ref="U7", lib="74xGxx:74AHCT1G125", val="74AHCT1G125", fp="Package_TO_SOT_SMD:SOT-353_SC-70-5",
          x=76.2, y=60.96, lcsc="C350557", fields={"MPN": "SN74AHCT1G125DCKR"},
