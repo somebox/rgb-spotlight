@@ -1,6 +1,6 @@
 # RGB Spotlight — design notes
 
-Status (2026-11-16): the driver released as v2.2 (D5 clamps the data input, D28; R11 holds the +5V rail when it does, D29) and the LED board as v2.0; the first order (2 of each assembled, and the housing for 5 lamps, D21–D27, D30) is in the JLC cart, unpaid, with driver v2.1 and the round-6 shell, cap and yoke still there until they are swapped for driver v2.2 and round 7's (PRODUCTION.md). LED polarity settled on a v1 LED (§6 item 1). Next: payment, then bring-up (the review's bench list).
+Status (2026-11-16): the driver released as v2.3 (D5 clamps the data input, D28; R11 holds the +5V rail when it does, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0; the first order (2 of each assembled, and the housing for 5 lamps, D21–D27, D30–D33) is in the JLC cart, unpaid, with driver v2.1 and round 6's housing still there until they are swapped for driver v2.3 and round 7's shell, cap, yoke, plate, fins and spacers (PRODUCTION.md). LED polarity settled on a v1 LED (§6 item 1). Next: payment, then bring-up (the review's bench list).
 
 Chainable, WS2811-addressed RGB spotlight: three 3 W LEDs, each on its own PT4115 constant-current buck, run from a 12 V chain. Two boards in an aluminium cylinder:
 - an **aluminium LED board** (50 mm, 1 layer) carrying only the LEDs;

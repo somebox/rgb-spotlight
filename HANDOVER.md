@@ -1,8 +1,9 @@
 # RGB Spotlight: handover
 
-Status (2026-11-16): the driver is **released as v2.2** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29), the
-LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**, its driver to be swapped there for v2.2
-and the housing's shell, cap and yoke for round 7's (D30) before payment: 2 of each board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
+Status (2026-11-16): the driver is **released as v2.3** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
+three JST XH 2-pin LED sockets, D33), the LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**,
+its driver to be swapped there for v2.3 and the housing's shell, cap, yoke, plate, fins and spacers for round 7's
+(D30–D33) before payment: 2 of each board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
 JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -49,6 +50,7 @@ the way in; the detail stays in the documents it links to.
 | D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/`, not yet in the cart |
 | D31 | Four M3 press nuts on a 46 mm square in the cap's back face, for a box with a controller and power supply (up to 64 × 64 × 40 mm keeps the full tilt) | in round 7's cap |
 | D32 | The heat stack's fasteners as real parts: M3 × 45 studs locked in the plate, steel washer and nut, 12 mm polyamide standoffs, polyamide screws under the driver; ISO 7380 LED and shell screws | hardware list in `mech/housing/README.md` and the order's extras |
+| D33 | The LED harness on three JST XH 2-pin plugs: J3 red, J4 green, J5 blue on the driver (B2B-XH-A), and a 12 mm bore down the heat stack that the plugs pass one at a time | applied 2026-11-16: driver v2.3, housing round 7 |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
@@ -85,11 +87,12 @@ the way in; the detail stays in the documents it links to.
    the driver released again as v2.1 the same day, with D5 (D28), and put in the cart beside v2.0 (Y174, $39.60;
    whole order $363.20). The preview also turned U7 a quarter turn (the SOT-353 rule was wrong), on v2.0 and v2.1;
    SOT-89 and D5 were right. Then released again as v2.2 with R11 (D29). Left to do:
-   - swap the cart's driver for v2.2: remove v2.0 (PCB Y173, PCBA SMT026111662992) and v2.1 (PCB Y174, PCBA
-     SMT026111664196), add v2.2 with the same options and turn U7 by hand again;
-   - swap the cart's round-6 shell, cap and yoke for round 7's (`mech/housing/order7/`, D30), with the same options;
+   - swap the cart's driver for v2.3: remove v2.0 (PCB Y173, PCBA SMT026111662992) and v2.1 (PCB Y174, PCBA
+     SMT026111664196), add v2.3 with the same options, turn U7 by hand again and check J3–J5 (no rotation rule covers them);
+   - swap the cart's round-6 shell, cap, yoke, plate, fins and spacers for round 7's (`mech/housing/order7/`, D30–D33),
+     with the same options and both drawings;
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
-     for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste;
+     for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
    - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself.
