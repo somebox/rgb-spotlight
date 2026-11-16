@@ -4003,7 +4003,7 @@
 		)
 		(uuid "288bc6f5-1f4c-4a03-83d9-6e14cb648722")
 	)
-  (text "DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V."
+  (text "DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V, R11 bleeds +5V."
     (at 22.86 40.64 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid "ca760030-be77-4793-b462-522ef2fadee8")
@@ -7506,6 +7506,84 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 317.5 63.5 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7f7c4f72-2de0-42a0-92ca-1b87a2484526")
+		(property "Reference" "R11"
+			(at 319.532 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "470"
+			(at 317.5 63.5 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 317.5 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 317.5 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 317.5 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23179"
+			(at 317.5 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "0603WAF4700T5E"
+			(at 317.5 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "driver"
+				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 55.88 80.01 0)
 		(unit 1)
@@ -10007,6 +10085,67 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 317.5 59.69 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fe3353c1-20da-4968-8942-1942546701f7")
+		(property "Reference" "#PWR0042"
+			(at 317.5 63.5 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 317.5 56.134 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 317.5 59.69 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 317.5 59.69 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 317.5 59.69 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "driver"
+				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
+					(reference "#PWR0042")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+12V")
 		(at 48.26 154.94 0)
 		(unit 1)
@@ -10434,4 +10573,65 @@
 		)
 	)
 	(embedded_fonts no)
+	(symbol
+		(lib_id "power:GND")
+		(at 317.5 67.31 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4927cc15-2951-4fd7-82a4-6929554ddba7")
+		(property "Reference" "#PWR0043"
+			(at 317.5 73.66 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 317.5 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 317.5 67.31 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 317.5 67.31 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 317.5 67.31 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "driver"
+				(path "/a8f7d1f1-cc9c-4aef-9eb0-f63ebc32acfc"
+					(reference "#PWR0043")
+					(unit 1)
+				)
+			)
+		)
+	)
 )

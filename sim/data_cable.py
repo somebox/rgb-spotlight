@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Data link between two lights in ngspice: does the signal reach the next U7 intact over a long chain cable, with
 R10 at 100 ohm or 1 k and R8 at 33 or 82 ohm, and does it need another repeater? (docs/reviews/2026-10-30-v2.md, R6 and "Power and data".)
-And with D5 (D28) clamping U7's input to +5V: what 12 V on the data pin leaves at U7.
+And with D5 (D28) clamping U7's input to +5V: what a feed voltage held on the data pin does to U7's input and to the
++5V rail, whose 78L05 can only source current, with and without R11's bleed (D29).
 
 Pass: a T0H pulse (250 ns, FastLED) crosses U7's input with one clean edge each way, width inside 220-380 ns, and
 stays under U7's 7 V abs max. Below -0.5 V U7's clamp conducts, so the model (which has no clamp) overstates the
@@ -25,11 +26,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "results", "data_cable.txt")
 
 
-def deck(metres, r8, r10, fault=False):
+def deck(metres, r8, r10):
     td = metres * 4.8e-9
-    src = "VDO src 0 DC 12" if fault else "VDO src 0 PULSE(0 5 100n 20n 20n 250n 1250n)"
     return f"""* data link {metres} m R8 {r8} R10 {r10}
-{src}
+VDO src 0 PULSE(0 5 100n 20n 20n 250n 1250n)
 RO src do 40
 R8 do line {r8}
 T1 line 0 far 0 Z0=120 TD={td:.4g}
@@ -44,7 +44,6 @@ D5 in vcc RB751
 run
 meas tran vmax MAX v(in)
 meas tran vmin MIN v(in)
-meas tran id5 MAX i(V5)
 meas tran t_up WHEN v(in)=1.5 RISE=1
 meas tran t_dn WHEN v(in)=1.5 FALL=1
 meas tran rises WHEN v(in)=1.5 RISE=2
@@ -64,9 +63,46 @@ for metres in (1, 2, 4, 8):
         ok = 220 <= width <= 380 and m["vmax"] < 7.0 and not false_edge and clamp < 1.0
         lines.append(f"{metres:3d} m  {r8:2d}  {r10:4d}  {m['vmax']:6.2f}  {m['vmin']:6.2f}  {clamp:7.2f}  {width:6.0f} ns  "
                      f"{'false' if false_edge else 'clean'}  {'yes' if ok else 'NO'}")
-m = run(deck(1, 33, 1000, fault=True), sim_dir=HERE, timeout=60).meas
-lines.append(f"12 V on the data pin (a mis-crimped cable, review R6), 1 m, R8 33, R10 1k: U7 input {m['vmax']:.2f} V, "
-             f"{abs(m['id5']) * 1e3:.1f} mA through D5 into +5V (U7 abs max 7 V; without D5, 12 V x 10k/11k = 10.9 V)")
+
+
+def rail_deck(reg, pullups, bleed):
+    """12 V (or more) held on the data pin, DC: R10, R7, D5 into a +5V rail whose 78L05 can only source current."""
+    return f"""* data pin held high: +5V rail, 78L05 sourcing only
+VF far 0 DC 12
+R10 far in 1k
+R7 in 0 10k
+D5 in vcc RB751
+.model RB751 D(IS=2e-8 N=1.05 RS=8 CJO=2p M=0.4 VJ=0.4 BV=40)
+B78 0 vcc I = {reg} * max(0, (5.0 - v(vcc)) * 50)
+IWS vcc 0 DC 0.3m
+{"RP vcc 0 1567" if pullups else ""}
+{f"R11 vcc 0 {bleed}" if bleed else ""}
+.dc VF 11 16 0.5
+.control
+run
+meas dc v12 FIND v(vcc) AT=12
+meas dc v13 FIND v(vcc) AT=13
+meas dc v15 FIND v(vcc) AT=15
+meas dc u15 FIND v(in) AT=15
+meas dc i15 FIND i(VF) AT=15
+.endc
+.end
+"""
+
+
+lines += ["",
+          "A feed voltage held on the data pin (a mis-crimped cable, review R6): DC, R10 1k, R7 10k, D5 into +5V. The 78L05",
+          "sources only (it cannot sink); +5V load: the WS2811 0.3 mA, plus R4-R6 3 x 4.7k when all three channels are on;",
+          "C1-C4 don't matter at DC. The WS2811's internal zener (voltage not stated) and the ICs' own clamps are not modelled,",
+          "so a rail above 5.7 V means those would conduct instead. Abs max: U6 and U7 VCC 7 V, the WS2811's VDD rated to 5.7 V.",
+          "feed  channels  R11      +5V at 12 V  13 V   15 V   U7 in at 15 V  mA from the pin at 15 V"]
+for reg, feed in ((1, "on "), (0, "off")):
+    for pullups in (False, True):
+        for bleed in (None, 470):
+            m = run(rail_deck(reg, pullups, bleed), sim_dir=HERE, timeout=60).meas
+            lines.append(f"{feed}   {'all on ' if pullups else 'all off'}  {str(bleed or 'none'):5s}    {m['v12']:5.2f}  "
+                         f"{m['v13']:5.2f}  {m['v15']:5.2f}  {m['u15']:5.2f}          {abs(m['i15']) * 1e3:4.1f}")
+lines.append("feed off: the 12 V and data wires swapped, so the 78L05 has no input and the pin's current alone holds the rail up")
 text = "\n".join(lines) + "\n"
 print(text)
 os.makedirs(os.path.dirname(OUT), exist_ok=True)

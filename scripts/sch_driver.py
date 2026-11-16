@@ -17,7 +17,7 @@ builder.P = P = ROOT + "boards/driver/"
 SHEET = "driver.kicad_sch"
 XH3 = "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 R0402 = "Resistor_SMD:R_0402_1005Metric"; C0402 = "Capacitor_SMD:C_0402_1005Metric"
-R1206 = "Resistor_SMD:R_1206_3216Metric"; C0805 = "Capacitor_SMD:C_0805_2012Metric"; C1206 = "Capacitor_SMD:C_1206_3216Metric"
+R0603 = "Resistor_SMD:R_0603_1608Metric"; R1206 = "Resistor_SMD:R_1206_3216Metric"; C0805 = "Capacitor_SMD:C_0805_2012Metric"; C1206 = "Capacitor_SMD:C_1206_3216Metric"
 
 def r(ref, val, lcsc, x, y, p1, p2, rot=0, fp=R0402, mpn=None):
     d = dict(ref=ref, lib="Device:R", val=val, fp=fp, x=x, y=y, rot=rot, lcsc=lcsc, pins={"1": p1, "2": p2})
@@ -101,6 +101,10 @@ for i, ch in enumerate("RGB"):
 #      cable) would leave ~10.9 V there; D5 holds it near 5.4 V, R10 limiting the current to ~6 mA (D28).
 comps.append(dict(ref="D5", lib="Device:D_Schottky", val="RB751V-40", fp="Diode_SMD:D_SOD-323", x=66.04, y=76.2, rot=270,
                   lcsc="C7502691", fields={"MPN": "RB751V-40"}, pins={"1": "+5V", "2": "DIN_IN"}))
+# ---- R11 last, for the same reason. The 78L05 can't sink current, so D5's current would lift the +5V rail (to 6.5-10 V
+#      at 12 V on the pin); R11 draws 10.6 mA, more than the pin can push in up to 15 V, so the 78L05 stays in control (D29).
+#      0603 for its 53 mW.
+comps.append(r("R11", "470", "C23179", 317.5, 63.5, "+5V", "GND", fp=R0603, mpn="0603WAF4700T5E"))
 
 def channel_wires(L):
     """Wires and junctions for each channel, computed from the real pin endpoints."""
@@ -158,7 +162,7 @@ if __name__ == "__main__":
     open(P + SHEET, "w").write(txt[:j] + blk + txt[i:])
     k = Konnect(); k.load("sch_wiring", "sch_components", "sch_batch", "sch_analysis")
     notes = [
-        ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V.", 22.86, 40.64),
+        ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V, R11 bleeds +5V.", 22.86, 40.64),
         ("12 V in: SMAJ15A TVS + 22 uF for hot-plugged chain cables. J1/J2 12V and GND pass straight through (3 A).", 22.86, 116.84),
         ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC14 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
         ("J1 and J2 (JST XH, back of the board) share one pinout: 1 = 12V, 2 = data, 3 = GND.", 101.6, 121.92),

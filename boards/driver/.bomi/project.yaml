@@ -69,6 +69,11 @@ selections:
   quantity: 1
   notes: '1k series on DIN: limits clamp current when DIN rings below GND (D18); no
     12 V fix'
+- ref: R11
+  lcsc: C23179
+  quantity: 1
+  notes: '470R 0603 bleed on +5V (10.6 mA): the 78L05 can''t sink D5''s current, so
+    R11 takes it and the rail stays at 5 V up to 15 V on the data pin (D29)'
 - ref: U1
   lcsc: C114581
   quantity: 1

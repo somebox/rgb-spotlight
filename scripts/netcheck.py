@@ -52,6 +52,7 @@ nl.same(("R10", "2"), ("U7", "2"), "R10 -> level shifter input"); nl.same(("R7",
 nl.expect(nl.pin[("R7", "2")] == "GND", "R7 to GND")
 nl.same(("D5", "2"), ("U7", "2"), "D5 anode on the shifter input")
 nl.expect(nl.pin[("D5", "1")] == "+5V", "D5 cathode on +5V: clamps the shifter input (D28)")
+nl.expect(nl.pin[("R11", "1")] == "+5V" and nl.pin[("R11", "2")] == "GND", "R11 from +5V to GND: sinks D5's current, which the 78L05 can't (D29)")
 nl.expect(nl.pin[("D4", "1")] == "+12V" and nl.pin[("D4", "2")] == "GND", "TVS D4 cathode on +12V, anode on GND")
 nl.expect(nl.pin[("C9", "1")] == "+12V" and nl.pin[("C9", "2")] == "GND", "bulk C9 across +12V")
 nl.same(("J2", "2"), ("R8", "2"), "J2.2 through R8 from WS2811 DO")
