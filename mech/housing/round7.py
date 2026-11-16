@@ -23,6 +23,19 @@ for looks.
 The cap's back face also takes four PEM S-M3-2 nuts on a 46 mm square, heads inside, for a box behind the lamp (a
 controller and power supply, DESIGN D31). They sit 6.2 mm from the cable cut-outs (PEM's minimum 4.8) and their heads
 1.8 mm short of the face's bends; M4 (6.9 mm from an edge) leaves no room for a square there.
+
+The heat stack's fasteners are real parts too (DESIGN D32). Earlier rounds drew a 44.8 mm rod with a 15 mm nylon
+standoff as its nut, and no screws under the driver. Round 7, on each of the three tie rods at r 11, from the front:
+
+  stud      M3 x 45 threaded stud (DIN 976-1), locked into the plate's thread, its front end 0.2 below the plate's face
+  stack     2 spacers, fin, four times (Ø3.2 holes)
+  washer    DIN 125-A 3.2 steel, 7 x 0.5
+  nut       ISO 4032 M3 steel: this clamps the stack, not the nylon
+  standoff  polyamide hex M3 female-female x 12 (was 15), on the 3.3 mm of stud behind the nut
+  driver    its front face 14.9 mm behind the stack (was 15)
+  screw     polyamide pan head M3 x 6 from the back
+The three LED screws are ISO 7380 M3 x 20 and the four shell screws ISO 7380 M3 x 6, the type of the cap screws and
+door pins.
 """
 import os
 import sys
@@ -32,6 +45,7 @@ sys.argv = sys.argv[:1] + ["/dev/null"]
 import cadquery as cq  # noqa: E402
 from cadquery import Vector as V  # noqa: E402
 
+import round2 as R2  # noqa: E402
 import round6 as R6  # noqa: E402
 import sheet as S  # noqa: E402
 from sheet import cut, cyl  # noqa: E402
@@ -46,6 +60,17 @@ W_OUT = dict(d=12.0, t=1.0)         # DIN 9021 4.3, steel, under the knob
 W_IN = dict(d=9.0, t=0.8)           # DIN 125-A 4.3, polyamide, yoke to shell
 M3_SCREW = dict(head_d=5.7, head=1.65, d=3.0, L=6.0)                         # ISO 7380 M3 x 6
 BACK_NUTS = [(sx * 23.0, sy * 23.0) for sx in (-1, 1) for sy in (-1, 1)]    # S-M3-2 on the cap's back, 46 mm square
+# the heat stack (D32)
+STUD = dict(d=3.0, L=45.0, front=S.T - 0.2)         # M3 x 45 stud (DIN 976-1); front end 0.2 below the plate's front face
+WASHER_M3 = dict(d=7.0, t=0.5)                      # DIN 125-A 3.2, steel
+HEXNUT_M3 = dict(af=5.5, m=2.4)                     # ISO 4032 M3, steel
+STANDOFF = dict(af=5.5, L=12.0)                     # polyamide hex standoff, M3 female-female x 12
+DRV_SCREW = dict(head_d=5.6, head=2.4, d=3.0, L=6.0)   # polyamide pan head M3 x 6 (ISO 7045 sizes)
+LED_SCREW_L, SHELL_SCREW_L = 20.0, 6.0              # ISO 7380 M3 x 20 and M3 x 6
+Z_WASHER = S.STACK_BACK - WASHER_M3["t"]            # -36.5: front of the nut
+Z_NUT3 = Z_WASHER - HEXNUT_M3["m"]                  # -38.9: front of the standoff
+Z_STANDOFF = Z_NUT3 - STANDOFF["L"]                 # -50.9: the driver's front face
+DRV_Z = Z_STANDOFF - 1.6                            # the driver's back face, -52.5 (sheet.py: -52.6)
 
 
 def patched(fn):
@@ -121,9 +146,41 @@ def back_nut(x, y):
             .cut(cyl("z", inner - 5, inner + 5, c, M3_SCREW["d"])))
 
 
+def button_screw(x, y, top, length):
+    """ISO 7380 M3 button head along z, its head on the face at z = top."""
+    c = {"x": x, "y": y}
+    return cyl("z", top - length, top, c, M3_SCREW["d"]).fuse(cyl("z", top, top + M3_SCREW["head"], c, M3_SCREW["head_d"])).clean()
+
+
+def stack_hardware():
+    """The three tie rods with what goes on them behind the stack, and the driver's screws, as (name, solid)."""
+    out = []
+    for a in S.ANG:
+        x, y = S.polar(11, a)
+        c = {"x": x, "y": y}
+        bore = cyl("z", Z_STANDOFF - 1, S.STACK_BACK + 1, c, STUD["d"])
+        out += [("stud", cyl("z", STUD["front"] - STUD["L"], STUD["front"], c, STUD["d"])),
+                ("washer3", ring("z", Z_WASHER, S.STACK_BACK, c, WASHER_M3["d"], 3.2)),
+                ("nut3", S.hexbar(x, y, Z_NUT3, Z_WASHER, HEXNUT_M3["af"]).cut(bore)),
+                ("nylon", S.hexbar(x, y, Z_STANDOFF, Z_NUT3, STANDOFF["af"]).cut(bore)),
+                ("nyscrew", cyl("z", DRV_Z, DRV_Z + DRV_SCREW["L"], c, DRV_SCREW["d"])
+                 .fuse(cyl("z", DRV_Z - DRV_SCREW["head"], DRV_Z, c, DRV_SCREW["head_d"])).clean())]
+    return out
+
+
+def front_screws():
+    """The LED screws (through hood, carrier and LED board into the plate) and the shell screws (shell face to plate)."""
+    out = [("screw", button_screw(*S.polar(19, a), R2.HF, LED_SCREW_L)) for a in R6.ANG6]
+    out += [("corner", button_screw(sx * S.CORNER, sy * S.CORNER, S.ZF, SHELL_SCREW_L)) for sx in (-1, 1) for sy in (-1, 1)]
+    return out
+
+
 def hardware():
-    """Round 6's boards and bought parts, its knob placeholders replaced by the real pivot parts and the cap screws."""
-    hw = [h for h in R6.hardware() if h[0] != "knob"]
+    """Round 6's boards, lenses and door pins, with every fastener of the pivot, cap and heat stack as its real part."""
+    base = R6.hardware()
+    hw = [h for h in base if h[0] not in ("knob", "nylon", "steel", "screw", "corner", "drv")]
+    hw.append(("drv", next(s for n, s in base if n == "drv").translate(V(0, 0, DRV_Z - S.DRV_Z))))
+    hw += stack_hardware() + front_screws()
     for s in (-1, 1):
         hw += pivot(s) + cap_screw(s)
     hw += [("nut_back", back_nut(x, y)) for x, y in BACK_NUTS]

@@ -67,9 +67,52 @@ note = "between yoke and shell: the pivot's friction face"
 
 [[extra]]
 part = "Screw ISO 7380 M3 x 6, button head"
-qty = 10
+qty = 30
 buy = "any"
-note = "cap to shell, top and bottom, into the cap's S-M3-2 nuts"
+note = "per lamp: 4 for the shell's face into the plate, 2 for the cap into its S-M3-2 nuts"
+
+# The heat stack's fasteners (housing round 7, DESIGN D32) and the door pins (D27). Per lamp 3 of each, 8 door pins.
+[[extra]]
+part = "Threaded rod M3 (DIN 976-1), cut to 45 mm"
+qty = 15
+buy = "any; 1 m of rod gives 20"
+note = "tie studs, 3 per lamp, with medium thread-lock in the plate"
+
+[[extra]]
+part = "Washer DIN 125-A 3.2 (M3), steel"
+qty = 15
+buy = "any"
+note = "under the stack's nuts"
+
+[[extra]]
+part = "Nut ISO 4032 M3, steel"
+qty = 15
+buy = "any"
+note = "clamps the heat stack"
+
+[[extra]]
+part = "Hex standoff M3 x 12, female-female, polyamide"
+qty = 15
+buy = "any"
+note = "carries the driver, on the stud behind each nut"
+
+[[extra]]
+part = "Screw M3 x 6, pan head, polyamide"
+qty = 15
+buy = "any"
+note = "driver to its standoffs, from the back (D20)"
+
+[[extra]]
+part = "Screw ISO 7380 M3 x 20, button head, black"
+qty = 15
+buy = "any"
+note = "LED screws: hood, carrier and LED board to the plate"
+
+[[extra]]
+part = "Screw ISO 7380 M3 x 8, button head, with nut M3 nylock (DIN 985)"
+qty = 40
+buy = "any"
+note = "door pins, 8 per lamp (D27)"
 
 [[extra]]
 part = "Optic carrier, MJF PA12 dyed black"
@@ -140,3 +183,8 @@ note = "housing moves to round 7 before payment (DESIGN D30, mech/housing/order7
 date = 2026-11-16
 status = "draft"
 note = "round 7's cap also takes 4 x PEM S-M3-2 in its back face on a 46 mm square, for a box with a controller and power supply (DESIGN D31): 8 press nuts per cap in all, 40 for the order"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+note = "the housing's bought fasteners listed as extras (DESIGN D32, mech/housing/README.md): studs, washers, nuts, standoffs and screws for the heat stack, the LED and shell screws, the door pins. Thermal paste and medium thread-lock besides. No change to the sheet-metal parts"

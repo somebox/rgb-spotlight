@@ -35,6 +35,37 @@ from PEM's bulletin CL (2022, page CL-5) and Elesa's VC.692 sheet. Round 6 drew 
 Ø7.14 cap hole: PEM's M5 nut (SS-M5) takes Ø6.35, and both its and the M4's minimum distance to the sheet's edge (7.1 and
 6.9 mm) were more than the cap's rims gave (6.0). Round 7's rims run 1.5 mm further forward, to 7.5 mm.
 
+**The heat stack (round 7, D32).** Three tie rods at r 11 (30° / 150° / 270°) hold the plate, the eight spacers and the
+four fins together and carry the driver. Bought parts, per lamp:
+
+| Part | What | Per lamp |
+| --- | --- | --: |
+| tie stud | M3 threaded rod (DIN 976-1), cut to 45 mm (up to 47 fits), with medium thread-lock in the plate | 3 |
+| washer | DIN 125-A 3.2, steel, 7 × 0.5 | 3 |
+| nut | ISO 4032 M3, steel: this clamps the stack | 3 |
+| standoff | polyamide hex, M3 female-female × 12, on the 3.3 mm of stud behind the nut | 3 |
+| driver screw | polyamide pan head M3 × 6, from the back | 3 |
+| LED screw | ISO 7380 M3 × 20, black: through the hood, the carrier and the LED board into the plate (75° / 195° / 315°) | 3 |
+| shell screw | ISO 7380 M3 × 6: the shell's face to the plate's corner threads | 4 |
+| door pin | ISO 7380 M3 × 8 with an M3 nylock nut (D27) | 8 |
+
+Thermal paste goes under the LED board, between the plate and the shell's face, and between the plate, spacers and fins
+(`thermal_sheet.py` counts on greased joints). Earlier rounds drew a 15 mm nylon standoff as the stack's nut and no driver
+screws; the steel nut moves the driver 0.1 mm forward (its front face 14.9 mm behind the stack). `check7.py` prints every
+thread length and what sticks out where.
+
+Assembly order:
+1. Studs into the plate's three r 11 threads from the back, with thread-lock, their ends 0.2 mm below the plate's front
+   face and never above it: the LED board lies there.
+2. Onto the studs with a film of paste: two spacers, a fin, four times. Washers and nuts, tightened evenly (about
+   0.5 N·m), then the standoffs against the nuts.
+3. The stack into the shell from the back, paste on the plate's front rim; four M3 × 6 through the shell's face.
+4. The harness through the stack's bore before its contacts go into the PH plug (the plug is wider than the 8 mm bore).
+   LED board on the plate with paste, turned 45° (D23); carrier, lenses, hood; three M3 × 20. They clamp the LED board
+   through the lens flanges and the carrier, so tighten them evenly.
+5. Plug J3, seat the driver on the standoffs, three polyamide M3 × 6 from the back.
+6. Door pins and nylocks; cables through the cap's cut-outs, cap in, two M3 × 6; yoke, washers and knobs.
+
 **A box on the back (D31).** The cap's back face takes 4 × PEM S-M3-2 on a 46 × 46 mm square, centred, heads inside and
 flush outside, for a box with a controller and power supply. They sit 6.2 mm from the cable cut-outs (PEM's minimum
 4.8), the heads 1.8 mm short of the bends, and 8 mm or more from the driver's parts; nothing lies behind them for
@@ -57,7 +88,7 @@ python3 drawings_sheet.py order6 plate && python3 drawings_sheet.py order7 cap
 
 - `sheet.py`: the shared geometry (bends at JLCCNC's radii, the stack, the cap); `round2.py`–`round7.py` each change
   the round before; `order6.py` exports round 6's order set, `round7.py` the parts round 7 changes.
-- `check6.py`, `check7.py`: interference and clearance checks; `check7.py` adds the pivot's and cap screws' parts, their
-  clearance to the driver board, and PEM's edge distances. `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
+- `check6.py`, `check7.py`: interference and clearance checks; `check7.py` adds every fastener as its real part (pivot,
+  cap, back nuts, heat stack), their clearance to the driver, thread lengths, and PEM's edge distances. `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
   the light-leak and beam studies behind D21–D23. `thermal_sheet.py`: the heat budget.
 - Renders, review pages and earlier rounds' STEPs stay in `build/heatsink/housing/sheet/` (git-ignored).

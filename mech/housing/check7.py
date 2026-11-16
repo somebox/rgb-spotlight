@@ -7,6 +7,7 @@ ROT=45 uv run --python 3.12 --with cadquery python check7.py OUTDIR
 3. What sits inside the cap: how close each nut, stud and screw comes to the driver board and its parts.
 4. The press nuts' distance to the cap rims' edge, and the back nuts' to the cable cut-outs, against PEM's minimum.
 5. Room for a box on the cap's back (D31): a 64 x 64 mm block of each depth, turned with the lamp against the yoke.
+6. The heat stack's fasteners (D32): thread lengths, what sticks out where, and their clearance to the driver's parts.
 Needs the boards' STEPs in ../out (driver.step, led.step), exported centred on the board:
 kicad-cli pcb export step --subst-models --no-dnp --user-origin 150x100mm -o ../out/driver.step boards/driver/driver.kicad_pcb
 """
@@ -25,7 +26,7 @@ import round7 as R  # noqa: E402
 import sheet as S  # noqa: E402
 
 # parts that touch by design: the stack's tie rods, the LED screws in the plate, the doors' corner standoffs
-EXPECTED = {("plate", "steel"), ("nylon", "steel"), ("plate", "screw"), ("corner", "plate")}
+EXPECTED = {("plate", "stud"), ("plate", "screw"), ("corner", "plate")}
 FIXED = ("yoke", "knob", "washer", "washer_pa")        # stay with the yoke when the lamp tilts
 
 
@@ -59,7 +60,7 @@ for dd in ((90, 90), (32, 90), (180, 180)):
 fixed = [("yoke", P["yoke"])] + [h for h in HW if h[0] in FIXED]
 res["tilt"] = {}
 for dd in ((90, 90), (180, 180)):
-    lampi = R.lamp(P, *dd, with_yoke=False) + [h for h in HW if h[0] in ("led", "steel", "pin", "screw", "nut", "m3", "nut_back")]
+    lampi = R.lamp(P, *dd, with_yoke=False) + [h for h in HW if h[0] in ("led", "pin", "screw", "corner", "nut", "m3", "nut_back")]
     bad = [phi for phi in range(-90, 91, 5)
            if overlaps([(n, s.rotate(V(0, 0, S.Z_NUT), V(1, 0, S.Z_NUT), phi)) for n, s in lampi] + fixed, only=FIXED)]
     print(f"2. tilt, doors {dd}: clashes at {bad or 'none'}"); res["tilt"][str(dd)] = bad
@@ -109,5 +110,28 @@ for depth in (30, 40, 50, 60):
            if overlaps([("box", env.rotate(V(0, 0, S.Z_NUT), V(1, 0, S.Z_NUT), phi))] + fixed, only=FIXED)]
     print(f"5. a 64 x 64 box {depth} mm deep behind the cap meets the yoke at: {bad or 'no angle'}")
     res["box"][depth] = bad
+
+parts_of = [so for so in drv.Solids() if so.BoundingBox().xlen < 40]
+stud_back = R.STUD["front"] - R.STUD["L"]
+fast = {
+    "stud: front end below the plate's front face": S.T - R.STUD["front"],
+    "stud: thread in the plate": R.STUD["front"],
+    "stud: thread in the standoff, behind the nut": R.Z_NUT3 - stud_back,
+    "driver screw: thread in the standoff": R.DRV_Z + R.DRV_SCREW["L"] - R.Z_STANDOFF,
+    "driver screw: its tip to the stud's end": stud_back - (R.DRV_Z + R.DRV_SCREW["L"]),
+    "LED screw: thread in the plate": min(S.T, R.LED_SCREW_L - (R.R2.HF - S.T)),
+    "LED screw: tip behind the plate": -(R.R2.HF - R.LED_SCREW_L),
+    "LED screw: tip to the first fin": (R.R2.HF - R.LED_SCREW_L) - (-(S.PITCH - S.T)),
+    "shell screw: thread in the plate": min(S.T, R.SHELL_SCREW_L - S.SH_T),
+    "shell screw: tip behind the plate": -(S.ZF - R.SHELL_SCREW_L),
+    "driver's front face behind the stack": S.STACK_BACK - R.Z_STANDOFF,
+}
+for name in ("nyscrew", "nylon", "nut3"):
+    label = {"nyscrew": "driver screw heads", "nylon": "standoffs", "nut3": "stack nuts"}[name]
+    fast[f"{label}: nearest driver part"] = min(s.distance(so) for n, s in HW if n == name for so in parts_of)
+fast["driver screw heads: to the cap's back face"] = (R.DRV_Z - R.DRV_SCREW["head"]) - (S.ZB + S.SH_T)
+for k, v in fast.items():
+    print(f"6. {k:48s} {v:6.2f} mm")
+res["stack"] = {k: round(v, 2) for k, v in fast.items()}
 os.makedirs(OUT, exist_ok=True)
 json.dump(res, open(os.path.join(OUT, f"check7-rot{R.R6.ROT:g}.json"), "w"), indent=1)

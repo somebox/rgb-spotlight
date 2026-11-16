@@ -60,7 +60,14 @@ Bought with the order, not placed on a board: spares and rework parts. On hand i
 | Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor | yoke pivot knobs, 2 per lamp |
 | Washer DIN 9021 4.3 (M4), steel, 4.3 x 12 x 1.0 | 10 | 0 | 10 | any | under each knob's hub |
 | Washer DIN 125-A 4.3 (M4), polyamide, 4.3 x 9 x 0.8 | 10 | 0 | 10 | any | between yoke and shell: the pivot's friction face |
-| Screw ISO 7380 M3 x 6, button head | 10 | 0 | 10 | any | cap to shell, top and bottom, into the cap's S-M3-2 nuts |
+| Screw ISO 7380 M3 x 6, button head | 30 | 0 | 30 | any | per lamp: 4 for the shell's face into the plate, 2 for the cap into its S-M3-2 nuts |
+| Threaded rod M3 (DIN 976-1), cut to 45 mm | 15 | 0 | 15 | any; 1 m of rod gives 20 | tie studs, 3 per lamp, with medium thread-lock in the plate |
+| Washer DIN 125-A 3.2 (M3), steel | 15 | 0 | 15 | any | under the stack's nuts |
+| Nut ISO 4032 M3, steel | 15 | 0 | 15 | any | clamps the heat stack |
+| Hex standoff M3 x 12, female-female, polyamide | 15 | 0 | 15 | any | carries the driver, on the stud behind each nut |
+| Screw M3 x 6, pan head, polyamide | 15 | 0 | 15 | any | driver to its standoffs, from the back (D20) |
+| Screw ISO 7380 M3 x 20, button head, black | 15 | 0 | 15 | any | LED screws: hood, carrier and LED board to the plate |
+| Screw ISO 7380 M3 x 8, button head, with nut M3 nylock (DIN 985) | 40 | 0 | 40 | any | door pins, 8 per lamp (D27) |
 | Optic carrier, MJF PA12 dyed black | 7 | 0 | 7 | JLC3DP, in the JLC cart (D2026111615500272, -280, -287) | 5 standard, 1 at +0.5 mm and 1 at +1.0 mm for the focus test: $26.65 |
 
 ## Events
@@ -77,3 +84,4 @@ Bought with the order, not placed on a board: spares and rework parts. On hand i
 | 2026-11-16 | driver | draft |  |  | driver moves to v2.2 before payment: R11 (470 ohm, +5V to GND) sinks D5's clamp current, which the 78L05 can't (DESIGN D29; releases/driver/v2.2, commit 2dc7d45). Without it, 12 V on the data pin would lift the whole +5V rail of a v2.1 board. The cart's v2.1 items (PCB Y174-2642684A, PCBA SMT026111664196-2642684A) are to be replaced by v2.2 with the same options; in the preview U7 needs the same hand turn, and R11 is a resistor (no orientation) |
 | 2026-11-16 | all | draft |  |  | housing moves to round 7 before payment (DESIGN D30, mech/housing/order7/): the yoke pivot as real parts, M4 knobs into PEM S-M4-2 nuts. The cart's round-6 shell, cap and yoke are to be replaced by order7's, with the same options, and quoted again: round 6's cap asked for M5 nuts in 7.14 mm holes 6.0 mm from the rim's edge, which PEM's M5 nut (SS-M5, hole 6.35, edge 7.1) can't meet |
 | 2026-11-16 | all | draft |  |  | round 7's cap also takes 4 x PEM S-M3-2 in its back face on a 46 mm square, for a box with a controller and power supply (DESIGN D31): 8 press nuts per cap in all, 40 for the order |
+| 2026-11-16 | all | draft |  |  | the housing's bought fasteners listed as extras (DESIGN D32, mech/housing/README.md): studs, washers, nuts, standoffs and screws for the heat stack, the LED and shell screws, the door pins. Thermal paste and medium thread-lock besides. No change to the sheet-metal parts |

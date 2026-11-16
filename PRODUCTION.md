@@ -62,7 +62,7 @@ The things that went wrong before, or could:
   - Or buy ready-made PH 6-pin leads with loose ends (often 26 AWG, enough at 0.45 A per LED): pass the loose ends forward through the stack and the hole, and solder them to the LED board last.
   - Aluminium boards pull heat away fast, so use a hot iron or preheat.
 - **Chain cables:** JST XH 3-pin, wired pin 1 to pin 1 (D4). Up to 5 lights per 12 V feed, up to 3 m apart on 22 AWG, with a 3 A fuse at the supply end (D14, D15). Between groups, leave pin 1 open.
-- **Assembly:** nylon washers or screws on the driver; a sleeve or grommet on the harness through the LED board's hole (D20).
+- **Assembly:** the housing's fasteners and the order to fit them are in [mech/housing/README.md](mech/housing/README.md) (D30, D32): the driver sits on polyamide standoffs with polyamide screws (D20). A sleeve or grommet on the harness through the LED board's hole (D20).
 - **Bring-up:**
   - 12 V with a current-limited supply at 0.6 A for one light: 0.42 A expected at full white.
   - Check 5 V at U1 pin 8, then the DIM pins with data.
@@ -133,9 +133,16 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | --- | --- | --- | --- | --- |
 | B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 4 | 0 | 4 | LCSC C144394 |
 | Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor |
+| Hex standoff M3 x 12, female-female, polyamide | 15 | 0 | 15 | any |
 | Housing sheet metal for 5 lamps (round 7) | 1 | 0 | 1 | JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204, round 6: the shell, cap and yoke to be replaced by round 7's) |
+| Nut ISO 4032 M3, steel | 15 | 0 | 15 | any |
 | Optic carrier, MJF PA12 dyed black | 7 | 0 | 7 | JLC3DP, in the JLC cart (D2026111615500272, -280, -287) |
-| Screw ISO 7380 M3 x 6, button head | 10 | 0 | 10 | any |
+| Screw ISO 7380 M3 x 20, button head, black | 15 | 0 | 15 | any |
+| Screw ISO 7380 M3 x 6, button head | 30 | 0 | 30 | any |
+| Screw ISO 7380 M3 x 8, button head, with nut M3 nylock (DIN 985) | 40 | 0 | 40 | any |
+| Screw M3 x 6, pan head, polyamide | 15 | 0 | 15 | any |
+| Threaded rod M3 (DIN 976-1), cut to 45 mm | 15 | 0 | 15 | any; 1 m of rod gives 20 |
+| Washer DIN 125-A 3.2 (M3), steel | 15 | 0 | 15 | any |
 | Washer DIN 125-A 4.3 (M4), polyamide, 4.3 x 9 x 0.8 | 10 | 0 | 10 | any |
 | Washer DIN 9021 4.3 (M4), steel, 4.3 x 12 x 1.0 | 10 | 0 | 10 | any |
 
