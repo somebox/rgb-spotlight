@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): the driver released as v2.1 (D5, a clamp on the data input, DESIGN D28) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), is in the JLC cart, unpaid, with driver v2.1 (Y174) beside v2.0's (Y173), which the user removes before paying: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-16): the driver released as v2.2 (D5, a clamp on the data input, DESIGN D28, and R11, which takes D5's current off the +5V rail, D29) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.2 and is in the JLC cart, unpaid, still with driver v2.1 (Y174) beside v2.0's (Y173): both are to go, v2.2 to come in, before paying. 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -44,7 +44,7 @@ The things that went wrong before, or could:
 - **Placement checklist first.** On 2026-11-16 the preview showed:
   - `^SOT-89` +180° right for U2–U4 (PT4115, SOT-89-5) and U5 (78L05, SOT-89-3);
   - `^SOT-353` +180° a quarter turn out for U7 (74AHCT1G125): turned +90 by hand. pcb-kit's rule is now −90.
-  The v2.0 release's CPLs and driver v2.1's (released before the kit's fix was merged) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26).
+  The v2.0 release's CPLs and driver v2.1's and v2.2's (released before the kit's fix was merged) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26).
 - **PT4115 U2–U4 (SOT-89-5).** Pin 1 is SW. The tab must sit on the wide GND pad, not rotated 180°.
 - **U1 (SOIC-8), U6 (SOIC-14).** The SOIC rule (+270°) was checked on 2026-10-26 and right here on 2026-11-16. Still check the pin-1 dots; v1 used EasyEDA footprints, these are KiCad's.
 - **J1/J2 (JST XH, back).** They are in the `-back` BOM/CPL and the `-both` files. For a top-only order, hand-solder them (through-hole).
@@ -111,14 +111,14 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.1 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.60 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.2 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.60 USD | driver moves to v2.2 before payment: R11 (470 ohm, +5V to GND) sinks D5's clamp current, which the 78L05 can't (DESIGN D29; releases/driver/v2.2, commit 2dc7d45). Without it, 12 V on the data pin would lift the whole +5V rail of a v2.1 board. The cart's v2.1 items (PCB Y174-2642684A, PCBA SMT026111664196-2642684A) are to be replaced by v2.2 with the same options; in the preview U7 needs the same hand turn, and R11 is a resistor (no orientation) |
 | [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
 
 ### Boards
 
 | PCB | in KiCad | released | state | parts a board (USD) | latest order | in stock | parts on hand build |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [driver](boards/driver) | v2.1 | v2.1 2026-11-16 | released | 1.83, 7 ext. | 2026-11-16-v2-first: draft |  |  |
+| [driver](boards/driver) | v2.2 | v2.2 2026-11-16 | released | 1.83, 7 ext. | 2026-11-16-v2-first: draft |  |  |
 | [led](boards/led) | v2.0 | v2.0 2026-11-16 | released | 0.79, 3 ext. | 2026-11-16-v2-first: draft |  |  |
 
 Parts costs: placed parts at unit prices from konnect's JLC parts cache of 2026-11-03; Extended parts add a setup fee each per order.
@@ -137,7 +137,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 
 | order | what | status | last event |
 | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.1 and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps | draft | 2026-11-16 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.2 and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps | draft | 2026-11-16 |
 
 ### Problems
 

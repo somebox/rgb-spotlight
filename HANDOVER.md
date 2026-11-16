@@ -1,7 +1,8 @@
 # RGB Spotlight: handover
 
-Status (2026-11-16): the driver is **released as v2.1** (D5 clamps its data input, D28), the LED board as **v2.0**, and
-the first order is **in the JLC cart, unpaid**, its driver going from v2.0 to v2.1 there before payment: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
+Status (2026-11-16): the driver is **released as v2.2** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29), the
+LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**, its driver to be swapped there for v2.2
+before payment (the cart holds v2.0 and v2.1): 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
 JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -44,6 +45,7 @@ the way in; the detail stays in the documents it links to.
 | D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | applied 2026-11-14 |
 | D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md |
 | D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
+| D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin | applied 2026-11-16, driver v2.2 |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
@@ -59,6 +61,8 @@ the way in; the detail stays in the documents it links to.
     after the planned edits. `pcbkit release --dry-run`: both boards would release as v2.0.
   - The driver again on 2026-11-16 with D5 (D28): ERC 0, `netcheck.py` 65 checks, DRC 0/0 with parity, `check` and
     `courtyards` unchanged; released as v2.1.
+  - Again with R11 (D29), after the PR review found D5's current had nowhere to go: ERC 0, `netcheck.py` 66
+    checks, DRC 0/0 with parity, `check` and `courtyards` unchanged; released as v2.2.
 - **Not proven on hardware:**
   - **The WS2811 (F3, review R2).** The owner recalls PWM from the chip on v1, but v1 had too many faults for that to
     count.
@@ -77,8 +81,9 @@ the way in; the detail stays in the documents it links to.
 3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order);
    the driver released again as v2.1 the same day, with D5 (D28), and put in the cart beside v2.0 (Y174, $39.60;
    whole order $363.20). The preview also turned U7 a quarter turn (the SOT-353 rule was wrong), on v2.0 and v2.1;
-   SOT-89 and D5 were right. Left to do:
-   - remove the v2.0 driver (PCB Y173 and its PCBA SMT026111662992) from the cart;
+   SOT-89 and D5 were right. Then released again as v2.2 with R11 (D29). Left to do:
+   - swap the cart's driver for v2.2: remove v2.0 (PCB Y173, PCBA SMT026111662992) and v2.1 (PCB Y174, PCBA
+     SMT026111664196), add v2.2 with the same options and turn U7 by hand again;
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
    - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself.
