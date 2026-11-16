@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): the driver released as v2.3 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.3 and is in the JLC cart, unpaid, still with driver v2.1 (Y174) beside v2.0's (Y173): both are to go, v2.3 to come in, before paying. The housing moved to round 7 (DESIGN D30–D33): the cart's round-6 shell, cap, yoke, plate, fins and spacers are to be replaced by `mech/housing/order7/`'s and quoted again. 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-16): the driver released as v2.3 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.3 and is in the JLC cart, unpaid: driver v2.3 (Y179) in place of v2.0 and v2.1, and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $364.37 with DHL before JLCCNC prices the threads and press nuts. 2 of each board assembled, and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -40,11 +40,12 @@ The things that went wrong before, or could:
   - Order remark: "LED1–LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode."
 - **Schottky D1–D3 (SOD-123).** The cathode band faces the 12 V side (Rs / VIN). Inverted, the diode shorts SW to 12 V.
 - **TVS D4 (SMA).** The cathode band goes to +12V. Inverted, it conducts the moment 12 V is applied.
-- **Clamp D5 (SOD-323, from driver v2.1).** The cathode band (pad 1) goes to +5V, towards the board edge; the anode joins R7/R10. Inverted, it holds the data input high and the light gets no data. No rotation rule covers `D_SOD-323`, so the CPL has KiCad's angle (270°). On 2026-11-16 (Y174) the preview showed it right: the band and JLC's − on the pad hovering at (−13.83, 19.15), pad 1 at (−13.80, 19.00), towards the board edge; the + on pad 2 at (−13.83, 16.83). Check it again on each order: with no rule, nothing in pcb-kit records the check.
+- **Clamp D5 (SOD-323, from driver v2.1).** The cathode band (pad 1) goes to +5V, towards the board edge; the anode joins R7/R10. Inverted, it holds the data input high and the light gets no data. No rotation rule covers `D_SOD-323`, so the CPL has KiCad's angle (270°). On 2026-11-16 (Y174) the preview showed it right: the band and JLC's − on the pad hovering at (−13.83, 19.15), pad 1 at (−13.80, 19.00), towards the board edge; the + on pad 2 at (−13.83, 16.83). The same on Y179 (v2.3): − at (−13.8, 19.1). Check it again on each order: with no rule, nothing in pcb-kit records the check.
+- **LED sockets J3–J5 (JST XH 2, C158012, from driver v2.3).** Pin 1, the square pad, is the LED's + (D33). The plug is keyed to the socket's body, so a socket turned half a turn puts the plug's + on pad 2 and reverses that LED. No rotation rule covers `JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical`, so the CPL has KiCad's angle. On 2026-11-16 (Y179) JLC drew all three half a turn from KiCad's footprint: the body reached 3.4 mm from the pins on the side where KiCad's reaches 2.35, the wall slots faced the other way, and J4 and J5 lay over L2's and L3's outlines. Turned 180 by hand (Rotate Left twice): then each body filled its silkscreen outline, by the pin-1 corner mark. Check them on every order until pcb-kit has a rule for the footprint.
 - **Placement checklist first.** On 2026-11-16 the preview showed:
   - `^SOT-89` +180° right for U2–U4 (PT4115, SOT-89-5) and U5 (78L05, SOT-89-3);
   - `^SOT-353` +180° a quarter turn out for U7 (74AHCT1G125): turned +90 by hand. pcb-kit's rule is now −90.
-  The v2.0 release's CPLs and driver v2.1's and v2.2's (released before the kit's fix was merged) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26).
+  The v2.0 release's CPLs and driver v2.1's, v2.2's and v2.3's (released before the kit's fix was merged) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26). On Y179 (driver v2.3) the same: after the turn pin 1 at (−10.57, 17.27), against the checklist's (−10.438, 17.250).
 - **PT4115 U2–U4 (SOT-89-5).** Pin 1 is SW. The tab must sit on the wide GND pad, not rotated 180°.
 - **U1 (SOIC-8), U6 (SOIC-14).** The SOIC rule (+270°) was checked on 2026-10-26 and right here on 2026-11-16. Still check the pin-1 dots; v1 used EasyEDA footprints, these are KiCad's.
 - **J1/J2 (JST XH, back).** They are in the `-back` BOM/CPL and the `-both` files. For a top-only order, hand-solder them (through-hole).
@@ -72,13 +73,17 @@ The things that went wrong before, or could:
 
 | Date | Board | Qty | Item | Cost |
 | --- | --- | --- | --- | --- |
-| 2026-11-16 | all | — | One JLC cart with driver v2.1 (Y174) and without v2.0's (Y173): boards 87.24 + sheet metal 156.95 + carriers 26.65 = 270.84; DHL 98.36 (5.23 kg), coupon −6.00. Threads and press nuts still to be priced by JLCCNC | $363.20 |
-| 2026-11-16 | driver v2.1 | 5 PCBs / 2 assembled | Y174: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111664196 35.60 (setup 8.24, stencil 1.55, parts 4.70 for 20 lines, Extended 15.45 for 5 types: D5 (C7502691) is listed Extended but added no fee, SMT 0.54, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86). Same options as Y173 | $39.60 |
+| 2026-11-16 | all | — | The JLC cart with driver v2.3 (Y179) and the round-7 housing, the old drivers and round-6 parts removed: boards 87.41 + sheet metal 157.95 + carriers 26.65 = 272.01; DHL 98.36 (5.22 kg), coupon −6.00; ships about 2026-11-22. Threads and press nuts still to be priced by JLCCNC | $364.37 |
+| 2026-11-16 | driver v2.3 | 5 PCBs / 2 assembled | Y179: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666453 35.77 (setup 8.24, stencil 1.55, parts 4.83 for 21 lines, Extended 15.45, SMT 0.55, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.23, nitrogen 0.86). Same options as Y174 | $39.77 |
+| 2026-11-16 | boards | — | The two boards alone with driver v2.3: 87.41 + DHL 26.97 − coupon 6.00 (0.62 kg) | $108.38 |
+| 2026-11-16 | housing | 5 lamps | JLCCNC sheet metal, Al 5052: round 7's shell, cap, yoke, plate, fins and spacers (SMS2611173001134 … 1162, 94.40) with round 6's hood and doors (63.55); by part below | $157.95 |
+| 2026-11-16 | all | — | The cart with driver v2.1 (Y174) and round 6, before v2.3 and round 7: boards 87.24 + sheet metal 156.95 + carriers 26.65 = 270.84; DHL 98.36 (5.23 kg), coupon −6.00 | $363.20 |
+| 2026-11-16 | driver v2.1 | 5 PCBs / 2 assembled | Y174, removed from the cart for v2.3: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111664196 35.60 (setup 8.24, stencil 1.55, parts 4.70 for 20 lines, Extended 15.45 for 5 types: D5 (C7502691) is listed Extended but added no fee, SMT 0.54, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86). Same options as Y173 | $39.60 |
 | 2026-11-16 | boards | — | The two boards alone with driver v2.1: 87.24 + DHL 26.97 − coupon 6.00 (0.62 kg) | $108.21 |
 | 2026-11-16 | all | — | The same cart with driver v2.0 (Y173), before v2.1: boards 86.90, total 270.50 + DHL 98.36 − 6.00 | $362.86 |
 | 2026-11-16 | carriers | 7 | JLC3DP MJF PA12-HP dyed black: 5 standard 18.65, +0.5 mm 3.91, +1.0 mm 4.09 (D2026111615500272, -280, -287) | $26.65 |
-| 2026-11-16 | housing | 5 lamps | JLCCNC sheet metal, Al 5052, round 6 (SMS2611163003158 … 3204); by part below | $156.95 |
-| 2026-11-16 | driver v2.0 | 5 PCBs / 2 assembled | Y173, still in the cart for the user to remove: PCB 4.00 (HASL with lead) + Economic PCBA 35.26 (setup 8.24, stencil 1.55, parts 4.43, Extended 15.45 for 5 types, SMT 0.47, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86) | $39.26 |
+| 2026-11-16 | housing | 5 lamps | JLCCNC sheet metal, Al 5052, round 6 (SMS2611163003158 … 3204); by part below. Its shell, cap, yoke, plate, fins and spacers were replaced by round 7's | $156.95 |
+| 2026-11-16 | driver v2.0 | 5 PCBs / 2 assembled | Y173, removed from the cart for v2.3: PCB 4.00 (HASL with lead) + Economic PCBA 35.26 (setup 8.24, stencil 1.55, parts 4.43, Extended 15.45 for 5 types, SMT 0.47, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86) | $39.26 |
 | 2026-11-16 | led | 5 PCBs / 2 assembled | Y172: PCB 4.00 (aluminium, 1 W/mK, HASL with lead) + Standard PCBA 43.64 (setup 25.75, stencil 8.27, parts 3.94, feeder loading 4.65, SMT 0.08, placement check 0.45, packaging 0.50) | $47.64 |
 | 2026-11-16 | boards | — | The two boards alone with driver v2.0: 86.90 + DHL 26.97 − coupon 6.00 (0.62 kg) | $107.87 |
 | 2026-11-14 | driver | 1 | BOM, bomi qty-1 pricing, after D17/D18 (prices refreshed) | ≈ $1.70 plus the Extended-part fees listed in docs/BOM_driver.md |
@@ -100,7 +105,20 @@ The things that went wrong before, or could:
 | spacer (3 mm) | 40 | bare | 15.60 | |
 | **Sheet metal** | | | **156.95** | ≈ 145.75 |
 
-**Round 7 (D30–D33), not yet quoted.** The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and the cap 2 × PEM S-M4-2 nuts (hole 5.41) in rims 1.5 mm longer, instead of M5 nuts in 7.14 mm holes 6.0 mm from the edge, which PEM's M5 nut (SS-M5: hole 6.35, 7.1 mm from the edge) can't meet. The cap's back face also takes 4 × S-M3-2 for a box (D31): 8 press nuts a cap. The plate, fins and spacers get a Ø12 middle hole (was 8) for the LED plugs (D33). Files: `mech/housing/order7/` (shell, cap, yoke, plate, fin, spacer and both drawings); the hood, doors and carriers stay round 6's. Bought for the pivot, per lamp: 2 × Elesa VC.692/25 p-M4x10 knob, 2 × DIN 9021 and 2 × DIN 125 polyamide M4 washers, and 2 × ISO 7380 M3 × 6 for the cap (the order's extras).
+**Round 7 (D30–D33), quoted 2026-11-16 and in the cart** in place of round 6's six parts, with the same material, finishes and quantities. The cap goes with `order7/rgb-spotlight-cap-press-nuts.pdf` and a remark for its 8 nuts, the plate with `order7/rgb-spotlight-plate-threads.pdf` and a remark for its 10 threads; JLCCNC prices both in its review.
+
+| Part | Qty | Finish | JLCCNC | Cart no. | Round 6 |
+| --- | --: | --- | --: | --- | --: |
+| shell (1.5 mm) | 5 | powder coat | 31.40 | SMS2611173001162 | 31.40 |
+| cap (1.5 mm), 6 × M3 + 2 × M4 press nuts by drawing | 5 | powder coat | 12.50 + nuts after review | SMS2611173001134 | 12.00 |
+| yoke (3 mm) | 5 | powder coat | 13.30 | SMS2611173001139 | 13.30 |
+| plate (3 mm), 10 × M3 threads by drawing | 5 | bare | 5.80 + threads after review | SMS2611173001149 | 5.70 |
+| fin (3 mm) | 20 | bare | 15.80 | SMS2611173001150 | 15.40 |
+| spacer (3 mm) | 40 | bare | 15.60 | SMS2611173001160 | 15.60 |
+| hood and doors, round 6's | 5 + 20 | powder coat | 63.55 | SMS2611163003204, …3181 | 63.55 |
+| **Sheet metal** | | | **157.95** | | 156.95 |
+
+The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and the cap 2 × PEM S-M4-2 nuts (hole 5.41) in rims 1.5 mm longer, instead of M5 nuts in 7.14 mm holes 6.0 mm from the edge, which PEM's M5 nut (SS-M5: hole 6.35, 7.1 mm from the edge) can't meet. The cap's back face also takes 4 × S-M3-2 for a box (D31): 8 press nuts a cap. The plate, fins and spacers get a Ø12 middle hole (was 8) for the LED plugs (D33). Files: `mech/housing/order7/` (shell, cap, yoke, plate, fin, spacer and both drawings); the hood, doors and carriers stay round 6's. Bought for the pivot, per lamp: 2 × Elesa VC.692/25 p-M4x10 knob, 2 × DIN 9021 and 2 × DIN 125 polyamide M4 washers, and 2 × ISO 7380 M3 × 6 for the cap (the order's extras).
 
 Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the back). JLC solders J3–J5 (JST B2B-XH-A, C158012).
 
@@ -113,7 +131,7 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.3 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.60 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.3 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.77 USD |  |
 | [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
 
 ### Boards
@@ -134,7 +152,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 4 | 0 | 4 | LCSC C144394 |
 | Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor |
 | Hex standoff M3 x 12, female-female, polyamide | 15 | 0 | 15 | any |
-| Housing sheet metal for 5 lamps (round 7) | 1 | 0 | 1 | JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204, round 6: the shell, cap, yoke, plate, fins and spacers to be replaced by round 7's) |
+| Housing sheet metal for 5 lamps (round 7) | 1 | 0 | 1 | JLCCNC, in the JLC cart: round 7's shell, cap, yoke, plate, fins and spacers (SMS2611173001134 ... SMS2611173001162), round 6's hood and doors (SMS2611163003204, SMS2611163003181) |
 | Nut ISO 4032 M3, steel | 15 | 0 | 15 | any |
 | Optic carrier, MJF PA12 dyed black | 7 | 0 | 7 | JLC3DP, in the JLC cart (D2026111615500272, -280, -287) |
 | SXH-001T-P0.6 (JST), XH crimp contact, 22-28 AWG | 30 | 0 | 30 | LCSC C140573 |

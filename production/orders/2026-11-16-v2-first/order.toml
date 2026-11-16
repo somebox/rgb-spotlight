@@ -9,8 +9,8 @@ fab = [
   "LED board PCBA: Standard (Economic is not offered on aluminium), top side, 2 of 5 assembled, JLC's edge rails added (the board is under 70 mm), Confirm Parts Placement yes; assembly remark: 'LED1-LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode.'",
   "LED board BOM: 3/3 matched by LCSC number; JLC left LED3 (blue, C49237860) unticked at quantity 0 with 'The processing of this component is difficult', reviewed after ordering and charged extra only if an advanced option is needed. Ticked by hand",
   "Driver: FR4, 2 layers, 1.6 mm, 1 oz, green mask, white silkscreen, HASL with lead (JLC now defaults to OSP), tented vias, JLC's default 0.3 mm via option (all 69 vias are 0.3 mm drills), JLC's mark removed. PCB remark: the JLCJLCJLCJLC text on the bottom silk is an old order-number placeholder, to be left off",
-  "Driver PCBA: Economic, top side, 2 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.3 from 2026-11-16) (the release's CPL less J1/J2, which sit on the back). J3-J5 (JST XH 2, through-hole, C158012) placed by JLC: hand-soldering and manual-assembly fees to be quoted with v2.3 (v2.1's one PH 6 cost $3.61 + $0.20)",
-  "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left, as the never-checked ^SOT-353 (+180) left it a quarter turn out; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed on branch jlc-rotations-spotlight",
+  "Driver PCBA: Economic, top side, 2 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.3 from 2026-11-16) (the release's CPL less J1/J2, which sit on the back). J3-J5 (JST XH 2, through-hole, C158012) placed by JLC: hand-soldering $3.61 and manual assembly $0.23 on Y179 (v2.1's one PH 6 cost $3.61 + $0.20)",
+  "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left on v2.0, v2.1 and v2.3, as the never-checked ^SOT-353 (+180) left it a quarter turn out; J3-J5 (v2.3, JST XH 2, C158012, no rule) half a turn, as JLC draws the socket opposite KiCad's footprint; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed for U7 and the LEDs on branch jlc-rotations-spotlight; J3-J5's footprint has no rule yet",
   "Housing: JLCCNC sheet metal, Al 5052, black matte powder coat on shell, cap, hood, doors and yoke, plate/fins/spacers bare; the plate's 10 x M3 threads (mech/housing/order7/rgb-spotlight-plate-threads.pdf) and the cap's 8 press nuts, round 7: 2 x PEM S-M3-2 and 2 x S-M4-2 in the rims, 4 x S-M3-2 in the back face for a box (mech/housing/order7/rgb-spotlight-cap-press-nuts.pdf) by drawing, priced after JLCCNC's review. Round 7 (DESIGN D30-D33) changes the shell, cap, yoke, plate, fins and spacers (mech/housing/order7/); the hood and doors are round 6's (order6/). Carriers: JLC3DP MJF PA12-HP, dyed black",
   "Customs: boards 'Research/Education/DIY, DIY - HS 902300'; sheet metal HS 761699; carriers 'Plastic Bracket' HS 392690",
 ]
@@ -43,8 +43,8 @@ note = "driver J1, J2 on the back, 2 per assembled board; buy a few spare"
 [[extra]]
 part = "Housing sheet metal for 5 lamps (round 7)"
 qty = 1
-buy = "JLCCNC, in the JLC cart (SMS2611163003158 ... SMS2611163003204, round 6: the shell, cap, yoke, plate, fins and spacers to be replaced by round 7's)"
-note = "shell x5, cap x5, hood x5, door x20, yoke x5 (black powder coat); plate x5, fin x20, spacer x40 (bare): $156.95 for round 6, before threads and press nuts"
+buy = "JLCCNC, in the JLC cart: round 7's shell, cap, yoke, plate, fins and spacers (SMS2611173001134 ... SMS2611173001162), round 6's hood and doors (SMS2611163003204, SMS2611163003181)"
+note = "shell x5, cap x5, hood x5, door x20, yoke x5 (black powder coat); plate x5, fin x20, spacer x40 (bare): $157.95, before threads and press nuts"
 
 # The yoke pivot and cap screws (housing round 7, DESIGN D30): bought, fitted by hand. Per lamp 2 of each.
 [[extra]]
@@ -217,3 +217,22 @@ note = "housing round 7 also widens the hole down the plate, fins and spacers fr
 date = 2026-11-16
 status = "draft"
 note = "JLC Parts Cart (parts bought into the JLC parts library, for assembly): 200 x JST B2B-XH-A(LF)(SN) (C158012) at $0.0305 = $6.10, for J3-J5 here (6 on the 2 assembled drivers) and as stock for other boards. Left unticked, nothing paid. The harness's plug housings and contacts (XHP-2, SXH-001T-P0.6) are not in a cart yet: JLC's parts are for assembly only"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+pcb = "driver"
+cart_id = "Y179-2642684A"
+price = 39.77
+currency = "USD"
+note = "driver v2.3 in the JLC cart in place of v2.0 and v2.1, on the user's OK ('Yes, swap the cart'): PCB Y173-2642684A and Y174-2642684A with their PCBAs (SMT026111662992, SMT026111664196) removed. Y179 has Y174's options: PCB Y179-2642684A ($4.00, HASL with lead, tented, Remove Mark with the same PCB remark, 24 h) and Economic PCBA SMT026111666453-2642684A ($35.77: setup 8.24, stencil 1.55, parts 4.83 for 21 lines, Extended 15.45, SMT 0.55, placement check 0.45, hand-soldering 3.61 and manual assembly 0.23 for J3-J5, nitrogen 0.86). Files: GERBER-driver-v2.3.zip from the release, the -front BOM/CPL from `pcbkit fab` (the release's less J1/J2): 37 placements, BOM 21/21 matched by LCSC number. Silkscreen 'RGB Spotlight driver v2.3'. Placement preview: J3-J5 (C158012, no rotation rule) came a half turn from KiCad's footprint (JLC's body 3.4 mm from the pins on the side KiCad has 2.35, its wall slots on the other side, J4 and J5 over L2 and L3's outlines) and were turned 180 by hand, after which each sat in its silkscreen outline by the pin-1 mark; U7 turned +90 by hand (pin 1 then at -10.57, 17.27 against -10.438, 17.250; centre -9.60, 16.61); D5 right as on Y174 (band and - on pad 1 at -13.8, 19.1); every other part has v2.1's angle and position. The saved order's Part Placement shows the turns"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+note = "housing round 7 in the JLC cart in place of round 6's shell, cap, yoke, plate, fins and spacers (SMS2611163003191, -3199, -3168, -3169, -3172, -3158 removed on the user's OK), with the same options: shell x5 SMS2611173001162 $31.40, cap x5 SMS2611173001134 $12.50 (with rgb-spotlight-cap-press-nuts.pdf and a remark for the 8 nuts), yoke x5 SMS2611173001139 $13.30 (black matte powder coat); plate x5 SMS2611173001149 $5.80 (with rgb-spotlight-plate-threads.pdf and a remark for the 10 threads), fin x20 SMS2611173001150 $15.80, spacer x40 SMS2611173001160 $15.60 (bare): $94.40, against $93.40 for round 6's six. Round 6's hood (SMS2611163003204, $19.55) and doors (SMS2611163003181, $44.00) stay: sheet metal $157.95. JLCCNC prices the cap's press nuts and the plate's threads in its review"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+note = "the whole order with driver v2.3 and housing round 7: boards $87.41 + sheet metal $157.95 + carriers $26.65 = $272.01; DHL $98.36 for 5.22 kg, coupon -$6.00: $364.37, ships about 2026-11-22 (boards alone: $87.41 + $26.97 - $6.00 = $108.38). Thread and press-nut charges come after JLCCNC's review. Nothing paid; all lines left unticked"

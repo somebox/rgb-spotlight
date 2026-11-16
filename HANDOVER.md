@@ -2,9 +2,9 @@
 
 Status (2026-11-16): the driver is **released as v2.3** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
 three JST XH 2-pin LED sockets, D33), the LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**,
-its driver to be swapped there for v2.3 and the housing's shell, cap, yoke, plate, fins and spacers for round 7's
-(D30–D33) before payment: 2 of each board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
-JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
+with driver v2.3 and the round-7 housing (D30–D33): 2 of each board assembled, and the housing (sheet metal and optic
+carriers) for 5 lamps, $364.37 with DHL before JLCCNC prices the threads and press nuts
+([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
 ## How we got here
@@ -86,16 +86,17 @@ the way in; the detail stays in the documents it links to.
 3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order);
    the driver released again as v2.1 the same day, with D5 (D28), and put in the cart beside v2.0 (Y174, $39.60;
    whole order $363.20). The preview also turned U7 a quarter turn (the SOT-353 rule was wrong), on v2.0 and v2.1;
-   SOT-89 and D5 were right. Then released again as v2.2 with R11 (D29). Left to do:
-   - swap the cart's driver for v2.3: remove v2.0 (PCB Y173, PCBA SMT026111662992) and v2.1 (PCB Y174, PCBA
-     SMT026111664196), add v2.3 with the same options, turn U7 by hand again and check J3–J5 (no rotation rule covers them);
-   - swap the cart's round-6 shell, cap, yoke, plate, fins and spacers for round 7's (`mech/housing/order7/`, D30–D33),
-     with the same options and both drawings;
+   SOT-89 and D5 were right. Then released again as v2.2 with R11 (D29), and as v2.3 with the XH sockets (D33).
+   Swapped in the cart on 2026-11-16: driver v2.3 (Y179, $39.77) in place of v2.0 and v2.1, and round 7's shell, cap,
+   yoke, plate, fins and spacers in place of round 6's (sheet metal $157.95 with round 6's hood and doors); whole order
+   $364.37. In v2.3's preview U7 was turned again, and J3–J5 half a turn (no rotation rule covers the XH 2-pin socket).
+   Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
-   - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself.
+   - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself;
+     J3–J5 need a rule there too (PRODUCTION.md, order checklist).
 4. **Bring-up:** the review's bench list. Use a current-limited first power, then one colour at a time. Record the
    results in the review, dated:
    - D1's temperature (R10);
