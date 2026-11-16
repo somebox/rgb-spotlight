@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): the driver released as v2.3 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.3 and is in the JLC cart, unpaid: driver v2.3 (Y179) in place of v2.0 and v2.1, and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $364.37 with DHL before JLCCNC prices the threads and press nuts. 2 of each board assembled, and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-16): the driver released as v2.3 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.3 and is in the JLC cart, unpaid: driver v2.3 (Y179) in place of v2.0 and v2.1, and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $370.15 with DHL before JLCCNC prices the threads and press nuts. All 5 of each board assembled (decided 2026-11-17), and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -73,8 +73,12 @@ The things that went wrong before, or could:
 
 | Date | Board | Qty | Item | Cost |
 | --- | --- | --- | --- | --- |
-| 2026-11-16 | all | — | The JLC cart with driver v2.3 (Y179) and the round-7 housing, the old drivers and round-6 parts removed: boards 87.41 + sheet metal 157.95 + carriers 26.65 = 272.01; DHL 98.36 (5.22 kg), coupon −6.00; ships about 2026-11-22. Threads and press nuts still to be priced by JLCCNC | $364.37 |
-| 2026-11-16 | driver v2.3 | 5 PCBs / 2 assembled | Y179: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666453 35.77 (setup 8.24, stencil 1.55, parts 4.83 for 21 lines, Extended 15.45, SMT 0.55, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.23, nitrogen 0.86). Same options as Y174 | $39.77 |
+| 2026-11-17 | all | — | The JLC cart with both boards fully assembled, driver Y180 and LED board Y181, and the round-7 housing: boards 93.19 + sheet metal 157.95 + carriers 26.65 = 277.79; DHL 98.36 (5.30 kg), coupon −6.00; ships about 2026-11-23. $5.78 more than 2 of each. Threads and press nuts still to be priced by JLCCNC | $370.15 |
+| 2026-11-17 | driver v2.3 | 5 PCBs / 5 assembled | Y180: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666618 41.55 (setup 8.24, stencil 1.55, parts 9.75 for 21 lines, Extended 15.45, SMT 1.06, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.53, nitrogen 0.91). Same options as Y179 | $45.55 |
+| 2026-11-17 | led | 5 PCBs / 5 assembled | Y181: PCB 4.00 (aluminium, 1 W/mK, HASL with lead) + Standard PCBA SMT026111666632 43.64 (setup 25.75, stencil 8.27, parts 3.94, feeder loading 4.65, SMT 0.08, placement check 0.45, packaging 0.50): the same as 2 assembled, as JLC buys 5 of each LED either way. Same options as Y172 | $47.64 |
+| 2026-11-17 | boards | — | The two boards alone, fully assembled: 93.19 + DHL 26.97 − coupon 6.00 (0.69 kg) | $114.16 |
+| 2026-11-16 | all | — | The JLC cart with driver v2.3 (Y179) and the round-7 housing, 2 of each board assembled, the old drivers and round-6 parts removed: boards 87.41 + sheet metal 157.95 + carriers 26.65 = 272.01; DHL 98.36 (5.22 kg), coupon −6.00; ships about 2026-11-22. Threads and press nuts still to be priced by JLCCNC | $364.37 |
+| 2026-11-16 | driver v2.3 | 5 PCBs / 2 assembled | Y179, replaced by Y180 (5 assembled) on 2026-11-17: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666453 35.77 (setup 8.24, stencil 1.55, parts 4.83 for 21 lines, Extended 15.45, SMT 0.55, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.23, nitrogen 0.86). Same options as Y174 | $39.77 |
 | 2026-11-16 | boards | — | The two boards alone with driver v2.3: 87.41 + DHL 26.97 − coupon 6.00 (0.62 kg) | $108.38 |
 | 2026-11-16 | housing | 5 lamps | JLCCNC sheet metal, Al 5052: round 7's shell, cap, yoke, plate, fins and spacers (SMS2611173001134 … 1162, 94.40) with round 6's hood and doors (63.55); by part below | $157.95 |
 | 2026-11-16 | all | — | The cart with driver v2.1 (Y174) and round 6, before v2.3 and round 7: boards 87.24 + sheet metal 156.95 + carriers 26.65 = 270.84; DHL 98.36 (5.23 kg), coupon −6.00 | $363.20 |
@@ -84,7 +88,7 @@ The things that went wrong before, or could:
 | 2026-11-16 | carriers | 7 | JLC3DP MJF PA12-HP dyed black: 5 standard 18.65, +0.5 mm 3.91, +1.0 mm 4.09 (D2026111615500272, -280, -287) | $26.65 |
 | 2026-11-16 | housing | 5 lamps | JLCCNC sheet metal, Al 5052, round 6 (SMS2611163003158 … 3204); by part below. Its shell, cap, yoke, plate, fins and spacers were replaced by round 7's | $156.95 |
 | 2026-11-16 | driver v2.0 | 5 PCBs / 2 assembled | Y173, removed from the cart for v2.3: PCB 4.00 (HASL with lead) + Economic PCBA 35.26 (setup 8.24, stencil 1.55, parts 4.43, Extended 15.45 for 5 types, SMT 0.47, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86) | $39.26 |
-| 2026-11-16 | led | 5 PCBs / 2 assembled | Y172: PCB 4.00 (aluminium, 1 W/mK, HASL with lead) + Standard PCBA 43.64 (setup 25.75, stencil 8.27, parts 3.94, feeder loading 4.65, SMT 0.08, placement check 0.45, packaging 0.50) | $47.64 |
+| 2026-11-16 | led | 5 PCBs / 2 assembled | Y172, replaced by Y181 (5 assembled) on 2026-11-17: PCB 4.00 (aluminium, 1 W/mK, HASL with lead) + Standard PCBA 43.64 (setup 25.75, stencil 8.27, parts 3.94, feeder loading 4.65, SMT 0.08, placement check 0.45, packaging 0.50) | $47.64 |
 | 2026-11-16 | boards | — | The two boards alone with driver v2.0: 86.90 + DHL 26.97 − coupon 6.00 (0.62 kg) | $107.87 |
 | 2026-11-14 | driver | 1 | BOM, bomi qty-1 pricing, after D17/D18 (prices refreshed) | ≈ $1.70 plus the Extended-part fees listed in docs/BOM_driver.md |
 | 2026-11-14 | led | 1 | BOM, bomi qty-1 pricing | ≈ $0.79 (3 Extended LEDs) |
@@ -131,8 +135,8 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.3 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.77 USD |  |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.3 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 45.55 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 47.64 USD |  |
 
 ### Boards
 
@@ -149,7 +153,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 
 | part | needed | on hand | to buy | where |
 | --- | --- | --- | --- | --- |
-| B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 4 | 0 | 4 | LCSC C144394 |
+| B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 10 | 0 | 10 | LCSC C144394 |
 | Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor |
 | Hex standoff M3 x 12, female-female, polyamide | 15 | 0 | 15 | any |
 | Housing sheet metal for 5 lamps (round 7) | 1 | 0 | 1 | JLCCNC, in the JLC cart: round 7's shell, cap, yoke, plate, fins and spacers (SMS2611173001134 ... SMS2611173001162), round 6's hood and doors (SMS2611163003204, SMS2611163003181) |
@@ -170,7 +174,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 
 | order | what | status | last event |
 | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.3 and LED board v2.0, 2 of each assembled, with the round-7 housing for 5 lamps | draft | 2026-11-16 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.3 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps | draft | 2026-11-17 |
 
 ### Problems
 

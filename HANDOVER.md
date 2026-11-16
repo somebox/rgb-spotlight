@@ -2,8 +2,8 @@
 
 Status (2026-11-16): the driver is **released as v2.3** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
 three JST XH 2-pin LED sockets, D33), the LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**,
-with driver v2.3 and the round-7 housing (D30–D33): 2 of each board assembled, and the housing (sheet metal and optic
-carriers) for 5 lamps, $364.37 with DHL before JLCCNC prices the threads and press nuts
+with driver v2.3 and the round-7 housing (D30–D33): all 5 of each board assembled, and the housing (sheet metal and optic
+carriers) for 5 lamps, $370.15 with DHL before JLCCNC prices the threads and press nuts
 ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -73,7 +73,8 @@ the way in; the detail stays in the documents it links to.
     count.
   - **The PT4115 stage.** v1's was miswired, so it has only been simulated.
 
-  The first v2 boards are the test, so order the smallest assembled run.
+  The first v2 boards are the test. The order assembles all 5 of each (the user's decision, 2026-11-17: $5.78 more than
+  2 of each, against about $94 for a second assembly run); bring-up starts with one board of each.
 - **Firmware:** FastLED `WS2811` (800 kHz) meets the WS2811's timing; `WS2811_400` doesn't. ESPHome's built-in `WS2811`
   chipset timing is outside the datasheet, so use the custom timing in the review's firmware duties. WLED wasn't
   checked.
@@ -90,11 +91,12 @@ the way in; the detail stays in the documents it links to.
    Swapped in the cart on 2026-11-16: driver v2.3 (Y179, $39.77) in place of v2.0 and v2.1, and round 7's shell, cap,
    yoke, plate, fins and spacers in place of round 6's (sheet metal $157.95 with round 6's hood and doors); whole order
    $364.37. In v2.3's preview U7 was turned again, and J3–J5 half a turn (no rotation rule covers the XH 2-pin socket).
+   On 2026-11-17 both boards went to 5 of 5 assembled (driver Y180, $45.55; LED board Y181, $47.64); whole order $370.15.
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
-   - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
+   - buy J1/J2 (JST B3B-XH-A, C144394) for the five drivers: 10, plus a few spare;
    - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself;
      J3–J5 need a rule there too (PRODUCTION.md, order checklist).
 4. **Bring-up:** the review's bench list. Use a current-limited first power, then one colour at a time. Record the
