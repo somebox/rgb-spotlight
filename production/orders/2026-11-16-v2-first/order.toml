@@ -2,14 +2,14 @@
 # housing and optic carriers for 5 lamps from JLCCNC and JLC3DP, all in one JLC cart. Written by hand (or by Claude when
 # told what happened); `pcbkit production` makes ORDER.md and upload/ from it. Add an [[event]] for each step: status =
 # draft, submitted, in-production, shipped, received, problem or cancelled; order_no, price and currency once known.
-title = "driver and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps"
+title = "driver v2.1 and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps"
 house = "jlcpcb"
 fab = [
   "LED board: aluminium, 1 layer, 1.6 mm, 1 oz, 1 W/mK (the only conductivity JLC offers on 1-layer aluminium), 3000 V, white mask, black silkscreen, HASL with lead, JLC's mark removed, single PCBs",
   "LED board PCBA: Standard (Economic is not offered on aluminium), top side, 2 of 5 assembled, JLC's edge rails added (the board is under 70 mm), Confirm Parts Placement yes; assembly remark: 'LED1-LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode.'",
   "LED board BOM: 3/3 matched by LCSC number; JLC left LED3 (blue, C49237860) unticked at quantity 0 with 'The processing of this component is difficult', reviewed after ordering and charged extra only if an advanced option is needed. Ticked by hand",
   "Driver: FR4, 2 layers, 1.6 mm, 1 oz, green mask, white silkscreen, HASL with lead (JLC now defaults to OSP), tented vias, JLC's default 0.3 mm via option (all 69 vias are 0.3 mm drills), JLC's mark removed. PCB remark: the JLCJLCJLCJLC text on the bottom silk is an old order-number placeholder, to be left off",
-  "Driver PCBA: Economic, top side, 2 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the v2.0 board (the release's CPL less J1/J2, which sit on the back). J3 (JST PH 6, through-hole) placed by JLC: hand-soldering fee $3.61 and manual assembly $0.20",
+  "Driver PCBA: Economic, top side, 2 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.1 from 2026-11-16) (the release's CPL less J1/J2, which sit on the back). J3 (JST PH 6, through-hole) placed by JLC: hand-soldering fee $3.61 and manual assembly $0.20",
   "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left, as the never-checked ^SOT-353 (+180) left it a quarter turn out; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed on branch jlc-rotations-spotlight",
   "Housing: JLCCNC sheet metal, Al 5052, black matte powder coat on shell, cap, hood, doors and yoke, plate/fins/spacers bare; the plate's 10 x M3 threads and the cap's 4 press nuts by drawing (mech/housing/order6/*.pdf), priced after JLCCNC's review. Carriers: JLC3DP MJF PA12-HP, dyed black",
   "Customs: boards 'Research/Education/DIY, DIY - HS 902300'; sheet metal HS 761699; carriers 'Plastic Bracket' HS 392690",
@@ -23,7 +23,7 @@ notes = [
 
 [[board]]
 pcb = "driver"
-version = "2.0.0"
+version = "2.1.0"
 pcbs = 5
 assembled = 2
 
@@ -79,3 +79,9 @@ note = "driver v2.0 in the JLC cart: PCB Y173-2642684A ($4.00, HASL with lead, 2
 date = 2026-11-16
 status = "draft"
 note = "the whole order in one cart: boards $86.90 + sheet metal $156.95 + carriers $26.65 = $270.50; DHL $98.36 for 5.23 kg, JLC coupon -$6.00: $362.86, ships about 2026-11-22 (boards alone: $86.90 + $26.97 - $6.00 = $107.87). Thread and press-nut charges come after JLCCNC's review. Nothing paid; all lines left unticked"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+pcb = "driver"
+note = "driver moves to v2.1 before payment: D5 clamps U7's data input to +5V (DESIGN D28; releases/driver/v2.1, commit 024350b). The v2.0 driver items (PCB Y173-2642684A, PCBA SMT026111662992-2642684A) are to be replaced in the cart by v2.1, with the same options; the LED board stays v2.0"

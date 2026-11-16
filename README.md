@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-11-14): v2 schematics and both boards done (DRC clean), with the failure review's changes applied. Next: the LED polarity check, then release and order. Start with [HANDOVER.md](HANDOVER.md).
+Status (2026-11-16): driver released as v2.1 (with D5, a clamp on the data input) and LED board as v2.0; the first order is in the JLC cart, unpaid. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 

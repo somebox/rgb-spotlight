@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): both boards released as v2.0 (`releases/`). The first order, [2026-11-16-v2.0-first](production/orders/2026-11-16-v2.0-first/ORDER.md), is in the JLC cart, unpaid: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-16): the driver released as v2.1 (D5, a clamp on the data input, DESIGN D28) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), is in the JLC cart, unpaid, with the driver going from v2.0 to v2.1 there before payment: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -108,15 +108,15 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2.0-first](production/orders/2026-11-16-v2.0-first/ORDER.md) | driver | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.26 USD |  |
-| [2026-11-16-v2.0-first](production/orders/2026-11-16-v2.0-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.1 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.26 USD | driver moves to v2.1 before payment: D5 clamps U7's data input to +5V (DESIGN D28; releases/driver/v2.1, commit 024350b). The v2.0 driver items (PCB Y173-2642684A, PCBA SMT026111662992-2642684A) are to be replaced in the cart by v2.1, with the same options; the LED board stays v2.0 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
 
 ### Boards
 
 | PCB | in KiCad | released | state | parts a board (USD) | latest order | in stock | parts on hand build |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [driver](boards/driver) | v2.0 | v2.0 2026-11-16 | released | 1.81, 7 ext. | 2026-11-16-v2.0-first: draft |  |  |
-| [led](boards/led) | v2.0 | v2.0 2026-11-16 | released | 0.79, 3 ext. | 2026-11-16-v2.0-first: draft |  |  |
+| [driver](boards/driver) | v2.1 | v2.1 2026-11-16 | released | 1.83, 7 ext. | 2026-11-16-v2-first: draft |  |  |
+| [led](boards/led) | v2.0 | v2.0 2026-11-16 | released | 0.79, 3 ext. | 2026-11-16-v2-first: draft |  |  |
 
 Parts costs: placed parts at unit prices from konnect's JLC parts cache of 2026-11-03; Extended parts add a setup fee each per order.
 
@@ -134,7 +134,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 
 | order | what | status | last event |
 | --- | --- | --- | --- |
-| [2026-11-16-v2.0-first](production/orders/2026-11-16-v2.0-first/ORDER.md) | driver and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps | draft | 2026-11-16 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.1 and LED board v2.0, 2 of each assembled, with the round-6 housing for 5 lamps | draft | 2026-11-16 |
 
 ### Problems
 

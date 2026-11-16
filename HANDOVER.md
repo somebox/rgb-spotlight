@@ -1,8 +1,8 @@
 # RGB Spotlight: handover
 
-Status (2026-11-16): both boards are **released as v2.0** and the first order is **in the JLC cart, unpaid**: 2 of
-each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
-JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2.0-first/ORDER.md)). This page is
+Status (2026-11-16): the driver is **released as v2.1** (D5 clamps its data input, D28), the LED board as **v2.0**, and
+the first order is **in the JLC cart, unpaid**, its driver going from v2.0 to v2.1 there before payment: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
+JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
 ## How we got here
@@ -57,6 +57,8 @@ the way in; the detail stays in the documents it links to.
   - Pinouts, values and voltages for every IC against its datasheet (the review's "Verified OK" list).
   - ERC 0, DRC 0/0 with parity, `netcheck.py` 0 failures, `pcbkit check` and `pcbkit courtyards` clean on 2026-11-14,
     after the planned edits. `pcbkit release --dry-run`: both boards would release as v2.0.
+  - The driver again on 2026-11-16 with D5 (D28): ERC 0, `netcheck.py` 65 checks, DRC 0/0 with parity, `check` and
+    `courtyards` unchanged; released as v2.1.
 - **Not proven on hardware:**
   - **The WS2811 (F3, review R2).** The owner recalls PWM from the chip on v1, but v1 had too many faults for that to
     count.
@@ -72,7 +74,8 @@ the way in; the detail stays in the documents it links to.
 1. **Apply the planned changes.** Done 2026-11-14 (DESIGN §6, "Planned changes").
 2. **LED polarity (R1).** Done 2026-11-16: the diode test on v1 shows pad 1 is the cathode (DESIGN §6 item 1). In
    JLC's preview the green and blue LEDs came a half turn out and were turned by hand.
-3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order).
+3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order);
+   the driver released again as v2.1 the same day, with D5 (D28), to replace v2.0 in the cart.
    The preview also turned U7 a quarter turn (the SOT-353 rule was wrong); SOT-89 was right. Left to do:
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
