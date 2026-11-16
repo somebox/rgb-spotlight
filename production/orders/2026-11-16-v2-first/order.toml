@@ -10,7 +10,7 @@ fab = [
   "LED board BOM: 3/3 matched by LCSC number; JLC left LED3 (blue, C49237860) unticked at quantity 0 with 'The processing of this component is difficult', reviewed after ordering and charged extra only if an advanced option is needed. Ticked by hand",
   "Driver: FR4, 2 layers, 1.6 mm, 1 oz, green mask, white silkscreen, HASL with lead (JLC now defaults to OSP), tented vias, JLC's default 0.3 mm via option (all 69 vias are 0.3 mm drills), JLC's mark removed. PCB remark: the JLCJLCJLCJLC text on the bottom silk is an old order-number placeholder, to be left off",
   "Driver PCBA: Economic, top side, 2 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.1 from 2026-11-16) (the release's CPL less J1/J2, which sit on the back). J3 (JST PH 6, through-hole) placed by JLC: hand-soldering fee $3.61 and manual assembly $0.20",
-  "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left, as the never-checked ^SOT-353 (+180) left it a quarter turn out; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed on branch jlc-rotations-spotlight",
+  "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left, as the never-checked ^SOT-353 (+180) left it a quarter turn out; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed on branch jlc-rotations-spotlight",
   "Housing: JLCCNC sheet metal, Al 5052, black matte powder coat on shell, cap, hood, doors and yoke, plate/fins/spacers bare; the plate's 10 x M3 threads and the cap's 4 press nuts by drawing (mech/housing/order6/*.pdf), priced after JLCCNC's review. Carriers: JLC3DP MJF PA12-HP, dyed black",
   "Customs: boards 'Research/Education/DIY, DIY - HS 902300'; sheet metal HS 761699; carriers 'Plastic Bracket' HS 392690",
 ]
@@ -85,3 +85,17 @@ date = 2026-11-16
 status = "draft"
 pcb = "driver"
 note = "driver moves to v2.1 before payment: D5 clamps U7's data input to +5V (DESIGN D28; releases/driver/v2.1, commit 024350b). The v2.0 driver items (PCB Y173-2642684A, PCBA SMT026111662992-2642684A) are to be replaced in the cart by v2.1, with the same options; the LED board stays v2.0"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+pcb = "driver"
+cart_id = "Y174-2642684A"
+price = 39.60
+currency = "USD"
+note = "driver v2.1 in the JLC cart beside v2.0, with Y173's options: PCB Y174-2642684A ($4.00, HASL with lead, tented, Remove Mark with the same PCB remark, 24 h) and Economic PCBA SMT026111664196-2642684A ($35.60: setup 8.24, stencil 1.55, parts 4.70 for 20 lines, Extended 15.45 (5 types; D5 C7502691 is listed Extended but added no fee), SMT 0.54, placement check 0.45, hand-soldering 3.61 and manual assembly 0.20 for J3, nitrogen 0.86), $0.34 more than v2.0. Files: GERBER-driver-v2.1.zip from the release, the -front BOM/CPL from `pcbkit fab` (the release's less J1/J2; v2.0's plus D5): 34 placements, BOM 20/20 matched by LCSC number. Silkscreen 'RGB Spotlight driver v2.1'. Placement preview: D5 right with no rule (band and JLC's - on pad 1 at -13.83, 19.15; + on pad 2 at -13.83, 16.83); U7 turned +90 by hand as on v2.0 (pin 1 at -8.94, 18.04, after -10.58, 17.26); U1-U6 and D1-D4 as on v2.0. The v2.0 driver items (Y173-2642684A, SMT026111662992-2642684A) are left in the cart for the user to remove"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+note = "the whole order with driver v2.1 in place of v2.0: boards $87.24 + sheet metal $156.95 + carriers $26.65 = $270.84; DHL $98.36 for 5.23 kg, coupon -$6.00: $363.20, ships about 2026-11-22 (boards alone: $87.24 + $26.97 - $6.00 = $108.21). Thread and press-nut charges come after JLCCNC's review. Nothing paid; all lines left unticked"

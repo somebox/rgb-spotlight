@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): the driver released as v2.1 (D5, a clamp on the data input, DESIGN D28) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), is in the JLC cart, unpaid, with the driver going from v2.0 to v2.1 there before payment: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-16): the driver released as v2.1 (D5, a clamp on the data input, DESIGN D28) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), is in the JLC cart, unpaid, with driver v2.1 (Y174) beside v2.0's (Y173), which the user removes before paying: 2 of each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -40,11 +40,11 @@ The things that went wrong before, or could:
   - Order remark: "LED1–LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode."
 - **Schottky D1–D3 (SOD-123).** The cathode band faces the 12 V side (Rs / VIN). Inverted, the diode shorts SW to 12 V.
 - **TVS D4 (SMA).** The cathode band goes to +12V. Inverted, it conducts the moment 12 V is applied.
-- **Clamp D5 (SOD-323, from driver v2.1).** The cathode band (pad 1) goes to +5V, towards the board edge; the anode joins R7/R10. Inverted, it holds the data input high and the light gets no data. No rotation rule covers `D_SOD-323` yet, so it is a **never** row: check the band in the preview and record the result (D28).
+- **Clamp D5 (SOD-323, from driver v2.1).** The cathode band (pad 1) goes to +5V, towards the board edge; the anode joins R7/R10. Inverted, it holds the data input high and the light gets no data. No rotation rule covers `D_SOD-323`, so the CPL has KiCad's angle (270°). On 2026-11-16 (Y174) the preview showed it right: the band and JLC's − on the pad hovering at (−13.83, 19.15), pad 1 at (−13.80, 19.00), towards the board edge; the + on pad 2 at (−13.83, 16.83). Check it again on each order: with no rule, nothing in pcb-kit records the check.
 - **Placement checklist first.** On 2026-11-16 the preview showed:
   - `^SOT-89` +180° right for U2–U4 (PT4115, SOT-89-5) and U5 (78L05, SOT-89-3);
   - `^SOT-353` +180° a quarter turn out for U7 (74AHCT1G125): turned +90 by hand. pcb-kit's rule is now −90.
-  The v2.0 release's CPLs carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from v2.0.
+  The v2.0 release's CPLs and driver v2.1's (released before the kit's fix was merged) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26).
 - **PT4115 U2–U4 (SOT-89-5).** Pin 1 is SW. The tab must sit on the wide GND pad, not rotated 180°.
 - **U1 (SOIC-8), U6 (SOIC-14).** The SOIC rule (+270°) was checked on 2026-10-26 and right here on 2026-11-16. Still check the pin-1 dots; v1 used EasyEDA footprints, these are KiCad's.
 - **J1/J2 (JST XH, back).** They are in the `-back` BOM/CPL and the `-both` files. For a top-only order, hand-solder them (through-hole).
@@ -72,12 +72,15 @@ The things that went wrong before, or could:
 
 | Date | Board | Qty | Item | Cost |
 | --- | --- | --- | --- | --- |
-| 2026-11-16 | all | — | One JLC cart: boards 86.90 + sheet metal 156.95 + carriers 26.65 = 270.50; DHL 98.36 (5.23 kg), coupon −6.00. Threads and press nuts still to be priced by JLCCNC | $362.86 |
+| 2026-11-16 | all | — | One JLC cart with driver v2.1 (Y174) and without v2.0's (Y173): boards 87.24 + sheet metal 156.95 + carriers 26.65 = 270.84; DHL 98.36 (5.23 kg), coupon −6.00. Threads and press nuts still to be priced by JLCCNC | $363.20 |
+| 2026-11-16 | driver v2.1 | 5 PCBs / 2 assembled | Y174: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111664196 35.60 (setup 8.24, stencil 1.55, parts 4.70 for 20 lines, Extended 15.45 for 5 types: D5 (C7502691) is listed Extended but added no fee, SMT 0.54, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86). Same options as Y173 | $39.60 |
+| 2026-11-16 | boards | — | The two boards alone with driver v2.1: 87.24 + DHL 26.97 − coupon 6.00 (0.62 kg) | $108.21 |
+| 2026-11-16 | all | — | The same cart with driver v2.0 (Y173), before v2.1: boards 86.90, total 270.50 + DHL 98.36 − 6.00 | $362.86 |
 | 2026-11-16 | carriers | 7 | JLC3DP MJF PA12-HP dyed black: 5 standard 18.65, +0.5 mm 3.91, +1.0 mm 4.09 (D2026111615500272, -280, -287) | $26.65 |
 | 2026-11-16 | housing | 5 lamps | JLCCNC sheet metal, Al 5052, round 6 (SMS2611163003158 … 3204); by part below | $156.95 |
-| 2026-11-16 | driver | 5 PCBs / 2 assembled | Y173: PCB 4.00 (HASL with lead) + Economic PCBA 35.26 (setup 8.24, stencil 1.55, parts 4.43, Extended 15.45 for 5 types, SMT 0.47, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86) | $39.26 |
+| 2026-11-16 | driver v2.0 | 5 PCBs / 2 assembled | Y173, still in the cart for the user to remove: PCB 4.00 (HASL with lead) + Economic PCBA 35.26 (setup 8.24, stencil 1.55, parts 4.43, Extended 15.45 for 5 types, SMT 0.47, placement check 0.45, J3 hand-soldering 3.61 + manual 0.20, nitrogen 0.86) | $39.26 |
 | 2026-11-16 | led | 5 PCBs / 2 assembled | Y172: PCB 4.00 (aluminium, 1 W/mK, HASL with lead) + Standard PCBA 43.64 (setup 25.75, stencil 8.27, parts 3.94, feeder loading 4.65, SMT 0.08, placement check 0.45, packaging 0.50) | $47.64 |
-| 2026-11-16 | boards | — | The two boards alone: 86.90 + DHL 26.97 − coupon 6.00 (0.62 kg) | $107.87 |
+| 2026-11-16 | boards | — | The two boards alone with driver v2.0: 86.90 + DHL 26.97 − coupon 6.00 (0.62 kg) | $107.87 |
 | 2026-11-14 | driver | 1 | BOM, bomi qty-1 pricing, after D17/D18 (prices refreshed) | ≈ $1.70 plus the Extended-part fees listed in docs/BOM_driver.md |
 | 2026-11-14 | led | 1 | BOM, bomi qty-1 pricing | ≈ $0.79 (3 Extended LEDs) |
 | 2026-10-05 | driver | 1 | BOM, bomi qty-1 pricing | ≈ $2.18 plus the Extended-part fees listed in docs/BOM_driver.md |
@@ -108,7 +111,7 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.1 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.26 USD | driver moves to v2.1 before payment: D5 clamps U7's data input to +5V (DESIGN D28; releases/driver/v2.1, commit 024350b). The v2.0 driver items (PCB Y173-2642684A, PCBA SMT026111662992-2642684A) are to be replaced in the cart by v2.1, with the same options; the LED board stays v2.0 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.1 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 39.60 USD |  |
 | [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 2 | draft 2026-11-16 |  | 47.64 USD |  |
 
 ### Boards

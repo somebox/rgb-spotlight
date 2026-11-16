@@ -75,8 +75,10 @@ the way in; the detail stays in the documents it links to.
 2. **LED polarity (R1).** Done 2026-11-16: the diode test on v1 shows pad 1 is the cathode (DESIGN §6 item 1). In
    JLC's preview the green and blue LEDs came a half turn out and were turned by hand.
 3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order);
-   the driver released again as v2.1 the same day, with D5 (D28), to replace v2.0 in the cart.
-   The preview also turned U7 a quarter turn (the SOT-353 rule was wrong); SOT-89 was right. Left to do:
+   the driver released again as v2.1 the same day, with D5 (D28), and put in the cart beside v2.0 (Y174, $39.60;
+   whole order $363.20). The preview also turned U7 a quarter turn (the SOT-353 rule was wrong), on v2.0 and v2.1;
+   SOT-89 and D5 were right. Left to do:
+   - remove the v2.0 driver (PCB Y173 and its PCBA SMT026111662992) from the cart;
    - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
    - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself.
