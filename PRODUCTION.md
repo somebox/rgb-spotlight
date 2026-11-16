@@ -92,10 +92,10 @@ _none_
 
 | PCB | in KiCad | released | state | parts a board (USD) | latest order | in stock | parts on hand build |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [driver](boards/driver) | 2.0 |  | not checked | 2.32, 7 ext. |  |  |  |
-| [led](boards/led) | 2.0 |  | not checked | 0.77, 3 ext. |  |  |  |
+| [driver](boards/driver) | v2.0 | v2.0 2026-11-16 | released | 1.81, 7 ext. |  |  |  |
+| [led](boards/led) | v2.0 | v2.0 2026-11-16 | released | 0.79, 3 ext. |  |  |  |
 
-Parts costs: placed parts at unit prices from konnect's JLC parts cache of 2026-09-29; Extended parts add a setup fee each per order.
+Parts costs: placed parts at unit prices from konnect's JLC parts cache of 2026-11-03; Extended parts add a setup fee each per order.
 
 ### Parts for the open orders
 

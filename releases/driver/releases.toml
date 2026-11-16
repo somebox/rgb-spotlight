@@ -1,0 +1,86 @@
+# Releases of driver, written by pcbkit release: one per version, newest last.
+# Don't edit by hand; the fab files of each version are in v<label>/ beside this file.
+key = "driver"
+
+[[release]]
+version = "2.0.0"
+label = "v2.0"
+date = 2026-11-16
+source = "b579e33ac5114804af0c4367734141d9e3d73985"
+fab = "9e22f2a40da9904f9c9a5d3173d6d88c016b9fdb"
+circuit = "041e49278c986926846f63a80c428124416ecb02"
+equivalent = []
+base_commit = "a9f73e7"
+note = "first release, --version 2.0.0 (its title block read 2.0)"
+parts_inputs = "b9bd1302bc7e17e3dc6e1ab502b0cd1bd95cf22f"
+previews = "222709890ac3a58d5298a5c1272376342874ac0c"
+
+[release.parts.placed]
+C71136 = 1
+C25744 = 1
+C168091 = 3
+C19077535 = 1
+C52923 = 1
+C5605 = 1
+C25900 = 3
+C347356 = 3
+C1525 = 3
+C350557 = 1
+C13585 = 3
+C2907349 = 3
+C64885 = 3
+C12891 = 1
+C114581 = 1
+C15850 = 1
+C131342 = 1
+C11702 = 1
+C25105 = 1
+C144394 = 2
+
+[release.parts.placed_named]
+78L05G-AB3-R = 1
+C25744 = 1
+FNR6045S680MT = 3
+C19077535 = 1
+C52923 = 1
+"74HC14D,653" = 1
+C25900 = 3
+C347356 = 3
+C1525 = 3
+SN74AHCT1G125DCKR = 1
+CL31A106KBHNNNE = 3
+FRL1206FR220TS = 3
+C64885 = 3
+CL31A226KAHNNNE = 1
+C114581 = 1
+C15850 = 1
+"B6B-PH-K-S(LF)(SN)" = 1
+C11702 = 1
+C25105 = 1
+"B3B-XH-A(LF)(SN)" = 2
+
+[release.parts.hand]
+
+[release.parts.extra]
+
+[release.parts.where]
+78L05G-AB3-R = "LCSC C71136"
+C25744 = "LCSC C25744"
+FNR6045S680MT = "LCSC C168091"
+C19077535 = "LCSC C19077535"
+C52923 = "LCSC C52923"
+"74HC14D,653" = "LCSC C5605"
+C25900 = "LCSC C25900"
+C347356 = "LCSC C347356"
+C1525 = "LCSC C1525"
+SN74AHCT1G125DCKR = "LCSC C350557"
+CL31A106KBHNNNE = "LCSC C13585"
+FRL1206FR220TS = "LCSC C2907349"
+C64885 = "LCSC C64885"
+CL31A226KAHNNNE = "LCSC C12891"
+C114581 = "LCSC C114581"
+C15850 = "LCSC C15850"
+"B6B-PH-K-S(LF)(SN)" = "LCSC C131342"
+C11702 = "LCSC C11702"
+C25105 = "LCSC C25105"
+"B3B-XH-A(LF)(SN)" = "LCSC C144394"

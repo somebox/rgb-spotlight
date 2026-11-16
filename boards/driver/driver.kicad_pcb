@@ -9,8 +9,8 @@
 	(paper "A4")
 	(title_block
 		(title "RGB Spotlight - driver board")
-		(date "2026-10-05")
-		(rev "2.0")
+		(date "2026-11-16")
+		(rev "v2.0")
 		(comment 1 "placement by scripts/gen_driver_pcb.py; FR4 2 layers; J1/J2 on the back")
 		(comment 2 "outline: disc50 (50 mm disc, inner M3 holes)")
 	)
