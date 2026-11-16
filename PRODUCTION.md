@@ -55,9 +55,11 @@ The things that went wrong before, or could:
 
 ## After the boards arrive
 
-- **LED harness:** six 24 AWG silicone wires, about 8 cm, twisted per colour.
+- **LED harness:** six 24 AWG wires with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), about 8 cm, twisted per colour (D24).
+  - Not silicone: 24 AWG silicone wire is 1.5–2.0 mm across, too thick for the contact's insulation crimp (0.8–1.5 mm), and six of them leave no room for the sleeve in the 6.4 mm hole.
   - Solder them to the LED board's pads (R+ R− G+ G− B+ B−) and pass them through the centre hole.
-  - Crimp them into a JST PHR-6 housing (SPH-002T contacts) in the same order, pin 1 = R+.
+  - Crimp them into a JST PHR-6 housing (C157952) with SPH-002T-P0.5S contacts (C111515) in the same order, pin 1 = R+.
+  - Or buy ready-made PH 6-pin leads with loose ends (often 26 AWG, enough at 0.45 A per LED): pass the loose ends forward through the stack and the hole, and solder them to the LED board last.
   - Aluminium boards pull heat away fast, so use a hot iron or preheat.
 - **Chain cables:** JST XH 3-pin, wired pin 1 to pin 1 (D4). Up to 5 lights per 12 V feed, up to 3 m apart on 22 AWG, with a 3 A fuse at the supply end (D14, D15). Between groups, leave pin 1 open.
 - **Assembly:** nylon washers or screws on the driver; a sleeve or grommet on the harness through the LED board's hole (D20).

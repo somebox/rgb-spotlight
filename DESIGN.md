@@ -65,6 +65,10 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D18 | 2026-10-31 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702). Replaces D6's 100 Ω. Applied 2026-11-14 | datasheet's Ci for VDD (R3); limits the clamp current from 12 V on the data pin and from cable ringing (R6) |
 | D19 | 2026-10-31 | "+" on the LED board's silk at pad 2 of each LED, polarity in the order remark. Applied 2026-11-14 | the part's dot marks the anode, our silk and LCSC's dot mark pad 1, the cathode (R1) |
 | D20 | 2026-10-31 | Nylon washers or screws on the driver; a sleeve or grommet through the LED board's wire hole | the housing floats and can isolate the board, so no keep-out re-route is needed (R8, R9) |
+| D21 | 2026-11-16 | Barn doors: one part four times, 40 mm from hinge to tip and 71 mm wide past the ears, straight sides, on M3 × 8 pins in the hood's eight lugs (housing review, round 5) | standing at 90° the four close the corners: 0.70 % of the lenses' worst-case light gets out the sides, against 9.4 % for 62 mm doors cut to meet at 60° |
+| D22 | 2026-11-16 | The doors shape the beam one pair at a time: a pair closes until its tips meet, at 32°, while the other stands at 90° or folds back | follows from D21: doors that wide no longer close all four together |
+| D23 | 2026-11-16 | The LED board sits turned 45° in the housing: LEDs at 135° / 255° / 15°, its M3 screws into the heat plate at 75° / 195° / 315°. The board itself is unchanged | each LED then has its own height and side position, so every door edge splits the beam into three colour bands (D8's intended effect). At 0° two LEDs share a height; at 30° two share a side position |
+| D24 | 2026-11-16 | LED harness: 24 AWG wire with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), not silicone. J3 stays one JST PH 6 | 24 AWG silicone is 1.5–2.0 mm across, over the PH contact's 0.8–1.5 mm insulation crimp, and six of them crowd the sleeve in the 6.4 mm hole (D20). Thicker wire gains nothing at 0.45 A per LED (about 6 mV over 8 cm), and three 2-pin PH plugs would take the same wire sizes while letting colours be swapped |
 
 ---
 
@@ -188,8 +192,8 @@ WS2811 outputs are 20 V-tolerant constant-current sinks (≈ 16 mA) and sink whe
   - LEDs on a ring at r = 12 mm (R 90°, G 210°, B 330°). They are spread apart on purpose: the colours stay separate.
   - Each LED sits on its own large copper island (`HEAT_R/G/B`), never joined. That makes the slug-isolation question moot, and the dielectric isolates the islands from the aluminium.
   - A 6.4 mm centre hole passes the wires. The six wire pads around it are soldered on the front; the wires go straight through the hole.
-  - Three M3 holes at r = 19 mm (30° / 150° / 270°) bolt it to the housing's heat plate with thermal paste or a pad.
-- **Harness:** six 24 AWG wires, twisted per colour, soldered to the LED board and crimped into a JST PH 6 housing. Pin order: R+ R− G+ G− B+ B−.
+  - Three M3 holes at r = 19 mm (30° / 150° / 270°) bolt it to the housing's heat plate with thermal paste or a pad. In the housing the board sits turned 45° (D23): the holes land at 75° / 195° / 315° there, and the LEDs at 135° / 255° / 15°.
+- **Harness:** six 24 AWG wires with thin insulation, at most 1.5 mm across (D24), twisted per colour, soldered to the LED board and crimped into a JST PH 6 housing. Pin order: R+ R− G+ G− B+ B−.
   - The LED pins are not the switching node (that is SW, between L and the PT4115 on the driver board). The wires carry DC with about ±15 % ripple at 240–290 kHz, so 4–6 cm is no problem.
 - **Driver board** (FR4, 2 layers, 50 mm, about 1 W):
   - Front faces the LED board: all SMD parts, plus J3 (PH 6 vertical) at the centre.
