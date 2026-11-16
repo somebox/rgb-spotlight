@@ -212,3 +212,8 @@ note = "driver moves to v2.3 before payment: the LED harness plugs in as three J
 date = 2026-11-16
 status = "draft"
 note = "housing round 7 also widens the hole down the plate, fins and spacers from 8 to 12 mm, for the XH plugs (DESIGN D33): those three parts and the plate's drawing join the shell, cap and yoke in mech/housing/order7/ and replace round 6's in the cart"
+
+[[event]]
+date = 2026-11-16
+status = "draft"
+note = "JLC Parts Cart (parts bought into the JLC parts library, for assembly): 200 x JST B2B-XH-A(LF)(SN) (C158012) at $0.0305 = $6.10, for J3-J5 here (6 on the 2 assembled drivers) and as stock for other boards. Left unticked, nothing paid. The harness's plug housings and contacts (XHP-2, SXH-001T-P0.6) are not in a cart yet: JLC's parts are for assembly only"
