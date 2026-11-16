@@ -1,8 +1,9 @@
 # RGB Spotlight: handover
 
-Status (2026-11-14): v2.0 is designed, routed and DRC clean on both boards, and has had a pre-order failure review. The
-review's accepted changes (D17–D19) are **applied**. Nothing has been ordered. This page is the way in; the detail
-stays in the documents it links to.
+Status (2026-11-16): both boards are **released as v2.0** and the first order is **in the JLC cart, unpaid**: 2 of
+each board assembled, and the round-6 housing (sheet metal and optic carriers) for 5 lamps, about $363 with DHL before
+JLCCNC prices the threads and press nuts ([order](production/orders/2026-11-16-v2.0-first/ORDER.md)). This page is
+the way in; the detail stays in the documents it links to.
 
 ## How we got here
 
@@ -68,14 +69,13 @@ stays in the documents it links to.
 ## Work remaining, in order
 
 1. **Apply the planned changes.** Done 2026-11-14 (DESIGN §6, "Planned changes").
-2. **LED polarity (R1).**
-   - Diode-test one v1 LED. This tests the part, so v1's faults don't matter.
-   - Then check all three LEDs in JLC's placement preview: the part's dot is the anode (pad 2).
-3. **Release and order:**
-   - `pcbkit release --dry-run`, then `pcbkit release`;
-   - an order under `production/orders/`;
-   - PRODUCTION.md's checklist, including the never-checked SOT-89 and SOT-353 rotations (R11);
-   - check LED stock again: it had recovered by 2026-11-14 (blue 3,102, green 2,475; R14 found 704 blue).
+2. **LED polarity (R1).** Done 2026-11-16: the diode test on v1 shows pad 1 is the cathode (DESIGN §6 item 1). In
+   JLC's preview the green and blue LEDs came a half turn out and were turned by hand.
+3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order).
+   The preview also turned U7 a quarter turn (the SOT-353 rule was wrong); SOT-89 was right. Left to do:
+   - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
+   - buy J1/J2 (JST B3B-XH-A, C144394) for the two drivers;
+   - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself.
 4. **Bring-up:** the review's bench list. Use a current-limited first power, then one colour at a time. Record the
    results in the review, dated:
    - D1's temperature (R10);
@@ -85,7 +85,7 @@ stays in the documents it links to.
 
 ## Open questions
 
-- Housing: which outline preset (DESIGN §6 item 5), and do the back-cap cut-outs line up with J1/J2? `docs/assembly/index.html` (2026-11-14) has the stack, what a housing must provide, five example housings and the questions to settle.
+- Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 6 of the sheet-metal design, `mech/housing/` (D21–D27).
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
 
@@ -96,5 +96,6 @@ stays in the documents it links to.
 | Design notes, decisions, planned changes | [DESIGN.md](DESIGN.md) |
 | Layout and checks | [LAYOUT.md](LAYOUT.md) |
 | Ordering, harness, bring-up | [PRODUCTION.md](PRODUCTION.md) |
+| Housing scripts, order STEPs and drawings | [mech/housing/](mech/housing/README.md) |
 | Failure review, bench list, firmware duties | [docs/reviews/2026-10-30-v2.md](docs/reviews/2026-10-30-v2.md) |
 | Simulations and their tables | `sim/` and `sim/results/` |

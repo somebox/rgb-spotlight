@@ -1,6 +1,6 @@
 # RGB Spotlight — design notes
 
-Status (2026-11-14): both boards routed and DRC clean, `pcbkit check` clean or explained (LAYOUT.md). One LED channel simulated (§2.7). Failure review in `docs/reviews/2026-10-30-v2.md`; its accepted changes D17–D19 are applied (§6, "Planned changes"). Next: settle LED polarity on a v1 LED, then the release and order (PRODUCTION.md).
+Status (2026-11-16): both boards released as v2.0; the first order (2 of each assembled, and the round-6 housing for 5 lamps, D21–D27) is in the JLC cart, unpaid (PRODUCTION.md). LED polarity settled on a v1 LED (§6 item 1). Next: payment, then bring-up (the review's bench list).
 
 Chainable, WS2811-addressed RGB spotlight: three 3 W LEDs, each on its own PT4115 constant-current buck, run from a 12 V chain. Two boards in an aluminium cylinder:
 - an **aluminium LED board** (50 mm, 1 layer) carrying only the LEDs;
@@ -69,6 +69,9 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D22 | 2026-11-16 | The doors shape the beam one pair at a time: a pair closes until its tips meet, at 32°, while the other stands at 90° or folds back | follows from D21: doors that wide no longer close all four together |
 | D23 | 2026-11-16 | The LED board sits turned 45° in the housing: LEDs at 135° / 255° / 15°, its M3 screws into the heat plate at 75° / 195° / 315°. The board itself is unchanged | each LED then has its own height and side position, so every door edge splits the beam into three colour bands (D8's intended effect). At 0° two LEDs share a height; at 30° two share a side position |
 | D24 | 2026-11-16 | LED harness: 24 AWG wire with thin high-temperature insulation, at most 1.5 mm across (fluoropolymer, such as Alpha Wire ThermoThin 2924), not silicone. J3 stays one JST PH 6 | 24 AWG silicone is 1.5–2.0 mm across, over the PH contact's 0.8–1.5 mm insulation crimp, and six of them crowd the sleeve in the 6.4 mm hole (D20). Thicker wire gains nothing at 0.45 A per LED (about 6 mV over 8 cm), and three 2-pin PH plugs would take the same wire sizes while letting colours be swapped |
+| D25 | 2026-11-16 | Housing finish: black matte powder coat on the shell, cap, hood, doors and yoke; the plate, fins and spacers bare aluminium. The cap's press nuts go in after coating | the housing review's recommendation over anodizing, accepted for the first order; JLCCNC quoted it at the review's estimates (PRODUCTION.md) |
+| D26 | 2026-11-16 | The 78 mm hood keeps its 1.5 mm sheet where it clamps the lenses | traced with the review's beam model (each lens face at σ 12.7° behind its Ø18.6 window): the clamp stops 0.26 % of a lens's light, 0.54 % at σ 15°, against 0.09 % at 1.2 mm and 0.03 % at 1.0 mm. No real loss |
+| D27 | 2026-11-16 | First housing order: one carrier 0.5 mm and one 1.0 mm taller besides the five, to test the focus; a dab of black silicone seals the wire hole; the door pins are M3 × 8 with nylock nuts | the housing review's recommendations, accepted for the first order |
 
 ---
 
@@ -358,16 +361,15 @@ If the supply hits its current limit, power off and check the new diode's direct
 
 ## 6. Open items (before ordering v2)
 
-1. **LED orientation.** The datasheet top view puts the dot at pad ② (anode). The LCSC/EasyEDA footprint (which JLC uses) puts its dot at pad 1 (cathode).
+1. **LED orientation. Settled 2026-11-16.** The datasheet top view puts the dot at pad ② (anode). The LCSC/EasyEDA footprint (which JLC uses) puts its dot at pad 1 (cathode).
    - Our footprint has pad 1 = cathode at −x, with silk closing that side.
-   - Check on a v1 board: diode-test LED1, red probe on the L1-side pad (v1 pad 2), black on GND (pad 1). It should glow faintly.
-   - Then confirm polarity in JLC's DFM preview.
+   - Diode test on v1 (2026-11-16): + on the L1 pad (v1 LED1 pad 2), − on the R1 side (pad 1, GND): LED1 lit. Pad 1 is the cathode, as our footprint has it. It is the same part as v2's red (C49237857), and the green and blue datasheets draw the same pinout.
+   - JLC's preview (2026-11-16) drew the green and blue a half turn from the red on our footprint; they were turned by hand for the order and pcb-kit's rotation table now turns them (PRODUCTION.md).
    - v2's LED board has a "+" on the silk just past pad 2 (D19).
 2. **WS2811 behaviour (F3)** from §5. If it stays unexplained, consider another 12 V WS2811-protocol controller.
 3. **Chain cables:** J1/J2 now share one pinout, so use pin-1-to-pin-1 XH cables or pigtails.
 4. **LED stock:** 2,570 red, 2,475 green and 3,102 blue on 2026-11-14 (green was 325 on 2026-10-05, blue 704 on 2026-10-30). Check again before ordering.
-5. **Housing fit:** pick the outline preset once the housing is known (§7.3): `disc50` (current) / `disc55` / `disc60` / `tabs3`, or add one to `scripts/mech.py`.
-   - Check the back-cap cut-outs over J1/J2 at r = 19.5 mm, 30° / 150°.
+5. **Housing fit. Settled 2026-11-16: `disc50`.** The round-6 housing (`mech/housing/`, D21–D27) takes the 50 mm boards as they are: the LED board sits in the shell's Ø54 window, and the back cap's two 14 × 15 mm cut-outs, centred at (±16.45, 9.5) mm, face J1/J2 at r = 19.5 mm, 30° / 150°.
 6. **Aluminium board order:** 1 layer, 1.6 mm, 1–2 W/mK. JLC assembles the LEDs.
 
 ### Planned changes (2026-10-31, applied 2026-11-14)
@@ -391,7 +393,7 @@ Then `pcbkit erc`, `scripts/netcheck.py`, `pcbkit cleanup`, `pcbkit drc --save`,
 - Checks: driver ERC 0, LED ERC the 3 known warnings (§4), netcheck 0 failures, DRC 0/0 with parity 0 on both, `pcbkit check` only the explained flags (LAYOUT.md), `pcbkit courtyards` 0. `pcbkit release --dry-run`: both would release as v2.0.
 - Harness sleeve and nylon hardware are in PRODUCTION.md's assembly steps; the polarity remark is in its order checklist.
 
-**Before ordering:** diode-test a v1 LED and check all three in JLC's preview (§6 item 1). Order the smallest assembled run, since neither the WS2811 (F3) nor the PT4115 stage has been proven on hardware. R9 stays as a footprint in case pin 7 turns out to matter.
+**Before ordering:** done 2026-11-16 (§6 item 1). Order the smallest assembled run, since neither the WS2811 (F3) nor the PT4115 stage has been proven on hardware. R9 stays as a footprint in case pin 7 turns out to matter.
 
 ## 7. PCBs
 

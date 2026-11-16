@@ -17,3 +17,6 @@ build/
 sim/results/*_full.txt
 sim/results/*_pwm*.txt
 sim/results/deck.cir
+
+# Each open order's upload folder, rebuilt by `pcbkit production` from the pinned release
+production/orders/*/upload/
