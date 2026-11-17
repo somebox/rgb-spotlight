@@ -7,7 +7,7 @@ Stages:
    red-cell coordinates and rotated: the SW node (U.SW - D.A - L.2, 0.8 mm), the 12 V cluster (U.VIN - D.K - Rs.1, Cin.1,
    0.8 mm, with a via for the trunk on B.Cu), the Rs -> CSN sense line (0.25 mm, round the outside of Cin) and two
    GND vias at the PT4115 tab. Each piece is checked for clearance first; anything that doesn't fit is left to the router.
-1. Cell links to J3 (maze router, route_strip.complete_nets): LEDK_x and CSN_x (the LED current, 455 mA).
+1. Cell links to the LED sockets J3-J5 (maze router, route_strip.complete_nets): LEDK_x and CSN_x (the LED current, 455 mA).
 2. +12V: first the J1.1 -> J2.1 pass-through alone at 1.5 mm (up to 3 A for a chain), preferring B.Cu, then every
    other +12V pad joins it at 0.8 mm.
 3. GND: a via to the back plane beside every front SMD GND pad (nearest clear spot, short stub). Each PT4115's tab
@@ -144,7 +144,7 @@ print(stamp(), f"0. cells scripted; skipped (left to the router): {skipped or 'n
 if os.environ.get("ROUTE_STAGE0_ONLY"):                    # debug: save just the scripted cells elsewhere
     pcbnew.ZONE_FILLER(b).Fill(b.Zones()); pcbnew.SaveBoard(os.environ["ROUTE_STAGE0_ONLY"], b); raise SystemExit(0)
 
-# ---- 1. cell links to J3 ---------------------------------------------------------------------------------------
+# ---- 1. cell links to the LED sockets ---------------------------------------------------------------------------------------
 n1, f1 = route([(r"/SW_[RGB]", [F_], 0.8), (r"/LEDK_[RGB]", [F_, B_], 0.8), (r"/CSN_[RGB]", [F_, B_], 0.6)])
 print(stamp(), f"1. cells: {n1} connections, failed {sorted(set(f1)) or 'none'}")
 

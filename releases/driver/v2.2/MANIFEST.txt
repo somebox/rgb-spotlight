@@ -1,0 +1,19 @@
+driver v2.2 (2.2.0), released 2026-11-16 by pcbkit release
+board: boards/driver/driver.kicad_pcb
+source fingerprint: 8a3abc718b8b256b7c96f2e3df58c94e46b618a1
+fab fingerprint: b2d05b55d7e20712d9ddde43318a946ec15c0dbf
+netlist/BOM fingerprint: dafc0db8611ed106a9b70cd2d7d4eddce98f2093
+base commit: 2dc7d45
+files:
+  GERBER-driver-v2.2.zip
+  BOM-driver-v2.2-jlcpcb.csv
+  CPL-driver-v2.2-jlcpcb.csv
+  PLACEMENT-driver-v2.2-jlcpcb.md
+  schematic.pdf
+  board.pdf
+  kicad/driver.kicad_pro
+  kicad/driver.kicad_pcb
+  kicad/driver.kicad_sch
+  kicad/fp-lib-table
+  kicad/sym-lib-table
+kicad/ is this version's KiCad project; its library tables and 3-D models point at the project's library as it is now.

@@ -1,0 +1,35 @@
+# Releases of led, written by pcbkit release: one per version, newest last.
+# Don't edit by hand; the fab files of each version are in v<label>/ beside this file.
+key = "led"
+
+[[release]]
+version = "2.0.0"
+label = "v2.0"
+date = 2026-11-16
+source = "a4f434fff0a1298b1333f51da06ced56b691cc40"
+fab = "64b204b4e36af139f42a0736726e0210f13b2a21"
+circuit = "1488669c93ed92135f5b86ebee63e679f50bc977"
+equivalent = []
+base_commit = "a9f73e7"
+note = "first release, --version 2.0.0 (its title block read 2.0)"
+parts_inputs = "17af62118a2bd004378277ef8a9556609b72401f"
+previews = "118034919828241224b557912598b6316947b3d3"
+
+[release.parts.placed]
+C49237857 = 1
+C49237859 = 1
+C49237860 = 1
+
+[release.parts.placed_named]
+XL-HD2525SURC-A4 = 1
+XL-HD2525UGC-A4 = 1
+XL-HD2525UBC-A4 = 1
+
+[release.parts.hand]
+
+[release.parts.extra]
+
+[release.parts.where]
+XL-HD2525SURC-A4 = "LCSC C49237857"
+XL-HD2525UGC-A4 = "LCSC C49237859"
+XL-HD2525UBC-A4 = "LCSC C49237860"

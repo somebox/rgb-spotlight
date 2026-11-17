@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate boards/driver/driver.kicad_sch (single sheet) through Konnect: the FR4 driver / interface board.
 
-The LEDs are on the aluminium LED board (scripts/sch_led.py); here they are the 3 units of J3 (LED harness socket,
-JST PH 6: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B-), each drawn in its channel's current loop where the LED would be.
+The LEDs are on the aluminium LED board (scripts/sch_led.py); here each is a 2-pin harness socket, J3 red, J4 green,
+J5 blue (JST XH 2: 1 +, 2 -; D33), drawn in its channel's current loop where the LED would be.
 
 Rebuilds the whole sheet: `reset` blanks it (keeping its uuid), `build` places, powers and labels every pin.
 Run from anywhere:  python3 scripts/sch_driver.py
@@ -17,7 +17,7 @@ builder.P = P = ROOT + "boards/driver/"
 SHEET = "driver.kicad_sch"
 XH3 = "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 R0402 = "Resistor_SMD:R_0402_1005Metric"; C0402 = "Capacitor_SMD:C_0402_1005Metric"
-R1206 = "Resistor_SMD:R_1206_3216Metric"; C0805 = "Capacitor_SMD:C_0805_2012Metric"; C1206 = "Capacitor_SMD:C_1206_3216Metric"
+R0603 = "Resistor_SMD:R_0603_1608Metric"; R1206 = "Resistor_SMD:R_1206_3216Metric"; C0805 = "Capacitor_SMD:C_0805_2012Metric"; C1206 = "Capacitor_SMD:C_1206_3216Metric"
 
 def r(ref, val, lcsc, x, y, p1, p2, rot=0, fp=R0402, mpn=None):
     d = dict(ref=ref, lib="Device:R", val=val, fp=fp, x=x, y=y, rot=rot, lcsc=lcsc, pins={"1": p1, "2": p2})
@@ -30,10 +30,10 @@ def c(ref, val, lcsc, x, y, p1, p2="GND", fp=C0402, mpn=None):
     return d
 
 comps = [
-    # ---- data in: J1 -> R10 100R -> (R7 10k pull-down) -> 74AHCT1G125 (3.3 V -> 5 V) -> WS2811 DIN
+    # ---- data in: J1 -> R10 1k -> (R7 10k pull-down) -> 74AHCT1G125 (3.3 V -> 5 V) -> WS2811 DIN
     dict(ref="J1", lib="Connector_Generic:Conn_01x03", val="IN 12V/DATA/GND", fp=XH3, x=30.48, y=60.96, mirror="y",
          lcsc="C144394", fields={"MPN": "B3B-XH-A(LF)(SN)"}, pins={"1": None, "2": "DIN", "3": None}),
-    r("R10", "100", "C25076", 45.72, 76.2, "DIN", "DIN_IN"),
+    r("R10", "1k", "C11702", 45.72, 76.2, "DIN", "DIN_IN"),   # 1k limits the clamp current when DIN rings below GND (D18); no 12 V fix (DESIGN 2.2)
     r("R7", "10k", "C25744", 55.88, 76.2, "DIN_IN", "GND"),
     dict(ref="U7", lib="74xGxx:74AHCT1G125", val="74AHCT1G125", fp="Package_TO_SOT_SMD:SOT-353_SC-70-5",
          x=76.2, y=60.96, lcsc="C350557", fields={"MPN": "SN74AHCT1G125DCKR"},
@@ -42,7 +42,7 @@ comps = [
     dict(ref="D4", lib="Diode:SMAJ15A", val="SMAJ15A", fp="Diode_SMD:D_SMA", x=30.48, y=99.06, rot=90, lcsc="C19077535",
          pins={"1": "+12V", "2": "GND"}),
     c("C9", "22uF 25V", "C12891", 43.18, 99.06, "+12V", fp=C1206, mpn="CL31A226KAHNNNE"),
-    # ---- WS2811: open-drain outputs, pulled up to 5 V, inverted by the 74HC04 (DESIGN.md §2.3)
+    # ---- WS2811: open-drain outputs, pulled up to 5 V, inverted by the 74HC14 (DESIGN.md §2.3)
     dict(ref="U1", lib="Driver_LED:WS2811", val="WS2811", fp="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
          x=111.76, y=60.96, lcsc="C114581",
          pins={"1": "OUT_R", "2": "OUT_G", "3": "OUT_B", "4": "GND", "5": "DOUT_RAW", "6": "DIN_5V", "7": "SET", "8": "+5V"}),
@@ -53,18 +53,18 @@ comps = [
     r("R8", "33", "C25105", 116.84, 99.06, "DOUT_RAW", None, rot=90),
     dict(ref="J2", lib="Connector_Generic:Conn_01x03", val="OUT 12V/DATA/GND", fp=XH3, x=139.7, y=99.06,
          lcsc="C144394", fields={"MPN": "B3B-XH-A(LF)(SN)"}, pins={"1": None, "2": None, "3": None}),
-    # ---- 74HC04: gates 1-3 invert OUT_x -> DIM_x; gates 4-6 inputs to GND, outputs open; unit 7 = power
-    dict(ref="U6", unit=1, lib="74xx:74HC04", val="74HC04", fp="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
-         x=177.8, y=50.8, lcsc="C5590", fields={"MPN": "74HC04D,653"}, pins={"1": "OUT_R", "2": "DIM_R"}),
-    dict(ref="U6", unit=2, lib="74xx:74HC04", x=177.8, y=63.5, pins={"3": "OUT_G", "4": "DIM_G"}),
-    dict(ref="U6", unit=3, lib="74xx:74HC04", x=177.8, y=76.2, pins={"5": "OUT_B", "6": "DIM_B"}),
-    dict(ref="U6", unit=4, lib="74xx:74HC04", x=210.82, y=50.8, pins={"9": "GND", "8": "NC"}),
-    dict(ref="U6", unit=5, lib="74xx:74HC04", x=210.82, y=63.5, pins={"11": "GND", "10": "NC"}),
-    dict(ref="U6", unit=6, lib="74xx:74HC04", x=210.82, y=76.2, pins={"13": "GND", "12": "NC"}),
-    dict(ref="U6", unit=7, lib="74xx:74HC04", x=236.22, y=63.5, pins={"14": "+5V", "7": "GND"}),
+    # ---- 74HC14 (Schmitt inputs for the WS2811's slow edges, D17): gates 1-3 invert OUT_x -> DIM_x; gates 4-6 inputs to GND, outputs open; unit 7 = power
+    dict(ref="U6", unit=1, lib="74xx:74HC14", val="74HC14", fp="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+         x=177.8, y=50.8, lcsc="C5605", fields={"MPN": "74HC14D,653"}, pins={"1": "OUT_R", "2": "DIM_R"}),
+    dict(ref="U6", unit=2, lib="74xx:74HC14", x=177.8, y=63.5, pins={"3": "OUT_G", "4": "DIM_G"}),
+    dict(ref="U6", unit=3, lib="74xx:74HC14", x=177.8, y=76.2, pins={"5": "OUT_B", "6": "DIM_B"}),
+    dict(ref="U6", unit=4, lib="74xx:74HC14", x=210.82, y=50.8, pins={"9": "GND", "8": "NC"}),
+    dict(ref="U6", unit=5, lib="74xx:74HC14", x=210.82, y=63.5, pins={"11": "GND", "10": "NC"}),
+    dict(ref="U6", unit=6, lib="74xx:74HC14", x=210.82, y=76.2, pins={"13": "GND", "12": "NC"}),
+    dict(ref="U6", unit=7, lib="74xx:74HC14", x=236.22, y=63.5, pins={"14": "+5V", "7": "GND"}),
     # ---- logic decoupling (one per IC, place at the VCC pin)
-    c("C1", "100nF", "C1525", 167.64, 101.6, "+5V"),   # U1 WS2811
-    c("C2", "100nF", "C1525", 177.8, 101.6, "+5V"),    # U6 74HC04
+    c("C1", "1uF", "C52923", 167.64, 101.6, "+5V"),    # U1 WS2811: the datasheet's Ci (D18)
+    c("C2", "100nF", "C1525", 177.8, 101.6, "+5V"),    # U6 74HC14
     c("C3", "100nF", "C1525", 187.96, 101.6, "+5V"),   # U7 74AHCT1G125
     # ---- 5 V logic rail
     c("C5", "10uF", "C15850", 271.78, 63.5, "+12V", fp=C0805),
@@ -77,16 +77,16 @@ comps = [
 
 # ---- three PT4115 channels, drawn as explicit wires so the current loop reads at a glance.
 #      Datasheet topology (high-side sense, low-side switch):
-#      +12V -> Rs -> CSN node -> J3 x+ ... LED on the LED board ... J3 x- -> L -> SW ;  Schottky A=SW, K=+12V
+#      +12V -> Rs -> CSN node -> Jx + ... LED on the LED board ... Jx - -> L -> SW ;  Schottky A=SW, K=+12V
 CH = []   # (n, ch, Ux, Uy)
 for i, ch in enumerate("RGB"):
     n = i + 1; Ux = 73.66 + 127 * i; Uy = 175.26; X = Ux - 25.4
     CH.append((n, ch, Ux, Uy))
     comps += [
         r(f"R{n}", "0.22R 1%", "C2907349", X, Uy - 12.7, None, None, fp=R1206, mpn="FRL1206FR220TS"),
-        dict(ref="J3", unit=n, lib="rgb-spotlight:LED_PORT", val="LED harness", x=X, y=Uy + 5.08,
-             fp="Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical", lcsc="C131342", fields={"MPN": "B6B-PH-K-S(LF)(SN)"},
-             pins={str(2 * n - 1): None, str(2 * n): None}),
+        dict(ref=f"J{n + 2}", lib="rgb-spotlight:LED_OUT", val=f"LED {ch}", x=X, y=Uy + 5.08,
+             fp="Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical", lcsc="C158012", fields={"MPN": "B2B-XH-A(LF)(SN)"},
+             pins={"1": None, "2": None}),
         dict(ref=f"L{n}", lib="Device:L", val="68uH", fp="Inductor_SMD:L_Changjiang_FNR6045S", x=X, y=Uy + 24.13,
              lcsc="C168091", fields={"MPN": "FNR6045S680MT"}, pins={"1": None, "2": None}),
         dict(ref=f"D{n}", lib="Device:D_Schottky", val="B5819W", fp="Diode_SMD:D_SOD-123", x=Ux + 20.32, y=Uy - 7.62,
@@ -95,6 +95,16 @@ for i, ch in enumerate("RGB"):
              pins={"5": None, "4": None, "3": f"DIM_{ch}", "1": None, "2": "GND"}),
         c(f"C{n + 5}", "10uF 50V", "C13585", Ux + 33.02, Uy, None, fp=C1206, mpn="CL31A106KBHNNNE"),
     ]
+
+# ---- D5 after the channels, so the power symbols numbered before it keep their numbers.
+#      DIN_IN clamp to +5V: U7's input is rated to 7 V with no clamp above it, so 12 V on the data pin (a mis-crimped
+#      cable) would leave ~10.9 V there; D5 holds it near 5.4 V, R10 limiting the current to ~6 mA (D28).
+comps.append(dict(ref="D5", lib="Device:D_Schottky", val="RB751V-40", fp="Diode_SMD:D_SOD-323", x=66.04, y=76.2, rot=270,
+                  lcsc="C7502691", fields={"MPN": "RB751V-40"}, pins={"1": "+5V", "2": "DIN_IN"}))
+# ---- R11 last, for the same reason. The 78L05 can't sink current, so D5's current would lift the +5V rail (to 6.5-10 V
+#      at 12 V on the pin); R11 draws 10.6 mA, more than the pin can push in up to 15 V, so the 78L05 stays in control (D29).
+#      0603 for its 53 mW.
+comps.append(r("R11", "470", "C23179", 317.5, 63.5, "+5V", "GND", fp=R0603, mpn="0603WAF4700T5E"))
 
 def channel_wires(L):
     """Wires and junctions for each channel, computed from the real pin endpoints."""
@@ -105,7 +115,7 @@ def channel_wires(L):
     for n, ch, Ux, Uy in CH:
         U, R, Lr, D, C = f"U{n + 1}", f"R{n}", f"L{n}", f"D{n}", f"C{n + 5}"
         rail = Uy - 20.32
-        r1, r2 = pt(R, "1"), pt(R, "2"); la, lk = pt("J3", str(2 * n - 1)), pt("J3", str(2 * n))
+        r1, r2 = pt(R, "1"), pt(R, "2"); la, lk = pt(f"J{n + 2}", "1"), pt(f"J{n + 2}", "2")
         l1, l2 = pt(Lr, "1"), pt(Lr, "2"); dk, da = pt(D, "1"), pt(D, "2")
         vin, csn, sw = pt(U, "5"), pt(U, "4"), pt(U, "1"); c1 = pt(C, "1")
         assert r2[0] == la[0] == lk[0] == l1[0] and r2[1] < csn[1] < la[1], (r2, la, csn)
@@ -152,12 +162,12 @@ if __name__ == "__main__":
     open(P + SHEET, "w").write(txt[:j] + blk + txt[i:])
     k = Konnect(); k.load("sch_wiring", "sch_components", "sch_batch", "sch_analysis")
     notes = [
-        ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged.", 22.86, 40.64),
+        ("DATA IN: 3.3 V or 5 V -> R10 -> 74AHCT1G125 -> 5 V. R7 holds DIN low when unplugged; D5 clamps it to +5V, R11 bleeds +5V.", 22.86, 40.64),
         ("12 V in: SMAJ15A TVS + 22 uF for hot-plugged chain cables. J1/J2 12V and GND pass straight through (3 A).", 22.86, 116.84),
-        ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC04 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
+        ("WS2811 outputs sink when ON; R4-R6 pull up; 74HC14 inverts so DIM is HIGH = LED on.", 116.84, 30.48),
         ("J1 and J2 (JST XH, back of the board) share one pinout: 1 = 12V, 2 = data, 3 = GND.", 101.6, 121.92),
-        ("PT4115 loop (datasheet): +12V -> Rs -> J3 x+ -> LED -> J3 x- -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA", 30.48, 137.16),
-        ("J3 = LED harness (JST PH 6, front of the board): 1 R+  2 R-  3 G+  4 G-  5 B+  6 B-. Twist each +/- pair.", 30.48, 142.24),
+        ("PT4115 loop (datasheet): +12V -> Rs -> Jx + -> LED -> Jx - -> L -> SW; Schottky SW -> +12V.  I_LED = 0.1 V / Rs = 455 mA", 30.48, 137.16),
+        ("J3 / J4 / J5 = LED red / green / blue (JST XH 2, front of the board): 1 = +, 2 = -. Twist each pair.", 30.48, 142.24),
     ]
     for t, x, y in notes:
         k.call("add_schematic_text", {"schematic": P + SHEET, "text": t, "x": x, "y": y})

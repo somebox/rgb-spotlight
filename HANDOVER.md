@@ -1,8 +1,11 @@
 # RGB Spotlight: handover
 
-Status (2026-11-03): v2.0 is designed, routed and DRC clean on both boards, and has had a pre-order failure review. The
-review's accepted changes are **planned, not applied**. Nothing has been ordered. This page is the way in; the detail
-stays in the documents it links to.
+Status (2026-11-16): the driver is **released as v2.3** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
+three JST XH 2-pin LED sockets, D33), the LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**,
+with driver v2.3 and the round-7 housing (D30–D33): all 5 of each board assembled, and the housing (sheet metal and optic
+carriers) for 5 lamps, $370.15 with DHL before JLCCNC prices the threads and press nuts
+([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
+the way in; the detail stays in the documents it links to.
 
 ## How we got here
 
@@ -27,6 +30,9 @@ stays in the documents it links to.
    block was checked against its datasheet, with worst-case numbers (`sim/worst_case.py`) and a data-cable
    simulation (`sim/data_cable.py`). The owner's answers are recorded there and turned into decisions D14–D20 in
    DESIGN.md.
+5. **Planned changes applied (2026-11-14):** U6 is a 74HC14, C1 is 1 µF and R10 is 1 kΩ; the LED board has a "+" at
+   pad 2 of each LED. The schematic and both boards were edited in place, keeping their UUIDs. Details and check
+   results: DESIGN §6, "Planned changes".
 
 ## Decisions made in the review (DESIGN.md, D14–D20)
 
@@ -35,10 +41,16 @@ stays in the documents it links to.
 | D14 | One 12 V feed runs at most 5 lights, up to 3 m apart on 22 AWG. Power table in DESIGN §2.4. Replaces D13's 6 | in the docs |
 | D15 | 3 A fuse per feed at the supply end; longer chains get a feed per group of 5, with pin 1 open between groups | in the docs |
 | D16 | No extra repeater: U7 (SN74AHCT1G125) is pcb-kit's repeater part already, and each WS2811 regenerates the data | in the docs |
-| D17 | U6 74HC04 → 74HC14D (C5605), for the WS2811's slow output edges | **planned** |
-| D18 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702) | **planned** |
-| D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | **planned** |
+| D17 | U6 74HC04 → 74HC14D (C5605), for the WS2811's slow output edges | applied 2026-11-14 |
+| D18 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702) | applied 2026-11-14 |
+| D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | applied 2026-11-14 |
 | D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md |
+| D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
+| D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin | applied 2026-11-16, driver v2.2 |
+| D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/`, not yet in the cart |
+| D31 | Four M3 press nuts on a 46 mm square in the cap's back face, for a box with a controller and power supply (up to 64 × 64 × 40 mm keeps the full tilt) | in round 7's cap |
+| D32 | The heat stack's fasteners as real parts: M3 × 45 studs locked in the plate, steel washer and nut, 12 mm polyamide standoffs, polyamide screws under the driver; ISO 7380 LED and shell screws | hardware list in `mech/housing/README.md` and the order's extras |
+| D33 | The LED harness on three JST XH 2-pin plugs: J3 red, J4 green, J5 blue on the driver (B2B-XH-A), and a 12 mm bore down the heat stack that the plugs pass one at a time | applied 2026-11-16: driver v2.3, housing round 7 |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
@@ -50,34 +62,46 @@ stays in the documents it links to.
 
 - **Checked:**
   - Pinouts, values and voltages for every IC against its datasheet (the review's "Verified OK" list).
-  - ERC 0, DRC 0/0 with parity, and `netcheck.py` 0 failures on 2026-10-29. Re-run them after the planned edits.
+  - ERC 0, DRC 0/0 with parity, `netcheck.py` 0 failures, `pcbkit check` and `pcbkit courtyards` clean on 2026-11-14,
+    after the planned edits. `pcbkit release --dry-run`: both boards would release as v2.0.
+  - The driver again on 2026-11-16 with D5 (D28): ERC 0, `netcheck.py` 65 checks, DRC 0/0 with parity, `check` and
+    `courtyards` unchanged; released as v2.1.
+  - Again with R11 (D29), after the PR review found D5's current had nowhere to go: ERC 0, `netcheck.py` 66
+    checks, DRC 0/0 with parity, `check` and `courtyards` unchanged; released as v2.2.
 - **Not proven on hardware:**
   - **The WS2811 (F3, review R2).** The owner recalls PWM from the chip on v1, but v1 had too many faults for that to
     count.
   - **The PT4115 stage.** v1's was miswired, so it has only been simulated.
 
-  The first v2 boards are the test, so order the smallest assembled run.
+  The first v2 boards are the test. The order assembles all 5 of each (the user's decision, 2026-11-17: $5.78 more than
+  2 of each, against about $94 for a second assembly run); bring-up starts with one board of each.
 - **Firmware:** FastLED `WS2811` (800 kHz) meets the WS2811's timing; `WS2811_400` doesn't. ESPHome's built-in `WS2811`
   chipset timing is outside the datasheet, so use the custom timing in the review's firmware duties. WLED wasn't
   checked.
 
 ## Work remaining, in order
 
-1. **Apply the planned changes.** The edit list is in DESIGN §6, "Planned changes":
-   - `scripts/sch_driver.py` and the netcheck messages;
-   - incremental edits to the boards, keeping UUIDs (never regenerate a routed board);
-   - bomi and the BOM docs.
-
-   Then run `pcbkit erc`, `scripts/netcheck.py`, `pcbkit cleanup`, `pcbkit drc --save`, `pcbkit check`, and
-   regenerate the previews.
-2. **LED polarity (R1).**
-   - Diode-test one v1 LED. This tests the part, so v1's faults don't matter.
-   - Then check all three LEDs in JLC's placement preview: the part's dot is the anode (pad 2).
-3. **Release and order:**
-   - `pcbkit release --dry-run`, then `pcbkit release`;
-   - an order under `production/orders/`;
-   - PRODUCTION.md's checklist, including the never-checked SOT-89 and SOT-353 rotations (R11);
-   - order soon after: blue LED stock was 704 (R14).
+1. **Apply the planned changes.** Done 2026-11-14 (DESIGN §6, "Planned changes").
+2. **LED polarity (R1).** Done 2026-11-16: the diode test on v1 shows pad 1 is the cathode (DESIGN §6 item 1). In
+   JLC's preview the green and blue LEDs came a half turn out and were turned by hand.
+3. **Release and order.** Released v2.0 and put in the JLC cart on 2026-11-16 (PRODUCTION.md, Costs and the order);
+   the driver released again as v2.1 the same day, with D5 (D28), and put in the cart beside v2.0 (Y174, $39.60;
+   whole order $363.20). The preview also turned U7 a quarter turn (the SOT-353 rule was wrong), on v2.0 and v2.1;
+   SOT-89 and D5 were right. Then released again as v2.2 with R11 (D29), and as v2.3 with the XH sockets (D33).
+   Swapped in the cart on 2026-11-16: driver v2.3 (Y179, $39.77) in place of v2.0 and v2.1, and round 7's shell, cap,
+   yoke, plate, fins and spacers in place of round 6's (sheet metal $157.95 with round 6's hood and doors); whole order
+   $364.37. In v2.3's preview U7 was turned again, and J3–J5 half a turn (no rotation rule covers the XH 2-pin socket).
+   On 2026-11-17 both boards went to 5 of 5 assembled (driver Y180, $45.55; LED board Y181, $47.64); whole order $370.15.
+   Left to do:
+   - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
+     for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
+   - submit the order at checkout. JLCCNC prices the threads and press nuts when it reviews a submitted order, not
+     while the parts sit in the cart: its help page ("How to place a sheet metal order", read 2026-11-17) says the
+     review takes 10 minutes to 4 hours on working days and the Pay button comes on once it has passed. Then pay,
+     and add a `submitted` event to the order;
+   - buy J1/J2 (JST B3B-XH-A, C144394) for the five drivers: 10, plus a few spare;
+   - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself;
+     J3–J5 need a rule there too (PRODUCTION.md, order checklist).
 4. **Bring-up:** the review's bench list. Use a current-limited first power, then one colour at a time. Record the
    results in the review, dated:
    - D1's temperature (R10);
@@ -87,7 +111,7 @@ stays in the documents it links to.
 
 ## Open questions
 
-- Housing: which outline preset (DESIGN §6 item 5), and do the back-cap cut-outs line up with J1/J2?
+- Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 7 of the sheet-metal design, `mech/housing/` (D21–D27, D30): round 6 with the yoke pivot from real parts.
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
 
@@ -98,5 +122,6 @@ stays in the documents it links to.
 | Design notes, decisions, planned changes | [DESIGN.md](DESIGN.md) |
 | Layout and checks | [LAYOUT.md](LAYOUT.md) |
 | Ordering, harness, bring-up | [PRODUCTION.md](PRODUCTION.md) |
+| Housing scripts, order STEPs and drawings | [mech/housing/](mech/housing/README.md) |
 | Failure review, bench list, firmware duties | [docs/reviews/2026-10-30-v2.md](docs/reviews/2026-10-30-v2.md) |
 | Simulations and their tables | `sim/` and `sim/results/` |

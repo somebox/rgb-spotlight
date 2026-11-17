@@ -1,14 +1,29 @@
-T0H 250 ns from WS2811 DO through R8, a chain cable and R10, at U7's input (1.5 V threshold, no clamp in the model)
+T0H 250 ns from WS2811 DO through R8, a chain cable and R10, at U7's input with D5 to +5V (1.5 V threshold, U7's own clamp not modelled)
 cable  R8  R10    Vin max  Vin min  clamp mA  T0H at U7  edges  pass
-  1 m  33   100    5.28   -0.37     0.00     277 ns  clean  yes
+  1 m  33   100    5.24   -0.36     0.00     277 ns  clean  yes
   1 m  33  1000    4.52    0.00     0.00     278 ns  clean  yes
-  1 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
-  2 m  33   100    5.88   -0.97     4.70     276 ns  clean  NO
-  2 m  33  1000    4.59   -0.07     0.00     277 ns  clean  yes
-  2 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
-  4 m  33   100    6.08   -1.17     6.69     276 ns  clean  NO
-  4 m  33  1000    5.29   -0.78     0.28     277 ns  clean  yes
-  4 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
-  8 m  33   100    6.08   -1.18     6.84     276 ns  clean  NO
-  8 m  33  1000    5.58   -1.07     0.57     277 ns  clean  yes
-  8 m  82  1000    4.50    0.00     0.00     278 ns  clean  yes
+  1 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+  2 m  33   100    5.35   -0.96     4.63     276 ns  clean  NO
+  2 m  33  1000    4.52   -0.01     0.00     277 ns  clean  yes
+  2 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+  4 m  33   100    5.35   -1.17     6.69     276 ns  clean  NO
+  4 m  33  1000    5.20   -0.73     0.23     277 ns  clean  yes
+  4 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+  8 m  33   100    5.35   -1.17     6.74     276 ns  clean  NO
+  8 m  33  1000    5.27   -1.06     0.56     277 ns  clean  yes
+  8 m  82  1000    4.50    0.00     0.00     279 ns  clean  yes
+
+A feed voltage held on the data pin (a mis-crimped cable, review R6): DC, R10 1k, R7 10k, D5 into +5V. The 78L05
+sources only (it cannot sink); +5V load: the WS2811 0.3 mA, plus R4-R6 3 x 4.7k when all three channels are on;
+C1-C4 don't matter at DC. The WS2811's internal zener (voltage not stated) and the ICs' own clamps are not modelled,
+so a rail above 5.7 V means those would conduct instead. Abs max: U6 and U7 VCC 7 V, the WS2811's VDD rated to 5.7 V.
+feed  channels  R11      +5V at 12 V  13 V   15 V   U7 in at 15 V  mA from the pin at 15 V
+on    all off  none     10.37  11.28  13.10  13.36           1.6
+on    all off  470       5.00   5.00   5.00   5.43           9.6
+on    all on   none      6.50   7.07   8.21   8.60           6.4
+on    all on   470       5.00   5.00   5.00   5.43           9.6
+off   all off  none     10.37  11.28  13.10  13.36           1.6
+off   all off  470       3.48   3.79   4.41   4.84          10.2
+off   all on   none      6.50   7.07   8.21   8.60           6.4
+off   all on   470       2.91   3.16   3.68   4.12          10.9
+feed off: the 12 V and data wires swapped, so the 78L05 has no input and the pin's current alone holds the rail up

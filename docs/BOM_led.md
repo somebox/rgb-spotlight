@@ -2,15 +2,15 @@
 
 RGB Spotlight v2 LED board (aluminium, 1 layer): 3x XINGLIGHT HD2525
 
-**3 line items (3 unique parts), ~$0.77 estimated (qty 1)**
+**3 line items (3 unique parts), ~$0.79 estimated (qty 1)**
 
 ## BOM
 
 | Ref | Qty | LCSC | Package | Note | Stock | Price |
 | --- | --- | --- | --- | --- | --- | --- |
-| [LED1](#c49237857) | 1 | C49237857 | SMD | HD2525 red 620nm | 2,625 | $0.2728 |
-| [LED2](#c49237859) | 1 | C49237859 | SMD | HD2525 green 525nm | 325 | $0.2925 |
-| [LED3](#c49237860) | 1 | C49237860 | SMD | HD2525 blue 455nm | 1,331 | $0.2080 |
+| [LED1](#c49237857) | 1 | C49237857 | SMD | HD2525 red 620nm | 2,570 | $0.2720 |
+| [LED2](#c49237859) | 1 | C49237859 | SMD | HD2525 green 525nm | 2,475 | $0.3055 |
+| [LED3](#c49237860) | 1 | C49237860 | SMD | HD2525 blue 455nm | 3,102 | $0.2113 |
 
 ## Details
 
@@ -28,8 +28,8 @@ RGB Spotlight v2 LED board (aluminium, 1 layer): 3x XINGLIGHT HD2525
 | **Quantity** | 1 |
 | **Description** | -40℃~+135℃ 120° 2.4V 2.5mm x 2.5mm square LED 3W 620nm 625nm 700mA Discrete Diode Red Water Clear SMD LED Indication - Discrete ROHS |
 | **Notes** | HD2525 red 620nm |
-| **Stock** | 2,625 |
-| **Pricing** | $0.2728 (≥1), $0.2141 (≥50), $0.1891 (≥150), $0.1577 (≥500), $0.1439 (≥2500), $0.1355 (≥5000) |
+| **Stock** | 2,570 |
+| **Pricing** | $0.2720 (≥1), $0.2131 (≥50), $0.1877 (≥150), $0.1563 (≥500), $0.1422 (≥2500), $0.1337 (≥5000) |
 | **Color Temperature** | - |
 | **Diode Configuration** | Discrete Diode |
 | **Illumination Color** | Red |
@@ -60,8 +60,8 @@ RGB Spotlight v2 LED board (aluminium, 1 layer): 3x XINGLIGHT HD2525
 | **Quantity** | 1 |
 | **Description** | -40℃~+135℃ 120° 2.5mm x 2.5mm square LED 3.4V 3W 525nm 525nm 700mA Discrete Diode Green Water Clear SMD LED Indication - Discrete ROHS |
 | **Notes** | HD2525 green 525nm |
-| **Stock** | 325 |
-| **Pricing** | $0.2925 (≥1), $0.2293 (≥50), $0.2021 (≥150), $0.1681 (≥500), $0.1556 (≥2500), $0.1465 (≥5000) |
+| **Stock** | 2,475 |
+| **Pricing** | $0.3055 (≥1), $0.2420 (≥50), $0.2149 (≥150), $0.1808 (≥500), $0.1682 (≥2500), $0.1592 (≥5000) |
 | **Color Temperature** | - |
 | **Diode Configuration** | Discrete Diode |
 | **Illumination Color** | Green |
@@ -92,8 +92,8 @@ RGB Spotlight v2 LED board (aluminium, 1 layer): 3x XINGLIGHT HD2525
 | **Quantity** | 1 |
 | **Description** | -40℃~+135℃ 120° 2.5mm x 2.5mm square LED 27lm~45lm 3.4V 3000V 3W 455nm 455nm 700mA Blue Discrete Diode Water Clear SMD LED Indication - Discrete ROHS |
 | **Notes** | HD2525 blue 455nm |
-| **Stock** | 1,331 |
-| **Pricing** | $0.2080 (≥1), $0.1628 (≥50), $0.1436 (≥150), $0.1194 (≥500), $0.1086 (≥2000), $0.1023 (≥4000) |
+| **Stock** | 3,102 |
+| **Pricing** | $0.2113 (≥1), $0.1659 (≥50), $0.1465 (≥150), $0.1221 (≥500), $0.1113 (≥2500), $0.1049 (≥5000) |
 | **Color Temperature** | - |
 | **Diode Configuration** | Discrete Diode |
 | **ESD Withstand Voltage** | 3000V |

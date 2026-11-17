@@ -1,0 +1,21 @@
+# Every PCB's last checks and state, written by pcbkit release. Don't edit by hand.
+
+[pcb.driver]
+path = "boards/driver/driver.kicad_pcb"
+folder = "boards/driver"
+state = "released"
+erc = 0
+drc = 0
+unconnected = 0
+parity = 0
+silk = 0
+
+[pcb.led]
+path = "boards/led/led.kicad_pcb"
+folder = "boards/led"
+state = "released"
+erc = 0
+drc = 0
+unconnected = 0
+parity = 0
+silk = 0

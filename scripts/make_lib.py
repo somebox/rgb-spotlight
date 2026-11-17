@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write the project library: lib/rgb-spotlight.kicad_sym (PT4115, LED_HD2525, LED_PORT) and
+"""Write the project library: lib/rgb-spotlight.kicad_sym (PT4115, LED_HD2525, LED_OUT) and
 lib/rgb-spotlight.pretty/ (LED_XINGLIGHT_HD2525, WirePad_2.2x3.5mm). Overwrites both; rerun after edits here.
 
 Pinouts are from the datasheets in docs/datasheets/ (DESIGN.md §2):
@@ -54,25 +54,22 @@ LED = f"""(symbol "LED_HD2525" (pin_numbers (hide yes)) (pin_names (offset 1.016
     {pin("passive", 0, -3.81, 90, "PAD", "3", 2.54)})
   (embedded_fonts no))"""
 
-# Driver board side of the LED harness: one 6-pin connector drawn as 3 units (one per LED, "+" on top), so each unit
-# sits in its channel's current loop where the LED would be. Pins: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B-.
-def port_unit(u, col):
-    a, k = 2 * u - 1, 2 * u
-    return (f'(symbol "LED_PORT_{u}_1" (rectangle (start -2.54 2.54) (end 2.54 -2.54) (stroke (width 0.254) (type default)) (fill (type background)))'
-            f' (text "{col}" (at 0 0 0) (effects (font (size 1.27 1.27))))'
-            f' {pin("passive", 0, 5.08, 270, col + "+", str(a))} {pin("passive", 0, -5.08, 90, col + "-", str(k))})')
-LED_PORT = f"""(symbol "LED_PORT" (pin_names (offset 0.508) (hide yes)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+# Driver board side of the LED harness: one 2-pin socket per LED (J3 red, J4 green, J5 blue, D33), "+" on top, so each
+# sits in its channel's current loop where the LED would be. Pins: 1 + (LED anode), 2 - (cathode).
+LED_OUT = f"""(symbol "LED_OUT" (pin_names (offset 0.508) (hide yes)) (exclude_from_sim no) (in_bom yes) (on_board yes)
   {prop("Reference", "J", 3.81, 1.27)}
-  {prop("Value", "LED_PORT", 3.81, -1.27)}
-  {prop("Footprint", "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical", 0, 0, True)}
+  {prop("Value", "LED_OUT", 3.81, -1.27)}
+  {prop("Footprint", "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical", 0, 0, True)}
   {prop("Datasheet", "", 0, 0, True)}
-  {prop("Description", "LED harness socket, 6 pins as 3 units: 1 R+, 2 R-, 3 G+, 4 G-, 5 B+, 6 B- (+ = LED anode)", 0, 0, True)}
-  {port_unit(1, "R")} {port_unit(2, "G")} {port_unit(3, "B")}
+  {prop("Description", "LED harness socket for one LED, 2 pins: 1 + (LED anode), 2 - (cathode)", 0, 0, True)}
+  (symbol "LED_OUT_1_1" (rectangle (start -2.54 2.54) (end 2.54 -2.54) (stroke (width 0.254) (type default)) (fill (type background)))
+    (text "LED" (at 0 0 0) (effects (font (size 1.27 1.27))))
+    {pin("passive", 0, 5.08, 270, "+", "1")} {pin("passive", 0, -5.08, 90, "-", "2")})
   (embedded_fonts no))"""
 
 open(os.path.join(LIB, "rgb-spotlight.kicad_sym"), "w").write(
     '(kicad_symbol_lib (version 20251024) (generator "make_lib.py") (generator_version "10.0")\n'
-    + PT4115 + "\n" + LED + "\n" + LED_PORT + "\n)\n")
+    + PT4115 + "\n" + LED + "\n" + LED_OUT + "\n)\n")
 
 # Land pattern: datasheet "recommended soldering pattern" (2.6 mm overall, 0.45 / 1.0 / 0.45 mm pads),
 # pad length 2.4 mm as in the LCSC/EasyEDA footprint. Pad 1 (cathode) at -x.

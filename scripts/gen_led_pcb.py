@@ -155,8 +155,38 @@ for ch, (n, a) in CH.items():
     text(ch, *polar(R_LED + 3.2, a), 1.2, (a - 90) % 360)
 for ref in ("LED1", "LED2", "LED3"):
     b.FindFootprintByReference(ref).Reference().SetLayer(pcbnew.F_Fab)
+    # "+" just past pad 2 (anode), on the line from the slug through it: the part's own dot marks the anode, while
+    # the silk bracket (and LCSC's footprint dot) mark pad 1, the cathode (D19, review R1)
+    (cx, cy), (px, py) = pad_xy(ref, "3"), pad_xy(ref, "2")
+    d = math.hypot(px - cx, py - cy)
+    text("+", px + (px - cx) / d * 1.4, py + (py - cy) / d * 1.4, 0.8)
 text("RGB LED v2.0", 0, 12.2, 0.8, 90)          # in the bare gap between the green and blue islands
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
 pcbnew.SaveBoard(OUT, b)
+
+# ---- stackup: aluminium core, no mask on the back -------------------------------------------------------------
+# Written into the saved file's (setup) as text. KiCad's 3-D view and `pcb render --use-board-stackup-colors`
+# (scripts/make_previews.sh) then show the aluminium core and the bare back. The front mask colour (green, with
+# white silk) is a placeholder for the order choice; it changes no copper and no fab layer.
+STACKUP = """\t\t(stackup
+\t\t\t(layer "F.SilkS" (type "Top Silk Screen") (color "White"))
+\t\t\t(layer "F.Paste" (type "Top Solder Paste"))
+\t\t\t(layer "F.Mask" (type "Top Solder Mask") (color "Green") (thickness 0.01))
+\t\t\t(layer "F.Cu" (type "copper") (thickness 0.035))
+\t\t\t(layer "dielectric 1" (type "core") (color "Aluminum") (thickness 1.51) (material "Aluminum") (epsilon_r 4.5) (loss_tangent 0.02))
+\t\t\t(layer "B.Cu" (type "copper") (thickness 0.035))
+\t\t\t(layer "B.Mask" (type "Bottom Solder Mask") (color "#00000000") (thickness 0.01))
+\t\t\t(layer "B.Paste" (type "Bottom Solder Paste"))
+\t\t\t(layer "B.SilkS" (type "Bottom Silk Screen") (color "White"))
+\t\t\t(copper_finish "None")
+\t\t\t(dielectric_constraints no)
+\t\t)
+"""
+with open(OUT) as f:
+    s = f.read()
+if "(stackup" not in s:
+    s = s.replace("\t(setup\n", "\t(setup\n" + STACKUP, 1)
+    with open(OUT, "w") as f:
+        f.write(s)
 print(f"led board: {len(comps)} footprints + wire cutout in the {mech.CORE_D:.0f} mm core, LEDs at r = {R_LED} mm, routed; "
       f"outline {OUTLINE}: {mech.describe(OUTLINE)}, {n_holes} holes")

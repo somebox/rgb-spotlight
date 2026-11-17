@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Also published as a claude.ai artifact; this copy opens on its own in a browser. Images in img/. -->
+<style>body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }</style>
+<title>RGB Spotlight Assembly</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: an engineering drawing set — title block, then sheets (stack, section, boards, housings), each a ruled panel. */
+:root {
+  --bg: #eef0eb;
+  --panel: #fbfcf9;
+  --ink: #17211c;
+  --ink-2: #47534c;
+  --ink-3: #7a867f;
+  --rule: #d3d9d1;
+  --accent: #1f5c46;      /* solder-mask green */
+  --gold: #a9821a;        /* ENIG pads */
+  --alu: #c6cbcc;
+  --alu-2: #9aa1a3;
+  --mask: #24503f;
+  --olive: #6f6c38;
+  --nylon: #efe8d6;
+  --conn: #e9e3cf;
+  --conn-2: #c9bf9f;
+  --steel: #848b8f;
+  --glass: #a8cbd8;
+  --print: #c99263;
+  --wire-r: #c43d2c;
+  --wire-g: #2e8649;
+  --wire-b: #2f5eae;
+  --wire-k: #2a2d2b;
+  --beam: rgba(214, 170, 40, 0.22);
+  --font-text: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-head: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111714; --panel: #18201c; --ink: #e4eae5; --ink-2: #b3beb7; --ink-3: #7d8982; --rule: #2b3530;
+    --accent: #7cc3a1; --gold: #dcb44a; --alu: #7c8486; --alu-2: #5a6163; --mask: #2f6a52; --olive: #918d4f;
+    --nylon: #d6cfba; --conn: #d0c9b4; --conn-2: #a89e83; --steel: #9ba2a6; --glass: #5e8c9e; --print: #b47d4d;
+    --wire-r: #e0604e; --wire-g: #4fb06e; --wire-b: #5d8ad8; --wire-k: #c9ccc9; --beam: rgba(220, 180, 74, 0.16);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111714; --panel: #18201c; --ink: #e4eae5; --ink-2: #b3beb7; --ink-3: #7d8982; --rule: #2b3530;
+  --accent: #7cc3a1; --gold: #dcb44a; --alu: #7c8486; --alu-2: #5a6163; --mask: #2f6a52; --olive: #918d4f;
+  --nylon: #d6cfba; --conn: #d0c9b4; --conn-2: #a89e83; --steel: #9ba2a6; --glass: #5e8c9e; --print: #b47d4d;
+  --wire-r: #e0604e; --wire-g: #4fb06e; --wire-b: #5d8ad8; --wire-k: #c9ccc9; --beam: rgba(220, 180, 74, 0.16);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 24px; font-weight: 600; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.mono, code { font-family: var(--font-mono); font-size: 0.92em; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.muted { color: var(--ink-2); }
+.small { font-size: 13px; }
+
+/* Title block */
+header.sheet { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); border: 1.5px solid var(--ink); background: var(--panel); }
+header.sheet .name { padding: 22px 24px; display: grid; gap: 10px; border-right: 1.5px solid var(--ink); align-content: start; }
+header.sheet .name p { color: var(--ink-2); }
+.tb { display: grid; grid-template-columns: 1fr 1fr; }
+.tb div { padding: 10px 14px; border-bottom: 1px solid var(--rule); border-left: 1px solid var(--rule); min-width: 0; }
+.tb div:nth-child(odd) { border-left: none; }
+.tb div.wide { grid-column: 1 / -1; border-left: none; }
+.tb div:last-child { border-bottom: none; }
+.tb .k { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+.tb .v { font-size: 14px; }
+.specs { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); border-top: 1.5px solid var(--ink); padding: 12px 24px; grid-column: 1 / -1; background: var(--panel); }
+.specs b { color: var(--ink); font-weight: 500; }
+
+/* Sheets */
+section.panel { background: var(--panel); border: 1px solid var(--rule); padding: 24px; display: grid; gap: 18px; min-width: 0; }
+.sec-head { display: grid; gap: 6px; }
+.sec-head .eyebrow::before { content: ""; }
+.two { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.legend li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; }
+.num { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--panel); font-family: var(--font-mono); font-size: 13px; display: grid; place-items: center; margin-top: 1px; }
+.legend b { font-weight: 600; }
+.legend .src, .src { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); white-space: nowrap; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.scroll svg { min-width: 720px; }
+svg { display: block; width: 100%; height: auto; }
+svg text { font-family: var(--font-mono); fill: var(--ink-2); }
+.note { border-left: 3px solid var(--gold); padding: 6px 0 6px 14px; color: var(--ink-2); font-size: 14px; max-width: 76ch; }
+
+/* Boards */
+.boards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+figure { margin: 0; display: grid; gap: 10px; align-content: start; min-width: 0; }
+figure img { width: 100%; height: auto; display: block; }
+figcaption { display: grid; gap: 6px; }
+figcaption ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; color: var(--ink-2); }
+
+/* Chain */
+.chain { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.node { border: 1px solid var(--ink-3); padding: 8px 12px; background: var(--bg); font-size: 13px; display: grid; gap: 2px; min-width: 0; }
+.node b { font-family: var(--font-head); font-size: 15px; font-weight: 600; }
+.node.feed { border-color: var(--gold); }
+.arrow { align-self: center; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); display: grid; justify-items: center; line-height: 1.2; }
+.arrow::after { content: "→"; font-size: 18px; color: var(--ink-2); }
+
+/* Requirements */
+.reqs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--rule); }
+.req { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 4px; min-width: 0; }
+.req:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--rule); }
+.req p { font-size: 14px; color: var(--ink-2); }
+
+/* Presets */
+.presets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.preset { display: grid; gap: 8px; align-content: start; }
+.preset svg { max-width: 220px; margin: 0 auto; }
+.preset .pn { font-family: var(--font-mono); font-weight: 500; font-size: 14px; }
+.preset .cur { font-family: var(--font-mono); font-size: 11px; color: var(--gold); margin-left: 6px; }
+.preset p { font-size: 13.5px; color: var(--ink-2); }
+.keyrow { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
+.keyrow span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; display: inline-block; border: 1.5px solid var(--ink-2); border-radius: 50%; }
+
+/* Housings */
+.housings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.card { border: 1px solid var(--rule); background: var(--bg); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.card .sk { border-bottom: 1px solid var(--rule); padding: 10px 12px 4px; background: var(--panel); }
+.card .sk svg { max-height: 170px; }
+.card .body { padding: 16px 18px 18px; display: grid; gap: 10px; align-content: start; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--font-mono); font-size: 11.5px; border: 1px solid var(--ink-3); padding: 1px 7px; color: var(--ink-2); }
+.tag.p { border-color: var(--accent); color: var(--accent); }
+dl.facts { margin: 0; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 6px 12px; font-size: 14px; }
+dl.facts dt { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); padding-top: 2px; }
+dl.facts dd { margin: 0; color: var(--ink-2); min-width: 0; }
+.links { font-size: 13.5px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+
+/* Questions */
+ol.qs { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; counter-reset: q; }
+ol.qs li { counter-increment: q; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+ol.qs li:last-child { border-bottom: none; }
+ol.qs li::before { content: "Q" counter(q); font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+ol.qs p { color: var(--ink-2); font-size: 14px; margin-top: 2px; }
+.sources { font-size: 13px; color: var(--ink-2); display: grid; gap: 8px; }
+.sources ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+
+/* SVG paint */
+.f-alu { fill: var(--alu); stroke: var(--alu-2); }
+.f-mask { fill: var(--mask); }
+.f-olive { fill: var(--olive); }
+.f-nylon { fill: var(--nylon); stroke: var(--ink-3); }
+.f-conn { fill: var(--conn); stroke: var(--conn-2); }
+.f-conn2 { fill: var(--conn-2); stroke: var(--ink-3); }
+.f-steel { fill: var(--steel); }
+.f-gold { fill: var(--gold); }
+.f-glass { fill: var(--glass); opacity: 0.55; }
+.f-print { fill: var(--print); }
+.f-panel { fill: var(--panel); }
+.f-beam { fill: var(--beam); }
+.f-led { fill: #f4f2ea; stroke: var(--ink-3); }
+.s-ink { stroke: var(--ink-2); fill: none; }
+.s-ink3 { stroke: var(--ink-3); fill: none; }
+.s-dash { stroke: var(--ink-3); fill: none; stroke-dasharray: 6 5; }
+.s-r { stroke: var(--wire-r); fill: none; }
+.s-g { stroke: var(--wire-g); fill: none; }
+.s-b { stroke: var(--wire-b); fill: none; }
+.s-k { stroke: var(--wire-k); fill: none; }
+.s-mask { stroke: var(--mask); fill: none; }
+.s-olive { stroke: var(--olive); fill: none; }
+.s-alu { stroke: var(--alu-2); fill: none; }
+.s-gold { stroke: var(--gold); fill: none; }
+.m-circ { fill: var(--ink); }
+.m-txt { fill: var(--panel); font-family: var(--font-mono); font-weight: 500; }
+.t-ink { fill: var(--ink); }
+.t-acc { fill: var(--accent); }
+
+@media (max-width: 860px) {
+  header.sheet { grid-template-columns: 1fr; }
+  header.sheet .name { border-right: none; border-bottom: 1.5px solid var(--ink); }
+  .two { grid-template-columns: 1fr; }
+  .boards { grid-template-columns: 1fr; }
+  .boards figure img { max-width: 420px; margin: 0 auto; }
+  .presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .housings { grid-template-columns: 1fr; }
+  .reqs { grid-template-columns: 1fr; }
+  .req:nth-child(even) { padding-left: 0; border-left: none; }
+}
+@media (max-width: 480px) {
+  section.panel { padding: 18px 16px; }
+  .tb { grid-template-columns: 1fr; }
+  .tb div { border-left: none; }
+  dl.facts { grid-template-columns: 1fr; gap: 2px; }
+  dl.facts dd { margin-bottom: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="sheet">
+  <div class="name">
+    <span class="eyebrow">Assembly and housing</span>
+    <h1>RGB Spotlight</h1>
+    <p>A chainable 3 × 3 W RGB light for 12 V installations. It is two round boards in one housing: an aluminium LED board at the front and an FR4 driver board about 5 cm behind it, joined by a six-wire harness. This page shows how they stack and lists housings we could put them in.</p>
+  </div>
+  <div class="tb">
+    <div><span class="k">Boards</span><span class="v">LED v2.0 · driver v2.0</span></div>
+    <div><span class="k">Date</span><span class="v mono">2026-11-14</span></div>
+    <div class="wide"><span class="k">State</span><span class="v">Both boards routed, DRC clean. The review's changes D17–D19 are in <a href="https://github.com/somebox/rgb-spotlight/pull/1">PR #1</a>. Nothing released or ordered.</span></div>
+    <div class="wide"><span class="k">Open</span><span class="v">The housing, which picks the board outline (D11), then the LED polarity check and the order.</span></div>
+  </div>
+  <div class="specs">
+    <span>core <b>Ø 50 mm</b></span>
+    <span>board spacing <b>4–6 cm</b></span>
+    <span>full white <b>5.0 W · 0.42 A at 12 V</b></span>
+    <span>into the heat plate <b>2.7 W</b></span>
+    <span>per 12 V feed <b>≤ 5 lights</b></span>
+  </div>
+</header>
+
+<!-- STACK -->
+<section class="panel" id="stack">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 1 · Exploded view</span>
+    <h2>How it stacks</h2>
+  </div>
+  <div class="two">
+    <div>
+      <svg viewBox="-60 -90 1420 1880" role="img" aria-label="Exploded view: LED board on top, heat plate below it, driver board at the bottom, harness through the centre">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--gold)"/></marker>
+        </defs>
+        <!-- driver (furthest back) -->
+        <image href="img/stack-driver.webp" x="0" y="1101.6" width="1140" height="750"/>
+        <!-- standoffs: plate back face to driver holes at r = 11 mm -->
+        <g class="s-dash" stroke-width="4">
+          <line x1="334.1" y1="837.6" x2="334.1" y2="1443.3"/>
+          <line x1="683.9" y1="721" x2="683.9" y2="1326.7"/>
+          <line x1="683.9" y1="954.2" x2="683.9" y2="1559.9"/>
+        </g>
+        <!-- harness, lower run: plate to J3 -->
+        <g stroke-width="7" stroke-linecap="round">
+          <path class="s-r" d="M556 837 C548 960 566 1080 556 1200 S560 1300 556 1340"/>
+          <path class="s-g" d="M567 837 C575 960 559 1080 567 1200 S562 1300 567 1340"/>
+          <path class="s-b" d="M578 837 C570 960 586 1080 578 1200 S574 1300 578 1340"/>
+        </g>
+        <!-- heat plate (part of the housing), drawn at r = 28 mm, 5 mm thick -->
+        <path class="f-alu" stroke-width="3" d="M-26.3 745.6 L-26.3 837.6 A593.6 296.8 0 0 0 1160.9 837.6 L1160.9 745.6 A593.6 296.8 0 0 1 -26.3 745.6 Z"/>
+        <ellipse class="f-alu" stroke-width="3" cx="567.3" cy="745.6" rx="593.6" ry="296.8" style="fill: var(--alu)"/>
+        <ellipse cx="567.3" cy="745.6" rx="540" ry="270" fill="none" stroke="var(--alu-2)" stroke-width="2" stroke-dasharray="3 9"/>
+        <ellipse cx="567.3" cy="745.6" rx="84.8" ry="42.4" fill="var(--ink)" opacity="0.75"/>
+        <g fill="var(--ink)" opacity="0.6">
+          <ellipse cx="164.5" cy="745.6" rx="34" ry="17"/>
+          <ellipse cx="768.7" cy="571.2" rx="34" ry="17"/>
+          <ellipse cx="768.7" cy="920" rx="34" ry="17"/>
+        </g>
+        <!-- screws: LED board r = 19 mm to plate -->
+        <g class="s-dash" stroke-width="4">
+          <line x1="164.5" y1="341.7" x2="164.5" y2="745.6"/>
+          <line x1="768.7" y1="167.3" x2="768.7" y2="571.2"/>
+          <line x1="768.7" y1="516.1" x2="768.7" y2="920"/>
+        </g>
+        <!-- harness, upper run: LED board hole to plate hole -->
+        <g stroke-width="7" stroke-linecap="round">
+          <path class="s-r" d="M556 342 C548 480 566 620 556 745"/>
+          <path class="s-g" d="M567 342 C575 480 559 620 567 745"/>
+          <path class="s-b" d="M578 342 C570 480 586 620 578 745"/>
+        </g>
+        <!-- LED board (front) -->
+        <image href="img/stack-led.webp" x="0" y="0" width="1140" height="750"/>
+        <!-- light direction -->
+        <line x1="20" y1="20" x2="20" y2="-70" stroke="var(--gold)" stroke-width="8" marker-end="url(#ah)"/>
+        <text x="48" y="-34" font-size="40" class="t-ink">light</text>
+        <!-- callouts -->
+        <g stroke="var(--ink)" stroke-width="3" fill="none">
+          <line x1="1105" y1="360" x2="1240" y2="300"/>
+          <line x1="580" y1="600" x2="300" y2="600"/>
+          <line x1="1160" y1="820" x2="1260" y2="820"/>
+          <line x1="690" y1="1180" x2="880" y2="1180"/>
+          <line x1="575" y1="1330" x2="320" y2="1300"/>
+          <line x1="1100" y1="1460" x2="1240" y2="1460"/>
+        </g>
+        <g font-size="38">
+          <circle class="m-circ" cx="1270" cy="290" r="34"/><text class="m-txt" x="1270" y="303" text-anchor="middle">1</text>
+          <circle class="m-circ" cx="270" cy="600" r="34"/><text class="m-txt" x="270" y="613" text-anchor="middle">2</text>
+          <circle class="m-circ" cx="1290" cy="820" r="34"/><text class="m-txt" x="1290" y="833" text-anchor="middle">3</text>
+          <circle class="m-circ" cx="912" cy="1180" r="34"/><text class="m-txt" x="912" y="1193" text-anchor="middle">4</text>
+          <circle class="m-circ" cx="288" cy="1296" r="34"/><text class="m-txt" x="288" y="1309" text-anchor="middle">5</text>
+          <circle class="m-circ" cx="1272" cy="1460" r="34"/><text class="m-txt" x="1272" y="1473" text-anchor="middle">6</text>
+        </g>
+      </svg>
+      <p class="small muted">Board renders from the KiCad files, same camera for both. The heat plate, harness and standoff lines are drawn in. Gaps are stretched; in the light the driver sits 4–6 cm behind the LED board.</p>
+    </div>
+    <ol class="legend">
+      <li><span class="num">1</span><div><b>LED board</b>, aluminium, 1 layer, Ø 50 mm. Three HD2525 3 W LEDs on a 12 mm ring (R 90°, G 210°, B 330°), each on its own copper island. Bolted face-up to the heat plate with 3 × M3 at r = 19 mm, with paste or a pad. <span class="src">DESIGN §2.5, D8</span></div></li>
+      <li><span class="num">2</span><div><b>Harness</b>: six 24 AWG silicone wires, about 8 cm, twisted per colour. Soldered to pads R+ … B− on the LED board's front, down through its Ø 6.4 mm hole (with a sleeve or grommet), crimped, a pair per LED, into three JST XH 2-pin plugs (D33). <span class="src">PRODUCTION, D20</span></div></li>
+      <li><span class="num">3</span><div><b>Heat plate</b>, part of the housing. It takes the LED board's 2.7 W into the housing and needs a centre hole for the harness. <span class="src">DESIGN §2.6, D7</span></div></li>
+      <li><span class="num">4</span><div><b>Standoffs</b> to the driver's 3 × M3 holes at r = 11 mm. Nylon screws or washers on the driver, so no screw head can short GND or +5 V to the housing. Here they hang off the plate; the back cap would also work. <span class="src">D20, review R8</span></div></li>
+      <li><span class="num">5</span><div><b>J3, J4, J5</b>, JST XH 2 vertical, round the centre of the driver's front, facing the LED board: red, green, blue. Pin 1 = +. <span class="src">LAYOUT</span></div></li>
+      <li><span class="num">6</span><div><b>Driver board</b>, FR4, 2 layers, Ø 50 mm, about 0.9 W of heat. Front: three PT4115 constant-current bucks, WS2811, 74HC14, level shifter, 78L05, TVS. Back: J1 IN and J2 OUT for the chain (see the boards below). <span class="src">DESIGN §2</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- SECTION -->
+<section class="panel" id="section">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 2 · Section sketch</span>
+    <h2>In a cylinder, cut through the middle</h2>
+  </div>
+  <div class="scroll">
+    <svg viewBox="0 0 900 740" role="img" aria-label="Side section of the light in a cylindrical housing">
+      <defs>
+        <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--alu)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--alu-2)" stroke-width="2"/></pattern>
+      </defs>
+      <g transform="translate(330 70) scale(6)">
+        <!-- beam -->
+        <polygon class="f-beam" points="-24,-2 24,-2 34,-11 -34,-11"/>
+        <!-- walls with vents -->
+        <g fill="url(#hatch)">
+          <rect x="-28" y="-2" width="2" height="70"/><rect x="-28" y="72" width="2" height="5"/><rect x="-28" y="81" width="2" height="15"/>
+          <rect x="26" y="-2" width="2" height="70"/><rect x="26" y="72" width="2" height="5"/><rect x="26" y="81" width="2" height="15"/>
+        </g>
+        <!-- front window -->
+        <rect class="f-glass" x="-26" y="-2" width="52" height="2"/>
+        <!-- heat plate with centre hole -->
+        <rect x="-26" y="13.6" width="22" height="5" fill="url(#hatch)"/>
+        <rect x="4" y="13.6" width="22" height="5" fill="url(#hatch)"/>
+        <!-- LED board -->
+        <rect class="f-mask" x="-25" y="12" width="21.8" height="1.6"/>
+        <rect class="f-mask" x="3.2" y="12" width="21.8" height="1.6"/>
+        <rect class="f-gold" x="-7.3" y="11.7" width="2.2" height="0.4"/>
+        <rect class="f-gold" x="5.1" y="11.7" width="2.2" height="0.4"/>
+        <!-- LEDs on the r = 12 ring -->
+        <g class="f-led" stroke-width="0.15">
+          <rect x="-13.25" y="10.6" width="2.5" height="1.4"/><path d="M-12.9 10.6 A0.9 0.9 0 0 1 -11.1 10.6 Z"/>
+          <rect x="10.75" y="10.6" width="2.5" height="1.4"/><path d="M11.1 10.6 A0.9 0.9 0 0 1 12.9 10.6 Z"/>
+        </g>
+        <!-- LED board screws (metal, into the plate) -->
+        <g class="f-steel">
+          <rect x="-21.75" y="10.2" width="5.5" height="1.8"/><rect x="-19.8" y="12" width="1.6" height="5.6"/>
+          <rect x="16.25" y="10.2" width="5.5" height="1.8"/><rect x="18.2" y="12" width="1.6" height="5.6"/>
+        </g>
+        <!-- grommet -->
+        <rect x="-3.2" y="11.4" width="0.8" height="3" fill="var(--ink-3)"/>
+        <rect x="2.4" y="11.4" width="0.8" height="3" fill="var(--ink-3)"/>
+        <!-- harness -->
+        <g stroke-width="0.7" stroke-linecap="round" fill="none">
+          <path class="s-r" d="M-6.2 11.7 C-6.2 8.6 -1.4 8.6 -1.4 12.5 L-1.4 38 C-1.4 42 -1.1 44 -1.1 47.6"/>
+          <path class="s-k" d="M6.2 11.7 C6.2 8.6 1.4 8.6 1.4 12.5 L1.4 38 C1.4 42 1.1 44 1.1 47.6"/>
+          <path class="s-g" d="M-0.4 13 L-0.4 47.6"/>
+        </g>
+        <!-- standoffs (nylon), r = 11 -->
+        <rect class="f-nylon" x="-13.75" y="18.6" width="5.5" height="41.4" stroke-width="0.15"/>
+        <rect class="f-nylon" x="8.25" y="18.6" width="5.5" height="41.4" stroke-width="0.15"/>
+        <!-- driver front parts -->
+        <rect class="f-conn" x="-3.2" y="47.6" width="6.4" height="6.6" stroke-width="0.15"/>
+        <rect class="f-conn" x="-2.4" y="54.2" width="4.8" height="5.8" stroke-width="0.15"/>
+        <rect x="-23" y="55.4" width="7" height="4.6" fill="var(--wire-k)" opacity="0.85"/>
+        <rect x="16" y="55.4" width="7" height="4.6" fill="var(--wire-k)" opacity="0.85"/>
+        <!-- driver board -->
+        <rect class="f-olive" x="-25" y="60" width="50" height="1.6"/>
+        <!-- nylon screw heads under the driver -->
+        <rect class="f-nylon" x="-13.75" y="61.6" width="5.5" height="1.8" stroke-width="0.15"/>
+        <rect class="f-nylon" x="8.25" y="61.6" width="5.5" height="1.8" stroke-width="0.15"/>
+        <!-- J1 / J2 on the back, plugs, cables -->
+        <rect class="f-conn" x="-22.5" y="61.6" width="6" height="7" stroke-width="0.15"/>
+        <rect class="f-conn" x="16.5" y="61.6" width="6" height="7" stroke-width="0.15"/>
+        <rect class="f-conn2" x="-22.2" y="68.6" width="5.4" height="10" stroke-width="0.15"/>
+        <rect class="f-conn2" x="16.8" y="68.6" width="5.4" height="10" stroke-width="0.15"/>
+        <g stroke-width="0.6" fill="none">
+          <path class="s-r" d="M-20.4 78.6 L-20.4 101"/><path class="s-ink" d="M-19.5 78.6 L-19.5 101"/><path class="s-k" d="M-18.6 78.6 L-18.6 101"/>
+          <path class="s-r" d="M18.6 78.6 L18.6 101"/><path class="s-ink" d="M19.5 78.6 L19.5 101"/><path class="s-k" d="M20.4 78.6 L20.4 101"/>
+        </g>
+        <!-- back cap with cut-outs -->
+        <rect class="f-print" x="-28" y="92" width="5" height="3"/>
+        <rect class="f-print" x="-16" y="92" width="32" height="3"/>
+        <rect class="f-print" x="23" y="92" width="5" height="3"/>
+        <!-- dimensions -->
+        <g stroke="var(--ink-3)" stroke-width="0.15" fill="none">
+          <line x1="-34" y1="12" x2="-34" y2="60"/><line x1="-35.2" y1="12" x2="-25.5" y2="12"/><line x1="-35.2" y1="60" x2="-25.5" y2="60"/>
+          <line x1="-40" y1="-2" x2="-40" y2="95"/><line x1="-41.2" y1="-2" x2="-28.5" y2="-2"/><line x1="-41.2" y1="95" x2="-28.5" y2="95"/>
+          <line x1="-25" y1="104" x2="25" y2="104"/><line x1="-25" y1="102.8" x2="-25" y2="105.2"/><line x1="25" y1="102.8" x2="25" y2="105.2"/>
+        </g>
+      </g>
+      <!-- dimension text (unscaled) -->
+      <text x="122" y="290" font-size="12.5" transform="rotate(-90 122 290)" text-anchor="middle">≈ 48 mm (4–6 cm)</text>
+      <text x="86" y="350" font-size="12.5" transform="rotate(-90 86 350)" text-anchor="middle">≈ 97 mm inside, as sketched</text>
+      <text x="330" y="714" font-size="12.5" text-anchor="middle">Ø 50 mm core (board edge per outline preset)</text>
+      <!-- right-hand labels: x = 330 + 6*mm, y = 70 + 6*mm -->
+      <g stroke="var(--ink-3)" stroke-width="1" fill="none">
+        <line x1="486" y1="64" x2="560" y2="64"/>
+        <line x1="404" y1="133" x2="560" y2="124"/>
+        <line x1="486" y1="166" x2="560" y2="162"/>
+        <line x1="339" y1="250" x2="560" y2="246"/>
+        <line x1="412" y1="300" x2="560" y2="296"/>
+        <line x1="349" y1="364" x2="560" y2="356"/>
+        <line x1="468" y1="416" x2="560" y2="406"/>
+        <line x1="480" y1="436" x2="560" y2="442"/>
+        <line x1="465" y1="480" x2="560" y2="482"/>
+        <line x1="492" y1="544" x2="560" y2="544"/>
+        <line x1="480" y1="631" x2="560" y2="628"/>
+      </g>
+      <g font-size="12.5">
+        <text x="566" y="68" class="t-ink">front window or diffuser (open, Q4)</text>
+        <text x="566" y="128" class="t-ink">HD2525 LED on the r 12 mm ring</text>
+        <text x="566" y="166" class="t-ink">LED board (Al) + paste → heat plate</text>
+        <text x="566" y="250" class="t-ink">harness, 6 × 24 AWG, ≈ 8 cm</text>
+        <text x="566" y="300" class="t-ink">M3 nylon standoff, r 11 mm</text>
+        <text x="566" y="360" class="t-ink">J3–J5: XH 2 plugs and headers</text>
+        <text x="566" y="410" class="t-ink">PT4115 cell parts (tallest on the front)</text>
+        <text x="566" y="446" class="t-ink">driver board (FR4), nylon screw heads</text>
+        <text x="566" y="486" class="t-ink">J1 IN / J2 OUT, JST XH 3, r 19.5 mm</text>
+        <text x="566" y="548" class="t-ink">passive vents (D7)</text>
+        <text x="566" y="632" class="t-ink">back cap: cut-outs, glands or pigtails (Q3)</text>
+      </g>
+    </svg>
+  </div>
+  <p class="note">A sketch, cut through the centre. Board spacing, hole radii and connector positions come from DESIGN §2.5 and LAYOUT.md. Part and plug heights are approximate, so the overall depth is an estimate. It also shows LEDs and screws on both sides of the cut, which the boards don't have at the same angle.</p>
+</section>
+
+<!-- BOARDS -->
+<section class="panel" id="boards">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 3 · The boards</span>
+    <h2>The two boards, from KiCad</h2>
+  </div>
+  <div class="boards">
+    <figure>
+      <img src="img/led-top.webp" alt="LED board front: three LEDs on islands, six wire pads around the centre hole" loading="lazy">
+      <figcaption>
+        <h3>LED board, front</h3>
+        <ul>
+          <li>A "+" beside each LED marks pad 2, the anode (D19). Polarity is still to be confirmed on a v1 LED before ordering.</li>
+          <li>Wire pads R+ … B− around the Ø 6.4 mm hole.</li>
+          <li>M3 at r = 19 mm (30° / 150° / 270°) to the heat plate.</li>
+          <li>Order as a 1-layer aluminium board, 1–2 W/mK.</li>
+        </ul>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="img/driver-top.webp" alt="Driver board front: three PT4115 cells around the LED sockets J3–J5, logic at the bottom" loading="lazy">
+      <figcaption>
+        <h3>Driver, front (faces the LED board)</h3>
+        <ul>
+          <li>Three identical cells at 90° / 210° / 330°, each a PT4115 at 455 mA.</li>
+          <li>J3, J4, J5 round the centre, one per LED, marked R+, G+, B+.</li>
+          <li>U1 WS2811 and U6 74HC14 at 270°; level shifter and TVS at 150°; 78L05 at 30°.</li>
+          <li>M3 at r = 11 mm for the standoffs.</li>
+        </ul>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="img/driver-back-3d.webp" alt="Driver board back: J1 IN and J2 OUT connectors, pinout on the silkscreen" loading="lazy">
+      <figcaption>
+        <h3>Driver, back (faces the back cap)</h3>
+        <ul>
+          <li>J1 IN at 150° and J2 OUT at 30°: JST XH 3 vertical, pin rows tangential at r = 19.5 mm. Seen from the back they swap sides.</li>
+          <li>Same pinout on both: 1 = 12 V, 2 = DATA, 3 = GND. Chain them pin 1 to pin 1.</li>
+          <li>The six pins of J3–J5 come through the board round the centre.</li>
+        </ul>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- CHAIN -->
+<section class="panel" id="chain">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 4 · Wiring between lights</span>
+    <h2>Chaining lights</h2>
+  </div>
+  <div class="chain">
+    <div class="node feed"><b>12 V supply</b><span>regulated, under 15 V</span><span>3 A fuse per feed</span></div>
+    <div class="arrow">12V · GND</div>
+    <div class="node"><b>Controller</b><span>WS2811 data, 800 kHz</span><span>3.3 or 5 V, common GND</span></div>
+    <div class="arrow">J1</div>
+    <div class="node"><b>Light 1</b><span>J1 IN → J2 OUT</span></div>
+    <div class="arrow">≤ 3 m · 22 AWG</div>
+    <div class="node"><b>Light 2</b><span>J1 → J2</span></div>
+    <div class="arrow">…</div>
+    <div class="node"><b>Light 5</b><span>last on this feed</span></div>
+    <div class="arrow">pin 1 open</div>
+    <div class="node feed"><b>Next group</b><span>own feed and fuse</span><span>data and GND carried on</span></div>
+  </div>
+  <p class="small muted">Up to 5 lights per feed: 2.43–2.62 A at the tolerance corners on a 3 A connector (D14, D15). Between groups the cable leaves pin 1 (12 V) open, so two feeds never run in parallel. For a housing this means two 3-wire cables at the back of every light.</p>
+</section>
+
+<!-- REQUIREMENTS -->
+<section class="panel" id="requirements">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 5 · Brief for a housing</span>
+    <h2>What any housing has to provide</h2>
+  </div>
+  <div class="reqs">
+    <div class="req"><h3>Room for a 50 mm board</h3><p>Inner diameter by outline preset: disc50 50 mm, disc55 55 mm, disc60 60 mm, tabs3 has its tab tips on a 66 mm circle (screws on 57 mm). <span class="src">scripts/mech.py</span></p></div>
+    <div class="req"><h3>A heat path for 2.7 W</h3><p>A metal plate the LED board bolts to, with paste or a pad. For the LEDs' 2.7 W and a 45 °C plate in 25 °C air that's about 7.4 °C/W to air. If the driver's 0.9 W goes into the same metal, it's 3.6 W and about 5.5 °C/W (the figure in DESIGN §2.6). DESIGN §2.6 found a heatsink is needed either way. <span class="src">DESIGN §2.6</span></p></div>
+    <div class="req"><h3>Holes in the plate</h3><p>3 × M3 for the LED board, at 30° / 150° / 270° on the board. The radius depends on the outline preset: 19 mm on disc50 and disc55, 27.5 mm on disc60, 28.5 mm on tabs3. The housing turns the board 45° (D23), so in the housing the holes sit at 75° / 195° / 315°. Also a centre hole of at least 6.4 mm for the harness, and somewhere to fix the driver's standoffs. <span class="src">DESIGN §2.5, D23, scripts/mech.py</span></p></div>
+    <div class="req"><h3>Depth</h3><p>About 5 cm between the boards, plus the plugs and cables behind the driver. The sketch comes to roughly 9–10 cm inside. <span class="src">sketch estimate</span></p></div>
+    <div class="req"><h3>Two cables out the back</h3><p>IN and OUT, JST XH 3. Either cut-outs over J1 (150°) and J2 (30°) at r = 19.5 mm, or short pigtails to panel connectors or glands. <span class="src">DESIGN §2.5, LAYOUT</span></p></div>
+    <div class="req"><h3>Electrically floating</h3><p>The housing connects to nothing. Nylon screws or washers on the driver, and a sleeve where the harness passes the LED board's bare aluminium. <span class="src">D20, review R8 R9</span></p></div>
+    <div class="req"><h3>Air</h3><p>Passive vents. The review assumed 40–55 °C air inside a closed housing; nobody has measured it. The Schottky diodes D1–D3 are the hottest parts. <span class="src">DESIGN §2.6, review R10</span></p></div>
+    <div class="req"><h3>Low voltage only</h3><p>Regulated 12 V in, never over 15 V (the TVS's standoff). No mains in the housing. <span class="src">DESIGN §2.4</span></p></div>
+  </div>
+</section>
+
+<!-- PRESETS -->
+<section class="panel" id="presets">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 6 · Board edge</span>
+    <h2>Outline presets</h2>
+    <p class="muted">Parts and copper stay inside the 50 mm core on every preset. Only the edge and the mounting holes change, so the housing choice doesn't touch the layout (D11). Top view, front of the board.</p>
+  </div>
+  <div class="presets">
+    <div class="preset">
+      <svg viewBox="-36 -36 72 72" role="img" aria-label="disc50 preset">
+        <circle r="25" fill="var(--mask)" opacity="0.18" stroke="var(--ink-2)" stroke-width="0.5"/>
+        <circle r="25" fill="none" stroke="var(--gold)" stroke-width="0.4" stroke-dasharray="1.5 1.2"/>
+        <g fill="none" stroke="var(--ink)" stroke-width="0.6"><circle cx="16.45" cy="-9.5" r="1.6"/><circle cx="-16.45" cy="-9.5" r="1.6"/><circle cx="0" cy="19" r="1.6"/></g>
+        <g fill="var(--ink)"><circle cx="9.53" cy="-5.5" r="1.6"/><circle cx="-9.53" cy="-5.5" r="1.6"/><circle cx="0" cy="11" r="1.6"/></g>
+        <g fill="var(--accent)" opacity="0.7"><rect x="-18.9" y="-13.25" width="4" height="7" transform="rotate(30 -16.9 -9.75)"/><rect x="14.9" y="-13.25" width="4" height="7" transform="rotate(-30 16.9 -9.75)"/></g>
+        <circle r="3.2" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="0.4"/>
+      </svg>
+      <div><span class="pn">disc50</span><span class="cur">current</span></div>
+      <p>50 mm disc. Inner M3: LED board r = 19, driver r = 11. Smallest housing: 50 mm inside.</p>
+    </div>
+    <div class="preset">
+      <svg viewBox="-36 -36 72 72" role="img" aria-label="disc55 preset">
+        <circle r="27.5" fill="var(--mask)" opacity="0.18" stroke="var(--ink-2)" stroke-width="0.5"/>
+        <circle r="25" fill="none" stroke="var(--gold)" stroke-width="0.4" stroke-dasharray="1.5 1.2"/>
+        <g fill="none" stroke="var(--ink)" stroke-width="0.6"><circle cx="16.45" cy="-9.5" r="1.6"/><circle cx="-16.45" cy="-9.5" r="1.6"/><circle cx="0" cy="19" r="1.6"/></g>
+        <g fill="var(--ink)"><circle cx="9.53" cy="-5.5" r="1.6"/><circle cx="-9.53" cy="-5.5" r="1.6"/><circle cx="0" cy="11" r="1.6"/></g>
+        <g fill="var(--accent)" opacity="0.7"><rect x="-18.9" y="-13.25" width="4" height="7" transform="rotate(30 -16.9 -9.75)"/><rect x="14.9" y="-13.25" width="4" height="7" transform="rotate(-30 16.9 -9.75)"/></g>
+        <circle r="3.2" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="0.4"/>
+      </svg>
+      <div><span class="pn">disc55</span></div>
+      <p>55 mm disc, same inner M3. A 2.5 mm rim to grip in a groove or under a ring.</p>
+    </div>
+    <div class="preset">
+      <svg viewBox="-36 -36 72 72" role="img" aria-label="disc60 preset">
+        <circle r="30" fill="var(--mask)" opacity="0.18" stroke="var(--ink-2)" stroke-width="0.5"/>
+        <circle r="25" fill="none" stroke="var(--gold)" stroke-width="0.4" stroke-dasharray="1.5 1.2"/>
+        <g fill="var(--ink)"><circle cx="23.82" cy="-13.75" r="1.6"/><circle cx="-23.82" cy="-13.75" r="1.6"/><circle cx="0" cy="27.5" r="1.6"/></g>
+        <g fill="none" stroke="var(--ink-3)" stroke-width="0.3"><circle cx="23.82" cy="-13.75" r="3"/><circle cx="-23.82" cy="-13.75" r="3"/><circle cx="0" cy="27.5" r="3"/></g>
+        <g fill="var(--accent)" opacity="0.7"><rect x="-18.9" y="-13.25" width="4" height="7" transform="rotate(30 -16.9 -9.75)"/><rect x="14.9" y="-13.25" width="4" height="7" transform="rotate(-30 16.9 -9.75)"/></g>
+        <circle r="3.2" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="0.4"/>
+      </svg>
+      <div><span class="pn">disc60</span></div>
+      <p>60 mm disc. M3 in the rim at r = 27.5 on both boards, with a copper keep-out of r = 3. No inner holes.</p>
+    </div>
+    <div class="preset">
+      <svg viewBox="-36 -36 72 72" role="img" aria-label="tabs3 preset">
+        <path fill="var(--mask)" fill-opacity="0.18" stroke="var(--ink-2)" stroke-width="0.5" d="M 23.547 -8.399 L 26.932 -10.353 A 4.5 4.5 0 0 0 22.432 -18.147 L 19.047 -16.193 A 25 25 0 0 0 -19.047 -16.193 L -22.432 -18.147 A 4.5 4.5 0 0 0 -26.932 -10.353 L -23.547 -8.399 A 25 25 0 0 0 -4.5 24.592 L -4.5 28.5 A 4.5 4.5 0 0 0 4.5 28.5 L 4.5 24.592 A 25 25 0 0 0 23.547 -8.399 Z"/>
+        <circle r="25" fill="none" stroke="var(--gold)" stroke-width="0.4" stroke-dasharray="1.5 1.2"/>
+        <g fill="var(--ink)"><circle cx="24.68" cy="-14.25" r="1.6"/><circle cx="-24.68" cy="-14.25" r="1.6"/><circle cx="0" cy="28.5" r="1.6"/></g>
+        <g fill="var(--accent)" opacity="0.7"><rect x="-18.9" y="-13.25" width="4" height="7" transform="rotate(30 -16.9 -9.75)"/><rect x="14.9" y="-13.25" width="4" height="7" transform="rotate(-30 16.9 -9.75)"/></g>
+        <circle r="3.2" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="0.4"/>
+      </svg>
+      <div><span class="pn">tabs3</span></div>
+      <p>50 mm disc with three 9 mm tabs, M3 at r = 28.5 (57 mm screw circle), tips on a 66 mm circle. No inner holes.</p>
+    </div>
+  </div>
+  <div class="keyrow">
+    <span><i class="sw" style="border-style: dashed; border-color: var(--gold)"></i>50 mm core</span>
+    <span><i class="sw"></i>LED board M3</span>
+    <span><i class="sw" style="background: var(--ink); border-color: var(--ink)"></i>driver M3 (both boards on disc60 / tabs3)</span>
+    <span><i class="sw" style="background: var(--accent); border-color: var(--accent); border-radius: 0; opacity: .7"></i>J1 / J2 on the driver's back</span>
+  </div>
+</section>
+
+<!-- HOUSINGS -->
+<section class="panel" id="housings">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 7 · Options to discuss</span>
+    <h2>Housing examples</h2>
+    <p class="muted">Five ways to house it, from bought to built. The sketches show where the LED board (green), heat path (grey) and driver (olive) would go. Facts come from the linked pages; the fit notes are ours.</p>
+  </div>
+  <div class="housings">
+
+    <article class="card">
+      <div class="sk">
+        <svg viewBox="0 0 260 150" role="img" aria-label="Sketch: PAR-16 can on a yoke, light to the left">
+          <polygon class="f-beam" points="50,52 6,26 6,124 50,98"/>
+          <rect class="f-alu" x="58" y="45" width="132" height="60" rx="5" stroke-width="1.2"/>
+          <rect class="f-alu" x="46" y="36" width="14" height="78" stroke-width="1.2"/>
+          <rect class="f-alu" x="190" y="56" width="10" height="38" stroke-width="1.2"/>
+          <path class="s-alu" stroke-width="3" d="M112 75 L112 136 L156 136 L156 75"/>
+          <circle cx="112" cy="75" r="3.5" class="f-panel" stroke="var(--ink-3)"/><circle cx="156" cy="75" r="3.5" class="f-panel" stroke="var(--ink-3)"/>
+          <line x1="66" y1="50" x2="66" y2="100" class="s-mask" stroke-width="4"/>
+          <line x1="70" y1="50" x2="70" y2="100" class="s-alu" stroke-width="3" stroke-dasharray="2 2"/>
+          <line x1="122" y1="52" x2="122" y2="98" class="s-olive" stroke-width="4"/>
+          <path d="M68 75 L120 75" class="s-ink3" stroke-width="1.5"/>
+          <path d="M200 70 C215 70 220 60 236 58 M200 80 C215 80 220 90 236 92" class="s-ink" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>PAR-16 can</h3>
+        <div class="tags"><span class="tag">stage look</span><span class="tag">indoor</span><span class="tag p">disc50</span></div>
+        <dl class="facts">
+          <dt>Example</dt><dd>Eurolite PAR-16 Spot MR-16 (black, no. 50850200): 1 mm aluminium, 17 × 11 × 13 cm, 0.22 kg, for 50 mm MR16 lamps on GX5.3 at 12 V AC, up to 50 W. 3 mm aluminium yoke with 2 × Ø 10 mm holes, filter frame.</dd>
+          <dt>Fit</dt><dd>The disc50 LED board sits where the MR16 lamp sat, with the driver behind it in the can. The chain cables replace the GX5.3 lead.</dd>
+          <dt>Check</dt><dd>The barrel's inner diameter isn't published, so measure one. A 1 mm shell is a thin heat path: add a plate or a small heatsink behind the LED board. Two cables out the back instead of one.</dd>
+          <dt>Note</dt><dd>Eurolite also made an LED PAR-16 with 3 × 3 W LEDs (26°, 190 × 115 × 150 mm, 230 V, now discontinued), so this can has carried a 3 × 3 W LED engine before.</dd>
+        </dl>
+        <div class="links"><a href="https://www.steinigke.de/en/mpn50850200.html">PAR-16 Spot MR-16</a><a href="https://www.steinigke.at/en/data/mpn51913552-eurolite-led-par-16-8500k-3x3w-spot-bk.pdf">LED PAR-16 3×3 W (PDF)</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="sk">
+        <svg viewBox="0 0 260 150" role="img" aria-label="Sketch: round pin heatsink with the LED board on top and the driver below">
+          <polygon class="f-beam" points="102,40 158,40 186,4 74,4"/>
+          <line x1="98" y1="43" x2="162" y2="43" class="s-mask" stroke-width="4"/>
+          <rect class="f-alu" x="98" y="45" width="64" height="9" stroke-width="1.2"/>
+          <g class="s-alu" stroke-width="3">
+            <line x1="102" y1="54" x2="102" y2="94"/><line x1="109" y1="54" x2="109" y2="94"/><line x1="116" y1="54" x2="116" y2="94"/><line x1="123" y1="54" x2="123" y2="94"/>
+            <line x1="137" y1="54" x2="137" y2="94"/><line x1="144" y1="54" x2="144" y2="94"/><line x1="151" y1="54" x2="151" y2="94"/><line x1="158" y1="54" x2="158" y2="94"/>
+          </g>
+          <line x1="130" y1="43" x2="130" y2="104" class="s-ink3" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <rect x="92" y="96" width="76" height="34" fill="none" stroke="var(--print)" stroke-width="2" stroke-dasharray="4 3"/>
+          <line x1="98" y1="106" x2="162" y2="106" class="s-olive" stroke-width="4"/>
+          <path d="M118 130 C116 138 110 142 102 146 M142 130 C144 138 150 142 158 146" class="s-ink" stroke-width="2"/>
+          <text x="174" y="80" font-size="10">40 mm</text>
+          <line x1="168" y1="54" x2="168" y2="94" class="s-ink3" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Round LED heatsink as the core</h3>
+        <div class="tags"><span class="tag">open fins</span><span class="tag">indoor</span><span class="tag p">disc50</span></div>
+        <dl class="facts">
+          <dt>Example</dt><dd>Mechatronix LSB5040: Ø 50 mm, 40 mm high, forged AL6063, rated 6.5 °C/W; its table gives 7.3 K/W at 5 W. Has a cable guidance hole, with an M8 × 1 tapped option.</dd>
+          <dt>Fit</dt><dd>LED board on the heatsink's face (drill 3 × M3 at r = 19 mm), harness down the cable hole, driver behind the pins in a printed sleeve. 40 mm of heatsink is close to the 4–6 cm board spacing.</dd>
+          <dt>Heat</dt><dd>2.7 W at about 7.3 K/W is roughly +20 °C, so about 45 °C at the base in 25 °C air: the base temperature DESIGN §2.6 works from.</dd>
+          <dt>Check</dt><dd>Whether the cable hole passes six 24 AWG wires or needs drilling out. How the sleeve holds the driver. Open fins mean indoor only.</dd>
+        </dl>
+        <div class="links"><a href="https://led.cdiweb.com/datasheets/mechatronix/LSB5040_BRI_ESS_Bridgelux_LED_ES_Star_Array_Heat_Sink.pdf">LSB5040 datasheet</a><a href="https://www.digikey.com/en/products/detail/wakefield-thermal-solutions/882-50AB/2640527">Wakefield 882 (50.8 mm, alternative)</a><a href="https://www.diyphotography.net/?p=204968">printed LED spot (shell idea)</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="sk">
+        <svg viewBox="0 0 260 150" role="img" aria-label="Sketch: aluminium tube with an inner heat plate and a printed back cap">
+          <polygon class="f-beam" points="40,52 4,30 4,120 40,98"/>
+          <rect x="40" y="44" width="160" height="62" fill="none" stroke="var(--alu-2)" stroke-width="1"/>
+          <rect class="f-alu" x="40" y="42" width="160" height="5" stroke-width="1"/>
+          <rect class="f-alu" x="40" y="103" width="160" height="5" stroke-width="1"/>
+          <line x1="41" y1="47" x2="41" y2="103" stroke="var(--glass)" stroke-width="3"/>
+          <rect class="f-alu" x="60" y="47" width="7" height="56" stroke-width="1"/>
+          <line x1="57" y1="51" x2="57" y2="99" class="s-mask" stroke-width="4"/>
+          <line x1="120" y1="52" x2="120" y2="98" class="s-olive" stroke-width="4"/>
+          <g stroke="var(--nylon)" stroke-width="4"><line x1="67" y1="62" x2="118" y2="62"/><line x1="67" y1="88" x2="118" y2="88"/></g>
+          <g stroke="var(--ink-3)" stroke-width="0.8" fill="none"><line x1="67" y1="60" x2="118" y2="60"/><line x1="67" y1="64" x2="118" y2="64"/><line x1="67" y1="86" x2="118" y2="86"/><line x1="67" y1="90" x2="118" y2="90"/></g>
+          <path d="M59 75 L118 75" class="s-ink3" stroke-width="1.5"/>
+          <rect class="f-print" x="198" y="42" width="9" height="66"/>
+          <path d="M122 64 L207 64 C222 64 228 56 246 54 M122 86 L207 86 C222 86 228 94 246 96" class="s-ink" stroke-width="2"/>
+          <g fill="var(--panel)"><rect x="150" y="42" width="8" height="5"/><rect x="164" y="42" width="8" height="5"/><rect x="150" y="103" width="8" height="5"/><rect x="164" y="103" width="8" height="5"/></g>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Aluminium tube with caps</h3>
+        <div class="tags"><span class="tag">built to fit</span><span class="tag">indoor or sealed</span><span class="tag p">any preset</span></div>
+        <dl class="facts">
+          <dt>Example</dt><dd>Extruded tube cut to length. For instance 55 × 2 mm (51 mm inside) for disc50, 60 × 2 mm (56 mm) for disc55, 65 × 2 mm (61 mm) for disc60. These are example sizes; check what a supplier stocks.</dd>
+          <dt>Fit</dt><dd>The light as DESIGN §2.5 describes it: a heat plate inside the tube, the LED board bolted to its front, the driver on standoffs behind, and a back cap with cut-outs at J1 and J2.</dd>
+          <dt>Heat</dt><dd>The tube is the heatsink. The heat has to cross from the plate into the tube, so the plate needs a tight fit or screws through the wall.</dd>
+          <dt>Check</dt><dd>Who turns the plate (the caps could be printed), the vents, how the front window is held, and the finish.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="sk">
+        <svg viewBox="0 0 260 150" role="img" aria-label="Sketch: surface-mounted cylinder hanging from a ceiling, light downwards">
+          <line x1="20" y1="18" x2="240" y2="18" class="s-ink" stroke-width="2"/>
+          <g class="s-ink3" stroke-width="1"><line x1="30" y1="18" x2="38" y2="8"/><line x1="60" y1="18" x2="68" y2="8"/><line x1="180" y1="18" x2="188" y2="8"/><line x1="210" y1="18" x2="218" y2="8"/></g>
+          <rect class="f-alu" x="96" y="18" width="68" height="104" stroke-width="1.2"/>
+          <rect x="102" y="18" width="56" height="98" class="f-panel"/>
+          <rect class="f-alu" x="100" y="104" width="60" height="6" stroke-width="1"/>
+          <line x1="102" y1="113" x2="158" y2="113" class="s-mask" stroke-width="4"/>
+          <line x1="104" y1="58" x2="156" y2="58" class="s-olive" stroke-width="4"/>
+          <path d="M130 60 L130 104" class="s-ink3" stroke-width="1.5"/>
+          <path d="M120 56 L120 18 L120 6 M140 56 L140 18 L140 6" class="s-ink" stroke-width="2"/>
+          <polygon class="f-beam" points="100,122 160,122 196,150 64,150"/>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Surface-mount cylinder downlight body</h3>
+        <div class="tags"><span class="tag">ceiling or wall</span><span class="tag">indoor</span><span class="tag p">disc50 … tabs3</span></div>
+        <dl class="facts">
+          <dt>Example</dt><dd>Aluminium cylinder bodies sold empty, to take an MR16 or GU10 lamp or a COB module (example listing below).</dd>
+          <dt>Fit</dt><dd>disc50 in an MR16 lamp seat. A larger body with a flat module seat suits disc60 or tabs3, screwed to the seat.</dd>
+          <dt>Check</dt><dd>Depth behind the seat for the driver and two cables. Whether the seat touches the body well enough to carry 2.7 W. Fixing, and cables coming in from the ceiling.</dd>
+        </dl>
+        <div class="links"><a href="https://www.hktdc.com/event/hklightingfairae/en/product/1Z03OJBXY">example listing (HKTDC)</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="sk">
+        <svg viewBox="0 0 260 150" role="img" aria-label="Sketch: outdoor spike light, tilted head on a stake">
+          <line x1="20" y1="128" x2="240" y2="128" class="s-ink3" stroke-width="1.5"/>
+          <path d="M150 104 L150 146" class="s-ink" stroke-width="5"/>
+          <circle cx="150" cy="100" r="6" class="f-alu" stroke-width="1.2"/>
+          <g transform="rotate(-38 150 100)">
+            <polygon class="f-beam" points="124,30 176,30 196,0 104,0"/>
+            <rect class="f-alu" x="122" y="32" width="56" height="62" rx="4" stroke-width="1.2"/>
+            <rect x="128" y="38" width="44" height="50" class="f-panel"/>
+            <line x1="122" y1="33" x2="178" y2="33" stroke="var(--glass)" stroke-width="3"/>
+            <line x1="127" y1="44" x2="173" y2="44" class="s-mask" stroke-width="4"/>
+            <rect class="f-alu" x="126" y="46" width="48" height="5" stroke-width="1"/>
+            <line x1="129" y1="80" x2="171" y2="80" class="s-olive" stroke-width="4"/>
+            <rect x="140" y="94" width="8" height="6" fill="var(--ink-3)"/><rect x="152" y="94" width="8" height="6" fill="var(--ink-3)"/>
+          </g>
+          <path d="M175 117 C190 126 200 128 222 128 M168 122 C180 134 196 138 222 138" class="s-ink" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Outdoor spike or wall spot</h3>
+        <div class="tags"><span class="tag">outdoor</span><span class="tag">sealed</span><span class="tag p">disc50</span></div>
+        <dl class="facts">
+          <dt>Example</dt><dd>Garden spike or wall heads made for 12 V MR16 lamps: aluminium body, glass front, cable gland, usually IP65. Search for "MR16 12V IP65 spike light aluminium".</dd>
+          <dt>Fit</dt><dd>disc50 in the lamp seat, with the driver behind if the head is deep enough.</dd>
+          <dt>Check</dt><dd>Chaining needs two cables through sealed glands; most heads have one. A sealed head runs warmer, and the 40–55 °C inside is only an assumption so far. Head depth for the driver.</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="sk" style="display:grid; place-items:center; min-height: 120px">
+        <p class="small muted" style="text-align:center; padding: 12px">Not drawn: a gutted commercial light, such as a used LED PAR-16, keeps its housing, heatsink and optics. The LED board and driver replace its engine.</p>
+      </div>
+      <div class="body">
+        <h3>Also worth a look</h3>
+        <dl class="facts">
+          <dt>Gutted</dt><dd>Second-hand LED PAR-16 or pinspot fixtures already have a heat path sized for a few watts. Measure the LED seat before buying more than one.</dd>
+          <dt>Printed</dt><dd>A printed shell around a bought heatsink (the round-heatsink option) keeps the metal where the heat is and lets the back cap match J1 and J2 exactly.</dd>
+          <dt>Optics</dt><dd>None of these settles the front: clear glass, a diffuser, or lenses (Q4).</dd>
+        </dl>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="panel" id="questions">
+  <div class="sec-head">
+    <span class="eyebrow">Sheet 8 · For the discussion</span>
+    <h2>Questions to settle</h2>
+  </div>
+  <ol class="qs">
+    <li><div><b>Indoor, outdoor or both?</b><p>It sets the IP rating, the glands and how sealed the heat path has to be.</p></div></li>
+    <li><div><b>Which housing family?</b><p>That picks the outline preset (disc50, disc55, disc60 or tabs3). The layout stays as it is (D11), and <code>scripts/set_outline.py</code> changes the edge in place.</p></div></li>
+    <li><div><b>How do the cables leave?</b><p>Cut-outs in the back cap over J1 (150°) and J2 (30°) at r = 19.5 mm, or short pigtails to panel connectors or glands.</p></div></li>
+    <li><div><b>What goes in front?</b><p>Clear window, diffuser or optics. The LEDs sit 12 mm off-axis on purpose, so the colours stay apart; a diffuser would mix them.</p></div></li>
+    <li><div><b>What holds the driver?</b><p>Standoffs from the heat plate or from the back cap. Either way, nylon hardware on the driver (D20).</p></div></li>
+    <li><div><b>Thermal check in the real housing</b><p>Run the first light at full white for 30 minutes, closed, and measure D1 and the LED board (review R10, bench step 5). If D1 runs over about 100 °C, change to the SOD-123FL Schottky.</p></div></li>
+  </ol>
+</section>
+
+<section class="panel sources" id="sources">
+  <div class="sec-head"><span class="eyebrow">Sources</span></div>
+  <div>From the project, branch <code>v2-planned-changes</code> at 37fcdd8:</div>
+  <ul>
+    <li>DESIGN.md §2.4–2.6 and decisions D7, D8, D11, D14, D15, D19, D20; LAYOUT.md (floor plan, outline presets); PRODUCTION.md (harness, chain cables); <code>scripts/mech.py</code>.</li>
+    <li>Failure review <code>docs/reviews/2026-10-30-v2.md</code>: R8, R9, R10 and the bench list.</li>
+    <li>Renders: KiCad 10 <code>pcb render</code> of <code>boards/led/led.kicad_pcb</code> and <code>boards/driver/driver.kicad_pcb</code>, and <code>docs/previews/</code>.</li>
+  </ul>
+  <div>To make the renders again, after a board change:</div>
+  <ul>
+    <li>Stack images: <code>pcb render -w 1400 -h 1000 --rotate -60,0,30 --zoom 1.1 --quality high</code> on each board (the LED board with <code>--use-board-stackup-colors</code>, for its aluminium core), both cropped to x 120–1260, y 150–900. That puts the board centre at (567.3, 341.7) in both, where the drawing expects it.</li>
+    <li>Driver back: the same with <code>--side bottom</code>, cropped to the board and scaled to 1000 px wide.</li>
+    <li>Top views: <code>docs/previews/led/render-top.png</code> and <code>docs/previews/driver/render-top.png</code> scaled to 800 px. All saved as WebP in <code>img/</code>.</li>
+  </ul>
+  <div>Housing facts, read 2026-11-14:</div>
+  <ul>
+    <li><a href="https://www.steinigke.de/en/mpn50850200.html">Steinigke: Eurolite PAR-16 Spot MR-16 black</a> and <a href="https://www.steinigke.at/en/data/mpn51913552-eurolite-led-par-16-8500k-3x3w-spot-bk.pdf">Eurolite LED PAR-16 3×3 W spot data sheet</a></li>
+    <li><a href="https://led.cdiweb.com/datasheets/mechatronix/LSB5040_BRI_ESS_Bridgelux_LED_ES_Star_Array_Heat_Sink.pdf">Mechatronix LSB5040 data sheet</a>; <a href="https://www.digikey.com/en/products/detail/wakefield-thermal-solutions/882-50AB/2640527">Wakefield 882-50AB at DigiKey</a></li>
+    <li><a href="https://www.hktdc.com/event/hklightingfairae/en/product/1Z03OJBXY">HKTDC: surface-mounted downlight housing</a>; <a href="https://www.diyphotography.net/?p=204968">DIYPhotography: 3D-printed modular LED spot</a></li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>

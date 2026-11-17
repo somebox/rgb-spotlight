@@ -1,0 +1,19 @@
+led v2.0 (2.0.0), released 2026-11-16 by pcbkit release
+board: boards/led/led.kicad_pcb
+source fingerprint: a4f434fff0a1298b1333f51da06ced56b691cc40
+fab fingerprint: 64b204b4e36af139f42a0736726e0210f13b2a21
+netlist/BOM fingerprint: 1488669c93ed92135f5b86ebee63e679f50bc977
+base commit: a9f73e7
+files:
+  GERBER-led-v2.0.zip
+  BOM-led-v2.0-jlcpcb.csv
+  CPL-led-v2.0-jlcpcb.csv
+  PLACEMENT-led-v2.0-jlcpcb.md
+  schematic.pdf
+  board.pdf
+  kicad/led.kicad_pro
+  kicad/led.kicad_pcb
+  kicad/led.kicad_sch
+  kicad/fp-lib-table
+  kicad/sym-lib-table
+kicad/ is this version's KiCad project; its library tables and 3-D models point at the project's library as it is now.

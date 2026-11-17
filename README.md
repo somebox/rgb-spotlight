@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-11-03): v2 schematics and both boards done (DRC clean), with a failure review whose changes are planned but not yet applied. Start with [HANDOVER.md](HANDOVER.md).
+Status (2026-11-16): driver released as v2.3 (with D5, a clamp on the data input, R11, which holds the +5V rail when it clamps, and three JST XH 2-pin sockets for the LEDs) and LED board as v2.0; the first order is in the JLC cart, unpaid. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 
@@ -16,6 +16,7 @@ Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminiu
 | [LAYOUT.md](LAYOUT.md) | both PCBs: floor plans, rules, scripted copper and routing, outline presets, checks |
 | [PRODUCTION.md](PRODUCTION.md) | order files, order checklist (polarity!), harness and bring-up, costs |
 | [docs/reviews/](docs/reviews/) | pre-order failure review: findings, bench list, firmware duties |
+| [docs/assembly/](docs/assembly/index.html) | assembly overview (HTML, open in a browser): exploded view of both boards, section sketch, outline presets, housing options and the questions to settle |
 
 ## What it does
 
@@ -47,8 +48,8 @@ A high-power, addressable RGB pixel for spotlights and creative lighting. It spe
 | --- | --- | --- |
 | J1 IN | driver, back (JST XH 3, vertical) | 1 `12V`, 2 `DATA`, 3 `GND` |
 | J2 OUT | driver, back (JST XH 3, vertical) | 1 `12V`, 2 `DATA`, 3 `GND` |
-| J3 LED | driver, front (JST PH 6, vertical) | 1 `R+`, 2 `R-`, 3 `G+`, 4 `G-`, 5 `B+`, 6 `B-` |
-| TP1–TP6 | LED board, around the centre hole | same order as J3; solder the wires here |
+| J3 / J4 / J5 LED | driver, front (JST XH 2, vertical): red, green, blue | 1 `+`, 2 `-` |
+| TP1–TP6 | LED board, around the centre hole | `R+` `R-` `G+` `G-` `B+` `B-`; solder the wires here, a pair to each socket |
 
 J1 and J2 share one pin order, so chain with pin-1-to-pin-1 cables. v1 had J2 mirrored.
 
@@ -78,7 +79,7 @@ python3 sim/channel.py                                      # LED channel simula
 
 ## BOM
 
-- Driver: 19 lines, about $2.18 at qty 1. LED board: 3 lines, about $0.77 (bomi, 2026-10-05).
+- Driver: 20 lines, about $1.70 at qty 1. LED board: 3 lines, about $0.79 (bomi, 2026-11-14).
 - Each board has its own bomi project:
 
 ```bash
