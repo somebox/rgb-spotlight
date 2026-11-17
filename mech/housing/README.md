@@ -35,6 +35,18 @@ from PEM's bulletin CL (2022, page CL-5) and Elesa's VC.692 sheet. Round 6 drew 
 Ø7.14 cap hole: PEM's M5 nut (SS-M5) takes Ø6.35, and both its and the M4's minimum distance to the sheet's edge (7.1 and
 6.9 mm) were more than the cap's rims gave (6.0). Round 7's rims run 1.5 mm further forward, to 7.5 mm.
 
+**A printed knob (an option, not printed or tried yet).** `knob.py` draws a knob with the bought one's sizes (Ø25, 20
+high, hub Ø12 × 6) around an ordinary M4 × 20 hex-head bolt (ISO 4017), whose thread stands 10 mm below the hub like
+the Elesa stud: `print/rgb-spotlight-knob.step` and `print/rgb-spotlight-knob-plug.step`, 2 of each and 2 bolts per lamp.
+- Print the knob hub down, as the STEP lies, without supports (the grip's underside is a 45° cone); PCTG or ASA. It sits
+  outside the housing, away from the heat. Only the Ø12 hub stands on the bed, so give it a brim.
+- Drop the bolt into the hex pocket from the top and glue the plug in above its head. The plug keeps the bolt from
+  sliding back when the thread is started.
+- The bolt's head bears on 27 mm² of plastic. About 50 N a side holds the lamp level (D30's estimate), so tighten until
+  the lamp stays and no further: a full finger turn (about 600 N) loads the seat to 23 N/mm², where it would creep.
+- It turns inside the bought knob's Ø25 × 20 envelope. `check7.py` with a full Ø25 cylinder in the grip's place gives
+  the same result as with the bought knob (2026-11-17): no overlaps, the same tilt limit, the same clearances.
+
 **The heat stack (round 7, D32).** Three tie rods at r 11 (30° / 150° / 270°) hold the plate, the eight spacers and the
 four fins together and carry the driver. Bought parts, per lamp:
 
@@ -83,6 +95,7 @@ ROT=45 uv run --python 3.12 --with cadquery python order6.py order6
 ROT=45 uv run --python 3.12 --with cadquery python round7.py order7
 python3 drawings_sheet.py order7
 (cd order7 && for f in *.svg; do rsvg-convert -f pdf -o "${f%.svg}.pdf" "$f"; done)
+uv run --python 3.12 --with cadquery python knob.py print
 ```
 
 - `sheet.py`: the shared geometry (bends at JLCCNC's radii, the stack, the cap); `round2.py`–`round7.py` each change
@@ -90,4 +103,5 @@ python3 drawings_sheet.py order7
 - `check6.py`, `check7.py`: interference and clearance checks; `check7.py` adds every fastener as its real part (pivot,
   cap, back nuts, heat stack), their clearance to the driver, thread lengths, and PEM's edge distances. `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
   the light-leak and beam studies behind D21–D23. `thermal_sheet.py`: the heat budget.
+- `knob.py`: the printable knob and its plug, exported to `print/`.
 - Renders, review pages and earlier rounds' STEPs stay in `build/heatsink/housing/sheet/` (git-ignored).
