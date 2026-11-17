@@ -259,3 +259,8 @@ note = "LED board v2.0 with all 5 assembled, by the user's decision, in place of
 date = 2026-11-17
 status = "draft"
 note = "the whole order with both boards fully assembled: boards $93.19 + sheet metal $157.95 + carriers $26.65 = $277.79; DHL $98.36 for 5.30 kg, coupon -$6.00: $370.15, ships about 2026-11-23 (boards alone: $93.19 + $26.97 - $6.00 = $114.16, 0.69 kg). $5.78 more than with 2 of each. Thread and press-nut charges come after JLCCNC's review. Nothing paid; all lines left unticked"
+
+[[event]]
+date = 2026-11-17
+status = "draft"
+note = "quantities checked against quotes at 2, 5 and 10 (PRODUCTION.md, Costs) and kept, by the user's decision ('Keep 5 and 5'): 5 lamps, and 5 of each board, all assembled. 10 of each board would add $15.63 (about $24 with DHL); 2 lamps instead of 5 would save $75.33 of sheet metal (about $130 with carriers and DHL) and raise a lamp's sheet metal from $31.59 to $41.31. No change to the cart"

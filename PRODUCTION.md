@@ -126,6 +126,29 @@ The yoke pivot as real parts: the shell and yoke get Ø4.5 holes (were 5.5), and
 
 Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the back). JLC solders J3–J5 (JST B2B-XH-A, C158012).
 
+**Other quantities, quoted 2026-11-16/17; decided 2026-11-17: the order stays at 5 lamps with 5 of each board assembled.** Fresh quotes with the cart lines' options, not saved to the cart; USD, before DHL and the coupon.
+
+| | 2 | 5 (in cart) | 10 |
+| --- | --: | --: | --: |
+| driver v2.3, that many assembled (5 PCBs for 2 and 5, 10 for 10) | 39.77 | 45.55 | 56.15 |
+| LED board v2.0, that many assembled (5 PCBs for 2 and 5, 10 for 10) | 47.64 | 47.64 | 52.67 |
+| **both boards** | **87.41** | **93.19** | **108.82** |
+| shell | 15.98 | 31.40 | 53.00 |
+| cap | 8.40 | 12.50 | 19.40 |
+| yoke | 8.16 | 13.30 | 21.80 |
+| hood | 12.42 | 19.55 | 29.50 |
+| doors, 4 a lamp | 18.80 | 44.00 | 86.00 |
+| plate | 3.50 | 5.80 | 9.40 |
+| fins, 4 a lamp | 7.68 | 15.80 | 29.60 |
+| spacers, 8 a lamp | 7.68 | 15.60 | 28.80 |
+| **sheet metal for that many lamps** | **82.62** | **157.95** | **277.50** |
+| sheet metal a lamp | 41.31 | 31.59 | 27.75 |
+
+- The doors have no volume break: about $2.15 each at every quantity.
+- The cap's press nuts and the plate's threads are in none of these prices.
+- DHL was read only for the cart as it stands: $26.97 for the boards alone (0.69 kg) and $98.36 with the housing for 5 lamps (5.30 kg), so about $15.5 per kg and 0.9 kg a lamp. From that, 10 of each board would add about $8 of DHL to its $15.63, and 2 lamps instead of 5 would save about $43 of DHL besides $75.33 of sheet metal. Estimates, not quotes.
+- The bought hardware (the order's extras) is not quoted. Estimate for 5 lamps: about $84, with the knobs near $2 each, the fasteners in 100-packs about $47 whatever the lamp count, and paste and thread-lock about $15.
+
 ## Overview
 
 <!-- pcbkit:production:begin -->
