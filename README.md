@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-11-17): driver released as v2.4 (with D5, a clamp on the data input, R11, which holds the +5V rail when it clamps, three JST XH 2-pin sockets for the LEDs, and R10 rated for a feed voltage held on the data pin) and LED board as v2.0; the first order is in the JLC cart, unpaid, still with driver v2.3, which v2.4 is to replace. Start with [HANDOVER.md](HANDOVER.md).
+Status (2026-11-17): driver released as v2.4 (with D5, a clamp on the data input, R11, which holds the +5V rail when it clamps, three JST XH 2-pin sockets for the LEDs, and R10 rated for a feed voltage held on the data pin) and LED board as v2.0; the first order is in the JLC cart, unpaid, with driver v2.4. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 

@@ -2,9 +2,9 @@
 
 Status (2026-11-17): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
 three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34), the LED board as **v2.0**,
-and the first order is **in the JLC cart, unpaid**, still with driver v2.3, which v2.4 has to replace before the order is
-submitted, and the round-7 housing (D30–D33): all 5 of each board assembled, and the housing (sheet metal and optic
-carriers) for 5 lamps, $370.15 with DHL before JLCCNC prices the threads and press nuts
+and the first order is **in the JLC cart, unpaid**, with driver v2.4 and the round-7 housing (D30–D33): all 5 of each
+board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, $374.26 with DHL before JLCCNC prices
+the threads and press nuts
 ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -93,13 +93,11 @@ the way in; the detail stays in the documents it links to.
    yoke, plate, fins and spacers in place of round 6's (sheet metal $157.95 with round 6's hood and doors); whole order
    $364.37. In v2.3's preview U7 was turned again, and J3–J5 half a turn (no rotation rule covers the XH 2-pin socket).
    On 2026-11-17 both boards went to 5 of 5 assembled (driver Y180, $45.55; LED board Y181, $47.64); whole order $370.15.
+   The same day driver v2.4 (R10 rated 200 mW, D34) took v2.3's place: Y185, $49.66, whole order $374.26. U7 and J3–J5
+   were turned as before; U7 (C350557) had 1,086 in stock at JLC that evening, enough for the 9 the order buys.
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
-   - put driver v2.4 into the cart in place of v2.3 (Y180 and its PCBA), with the same options. v2.4 is v2.3 with R10
-     rated 200 mW (D34, decided 2026-11-17 on the open finding of PR #1's review): one BOM line differs, the CPL is the
-     same, so U7 and J3–J5 need the same hand turns in the preview. U7 (C350557) was down to 1,086 in stock on
-     2026-11-17 from 13,391 the day before: don't wait long;
    - submit the order at checkout. JLCCNC prices the threads and press nuts when it reviews a submitted order, not
      while the parts sit in the cart: its help page ("How to place a sheet metal order", read 2026-11-17) says the
      review takes 10 minutes to 4 hours on working days and the Pay button comes on once it has passed. Then pay,
