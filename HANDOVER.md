@@ -1,8 +1,9 @@
 # RGB Spotlight: handover
 
-Status (2026-11-16): the driver is **released as v2.3** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
-three JST XH 2-pin LED sockets, D33), the LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**,
-with driver v2.3 and the round-7 housing (D30–D33): all 5 of each board assembled, and the housing (sheet metal and optic
+Status (2026-11-17): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
+three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34), the LED board as **v2.0**,
+and the first order is **in the JLC cart, unpaid**, still with driver v2.3, which v2.4 has to replace before the order is
+submitted, and the round-7 housing (D30–D33): all 5 of each board assembled, and the housing (sheet metal and optic
 carriers) for 5 lamps, $370.15 with DHL before JLCCNC prices the threads and press nuts
 ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
@@ -95,8 +96,10 @@ the way in; the detail stays in the documents it links to.
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
-   - first decide R10 (DESIGN §2.2, review R6): with a mis-made cable's 12 V on the data pin it runs over its 62.5 mW
-     rating. A 200 mW part on the same pads means a new driver release and a new driver line in the cart;
+   - put driver v2.4 into the cart in place of v2.3 (Y180 and its PCBA), with the same options. v2.4 is v2.3 with R10
+     rated 200 mW (D34, decided 2026-11-17 on the open finding of PR #1's review): one BOM line differs, the CPL is the
+     same, so U7 and J3–J5 need the same hand turns in the preview. U7 (C350557) was down to 1,086 in stock on
+     2026-11-17 from 13,391 the day before: don't wait long;
    - submit the order at checkout. JLCCNC prices the threads and press nuts when it reviews a submitted order, not
      while the parts sit in the cart: its help page ("How to place a sheet metal order", read 2026-11-17) says the
      review takes 10 minutes to 4 hours on working days and the Pay button comes on once it has passed. Then pay,
@@ -116,8 +119,8 @@ the way in; the detail stays in the documents it links to.
 - Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 7 of the sheet-metal design, `mech/housing/` (D21–D27, D30): round 6 with the yoke pivot from real parts.
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
-- R10 in the data-pin fault (DESIGN §2.2; the open finding of PR #1's review, 2026-11-17): a 1 kΩ 0402 rated 200 mW
-  in its place, or the limit accepted and written down? To decide before the order is submitted.
+- R10 in the data-pin fault (the open finding of PR #1's review): answered 2026-11-17. A 1 kΩ 0402 rated 200 mW takes
+  its place (D34, driver v2.4).
 
 ## Where things are
 
