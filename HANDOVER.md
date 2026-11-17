@@ -110,7 +110,8 @@ the way in; the detail stays in the documents it links to.
    - D1's temperature (R10);
    - DIM edges (R4);
    - the 5 V rail current (R3);
-   - five lights on one feed.
+   - five lights on one feed;
+   - the data-pin fault on one board (R6, step 8): the +5V rail, U7's input and resistor R10's temperature.
 
 ## Open questions
 
