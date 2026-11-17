@@ -95,6 +95,8 @@ the way in; the detail stays in the documents it links to.
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
+   - first decide R10 (DESIGN §2.2, review R6): with a mis-made cable's 12 V on the data pin it runs over its 62.5 mW
+     rating. A 200 mW part on the same pads means a new driver release and a new driver line in the cart;
    - submit the order at checkout. JLCCNC prices the threads and press nuts when it reviews a submitted order, not
      while the parts sit in the cart: its help page ("How to place a sheet metal order", read 2026-11-17) says the
      review takes 10 minutes to 4 hours on working days and the Pay button comes on once it has passed. Then pay,
@@ -114,6 +116,8 @@ the way in; the detail stays in the documents it links to.
 - Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 7 of the sheet-metal design, `mech/housing/` (D21–D27, D30): round 6 with the yoke pivot from real parts.
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
+- R10 in the data-pin fault (DESIGN §2.2; the open finding of PR #1's review, 2026-11-17): a 1 kΩ 0402 rated 200 mW
+  in its place, or the limit accepted and written down? To decide before the order is submitted.
 
 ## Where things are
 

@@ -2,7 +2,8 @@
 """Data link between two lights in ngspice: does the signal reach the next U7 intact over a long chain cable, with
 R10 at 100 ohm or 1 k and R8 at 33 or 82 ohm, and does it need another repeater? (docs/reviews/2026-10-30-v2.md, R6 and "Power and data".)
 And with D5 (D28) clamping U7's input to +5V: what a feed voltage held on the data pin does to U7's input and to the
-+5V rail, whose 78L05 can only source current, with and without R11's bleed (D29).
++5V rail, whose 78L05 can only source current, with and without R11's bleed (D29), and what R10 dissipates meanwhile,
+against its rating.
 
 Pass: a T0H pulse (250 ns, FastLED) crosses U7's input with one clean edge each way, width inside 220-380 ns, and
 stays under U7's 7 V abs max. Below -0.5 V U7's clamp conducts, so the model (which has no clamp) overstates the
@@ -23,6 +24,7 @@ except ImportError:
 from pcbkit.spice import run
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+R10_OHM, R10_RATED_MW = 1000, 62.5          # 0402WGF1001TCE (C11702): 62.5 mW up to 70 degrees C
 OUT = os.path.join(HERE, "results", "data_cable.txt")
 
 
@@ -69,7 +71,7 @@ def rail_deck(reg, pullups, bleed):
     """12 V (or more) held on the data pin, DC: R10, R7, D5 into a +5V rail whose 78L05 can only source current."""
     return f"""* data pin held high: +5V rail, 78L05 sourcing only
 VF far 0 DC 12
-R10 far in 1k
+R10 far in {R10_OHM}
 R7 in 0 10k
 D5 in vcc RB751
 .model RB751 D(IS=2e-8 N=1.05 RS=8 CJO=2p M=0.4 VJ=0.4 BV=40)
@@ -83,6 +85,8 @@ run
 meas dc v12 FIND v(vcc) AT=12
 meas dc v13 FIND v(vcc) AT=13
 meas dc v15 FIND v(vcc) AT=15
+meas dc u12 FIND v(in) AT=12
+meas dc u132 FIND v(in) AT=13.2
 meas dc u15 FIND v(in) AT=15
 meas dc i15 FIND i(VF) AT=15
 .endc
@@ -96,13 +100,22 @@ lines += ["",
           "C1-C4 don't matter at DC. The WS2811's internal zener (voltage not stated) and the ICs' own clamps are not modelled,",
           "so a rail above 5.7 V means those would conduct instead. Abs max: U6 and U7 VCC 7 V, the WS2811's VDD rated to 5.7 V.",
           "feed  channels  R11      +5V at 12 V  13 V   15 V   U7 in at 15 V  mA from the pin at 15 V"]
+heat = []
 for reg, feed in ((1, "on "), (0, "off")):
     for pullups in (False, True):
         for bleed in (None, 470):
             m = run(rail_deck(reg, pullups, bleed), sim_dir=HERE, timeout=60).meas
+            if bleed:
+                mw = [(v - m[k]) ** 2 / R10_OHM * 1e3 for v, k in ((12, "u12"), (13.2, "u132"), (15, "u15"))]
+                heat.append(f"{feed}   {'all on ' if pullups else 'all off'}   " + "  ".join(f"{x:6.1f}" for x in mw) + "   "
+                            + ("yes" if max(mw) <= R10_RATED_MW else
+                               "OVER at " + ", ".join(f"{v:g} V" for v, x in zip((12, 13.2, 15), mw) if x > R10_RATED_MW)))
             lines.append(f"{feed}   {'all on ' if pullups else 'all off'}  {str(bleed or 'none'):5s}    {m['v12']:5.2f}  "
                          f"{m['v13']:5.2f}  {m['v15']:5.2f}  {m['u15']:5.2f}          {abs(m['i15']) * 1e3:4.1f}")
 lines.append("feed off: the 12 V and data wires swapped, so the 78L05 has no input and the pin's current alone holds the rail up")
+lines += ["",
+          f"What R10 ({R10_OHM} ohm, rated {R10_RATED_MW} mW) dissipates while the feed voltage is held on the pin, with R11 fitted:",
+          "feed  channels  mW at 12 V  13.2 V   15 V   within its rating"] + heat
 text = "\n".join(lines) + "\n"
 print(text)
 os.makedirs(os.path.dirname(OUT), exist_ok=True)

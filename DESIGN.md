@@ -162,6 +162,9 @@ v1 used J1 = 12V/DIN/GND and J2 = GND/DOUT/12V, so the chain depends on a revers
 - **J1.2 → R10 1 kΩ → (R7 10k to GND) → 74AHCT1G125 → WS2811 DIN.** R10 limits the current into the buffer's input clamp when cable ringing or a ground offset takes the line below GND; the datasheet rates that clamp (IIK) only for VI < 0. Simulated, it stays under 0.6 mA at every cable length to 8 m (review, "Power and data"). With about 10 pF at the input the RC is 10 ns, against a 220 ns minimum T0H (D18).
   - **D5 clamps it to +5V** (D28, review R6). U7's input is rated to 7 V, and the datasheet specifies no clamp above that: without D5, 12 V on the data pin would leave about 10.9 V at the input (12 V × 10k / 11k). D5, an RB751V-40 Schottky from DIN_IN to +5V, holds it at 5.4 V, with R10 limiting the current into +5V to 5.6 mA (`sim/data_cable.py`). Its 2 pF leaves T0H at U7 unchanged; even 10 pF would move it by 2 ns.
   - **R11 sinks that current** (D29). The 78L05 can only source, and the +5V load is 0.3–3.5 mA, so without R11 the 5.6 mA would lift the whole rail: to 10.4 V with the channels off, 6.5 V with all three on (12 V on the pin; the WS2811's internal zener, voltage not stated, would conduct first). R11's 10.6 mA is more than the pin can push in up to 15 V, so the rail stays at 5.00 V (`sim/data_cable.py`).
+  - **R10's own dissipation in that fault is over its rating. Open (2026-11-17, review of PR #1).** R10 is an 0402 rated 62.5 mW (C11702). With the feed voltage held on the pin and the light powered it dissipates 44 mW at 12 V, 61 mW at 13.2 V and 92 mW at 15 V. With the 12 V and data wires swapped, so the light has no feed, it is 66–75 mW at 12 V, 80–91 mW at 13.2 V and 103–118 mW at 15 V (`sim/data_cable.py` prints it). The rating holds to 70 °C; at 1.2 times it in a 40 °C housing the part is unlikely to fail quickly, but it is outside its datasheet for as long as the cable stays in (inferred, not measured).
+    - A higher value is no fix: R10 and R7 divide the controller's high level. With 2.2 kΩ a 3.3 V output leaves 2.7 V at U7 (VIH 2.0 V), and R10 still dissipates 44–47 mW at 12 V with the wires swapped, 68–74 mW at 15 V.
+    - A 1 kΩ 0402 rated 200 mW fits the same pads: Panasonic ERJPA2F1001X (C427241) or Vishay CRCW04021K00FKEDHP (C313354), both Extended at JLC, with 14,393 and 5,679 in stock on 2026-11-17. It would be a new driver release and a new driver line in the cart.
   - AHCT input VIH = 2.0 V, so 3.3 V or 5 V controllers both work; WS2811 VIH is 0.55·VDD = 2.75 V.
   - R7 holds the line low when unplugged, which also keeps the WS2811 in reset.
   - OE is tied straight to GND. v1's R7 pull-down on OE did the same job; that resistor now goes to DIN.
@@ -380,6 +383,7 @@ If the supply hits its current limit, power off and check the new diode's direct
 4. **LED stock:** 2,570 red, 2,475 green and 3,102 blue on 2026-11-14 (green was 325 on 2026-10-05, blue 704 on 2026-10-30). Check again before ordering.
 5. **Housing fit. Settled 2026-11-16: `disc50`.** The round-6 housing (`mech/housing/`, D21–D27) takes the 50 mm boards as they are: the LED board sits in the shell's Ø54 window, and the back cap's two 14 × 15 mm cut-outs, centred at (±16.45, 9.5) mm, face J1/J2 at r = 19.5 mm, 30° / 150°.
 6. **Aluminium board order:** 1 layer, 1.6 mm, 1–2 W/mK. JLC assembles the LEDs.
+7. **R10's rating in the data-pin fault (§2.2).** Open since 2026-11-17: a 200 mW part on the same pads, or the limit accepted. Decide before the order is submitted.
 
 ### Planned changes (2026-10-31, applied 2026-11-14)
 

@@ -27,3 +27,10 @@ off   all off  470       3.48   3.79   4.41   4.84          10.2
 off   all on   none      6.50   7.07   8.21   8.60           6.4
 off   all on   470       2.91   3.16   3.68   4.12          10.9
 feed off: the 12 V and data wires swapped, so the 78L05 has no input and the pin's current alone holds the rail up
+
+What R10 (1000 ohm, rated 62.5 mW) dissipates while the feed voltage is held on the pin, with R11 fitted:
+feed  channels  mW at 12 V  13.2 V   15 V   within its rating
+on    all off     43.7    60.8    91.7   OVER at 15 V
+on    all on      43.7    60.8    91.7   OVER at 15 V
+off   all off     65.7    79.7   103.2   OVER at 12 V, 13.2 V, 15 V
+off   all on      75.2    91.3   118.4   OVER at 12 V, 13.2 V, 15 V
