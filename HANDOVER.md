@@ -95,7 +95,10 @@ the way in; the detail stays in the documents it links to.
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
-   - pay, once JLCCNC has priced the threads and press nuts; then add a `submitted` event to the order;
+   - submit the order at checkout. JLCCNC prices the threads and press nuts when it reviews a submitted order, not
+     while the parts sit in the cart: its help page ("How to place a sheet metal order", read 2026-11-17) says the
+     review takes 10 minutes to 4 hours on working days and the Pay button comes on once it has passed. Then pay,
+     and add a `submitted` event to the order;
    - buy J1/J2 (JST B3B-XH-A, C144394) for the five drivers: 10, plus a few spare;
    - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself;
      J3–J5 need a rule there too (PRODUCTION.md, order checklist).
