@@ -24,7 +24,7 @@ except ImportError:
 from pcbkit.spice import run
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-R10_OHM, R10_RATED_MW = 1000, 62.5          # 0402WGF1001TCE (C11702): 62.5 mW up to 70 degrees C
+R10_OHM, R10_RATED_MW = 1000, 200.0         # ERJPA2F1001X (C427241, D34): 0.2 W up to 70 degrees C; v2.0-v2.3 had 62.5 mW
 OUT = os.path.join(HERE, "results", "data_cable.txt")
 
 
