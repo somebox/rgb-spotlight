@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-16): the driver released as v2.3 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.3 and is in the JLC cart, unpaid: driver v2.3 (Y179) in place of v2.0 and v2.1, and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $370.15 with DHL before JLCCNC prices the threads and press nuts. All 5 of each board assembled (decided 2026-11-17), and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-17): the driver released as v2.4 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33; R10 rated 200 mW for a feed voltage held on the data pin, D34) and the LED board as v2.0 (`releases/`). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.4 and is in the JLC cart, unpaid. In the cart: driver v2.4 (Y185, in place of v2.3's Y180 on 2026-11-17), and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $374.26 with DHL before JLCCNC prices the threads and press nuts. All 5 of each board assembled (decided 2026-11-17), and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -25,7 +25,7 @@ Each release folder holds:
 
 | Board | PCB | Assembly |
 | --- | --- | --- |
-| **driver** | FR4, 2 layers, 1.6 mm, 1 oz, 50 mm round (`disc50`) | Top side: 37 placements, 21 BOM lines (v2.3). J1/J2 (JST XH 3, back) and J3–J5 (JST XH 2, front) are through-hole: JLC THT assembly, or hand-solder. R9 is DNP (no LCSC number, out of the BOM) |
+| **driver** | FR4, 2 layers, 1.6 mm, 1 oz, 50 mm round (`disc50`) | Top side: 37 placements, 21 BOM lines (v2.4). J1/J2 (JST XH 3, back) and J3–J5 (JST XH 2, front) are through-hole: JLC THT assembly, or hand-solder. R9 is DNP (no LCSC number, out of the BOM) |
 | **led** | **aluminium**, 1 layer, 1.6 mm, 1 W/mK (2 W/mK if offered cheaply), 50 mm round | Top side: 3 placements (the LEDs) |
 
 The LED board's Gerber zip also holds empty back layers; on a 1-layer aluminium order JLC uses only F.Cu, F.Mask, F.Silkscreen, Edge.Cuts and the drill files.
@@ -40,18 +40,18 @@ The things that went wrong before, or could:
   - Order remark: "LED1–LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode."
 - **Schottky D1–D3 (SOD-123).** The cathode band faces the 12 V side (Rs / VIN). Inverted, the diode shorts SW to 12 V.
 - **TVS D4 (SMA).** The cathode band goes to +12V. Inverted, it conducts the moment 12 V is applied.
-- **Clamp D5 (SOD-323, from driver v2.1).** The cathode band (pad 1) goes to +5V, towards the board edge; the anode joins R7/R10. Inverted, it holds the data input high and the light gets no data. No rotation rule covers `D_SOD-323`, so the CPL has KiCad's angle (270°). On 2026-11-16 (Y174) the preview showed it right: the band and JLC's − on the pad hovering at (−13.83, 19.15), pad 1 at (−13.80, 19.00), towards the board edge; the + on pad 2 at (−13.83, 16.83). The same on Y179 (v2.3): − at (−13.8, 19.1). Check it again on each order: with no rule, nothing in pcb-kit records the check.
-- **LED sockets J3–J5 (JST XH 2, C158012, from driver v2.3).** Pin 1, the square pad, is the LED's + (D33). The plug is keyed to the socket's body, so a socket turned half a turn puts the plug's + on pad 2 and reverses that LED. No rotation rule covers `JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical`, so the CPL has KiCad's angle. On 2026-11-16 (Y179) JLC drew all three half a turn from KiCad's footprint: the body reached 3.4 mm from the pins on the side where KiCad's reaches 2.35, the wall slots faced the other way, and J4 and J5 lay over L2's and L3's outlines. Turned 180 by hand (Rotate Left twice): then each body filled its silkscreen outline, by the pin-1 corner mark. Check them on every order until pcb-kit has a rule for the footprint.
+- **Clamp D5 (SOD-323, from driver v2.1).** The cathode band (pad 1) goes to +5V, towards the board edge; the anode joins R7/R10. Inverted, it holds the data input high and the light gets no data. No rotation rule covers `D_SOD-323`, so the CPL has KiCad's angle (270°). On 2026-11-16 (Y174) the preview showed it right: the band and JLC's − on the pad hovering at (−13.83, 19.15), pad 1 at (−13.80, 19.00), towards the board edge; the + on pad 2 at (−13.83, 16.83). The same on Y179 (v2.3) and Y185 (v2.4): − at (−13.8, 19.1). Check it again on each order: with no rule, nothing in pcb-kit records the check.
+- **LED sockets J3–J5 (JST XH 2, C158012, from driver v2.3).** Pin 1, the square pad, is the LED's + (D33). The plug is keyed to the socket's body, so a socket turned half a turn puts the plug's + on pad 2 and reverses that LED. No rotation rule covers `JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical`, so the CPL has KiCad's angle. On 2026-11-16 (Y179) JLC drew all three half a turn from KiCad's footprint: the body reached 3.4 mm from the pins on the side where KiCad's reaches 2.35, the wall slots faced the other way, and J4 and J5 lay over L2's and L3's outlines. Turned 180 by hand (Rotate Left twice): then each body filled its silkscreen outline, by the pin-1 corner mark. The same on Y180 and Y185 (v2.4). Check them on every order until pcb-kit has a rule for the footprint.
 - **Placement checklist first.** On 2026-11-16 the preview showed:
   - `^SOT-89` +180° right for U2–U4 (PT4115, SOT-89-5) and U5 (78L05, SOT-89-3);
   - `^SOT-353` +180° a quarter turn out for U7 (74AHCT1G125): turned +90 by hand. pcb-kit's rule is now −90.
-  The v2.0 release's CPLs and driver v2.1's, v2.2's and v2.3's (released before the kit's fix was merged) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26). On Y179 (driver v2.3) the same: after the turn pin 1 at (−10.57, 17.27), against the checklist's (−10.438, 17.250).
+  The v2.0 release's CPLs and driver v2.1's, v2.2's, v2.3's and v2.4's (released before the kit's fix was merged; v2.4's CPL is v2.3's) carry the old angles for U7 and LED2/LED3, so check those three by hand on every order from them. On Y174 (driver v2.1) U7 came out as on v2.0 (pin 1 at −8.94, 18.04) and was turned +90 by hand (pin 1 then at −10.58, 17.26). On Y179 (driver v2.3) the same: after the turn pin 1 at (−10.57, 17.27), against the checklist's (−10.438, 17.250). On Y185 (driver v2.4) the same again.
 - **PT4115 U2–U4 (SOT-89-5).** Pin 1 is SW. The tab must sit on the wide GND pad, not rotated 180°.
 - **U1 (SOIC-8), U6 (SOIC-14).** The SOIC rule (+270°) was checked on 2026-10-26 and right here on 2026-11-16. Still check the pin-1 dots; v1 used EasyEDA footprints, these are KiCad's.
 - **J1/J2 (JST XH, back).** They are in the `-back` BOM/CPL and the `-both` files. For a top-only order, hand-solder them (through-hole).
 - **BOM matching.** JLC must say "Your BOM: JLCPCB Part #". With an `LCSC` header it matches by value instead (pcb-kit lesson).
 - **Order number:** JLC no longer offers "specify position": choose Remove Mark, with a PCB remark that the `JLCJLCJLCJLC` on the driver's back silk is an old placeholder to leave off.
-- **Stock:** `bomi --project boards/driver list --check` and the same for `boards/led`. On 2026-11-16 the LEDs had 2,570 red, 2,475 green and 3,102 blue, and the scarcest driver part was U7 at 13,391.
+- **Stock:** `bomi --project boards/driver list --check` and the same for `boards/led`. On 2026-11-16 the LEDs had 2,570 red, 2,475 green and 3,102 blue, and the scarcest driver part was U7 at 13,391. On 2026-11-17, live at JLC: U7 (C350557) 1,086 in stock, 846 to order; R10's new part (C427241) 14,393; every other driver part above 59,000.
 - **Assembly options at JLC (2026-11-16):** aluminium boards get Standard PCBA only, with JLC's 5 mm edge rails on a board under 70 mm; the driver gets Economic. JLC's quote page now defaults to OSP: choose HASL with lead. JLC flags the blue LED (C49237860) "difficult to process" and leaves it unticked: tick it.
 
 ## After the boards arrive
@@ -73,10 +73,13 @@ The things that went wrong before, or could:
 
 | Date | Board | Qty | Item | Cost |
 | --- | --- | --- | --- | --- |
-| 2026-11-17 | all | — | The JLC cart with both boards fully assembled, driver Y180 and LED board Y181, and the round-7 housing: boards 93.19 + sheet metal 157.95 + carriers 26.65 = 277.79; DHL 98.36 (5.30 kg), coupon −6.00; ships about 2026-11-23. $5.78 more than 2 of each. Threads and press nuts still to be priced by JLCCNC | $370.15 |
-| 2026-11-17 | driver v2.3 | 5 PCBs / 5 assembled | Y180: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666618 41.55 (setup 8.24, stencil 1.55, parts 9.75 for 21 lines, Extended 15.45, SMT 1.06, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.53, nitrogen 0.91). Same options as Y179 | $45.55 |
+| 2026-11-17 | all | — | The JLC cart with driver v2.4 (Y185) in place of v2.3, LED board Y181, both fully assembled, and the round-7 housing: boards 97.30 + sheet metal 157.95 + carriers 26.65 = 281.90; DHL 98.36 (5.30 kg), coupon −6.00; ships about 2026-11-23. $4.11 more than with v2.3. Threads and press nuts still to be priced by JLCCNC | $374.26 |
+| 2026-11-17 | driver v2.4 | 5 PCBs / 5 assembled | Y185: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111765268 45.66 (setup 8.24, stencil 1.55, parts 10.72 for 21 lines, Extended 18.54: R10 (C427241) adds 3.09, SMT 1.11, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.53, nitrogen 0.91). Same options as Y180 | $49.66 |
+| 2026-11-17 | boards | — | The two boards alone with driver v2.4: 97.30 + DHL 26.97 − coupon 6.00 (0.69 kg) | $118.27 |
+| 2026-11-17 | all | — | The JLC cart with both boards fully assembled, driver v2.3 Y180 (replaced by v2.4) and LED board Y181, and the round-7 housing: boards 93.19 + sheet metal 157.95 + carriers 26.65 = 277.79; DHL 98.36 (5.30 kg), coupon −6.00; ships about 2026-11-23. $5.78 more than 2 of each. Threads and press nuts still to be priced by JLCCNC | $370.15 |
+| 2026-11-17 | driver v2.3 | 5 PCBs / 5 assembled | Y180, replaced by v2.4 (Y185) on 2026-11-17: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666618 41.55 (setup 8.24, stencil 1.55, parts 9.75 for 21 lines, Extended 15.45, SMT 1.06, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.53, nitrogen 0.91). Same options as Y179 | $45.55 |
 | 2026-11-17 | led | 5 PCBs / 5 assembled | Y181: PCB 4.00 (aluminium, 1 W/mK, HASL with lead) + Standard PCBA SMT026111666632 43.64 (setup 25.75, stencil 8.27, parts 3.94, feeder loading 4.65, SMT 0.08, placement check 0.45, packaging 0.50): the same as 2 assembled, as JLC buys 5 of each LED either way. Same options as Y172 | $47.64 |
-| 2026-11-17 | boards | — | The two boards alone, fully assembled: 93.19 + DHL 26.97 − coupon 6.00 (0.69 kg) | $114.16 |
+| 2026-11-17 | boards | — | The two boards alone, fully assembled, with driver v2.3: 93.19 + DHL 26.97 − coupon 6.00 (0.69 kg) | $114.16 |
 | 2026-11-16 | all | — | The JLC cart with driver v2.3 (Y179) and the round-7 housing, 2 of each board assembled, the old drivers and round-6 parts removed: boards 87.41 + sheet metal 157.95 + carriers 26.65 = 272.01; DHL 98.36 (5.22 kg), coupon −6.00; ships about 2026-11-22. Threads and press nuts still to be priced by JLCCNC | $364.37 |
 | 2026-11-16 | driver v2.3 | 5 PCBs / 2 assembled | Y179, replaced by Y180 (5 assembled) on 2026-11-17: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111666453 35.77 (setup 8.24, stencil 1.55, parts 4.83 for 21 lines, Extended 15.45, SMT 0.55, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.23, nitrogen 0.86). Same options as Y174 | $39.77 |
 | 2026-11-16 | boards | — | The two boards alone with driver v2.3: 87.41 + DHL 26.97 − coupon 6.00 (0.62 kg) | $108.38 |
@@ -158,14 +161,14 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.3 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 45.55 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.4 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 49.66 USD |  |
 | [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 47.64 USD |  |
 
 ### Boards
 
 | PCB | in KiCad | released | state | parts a board (USD) | latest order | in stock | parts on hand build |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [driver](boards/driver) | v2.3 | v2.3 2026-11-16 | released | 1.88, 7 ext. | 2026-11-16-v2-first: draft |  |  |
+| [driver](boards/driver) | v2.4 | v2.4 2026-11-17 | released | 1.93, 8 ext. | 2026-11-16-v2-first: draft |  |  |
 | [led](boards/led) | v2.0 | v2.0 2026-11-16 | released | 0.79, 3 ext. | 2026-11-16-v2-first: draft |  |  |
 
 Parts costs: placed parts at unit prices from konnect's JLC parts cache of 2026-11-03; Extended parts add a setup fee each per order.
@@ -197,7 +200,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 
 | order | what | status | last event |
 | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.3 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps | draft | 2026-11-17 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.4 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps | draft | 2026-11-17 |
 
 ### Problems
 

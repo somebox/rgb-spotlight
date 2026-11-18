@@ -66,10 +66,11 @@ selections:
   quantity: 1
   notes: 33R series on DOUT (cable source termination)
 - ref: R10
-  lcsc: C11702
+  lcsc: C427241
   quantity: 1
-  notes: '1k series on DIN: limits clamp current when DIN rings below GND (D18); no
-    12 V fix'
+  notes: '1k series on DIN, 0402 rated 200 mW: limits clamp current when DIN rings
+    below GND (D18), and stays inside its rating with a feed voltage held on the data
+    pin (D34)'
 - ref: R11
   lcsc: C23179
   quantity: 1

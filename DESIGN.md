@@ -1,6 +1,6 @@
 # RGB Spotlight — design notes
 
-Status (2026-11-16): the driver released as v2.3 (D5 clamps the data input, D28; R11 holds the +5V rail when it does, D29; three JST XH 2-pin LED sockets, D33) and the LED board as v2.0; the first order (all 5 of each board assembled, and the housing for 5 lamps, D21–D27, D30–D33) is in the JLC cart, unpaid, with driver v2.3 and round 7's shell, cap, yoke, plate, fins and spacers (PRODUCTION.md). LED polarity settled on a v1 LED (§6 item 1). Next: payment, then bring-up (the review's bench list).
+Status (2026-11-17): the driver released as v2.4 (D5 clamps the data input, D28; R11 holds the +5V rail when it does, D29; three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34) and the LED board as v2.0; the first order (all 5 of each board assembled, and the housing for 5 lamps, D21–D27, D30–D33) is in the JLC cart, unpaid, with driver v2.4 and round 7's shell, cap, yoke, plate, fins and spacers (PRODUCTION.md). LED polarity settled on a v1 LED (§6 item 1). Next: the order submitted and paid, then bring-up (the review's bench list).
 
 Chainable, WS2811-addressed RGB spotlight: three 3 W LEDs, each on its own PT4115 constant-current buck, run from a 12 V chain. Two boards in an aluminium cylinder:
 - an **aluminium LED board** (50 mm, 1 layer) carrying only the LEDs;
@@ -78,6 +78,7 @@ Numbered and dated; a reversal is a new entry naming the old one.
 | D31 | 2026-11-16 | Four PEM S-M3-2 press nuts in the cap's back face on a 46 × 46 mm square, centred, heads inside: a mount for a box with a controller and power supply. Housing round 7 | the owner's request. Press nuts, not tapped holes: a thread tapped in 1.5 mm aluminium has three turns. M3 because M4 needs 6.9 mm to the cable cut-outs and there is no room for a square; M3 gets 6.2 (PEM: 4.8), its heads 1.8 mm short of the bends and 8 mm or more from the driver's parts. A 64 × 64 mm box up to 40 mm deep keeps the whole tilt range; 50 mm deep stops it at about 50° the other way (`check7.py`) |
 | D32 | 2026-11-16 | The heat stack's fasteners as real parts (housing round 7), on each of the three tie rods: an M3 × 45 threaded stud locked into the plate, its end 0.2 mm below the plate's front face; a DIN 125 washer and an ISO 4032 steel nut behind the last fin; a 12 mm polyamide standoff (was 15) on the stud behind the nut; a polyamide M3 × 6 from the back of the driver. LED screws ISO 7380 M3 × 20, shell screws ISO 7380 M3 × 6. No sheet-metal part changes | the model had a bare 44.8 mm rod with the nylon standoff as the stack's only nut, and no screws under the driver: the exploded view could not say what to buy. A steel nut clamps the greased aluminium joints; nylon thread would hold a few hundred newtons at best and creeps when warm (an estimate, not measured). The driver moves 0.1 mm forward. Checked (`check7.py`): no overlaps; stud 2.8 mm in the plate and 3.3 mm in the standoff; driver screw 4.4 mm in the standoff, 4.3 mm from the stud's end, its head 2.0 mm from J1/J2; LED screws' tips 2.6 mm behind the plate, 3.4 mm short of the first fin |
 | D33 | 2026-11-16 | The LED harness plugs in as three pairs: three JST XH 2-pin sockets on the driver's front, J3 red, J4 green, J5 blue (B2B-XH-A, C158012; pin 1 +), in place of J3's PH 6, with XHP-2 plugs and SXH-001T-P0.6 contacts on the wires. The hole down the middle of the plate, spacers and fins grows from 8 to 12 mm (housing round 7). Driver v2.3 | the owner's decision: one good connector type to keep in stock (genuine JST XH, also the chain's J1/J2), and plugs that pass the heat stack. An XHP-2 plug is 7.4 × 5.75 mm, 9.4 across: in a 12 mm bore it has 1.3 mm at its corners and 3.1 mm beside its long faces for the pairs already through. The sockets stand as a pinwheel round the board's centre, each beside its cell's Rs and L, pin rows 5.6 mm out and shifted 1.63 mm (the one place where their courtyards clear each other, the inductors and the standoffs, by 0.15 mm); the pins are 5.6–6.3 mm from the axis, under the bore, and the plugs 9.8 mm high in the 14.9 mm behind the stack. XH contacts take insulation up to 1.9 mm, but six wires still share the LED board's 6.4 mm hole, so D24's thin wire stays. On the board, edited in place: J3 out, three sockets in, six links laid again, the thin +12V link and the +5V feed on the back moved round the new pads. ERC 0, `netcheck.py` 66 checks, DRC 0/0 with parity. The bore takes 10 % of the spacers' contact area |
+| D34 | 2026-11-17 | R10 becomes a 1 kΩ 0402 rated 200 mW, Panasonic ERJPA2F1001X (C427241, Extended), in place of the 62.5 mW part (C11702). Same pads, same value. Driver v2.4 | the owner's decision on the open finding of PR #1's review. With a feed voltage held on the data pin (review R6), R10 dissipates 44 mW at 12 V with the light powered and 66–75 mW with the 12 V and data wires swapped, 103–118 mW at 15 V: over 62.5 mW, inside 200 mW at every case (`sim/data_cable.py`). A higher value was no fix: R10 and R7 divide the controller's high level. The rating is from JLC's listing and a copy of Panasonic's datasheet (0.20 W at 70 °C). On the board: R10's LCSC number only |
 
 ---
 
@@ -162,6 +163,9 @@ v1 used J1 = 12V/DIN/GND and J2 = GND/DOUT/12V, so the chain depends on a revers
 - **J1.2 → R10 1 kΩ → (R7 10k to GND) → 74AHCT1G125 → WS2811 DIN.** R10 limits the current into the buffer's input clamp when cable ringing or a ground offset takes the line below GND; the datasheet rates that clamp (IIK) only for VI < 0. Simulated, it stays under 0.6 mA at every cable length to 8 m (review, "Power and data"). With about 10 pF at the input the RC is 10 ns, against a 220 ns minimum T0H (D18).
   - **D5 clamps it to +5V** (D28, review R6). U7's input is rated to 7 V, and the datasheet specifies no clamp above that: without D5, 12 V on the data pin would leave about 10.9 V at the input (12 V × 10k / 11k). D5, an RB751V-40 Schottky from DIN_IN to +5V, holds it at 5.4 V, with R10 limiting the current into +5V to 5.6 mA (`sim/data_cable.py`). Its 2 pF leaves T0H at U7 unchanged; even 10 pF would move it by 2 ns.
   - **R11 sinks that current** (D29). The 78L05 can only source, and the +5V load is 0.3–3.5 mA, so without R11 the 5.6 mA would lift the whole rail: to 10.4 V with the channels off, 6.5 V with all three on (12 V on the pin; the WS2811's internal zener, voltage not stated, would conduct first). R11's 10.6 mA is more than the pin can push in up to 15 V, so the rail stays at 5.00 V (`sim/data_cable.py`).
+  - **R10 carries that fault inside its rating** (D34, from driver v2.4). It is a 1 kΩ 0402 rated 200 mW (ERJPA2F1001X, C427241). With the feed voltage held on the pin and the light powered it dissipates 44 mW at 12 V, 61 mW at 13.2 V and 92 mW at 15 V. With the 12 V and data wires swapped, so the light has no feed, it is 66–75 mW at 12 V, 80–91 mW at 13.2 V and 103–118 mW at 15 V (`sim/data_cable.py` prints it against the rating). Not measured: the review's bench list, step 8, does it on one board.
+    - Drivers v2.0 to v2.3 have a 62.5 mW part there (C11702), over its rating in every swapped-wire case and above 13.3 V with the light powered (the open finding of PR #1's review, 2026-11-17).
+    - A higher value was no fix: R10 and R7 divide the controller's high level. With 2.2 kΩ a 3.3 V output leaves 2.7 V at U7 (VIH 2.0 V), and a 62.5 mW part still dissipates 44–47 mW at 12 V with the wires swapped, 68–74 mW at 15 V.
   - AHCT input VIH = 2.0 V, so 3.3 V or 5 V controllers both work; WS2811 VIH is 0.55·VDD = 2.75 V.
   - R7 holds the line low when unplugged, which also keeps the WS2811 in reset.
   - OE is tied straight to GND. v1's R7 pull-down on OE did the same job; that resistor now goes to DIN.
@@ -281,7 +285,7 @@ Full white at 455 mA. Assumptions:
 - **Bench check:** ceramic caps (C6–C9) can sing audibly at 4 kHz.
 - **Long chains:** the steps add up along the cable. Inject power at the start of each group of 5 (D14).
 
-## 3. Parts (bomi, qty 1: `docs/BOM_driver.md` 22 lines ≈ $1.76 on 2026-11-16; `docs/BOM_led.md` 3 lines ≈ $0.79 on 2026-11-14)
+## 3. Parts (bomi, qty 1: `docs/BOM_driver.md` 22 lines ≈ $1.80 on 2026-11-17; `docs/BOM_led.md` 3 lines ≈ $0.79 on 2026-11-14)
 
 | Board | Ref | Part | LCSC | Note / change from v1 |
 |---|---|---|---|---|
@@ -300,7 +304,7 @@ Full white at 455 mA. Assumptions:
 | driver | R7 | 10 kΩ 0402 | C25744 | now the DIN pull-down |
 | driver | R8 | 33 Ω 0402 | C25105 | new: DOUT series |
 | driver | R9 | 0 Ω 0402 | — | new, **DNP**: SET strap |
-| driver | R10 | 1 kΩ 0402 | C11702 | new: DIN series; 1 kΩ, not 100 Ω (D18) |
+| driver | R10 | 1 kΩ 0402, 200 mW | C427241 | new: DIN series; 1 kΩ, not 100 Ω (D18); rated for a feed voltage held on the pin (D34; C11702, 62.5 mW, to v2.3) |
 | driver | D5 | RB751V-40 Schottky, SOD-323 | C7502691 | new: DIN_IN clamp to +5V (D28); a Preferred part |
 | driver | R11 | 470 Ω 1 % 0603, 100 mW | C23179 | new: +5V bleed, the sink for D5's current (D29) |
 | driver | C1 | 1 µF 25 V X5R 0402 | C52923 | WS2811 VDD, the datasheet's Ci (D18) |
@@ -380,6 +384,7 @@ If the supply hits its current limit, power off and check the new diode's direct
 4. **LED stock:** 2,570 red, 2,475 green and 3,102 blue on 2026-11-14 (green was 325 on 2026-10-05, blue 704 on 2026-10-30). Check again before ordering.
 5. **Housing fit. Settled 2026-11-16: `disc50`.** The round-6 housing (`mech/housing/`, D21–D27) takes the 50 mm boards as they are: the LED board sits in the shell's Ø54 window, and the back cap's two 14 × 15 mm cut-outs, centred at (±16.45, 9.5) mm, face J1/J2 at r = 19.5 mm, 30° / 150°.
 6. **Aluminium board order:** 1 layer, 1.6 mm, 1–2 W/mK. JLC assembles the LEDs.
+7. **R10's rating in the data-pin fault (§2.2). Settled 2026-11-17:** a 200 mW part on the same pads (D34, driver v2.4).
 
 ### Planned changes (2026-10-31, applied 2026-11-14)
 

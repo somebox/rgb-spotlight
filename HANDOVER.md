@@ -1,9 +1,10 @@
 # RGB Spotlight: handover
 
-Status (2026-11-16): the driver is **released as v2.3** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
-three JST XH 2-pin LED sockets, D33), the LED board as **v2.0**, and the first order is **in the JLC cart, unpaid**,
-with driver v2.3 and the round-7 housing (D30–D33): all 5 of each board assembled, and the housing (sheet metal and optic
-carriers) for 5 lamps, $370.15 with DHL before JLCCNC prices the threads and press nuts
+Status (2026-11-17): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
+three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34), the LED board as **v2.0**,
+and the first order is **in the JLC cart, unpaid**, with driver v2.4 and the round-7 housing (D30–D33): all 5 of each
+board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, $374.26 with DHL before JLCCNC prices
+the threads and press nuts
 ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -92,6 +93,8 @@ the way in; the detail stays in the documents it links to.
    yoke, plate, fins and spacers in place of round 6's (sheet metal $157.95 with round 6's hood and doors); whole order
    $364.37. In v2.3's preview U7 was turned again, and J3–J5 half a turn (no rotation rule covers the XH 2-pin socket).
    On 2026-11-17 both boards went to 5 of 5 assembled (driver Y180, $45.55; LED board Y181, $47.64); whole order $370.15.
+   The same day driver v2.4 (R10 rated 200 mW, D34) took v2.3's place: Y185, $49.66, whole order $374.26. U7 and J3–J5
+   were turned as before; U7 (C350557) had 1,086 in stock at JLC that evening, enough for the 9 the order buys.
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
@@ -107,13 +110,16 @@ the way in; the detail stays in the documents it links to.
    - D1's temperature (R10);
    - DIM edges (R4);
    - the 5 V rail current (R3);
-   - five lights on one feed.
+   - five lights on one feed;
+   - the data-pin fault on one board (R6, step 8): the +5V rail, U7's input and resistor R10's temperature.
 
 ## Open questions
 
 - Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 7 of the sheet-metal design, `mech/housing/` (D21–D27, D30): round 6 with the yoke pivot from real parts.
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
+- R10 in the data-pin fault (the open finding of PR #1's review): answered 2026-11-17. A 1 kΩ 0402 rated 200 mW takes
+  its place (D34, driver v2.4).
 
 ## Where things are
 

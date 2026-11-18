@@ -9,8 +9,8 @@
 	(paper "A4")
 	(title_block
 		(title "RGB Spotlight - driver board")
-		(date "2026-11-16")
-		(rev "v2.3")
+		(date "2026-11-17")
+		(rev "v2.4")
 		(comment 1 "placement by scripts/gen_driver_pcb.py; FR4 2 layers; J1/J2 on the back")
 		(comment 2 "outline: disc50 (50 mm disc, inner M3 holes)")
 	)
@@ -6179,7 +6179,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C11702"
+		(property "LCSC" "C427241"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -10010,7 +10010,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "RGB Spotlight driver v2.3"
+	(gr_text "RGB Spotlight driver v2.4"
 		(at 150 115.6 0)
 		(layer "B.SilkS")
 		(uuid "870e7712-0d3d-40b1-8284-552b10d004f2")

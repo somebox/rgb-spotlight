@@ -2,15 +2,15 @@
 # housing and optic carriers for 5 lamps from JLCCNC and JLC3DP, all in one JLC cart. Written by hand (or by Claude when
 # told what happened); `pcbkit production` makes ORDER.md and upload/ from it. Add an [[event]] for each step: status =
 # draft, submitted, in-production, shipped, received, problem or cancelled; order_no, price and currency once known.
-title = "driver v2.3 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps"
+title = "driver v2.4 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps"
 house = "jlcpcb"
 fab = [
   "LED board: aluminium, 1 layer, 1.6 mm, 1 oz, 1 W/mK (the only conductivity JLC offers on 1-layer aluminium), 3000 V, white mask, black silkscreen, HASL with lead, JLC's mark removed, single PCBs",
   "LED board PCBA: Standard (Economic is not offered on aluminium), top side, 5 of 5 assembled, JLC's edge rails added (the board is under 70 mm), Confirm Parts Placement yes; assembly remark: 'LED1-LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode.'",
   "LED board BOM: 3/3 matched by LCSC number; JLC left LED3 (blue, C49237860) unticked at quantity 0 with 'The processing of this component is difficult', reviewed after ordering and charged extra only if an advanced option is needed. Ticked by hand",
   "Driver: FR4, 2 layers, 1.6 mm, 1 oz, green mask, white silkscreen, HASL with lead (JLC now defaults to OSP), tented vias, JLC's default 0.3 mm via option (all 69 vias are 0.3 mm drills), JLC's mark removed. PCB remark: the JLCJLCJLCJLC text on the bottom silk is an old order-number placeholder, to be left off",
-  "Driver PCBA: Economic, top side, 5 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.3 from 2026-11-16) (the release's CPL less J1/J2, which sit on the back). J3-J5 (JST XH 2, through-hole, C158012) placed by JLC: hand-soldering $3.61 and manual assembly $0.53 on Y180 (5 assembled; $0.23 for 2 on Y179; v2.1's one PH 6 cost $3.61 + $0.20)",
-  "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left on v2.0, v2.1 and v2.3, as the never-checked ^SOT-353 (+180) left it a quarter turn out; J3-J5 (v2.3, JST XH 2, C158012, no rule) half a turn, as JLC draws the socket opposite KiCad's footprint; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed for U7 and the LEDs on branch jlc-rotations-spotlight; J3-J5's footprint has no rule yet",
+  "Driver PCBA: Economic, top side, 5 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.4 from 2026-11-17) (the release's CPL less J1/J2, which sit on the back). J3-J5 (JST XH 2, through-hole, C158012) placed by JLC: hand-soldering $3.61 and manual assembly $0.53 on Y185 and Y180 (5 assembled; $0.23 for 2 on Y179; v2.1's one PH 6 cost $3.61 + $0.20)",
+  "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left on v2.0, v2.1, v2.3 and v2.4, as the never-checked ^SOT-353 (+180) left it a quarter turn out; J3-J5 (v2.3 and v2.4, JST XH 2, C158012, no rule) half a turn, as JLC draws the socket opposite KiCad's footprint; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed for U7 and the LEDs on branch jlc-rotations-spotlight; J3-J5's footprint has no rule yet",
   "Housing: JLCCNC sheet metal, Al 5052, black matte powder coat on shell, cap, hood, doors and yoke, plate/fins/spacers bare; the plate's 10 x M3 threads (mech/housing/order7/rgb-spotlight-plate-threads.pdf) and the cap's 8 press nuts, round 7: 2 x PEM S-M3-2 and 2 x S-M4-2 in the rims, 4 x S-M3-2 in the back face for a box (mech/housing/order7/rgb-spotlight-cap-press-nuts.pdf) by drawing, priced after JLCCNC's review. Round 7 (DESIGN D30-D33) changes the shell, cap, yoke, plate, fins and spacers (mech/housing/order7/); the hood and doors are round 6's (order6/). Carriers: JLC3DP MJF PA12-HP, dyed black",
   "Customs: boards 'Research/Education/DIY, DIY - HS 902300'; sheet metal HS 761699; carriers 'Plastic Bracket' HS 392690",
 ]
@@ -23,7 +23,7 @@ notes = [
 
 [[board]]
 pcb = "driver"
-version = "2.3.0"
+version = "2.4.0"
 pcbs = 5
 assembled = 5
 
@@ -264,3 +264,23 @@ note = "the whole order with both boards fully assembled: boards $93.19 + sheet 
 date = 2026-11-17
 status = "draft"
 note = "quantities checked against quotes at 2, 5 and 10 (PRODUCTION.md, Costs) and kept, by the user's decision ('Keep 5 and 5'): 5 lamps, and 5 of each board, all assembled. 10 of each board would add $15.63 (about $24 with DHL); 2 lamps instead of 5 would save $75.33 of sheet metal (about $130 with carriers and DHL) and raise a lamp's sheet metal from $31.59 to $41.31. No change to the cart"
+
+[[event]]
+date = 2026-11-17
+status = "draft"
+pcb = "driver"
+note = "driver moves to v2.4 before the order is submitted: R10 becomes a 1 k 0402 rated 200 mW (ERJPA2F1001X, C427241, Extended) in place of the 62.5 mW part, by the user's decision ('Yes, swap R10') on the open finding of PR #1's review (DESIGN D34; releases/driver/v2.4, commit 12ba220). With a feed voltage held on the data pin R10 dissipates 44-118 mW. The BOM differs from v2.3's in that one line; the CPL and the placement checklist are identical, and of the Gerbers only the back silkscreen (the version label). The cart's v2.3 driver items (PCB Y180-2642684A, PCBA SMT026111666618-2642684A) are to be replaced by v2.4 with the same options; in the preview U7 needs the same hand turn and J3-J5 the same half turn. One more Extended part: about $3.09 more. Live stock at JLC on 2026-11-17: C427241 14,393; U7 (C350557) down to 1,086 from 13,391 the day before"
+
+[[event]]
+date = 2026-11-17
+status = "draft"
+pcb = "driver"
+cart_id = "Y185-2642684A"
+price = 49.66
+currency = "USD"
+note = "driver v2.4 in the JLC cart in place of v2.3, on the user's OK ('Yes, swap the cart'): PCB Y180-2642684A and its PCBA SMT026111666618 removed. Y185 has Y180's options: PCB Y185-2642684A ($4.00, HASL with lead, tented, Remove Mark with the same PCB remark, 24 h) and Economic PCBA SMT026111765268-2642684A, 5 of 5 assembled ($45.66: setup 8.24, stencil 1.55, parts 10.72 for 21 lines, Extended 18.54, SMT 1.11, placement check 0.45, hand-soldering 3.61 and manual assembly 0.53 for J3-J5, nitrogen 0.91), $4.11 more than Y180: R10 adds one Extended fee (3.09) and 0.97 in parts. Files: GERBER-driver-v2.4.zip from the release, the -front BOM/CPL from `pcbkit fab` (the release's less J1/J2): 37 placements, BOM 21/21 matched by LCSC number, all ticked; R10 matched C427241 (ERJPA2F1001X, Extended, 20 bought). Silkscreen 'RGB Spotlight driver v2.4'. U7 (C350557) matched and ticked, 9 bought; the BOM page shows no stock figure, and JLC's part page read 1,086 in stock and 846 to order that evening (C427241: 14,393 and 12,206). Placement preview as on Y180: J3-J5 turned 180 by hand, U7 turned +90 (pin 1 then at -10.57, 17.27), D5 right (band and - at -13.8, 19.1); the saved order's Part Placement shows the turns"
+
+[[event]]
+date = 2026-11-17
+status = "draft"
+note = "the whole order with driver v2.4: boards $97.30 + sheet metal $157.95 + carriers $26.65 = $281.90; DHL $98.36 for 5.30 kg, coupon -$6.00: $374.26, ships about 2026-11-23 (boards alone: $97.30 + $26.97 - $6.00 = $118.27, 0.69 kg). $4.11 more than with v2.3. Thread and press-nut charges come after JLCCNC's review of the submitted order. Nothing paid; all lines left unticked"
