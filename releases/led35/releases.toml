@@ -1,0 +1,26 @@
+# Releases of led35, written by pcbkit release: one per version, newest last.
+# Don't edit by hand; the fab files of each version are in v<label>/ beside this file.
+key = "led35"
+
+[[release]]
+version = "1.0.0"
+label = "v1.0"
+date = 2026-11-18
+source = "050e0da67cafbe174f6987fdffe71d8f8839f8fc"
+fab = "e116b2e3711bb2e480a4486b4e7561498fc2e3c9"
+circuit = "8ef3c3385950be9d3e83c661128c2be87b108253"
+equivalent = []
+base_commit = "6af0676"
+note = "first release: the LED board for 3.5 mm LEDs, bought bare to try other colours on (DESIGN.md D35)"
+parts_inputs = "44582dd8ce1a665a2e829bdb824851ab61d7a7df"
+previews = "aff8377373dadc670892d9d9daa195807583b2b1"
+
+[release.parts.placed]
+
+[release.parts.placed_named]
+
+[release.parts.hand]
+
+[release.parts.extra]
+
+[release.parts.where]

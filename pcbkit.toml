@@ -2,10 +2,14 @@
 # production record lives (pcbkit production). Defaults and keys: templates/project/pcbkit.toml in pcb-kit.
 
 [boards]
-folders = ["boards/*"]                 # boards/driver (FR4, 2 layers) and boards/led (aluminium, 1 layer)
+folders = ["boards/*"]                 # boards/driver (FR4, 2 layers), boards/led and boards/led35 (aluminium, 1 layer)
 
 [release]
 fab = ["jlcpcb"]                       # JLC builds both boards; PCBWay's files can be added back here
 previews_dir = "docs/previews/{key}"   # what scripts/make_previews.sh writes
+
+[[release.profile]]                    # the 3.5 mm LED board is bought bare and populated by hand (D35)
+match = "boards/led35/*"
+assembly = false                       # Gerbers only: no BOM or placement file for JLC
 
 [production]

@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-11-17): driver released as v2.4 (with D5, a clamp on the data input, R11, which holds the +5V rail when it clamps, three JST XH 2-pin sockets for the LEDs, and R10 rated for a feed voltage held on the data pin) and LED board as v2.0; the first order is in the JLC cart, unpaid, with driver v2.4. Start with [HANDOVER.md](HANDOVER.md).
+Status (2026-11-18): driver released as v2.4 (with D5, a clamp on the data input, R11, which holds the +5V rail when it clamps, three JST XH 2-pin sockets for the LEDs, and R10 rated for a feed voltage held on the data pin) and LED board as v2.0; a second LED board for 3.5 mm LEDs, `led35` v1.0, is released to be bought bare for trying other colours; the first order is in the JLC cart, unpaid, with driver v2.4. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminium LED board and an FR4 driver board in an aluminium cylinder.
 
@@ -60,6 +60,7 @@ J1 and J2 share one pin order, so chain with pin-1-to-pin-1 cables. v1 had J2 mi
 ## Project layout
 
 - `boards/led/`, `boards/driver/`: KiCad 10 projects. Schematics come from `scripts/sch_led.py` / `scripts/sch_driver.py`; boards from `scripts/make_led_pcb.sh` / `scripts/make_driver_pcb.sh`.
+- `boards/led35/`: the LED board with pads for 3.5 mm LEDs (DESIGN D35), bought bare; `scripts/sch_led.py led35` and `scripts/make_led_pcb.sh led35`.
 - `lib/`: project symbols, footprints and 3D models (`scripts/make_lib.py`).
 - `scripts/`: generators and checks (`netcheck.py`, `ratsnest.py`, `make_previews.sh`, `make_fab.sh`); `pcbkit.toml` sets up pcb-kit's release and production record. The shared parts (schematic builder, silkscreen placer, DRC/ERC/board checks, previews, JLC fab files, ngspice runner) come from [pcb-kit](https://github.com/somebox/pcb-kit): `uv tool install -e ~/src/pcb-kit && pcbkit link`.
 - `sim/`: ngspice simulation of one LED channel (`sim/channel.py`); tables and plots in `sim/results/`.

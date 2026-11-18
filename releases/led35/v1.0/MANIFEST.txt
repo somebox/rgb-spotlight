@@ -1,0 +1,16 @@
+led35 v1.0 (1.0.0), released 2026-11-18 by pcbkit release
+board: boards/led35/led35.kicad_pcb
+source fingerprint: 050e0da67cafbe174f6987fdffe71d8f8839f8fc
+fab fingerprint: e116b2e3711bb2e480a4486b4e7561498fc2e3c9
+netlist/BOM fingerprint: 8ef3c3385950be9d3e83c661128c2be87b108253
+base commit: 6af0676
+files:
+  GERBER-led35-v1.0.zip
+  schematic.pdf
+  board.pdf
+  kicad/led35.kicad_pro
+  kicad/led35.kicad_pcb
+  kicad/led35.kicad_sch
+  kicad/fp-lib-table
+  kicad/sym-lib-table
+kicad/ is this version's KiCad project; its library tables and 3-D models point at the project's library as it is now.

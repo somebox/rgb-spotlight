@@ -19,3 +19,13 @@ drc = 0
 unconnected = 0
 parity = 0
 silk = 0
+
+[pcb.led35]
+path = "boards/led35/led35.kicad_pcb"
+folder = "boards/led35"
+state = "released"
+erc = 0
+drc = 0
+unconnected = 0
+parity = 0
+silk = 0
