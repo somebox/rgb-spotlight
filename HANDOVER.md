@@ -1,7 +1,8 @@
 # RGB Spotlight: handover
 
-Status (2026-11-17): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
+Status (2026-11-18): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
 three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34), the LED board as **v2.0**,
+a second LED board for 3.5 mm LEDs, `led35`, as **v1.0** on 2026-11-18 (D35: bought bare, for trying other colours; in no cart yet),
 and the first order is **in the JLC cart, unpaid**, with driver v2.4 and the round-7 housing (D30–D33): all 5 of each
 board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, $374.26 with DHL before JLCCNC prices
 the threads and press nuts
@@ -52,6 +53,8 @@ the way in; the detail stays in the documents it links to.
 | D31 | Four M3 press nuts on a 46 mm square in the cap's back face, for a box with a controller and power supply (up to 64 × 64 × 40 mm keeps the full tilt) | in round 7's cap |
 | D32 | The heat stack's fasteners as real parts: M3 × 45 studs locked in the plate, steel washer and nut, 12 mm polyamide standoffs, polyamide screws under the driver; ISO 7380 LED and shell screws | hardware list in `mech/housing/README.md` and the order's extras |
 | D33 | The LED harness on three JST XH 2-pin plugs: J3 red, J4 green, J5 blue on the driver (B2B-XH-A), and a 12 mm bore down the heat stack that the plugs pass one at a time | applied 2026-11-16: driver v2.3, housing round 7 |
+| D34 | R10 a 1 kΩ 0402 rated 200 mW, for a feed voltage held on the data pin | applied 2026-11-17, driver v2.4 |
+| D35 | A second LED board with pads for 3.5 mm LEDs, `led35`, bought bare to try other colours on; the checked LEDs are listed in PRODUCTION.md | released 2026-11-18 as v1.0; not built |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
