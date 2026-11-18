@@ -2,12 +2,13 @@
 # housing and optic carriers for 5 lamps from JLCCNC and JLC3DP, all in one JLC cart. Written by hand (or by Claude when
 # told what happened); `pcbkit production` makes ORDER.md and upload/ from it. Add an [[event]] for each step: status =
 # draft, submitted, in-production, shipped, received, problem or cancelled; order_no, price and currency once known.
-title = "driver v2.4 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps"
+title = "driver v2.4 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps, and 10 bare led35 v1.0 boards"
 house = "jlcpcb"
 fab = [
   "LED board: aluminium, 1 layer, 1.6 mm, 1 oz, 1 W/mK (the only conductivity JLC offers on 1-layer aluminium), 3000 V, white mask, black silkscreen, HASL with lead, JLC's mark removed, single PCBs",
   "LED board PCBA: Standard (Economic is not offered on aluminium), top side, 5 of 5 assembled, JLC's edge rails added (the board is under 70 mm), Confirm Parts Placement yes; assembly remark: 'LED1-LED3 (HD2525): cathode = pad 1, the side away from the package dot. The + on the silk marks the anode.'",
   "LED board BOM: 3/3 matched by LCSC number; JLC left LED3 (blue, C49237860) unticked at quantity 0 with 'The processing of this component is difficult', reviewed after ordering and charged extra only if an advanced option is needed. Ticked by hand",
+  "led35 (D35): bare, no PCB assembly, 10 PCBs; the LED board's options: aluminium, 1 layer, 1.6 mm, 1 oz, 1 W/mK, 3000 V, white mask, black silkscreen, HASL with lead, JLC's mark removed, single PCBs. JLC reads the zip (releases/led35/v1.0) as 2 layers, from its empty back layers: set 1-layer aluminium by hand",
   "Driver: FR4, 2 layers, 1.6 mm, 1 oz, green mask, white silkscreen, HASL with lead (JLC now defaults to OSP), tented vias, JLC's default 0.3 mm via option (all 69 vias are 0.3 mm drills), JLC's mark removed. PCB remark: the JLCJLCJLCJLC text on the bottom silk is an old order-number placeholder, to be left off",
   "Driver PCBA: Economic, top side, 5 of 5 assembled, JLC's tooling holes, Confirm Parts Placement yes, nitrogen reflow (Economic default); files are the -front pair from `pcbkit fab` on the board as released (v2.4 from 2026-11-17) (the release's CPL less J1/J2, which sit on the back). J3-J5 (JST XH 2, through-hole, C158012) placed by JLC: hand-soldering $3.61 and manual assembly $0.53 on Y185 and Y180 (5 assembled; $0.23 for 2 on Y179; v2.1's one PH 6 cost $3.61 + $0.20)",
   "Placement preview, checked part by part against the releases' PLACEMENT-*-jlcpcb.md: U2-U5 (^SOT-89, never checked before), U1/U6 (SOIC), D1-D4 right, and D5 (v2.1, D_SOD-323, no rule) right. Turned by hand: U7 (74AHCT1G125, C350557) one Rotate Left on v2.0, v2.1, v2.3 and v2.4, as the never-checked ^SOT-353 (+180) left it a quarter turn out; J3-J5 (v2.3 and v2.4, JST XH 2, C158012, no rule) half a turn, as JLC draws the socket opposite KiCad's footprint; LED2 and LED3 (green C49237859, blue C49237860) half a turn, as JLC draws them opposite the red (C49237857) on the same footprint. pcb-kit's table is fixed for U7 and the LEDs on branch jlc-rotations-spotlight; J3-J5's footprint has no rule yet",
@@ -19,6 +20,7 @@ notes = [
   "All five of each board are assembled in this order, by the user's decision on 2026-11-17 (it had been 2 of each, the smallest assembled run). It costs $5.78 more than two of each: the driver $45.55 against $39.77, and the LED board the same $47.64, as JLC buys 5 of each LED either way. A second assembly run later would cost about $94 in fixed fees and shipping (setup, stencil, Extended and feeder fees $67.52 for the two boards, DHL $26.97). Bring-up still starts with one board of each.",
   "Hand assembly: J1/J2 (JST B3B-XH-A, back of the driver) on both assembled drivers. Snap JLC's edge rails off the LED boards.",
   "Housing quotes need JLCCNC's manual review (2-4 h): the threads and press nuts are not in the cart prices yet.",
+  "led35 (D35): 10 bare boards for 3.5 mm LEDs, added 2026-11-18 at the user's request ('order an additional 10 top PCBs with no assembly as blanks'). Their LEDs, 5 of each of nine 3535 parts, and 5 spare HD2525 of each colour for the LED board are in the LCSC cart (the extras below); PRODUCTION.md, After the boards arrive, has how to fit them.",
 ]
 
 [[board]]
@@ -32,6 +34,12 @@ pcb = "led"
 version = "2.0.0"
 pcbs = 5
 assembled = 5
+
+[[board]]
+pcb = "led35"
+version = "1.0.0"
+pcbs = 10
+assembled = 0
 
 # Placed parts JLC leaves off: the driver's back-side input/output connectors, soldered by hand.
 [[extra]]
@@ -132,6 +140,79 @@ part = "Optic carrier, MJF PA12 dyed black"
 qty = 7
 buy = "JLC3DP, in the JLC cart (D2026111615500272, -280, -287)"
 note = "5 standard, 1 at +0.5 mm and 1 at +1.0 mm for the focus test: $26.65"
+
+# The LEDs for led35 (D35) and spares for the LED board, in the LCSC cart "nov-2026 message sign" (added 2026-11-18).
+[[extra]]
+part = "Hongli HL-C3535F15R3GA-ZW, 3535 LED, deep red 665 nm"
+qty = 5
+buy = "LCSC C5445086, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $2.63 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "JNJ LTHI0113W120, 3535 LED, far red 730-740 nm"
+qty = 5
+buy = "LCSC C19185882, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $3.67 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "Silverlight M3535O1YG6G12, 3535 LED, amber 590 nm"
+qty = 5
+buy = "LCSC C22466168, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $2.04 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "Hongli HL-C3535F77W1KA(Ra1)-FC, 3535 LED, warm white 2870-3220 K"
+qty = 5
+buy = "LCSC C19184447, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $1.64 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "Hongli HL-C3535F77W1KA(Ra1)-FC, 3535 LED, neutral white 3710-4260 K"
+qty = 5
+buy = "LCSC C19184448, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $1.57 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "JNJ LTJW0115T140, 3535 LED, cool white 5500-6500 K"
+qty = 5
+buy = "LCSC C19185883, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $2.85 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "JNJ LEHG0113W120, 3535 LED, green 525-530 nm"
+qty = 5
+buy = "LCSC C19185875, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $1.62 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "JNJ LEHR0111W120, 3535 LED, red 620-630 nm"
+qty = 5
+buy = "LCSC C19185876, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $1.04 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "JNJ 3535AW120C-45045-S-G1, 3535 LED, blue 455 nm"
+qty = 5
+buy = "LCSC C25170647, in the cart 'nov-2026 message sign'"
+note = "for led35, to try; $5.13 for 5. Takes the driver's 455 mA"
+
+[[extra]]
+part = "XINGLIGHT XL-HD2525SURC-A4, red (LED1)"
+qty = 5
+buy = "LCSC C49237857, in the cart 'nov-2026 message sign'"
+note = "spare for the assembled LED board v2.0; $1.38 for 5"
+
+[[extra]]
+part = "XINGLIGHT XL-HD2525UGC-A4, green (LED2)"
+qty = 5
+buy = "LCSC C49237859, in the cart 'nov-2026 message sign'"
+note = "spare for the assembled LED board v2.0; $1.54 for 5"
+
+[[extra]]
+part = "XINGLIGHT XL-HD2525UBC-A4, blue (LED3)"
+qty = 5
+buy = "LCSC C49237860, in the cart 'nov-2026 message sign'"
+note = "spare for the assembled LED board v2.0; $1.07 for 5"
 
 [[event]]
 date = 2026-11-16
@@ -284,3 +365,40 @@ note = "driver v2.4 in the JLC cart in place of v2.3, on the user's OK ('Yes, sw
 date = 2026-11-17
 status = "draft"
 note = "the whole order with driver v2.4: boards $97.30 + sheet metal $157.95 + carriers $26.65 = $281.90; DHL $98.36 for 5.30 kg, coupon -$6.00: $374.26, ships about 2026-11-23 (boards alone: $97.30 + $26.97 - $6.00 = $118.27, 0.69 kg). $4.11 more than with v2.3. Thread and press-nut charges come after JLCCNC's review of the submitted order. Nothing paid; all lines left unticked"
+
+[[event]]
+date = 2026-11-18
+status = "draft"
+pcb = "driver"
+cart_id = "Y200-2642684A"
+price = 49.66
+currency = "USD"
+note = "the cart's driver line, as read on 2026-11-18: driver v2.4, PCB Y200-2642684A ($4.00) and Economic PCBA SMT026111864042-2642684A ($45.66), 5 of 5 assembled. Re-saved by another session on 2026-11-18 in place of Y185 (with re-worded remarks, per the orders tracker; the remarks were not read here). Y185 is no longer in the cart"
+
+[[event]]
+date = 2026-11-18
+status = "draft"
+pcb = "led"
+cart_id = "Y198-2642684A"
+price = 47.65
+currency = "USD"
+note = "the cart's LED board line, as read on 2026-11-18: LED board v2.0, PCB Y198-2642684A ($4.00) and Standard PCBA SMT026111864021-2642684A ($43.65, a cent more than Y181), 5 of 5 assembled. Re-saved by another session on 2026-11-18 in place of Y181 (with re-worded remarks, per the orders tracker; not read here). Y181 is no longer in the cart"
+
+[[event]]
+date = 2026-11-18
+status = "draft"
+pcb = "led35"
+cart_id = "Y202-2642684A"
+price = 5.00
+currency = "USD"
+note = "10 bare led35 v1.0 boards in the JLC cart, no PCB assembly: Y202-2642684A, $5.00. GERBER-led35-v1.0.zip from the release; JLC read 2 layers, 50 x 50 mm (the zip's empty back layers), set by hand to the LED board's options: aluminium, 1 layer, 1.6 mm, 1 oz, 1 W/mK, 3000 V, white mask, black silkscreen, HASL with lead, Remove Mark, single PCBs, 3 days. JLC's viewer shows the round outline, the three LED pad groups and 'LED35 v1.0' on the silkscreen"
+
+[[event]]
+date = 2026-11-18
+status = "draft"
+note = "LCSC cart 'nov-2026 message sign': 12 lines added by another session on 2026-11-18 (70 lines before, 82 after), $26.18, all in stock, nothing ticked: 5 of each of the nine 3535 LEDs for led35 ($22.19) and 5 spare HD2525 of each colour for the LED board ($3.99). Listed in the extras"
+
+[[event]]
+date = 2026-11-18
+status = "draft"
+note = "the whole order with the 10 bare led35 boards: boards $102.31 (driver Y200 $49.66, LED board Y198 $47.65, led35 Y202 $5.00) + sheet metal $157.95 + carriers $26.65 = $286.91; DHL $104.99 for 5.51 kg (was $98.36 for 5.30 kg), coupon -$6.00: $385.90, ships about 2026-11-24 (boards alone: $102.31 + $26.97 - $6.00 = $123.28, 0.90 kg). Thread and press-nut charges come after JLCCNC's review of the submitted order. The LCSC parts ($26.18) are a separate order. Nothing paid; all lines left unticked"

@@ -2,10 +2,10 @@
 
 Status (2026-11-18): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
 three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34), the LED board as **v2.0**,
-a second LED board for 3.5 mm LEDs, `led35`, as **v1.0** on 2026-11-18 (D35: bought bare, for trying other colours; in no cart yet),
+a second LED board for 3.5 mm LEDs, `led35`, as **v1.0** on 2026-11-18 (D35: bought bare, for trying other colours; 10 in the JLC cart, Y202),
 and the first order is **in the JLC cart, unpaid**, with driver v2.4 and the round-7 housing (D30–D33): all 5 of each
-board assembled, and the housing (sheet metal and optic carriers) for 5 lamps, $374.26 with DHL before JLCCNC prices
-the threads and press nuts
+board assembled, 10 bare led35 boards, and the housing (sheet metal and optic carriers) for 5 lamps, $385.90 with DHL
+before JLCCNC prices the threads and press nuts
 ([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
 the way in; the detail stays in the documents it links to.
 
@@ -98,6 +98,8 @@ the way in; the detail stays in the documents it links to.
    On 2026-11-17 both boards went to 5 of 5 assembled (driver Y180, $45.55; LED board Y181, $47.64); whole order $370.15.
    The same day driver v2.4 (R10 rated 200 mW, D34) took v2.3's place: Y185, $49.66, whole order $374.26. U7 and J3–J5
    were turned as before; U7 (C350557) had 1,086 in stock at JLC that evening, enough for the 9 the order buys.
+   On 2026-11-18 another session re-saved the driver and LED board lines as Y200 and Y198, and 10 bare led35 boards
+   went in (Y202, $5.00); whole order $385.90. Their LEDs and spare HD2525s are in the LCSC cart ($26.18).
    Left to do:
    - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
      for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);

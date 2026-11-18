@@ -1,6 +1,6 @@
 # Production
 
-Status (2026-11-18): the driver released as v2.4 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33; R10 rated 200 mW for a feed voltage held on the data pin, D34) and the LED board as v2.0 (`releases/`); the LED board for 3.5 mm LEDs, `led35` v1.0, released on 2026-11-18 to be bought bare (D35; in no cart yet). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.4 and is in the JLC cart, unpaid. In the cart: driver v2.4 (Y185, in place of v2.3's Y180 on 2026-11-17), and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $374.26 with DHL before JLCCNC prices the threads and press nuts. All 5 of each board assembled (decided 2026-11-17), and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
+Status (2026-11-18): the driver released as v2.4 (D5, a clamp on the data input, DESIGN D28; R11, which takes D5's current off the +5V rail, D29; three JST XH 2-pin LED sockets, D33; R10 rated 200 mW for a feed voltage held on the data pin, D34) and the LED board as v2.0 (`releases/`); the LED board for 3.5 mm LEDs, `led35` v1.0, released on 2026-11-18 to be bought bare (D35; 10 in the JLC cart, Y202, and its LEDs in the LCSC cart). The first order, [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md), pins driver v2.4 and is in the JLC cart, unpaid. In the cart: driver v2.4 (Y200, re-saved on 2026-11-18 from Y185, which replaced v2.3's Y180 on 2026-11-17), LED board v2.0 (Y198, re-saved from Y181), 10 bare led35 boards (Y202), and the round-7 shell, cap, yoke, plate, fins and spacers (DESIGN D30–D33, `mech/housing/order7/`) in place of round 6's, $385.90 with DHL before JLCCNC prices the threads and press nuts. All 5 of each board assembled (decided 2026-11-17), and the housing (round 7 with round 6's hood and doors) and optic carriers for 5 lamps. The LED polarity is settled (diode test on v1, below).
 
 How to order, what it costs, and a dated log of quotes and orders (newest first).
 
@@ -94,6 +94,11 @@ The things that went wrong before, or could:
 
 | Date | Board | Qty | Item | Cost |
 | --- | --- | --- | --- | --- |
+| 2026-11-18 | all | — | The JLC cart with 10 bare led35 boards added: boards 102.31 (driver Y200 49.66, LED board Y198 47.65, led35 Y202 5.00) + sheet metal 157.95 + carriers 26.65 = 286.91; DHL 104.99 (5.51 kg), coupon −6.00; ships about 2026-11-24. Threads and press nuts still to be priced by JLCCNC | $385.90 |
+| 2026-11-18 | led35 | 10 PCBs / bare | Y202: aluminium, 1 layer, 1 W/mK, 3000 V, white mask, black silkscreen, HASL with lead, no assembly | $5.00 |
+| 2026-11-18 | driver v2.4, led | 5 / 5 each | Re-saved by another session on 2026-11-18, in place of Y185 and Y181: driver Y200 (PCB 4.00 + Economic PCBA SMT026111864042 45.66) and LED board Y198 (PCB 4.00 + Standard PCBA SMT026111864021 43.65) | $97.31 |
+| 2026-11-18 | boards | — | The three boards alone: 102.31 + DHL 26.97 − coupon 6.00 (0.90 kg) | $123.28 |
+| 2026-11-18 | parts | 60 | LCSC cart "nov-2026 message sign": 5 of each of the nine 3535 LEDs for led35 (22.19) and 5 spare HD2525 of each colour for the LED board (3.99), 12 lines | $26.18 |
 | 2026-11-17 | all | — | The JLC cart with driver v2.4 (Y185) in place of v2.3, LED board Y181, both fully assembled, and the round-7 housing: boards 97.30 + sheet metal 157.95 + carriers 26.65 = 281.90; DHL 98.36 (5.30 kg), coupon −6.00; ships about 2026-11-23. $4.11 more than with v2.3. Threads and press nuts still to be priced by JLCCNC | $374.26 |
 | 2026-11-17 | driver v2.4 | 5 PCBs / 5 assembled | Y185: PCB 4.00 (HASL with lead) + Economic PCBA SMT026111765268 45.66 (setup 8.24, stencil 1.55, parts 10.72 for 21 lines, Extended 18.54: R10 (C427241) adds 3.09, SMT 1.11, placement check 0.45, J3–J5 hand-soldering 3.61 + manual 0.53, nitrogen 0.91). Same options as Y180 | $49.66 |
 | 2026-11-17 | boards | — | The two boards alone with driver v2.4: 97.30 + DHL 26.97 − coupon 6.00 (0.69 kg) | $118.27 |
@@ -182,8 +187,9 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 
 | order | PCB | version | house | PCBs / assembled | status | order no. | price | last note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.4 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 49.66 USD |  |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 5 | draft 2026-11-17 |  | 47.64 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver | v2.4 | JLCPCB | 5 / 5 | draft 2026-11-18 |  | 49.66 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led | v2.0 | JLCPCB | 5 / 5 | draft 2026-11-18 |  | 47.65 USD |  |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | led35 | v1.0 | JLCPCB | 10 / 0 | draft 2026-11-18 |  | 5.00 USD |  |
 
 ### Boards
 
@@ -191,7 +197,7 @@ Hand-soldered on each assembled driver: J1 and J2 (JST B3B-XH-A, C144394, on the
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | [driver](boards/driver) | v2.4 | v2.4 2026-11-17 | released | 1.93, 8 ext. | 2026-11-16-v2-first: draft |  |  |
 | [led](boards/led) | v2.0 | v2.0 2026-11-16 | released | 0.79, 3 ext. | 2026-11-16-v2-first: draft |  |  |
-| [led35](boards/led35) | v1.0 | v1.0 2026-11-18 | released |  |  |  |  |
+| [led35](boards/led35) | v1.0 | v1.0 2026-11-18 | released |  | 2026-11-16-v2-first: draft |  |  |
 
 Parts costs: placed parts at unit prices from konnect's JLC parts cache of 2026-11-03; Extended parts add a setup fee each per order.
 
@@ -204,7 +210,15 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 10 | 0 | 10 | LCSC C144394 |
 | Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor |
 | Hex standoff M3 x 12, female-female, polyamide | 15 | 0 | 15 | any |
+| Hongli HL-C3535F15R3GA-ZW, 3535 LED, deep red 665 nm | 5 | 0 | 5 | LCSC C5445086, in the cart 'nov-2026 message sign' |
+| Hongli HL-C3535F77W1KA(Ra1)-FC, 3535 LED, neutral white 3710-4260 K | 5 | 0 | 5 | LCSC C19184448, in the cart 'nov-2026 message sign' |
+| Hongli HL-C3535F77W1KA(Ra1)-FC, 3535 LED, warm white 2870-3220 K | 5 | 0 | 5 | LCSC C19184447, in the cart 'nov-2026 message sign' |
 | Housing sheet metal for 5 lamps (round 7) | 1 | 0 | 1 | JLCCNC, in the JLC cart: round 7's shell, cap, yoke, plate, fins and spacers (SMS2611173001134 ... SMS2611173001162), round 6's hood and doors (SMS2611163003204, SMS2611163003181) |
+| JNJ 3535AW120C-45045-S-G1, 3535 LED, blue 455 nm | 5 | 0 | 5 | LCSC C25170647, in the cart 'nov-2026 message sign' |
+| JNJ LEHG0113W120, 3535 LED, green 525-530 nm | 5 | 0 | 5 | LCSC C19185875, in the cart 'nov-2026 message sign' |
+| JNJ LEHR0111W120, 3535 LED, red 620-630 nm | 5 | 0 | 5 | LCSC C19185876, in the cart 'nov-2026 message sign' |
+| JNJ LTHI0113W120, 3535 LED, far red 730-740 nm | 5 | 0 | 5 | LCSC C19185882, in the cart 'nov-2026 message sign' |
+| JNJ LTJW0115T140, 3535 LED, cool white 5500-6500 K | 5 | 0 | 5 | LCSC C19185883, in the cart 'nov-2026 message sign' |
 | Nut ISO 4032 M3, steel | 15 | 0 | 15 | any |
 | Optic carrier, MJF PA12 dyed black | 7 | 0 | 7 | JLC3DP, in the JLC cart (D2026111615500272, -280, -287) |
 | SXH-001T-P0.6 (JST), XH crimp contact, 22-28 AWG | 30 | 0 | 30 | LCSC C140573 |
@@ -212,17 +226,21 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | Screw ISO 7380 M3 x 6, button head | 30 | 0 | 30 | any |
 | Screw ISO 7380 M3 x 8, button head, with nut M3 nylock (DIN 985) | 40 | 0 | 40 | any |
 | Screw M3 x 6, pan head, polyamide | 15 | 0 | 15 | any |
+| Silverlight M3535O1YG6G12, 3535 LED, amber 590 nm | 5 | 0 | 5 | LCSC C22466168, in the cart 'nov-2026 message sign' |
 | Threaded rod M3 (DIN 976-1), cut to 45 mm | 15 | 0 | 15 | any; 1 m of rod gives 20 |
 | Washer DIN 125-A 3.2 (M3), steel | 15 | 0 | 15 | any |
 | Washer DIN 125-A 4.3 (M4), polyamide, 4.3 x 9 x 0.8 | 10 | 0 | 10 | any |
 | Washer DIN 9021 4.3 (M4), steel, 4.3 x 12 x 1.0 | 10 | 0 | 10 | any |
 | XHP-2 (JST), XH 2-pin plug housing | 15 | 0 | 15 | LCSC C144401 |
+| XINGLIGHT XL-HD2525SURC-A4, red (LED1) | 5 | 0 | 5 | LCSC C49237857, in the cart 'nov-2026 message sign' |
+| XINGLIGHT XL-HD2525UBC-A4, blue (LED3) | 5 | 0 | 5 | LCSC C49237860, in the cart 'nov-2026 message sign' |
+| XINGLIGHT XL-HD2525UGC-A4, green (LED2) | 5 | 0 | 5 | LCSC C49237859, in the cart 'nov-2026 message sign' |
 
 ### Orders
 
 | order | what | status | last event |
 | --- | --- | --- | --- |
-| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.4 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps | draft | 2026-11-17 |
+| [2026-11-16-v2-first](production/orders/2026-11-16-v2-first/ORDER.md) | driver v2.4 and LED board v2.0, all 5 of each assembled, with the round-7 housing for 5 lamps, and 10 bare led35 v1.0 boards | draft | 2026-11-18 |
 
 ### Problems
 
