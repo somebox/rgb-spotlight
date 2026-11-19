@@ -1,9 +1,10 @@
-# Housing (sheet metal, round 7)
+# Housing (sheet metal, round 8)
 
-The square sheet-metal lamp: round 7 is the design of record (DESIGN.md D21–D24, D30–D33). It is round 6, which was quoted
-on 2026-11-16 (PRODUCTION.md, Orders), with every fastener a real part, four nuts in the cap's back for a box, and a
-12 mm bore down the stack for the LED plugs: the shell, cap, yoke, plate, fins and spacers changed. These are the scripts
-that build it and the files to order it from.
+The square sheet-metal lamp: round 8 is the design of record (DESIGN.md D21–D24, D30–D33, D36). Round 7 is round 6, which
+was quoted on 2026-11-16 (PRODUCTION.md, Orders), with every fastener a real part, four nuts in the cap's back for a box,
+and a 12 mm bore down the stack for the LED plugs: the shell, cap, yoke, plate, fins and spacers changed. Round 8 is round 7
+with a new hood for JLCCNC's review of the order (2026-11-19): 84 mm square (was 78), each lug's window 12.5 mm along its
+bend line (was 8), the lugs, pins and doors as before. These are the scripts that build it and the files to order it from.
 
 | Part | Shop | Material, finish | Per lamp |
 | --- | --- | --- | --- |
@@ -17,7 +18,9 @@ that build it and the files to order it from.
 `rgb-spotlight-plate-threads.pdf` (10 × M3 threads in the plate) and `rgb-spotlight-cap-press-nuts.pdf` (round 6's cap).
 `order7/` holds what round 7 changes, to be ordered in place of round 6's: the shell, cap, yoke, plate, fin and spacer
 (`rgb-spotlight-r7-<part>.step`), the cap's drawing (8 press nuts: 2 × M3 and 2 × M4 in the rims, 4 × M3 in the back
-face) and the plate's (10 × M3 threads, Ø12 middle hole). Only the hood, the door and the carriers stay round 6's.
+face) and the plate's (10 × M3 threads, Ø12 middle hole). `order8/` holds round 8's hood (`rgb-spotlight-r8-hood.step`), to
+replace round 6's in the order. Only the door and the carriers stay round 6's. No part is welded: the gaps where the
+walls meet stay open (D37).
 
 **The yoke pivot (round 7, D30),** on each side from the outside in. Bought parts, 2 of each per lamp:
 
@@ -93,15 +96,18 @@ kicad-cli pcb export step --subst-models --no-dnp --user-origin 150x100mm -o ../
 kicad-cli pcb export step --subst-models --user-origin 150x100mm -o ../out/led.step ../../boards/led/led.kicad_pcb
 ROT=45 uv run --python 3.12 --with cadquery python order6.py order6
 ROT=45 uv run --python 3.12 --with cadquery python round7.py order7
+ROT=45 uv run --python 3.12 --with cadquery python round8.py order8
 python3 drawings_sheet.py order7
 (cd order7 && for f in *.svg; do rsvg-convert -f pdf -o "${f%.svg}.pdf" "$f"; done)
 uv run --python 3.12 --with cadquery python knob.py print
 ```
 
-- `sheet.py`: the shared geometry (bends at JLCCNC's radii, the stack, the cap); `round2.py`–`round7.py` each change
-  the round before; `order6.py` exports round 6's order set, `round7.py` the parts round 7 changes.
+- `sheet.py`: the shared geometry (bends at JLCCNC's radii, the stack, the cap); `round2.py`–`round8.py` each change
+  the round before; `order6.py` exports round 6's order set, `round7.py` the parts round 7 changes, `round8.py` the hood.
 - `check6.py`, `check7.py`: interference and clearance checks; `check7.py` adds every fastener as its real part (pivot,
-  cap, back nuts, heat stack), their clearance to the driver, thread lengths, and PEM's edge distances. `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
+  cap, back nuts, heat stack), their clearance to the driver, thread lengths, and PEM's edge distances; `ROUND=round8`
+  runs it with round 8's hood. `check8.py`: round 6's and round 8's hood against JLCCNC's bending limits, and the
+  carriers' walls against JLC3DP's (needs `--with trimesh --with rtree`). `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
   the light-leak and beam studies behind D21–D23. `thermal_sheet.py`: the heat budget.
 - `knob.py`: the printable knob and its plug, exported to `print/`.
 - Renders, review pages and earlier rounds' STEPs stay in `build/heatsink/housing/sheet/` (git-ignored).
