@@ -21,6 +21,7 @@ notes = [
   "Hand assembly: J1/J2 (JST B3B-XH-A, back of the driver) on both assembled drivers. Snap JLC's edge rails off the LED boards.",
   "Housing quotes need JLCCNC's manual review (2-4 h): the threads and press nuts are not in the cart prices yet.",
   "led35 (D35): 10 bare boards for 3.5 mm LEDs, added 2026-11-18 at the user's request ('order an additional 10 top PCBs with no assembly as blanks'). Their LEDs, 5 of each of nine 3535 parts, and 5 spare HD2525 of each colour for the LED board are in the LCSC cart (the extras below); PRODUCTION.md, After the boards arrive, has how to fit them.",
+  "2026-11-18: ordered from LCSC as order WM2611190181 (PO 'PCB round 2026-11'), placed from the cart 'nov-2026 message sign' and paid by the user that evening: $272.99 for the round's 83 lines across its projects, by DHL Express. LCSC's order page shows it In Progress; its confirmation mail says it ships within 1-2 business days. This board's lines in it: driver J1, J2's B3B-XH-A (C144394), 10 of a line of 60 shared with synth-blocks, and the LEDs below: the nine 3.5 mm types for led35, 5 each, and 5 spare HD2525 of each colour (C49237857, C49237859, C49237860). The XHP-2 plugs, SXH crimps and harness leads come from the user's own stock.",
 ]
 
 [[board]]
