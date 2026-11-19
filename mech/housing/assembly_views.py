@@ -1,8 +1,8 @@
-"""The assembly guide's pictures (docs/assembly/img/), drawn from round 7's model.
+"""The assembly guide's pictures (docs/assembly/img/), drawn from round 8's model: round 7 with the new hood.
 
 ROT=45 uv run --python 3.12 --with cadquery --with pillow python assembly_views.py ../../docs/assembly/img [NAME ...]
 
-Each picture is one scene: solids from round7.py and the two boards' STEPs (../out, see README.md), tessellated, drawn
+Each picture is one scene: solids from round8.py and the two boards' STEPs (../out, see README.md), tessellated, drawn
 off-screen with VTK through a parallel camera, and numbered with PIL. With names after the folder, only those scenes are
 drawn; PNG=1 writes PNGs beside the WebPs.
 
@@ -32,6 +32,7 @@ from vtk.util import numpy_support as ns  # noqa: E402
 import round3 as R3  # noqa: E402
 import round4 as R4  # noqa: E402
 import round7 as R7  # noqa: E402
+import round8 as R8  # noqa: E402
 import sheet as S  # noqa: E402
 
 # part number -> (name, per lamp)
@@ -158,8 +159,8 @@ def door_pins():
 
 
 print("building the model ...", flush=True)
-parts = R7.build()
-LAMP, HW = group(R7.lamp(parts, 90, 90)), group(R7.hardware())
+parts = R8.build()
+LAMP, HW = group(R8.lamp(parts, 90, 90)), group(R8.hardware())
 zc = lambda s: s.BoundingBox().center.z                       # noqa: E731
 LAMP["fin"].sort(key=zc, reverse=True)                        # front to back
 LAMP["spacer"].sort(key=zc, reverse=True)
@@ -486,7 +487,7 @@ def lead(sc, c, pts, plug_at):
 
 # ---------------------------------------------------------------- the scenes
 def lamp_views():
-    dm = [mesh(s) for _, s in R7.doors(parts["door"], 118, 118)]
+    dm = [mesh(s) for _, s in R8.doors(parts["door"], 118, 118)]
     for name, eye, focal, scale in (("lamp-front", (0.80, 0.42, 1.0), (0, -8, -8), 82),
                                     ("lamp-back", (0.85, 0.48, -1.0), (0, 2, -6), 96)):
         if ONLY and name not in ONLY:
@@ -705,7 +706,7 @@ def P(name, i=None):
 
 def parts_housing():
     sc = Scene("parts-housing", (1600, 1280), (0, 0, 0), (0.62, 0.45, 1.0), 140)
-    door = mesh(R7.doors(parts["door"], 0, 0)[0][1])          # a door as it lies closed
+    door = mesh(R8.doors(parts["door"], 0, 0)[0][1])          # a door as it lies closed
     for n, what, u, v in ((1, [P("shell")], -122, 88), (2, [P("cap"), P("capnuts")], -38, 88), (3, [P("hood")], 42, 88),
                           (5, [P("yoke")], 127, 88), (4, [(door, "coat")], -120, -5), (6, [P("plate")], -47, -5),
                           (7, [P("fin", 0)], 19, -5), (8, [P("spacer", 0)], 74, -5), (9, [P("carrier")], 127, -5),

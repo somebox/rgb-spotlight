@@ -113,7 +113,7 @@ uv run --python 3.12 --with cadquery python knob.py print
   carriers' walls against JLC3DP's (needs `--with trimesh --with rtree`). `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
   the light-leak and beam studies behind D21–D23. `thermal_sheet.py`: the heat budget.
 - `knob.py`: the printable knob and its plug, exported to `print/`.
-- `assembly_views.py`: the assembly guide's pictures (`docs/assembly/img/`), drawn from round 7's model with the
+- `assembly_views.py`: the assembly guide's pictures (`docs/assembly/img/`), drawn from round 8's model with the
   guide's part numbers:
   `ROT=45 uv run --python 3.12 --with cadquery --with pillow python assembly_views.py ../../docs/assembly/img`.
 - Renders, review pages and earlier rounds' STEPs stay in `build/heatsink/housing/sheet/` (git-ignored).
