@@ -23,6 +23,7 @@ notes = [
   "led35 (D35): 10 bare boards for 3.5 mm LEDs, added 2026-11-18 at the user's request ('order an additional 10 top PCBs with no assembly as blanks'). Their LEDs, 5 of each of nine 3535 parts, and 5 spare HD2525 of each colour for the LED board are in the LCSC cart (the extras below); PRODUCTION.md, After the boards arrive, has how to fit them.",
   "2026-11-18: ordered from LCSC as order WM2611190181 (PO 'PCB round 2026-11'), placed from the cart 'nov-2026 message sign' and paid by the user that evening: $272.99 for the round's 83 lines across its projects, by DHL Express. LCSC's order page shows it In Progress; its confirmation mail says it ships within 1-2 business days. This board's lines in it: driver J1, J2's B3B-XH-A (C144394), 10 of a line of 60 shared with synth-blocks, and the LEDs below: the nine 3.5 mm types for led35, 5 each, and 5 spare HD2525 of each colour (C49237857, C49237859, C49237860). The XHP-2 plugs, SXH crimps and harness leads come from the user's own stock.",
   "2026-11-19: the lenses, the sleeve for the LED board's wire hole and the silicone are in the user's AliExpress cart, 8 lines among other items, unticked and unpaid: 20 lenses 30 degrees smooth, 5 each of four other lenses to compare, 2 m of sleeve in 4 mm and in 5 mm, one tube of K-704B. CHF 13.16 of goods + CHF 15.86 shipping = CHF 29.02; the lens seller charges shipping per line (read by unticking the lines one at a time). Delivery estimates 2026-11-28 to 2026-12-23. Listed in the extras",
+  "2026-11-19: ordered and paid at AliExpress by the user that day, each seller its own order: 3077897697208734, A Global Optics Store, the five lens lines, CHF 16.91 (CHF 5.06 + CHF 11.85 shipping), delivery estimated 2026-12-14 for the 30 degree smooth lenses and 2026-12-19 for the others; 3077897697268734, Shop1105625921 Store, the two sleeves, CHF 4.22 with no shipping charged, estimated 2026-12-03; 3077897697438734, YaoTool Store, the K-704B, CHF 5.90 (CHF 3.88 + CHF 2.02 shipping), estimated 2026-12-23. CHF 27.03 together. AliExpress's order pages, read about 14:20 CET, show all three as processing, to ship within 11 days",
 ]
 
 [[board]]
@@ -217,29 +218,29 @@ buy = "LCSC C49237860, in the cart 'nov-2026 message sign'"
 note = "spare for the assembled LED board v2.0; $1.07 for 5"
 
 # The lenses, the sleeve for the LED board's wire hole and the silicone that seals it (D20, D27): in the user's
-# AliExpress cart since 2026-11-19, unpaid.
+# AliExpress cart on 2026-11-19 and ordered by the user the same day, as three orders.
 [[extra]]
 part = "20 mm PMMA TIR lens without holder, 30 degrees, smooth face (listed as 20 x 10.8 mm)"
 qty = 20
-buy = "AliExpress, A Global Optics Store, item 1005002662759375: '30 degrees / Smooth surface / 10pcs' x 2, in the cart"
+buy = "AliExpress, A Global Optics Store, item 1005002662759375: '30 degrees / Smooth surface / 10pcs' x 2; ordered 2026-11-19, order 3077897697208734"
 note = "3 per lamp: 15 for five lamps and 5 spare. CHF 2.54 + CHF 4.37 shipping. The listing has no drawing: measure the height (the model has 10.8 mm), the flange (2.0) and the cavity (D6.1) on arrival. Another seller's drawing (LCFOCUS) shows 10.4, 1.9 and D6.4"
 
 [[extra]]
 part = "20 mm PMMA TIR lens without holder, to compare: 15 degrees smooth, 45 degrees smooth, 30 degrees bead face, 30 degrees frosted"
 qty = 20
-buy = "AliExpress, the same item, four lines of '5pcs', in the cart"
+buy = "AliExpress, the same item, four lines of '5pcs'; ordered 2026-11-19, in the same order 3077897697208734"
 note = "5 of each: one lamp's three and two spare. CHF 0.63 a line + CHF 1.87 shipping each, CHF 10.00"
 
 [[extra]]
 part = "Silicone-coated fibreglass sleeve, black, 200 C, 2 m with 4 mm inner diameter and 2 m with 5 mm"
 qty = 2
-buy = "AliExpress item 1005012524001363: 'black / 4mm / 2M' and 'black / 5mm / 2M', in the cart"
-note = "over the LED harness where it passes the LED board's 6.4 mm hole (D20), a few cm per lamp. CHF 2.03 + CHF 2.19, CHF 1.99 shipping. The listing gives no wall thickness: use whichever passes the hole with the six wires in it"
+buy = "AliExpress item 1005012524001363: 'black / 4mm / 2M' and 'black / 5mm / 2M'; ordered 2026-11-19, order 3077897697268734"
+note = "over the LED harness where it passes the LED board's 6.4 mm hole (D20), a few cm per lamp. CHF 2.03 + CHF 2.19; the cart's CHF 1.99 shipping was not charged. The listing gives no wall thickness: use whichever passes the hole with the six wires in it"
 
 [[extra]]
 part = "Kafuter K-704B, black RTV silicone, 45 g"
 qty = 1
-buy = "AliExpress, YaoTool Store, item 1005006906337621: '704B--Black', in the cart"
+buy = "AliExpress, YaoTool Store, item 1005006906337621: '704B--Black'; ordered 2026-11-19, order 3077897697438734"
 note = "a dab seals the LED board's wire hole against light (D27). CHF 3.88 + CHF 2.02 shipping. The listing doesn't state the cure type"
 
 [[event]]

@@ -207,8 +207,8 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 
 | part | needed | on hand | to buy | where |
 | --- | --- | --- | --- | --- |
-| 20 mm PMMA TIR lens without holder, 30 degrees, smooth face (listed as 20 x 10.8 mm) | 20 | 0 | 20 | AliExpress, A Global Optics Store, item 1005002662759375: '30 degrees / Smooth surface / 10pcs' x 2, in the cart |
-| 20 mm PMMA TIR lens without holder, to compare: 15 degrees smooth, 45 degrees smooth, 30 degrees bead face, 30 degrees frosted | 20 | 0 | 20 | AliExpress, the same item, four lines of '5pcs', in the cart |
+| 20 mm PMMA TIR lens without holder, 30 degrees, smooth face (listed as 20 x 10.8 mm) | 20 | 0 | 20 | AliExpress, A Global Optics Store, item 1005002662759375: '30 degrees / Smooth surface / 10pcs' x 2; ordered 2026-11-19, order 3077897697208734 |
+| 20 mm PMMA TIR lens without holder, to compare: 15 degrees smooth, 45 degrees smooth, 30 degrees bead face, 30 degrees frosted | 20 | 0 | 20 | AliExpress, the same item, four lines of '5pcs'; ordered 2026-11-19, in the same order 3077897697208734 |
 | B3B-XH-A(LF)(SN) (JST), 3-pin XH vertical | 10 | 0 | 10 | LCSC C144394 |
 | Elesa VC.692/25 p-M4x10 (code 166132), five-lobe knob D25, M4 x 10 zinc-plated steel stud | 10 | 0 | 10 | Elesa or a distributor |
 | Hex standoff M3 x 12, female-female, polyamide | 15 | 0 | 15 | any |
@@ -221,7 +221,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | JNJ LEHR0111W120, 3535 LED, red 620-630 nm | 5 | 0 | 5 | LCSC C19185876, in the cart 'nov-2026 message sign' |
 | JNJ LTHI0113W120, 3535 LED, far red 730-740 nm | 5 | 0 | 5 | LCSC C19185882, in the cart 'nov-2026 message sign' |
 | JNJ LTJW0115T140, 3535 LED, cool white 5500-6500 K | 5 | 0 | 5 | LCSC C19185883, in the cart 'nov-2026 message sign' |
-| Kafuter K-704B, black RTV silicone, 45 g | 1 | 0 | 1 | AliExpress, YaoTool Store, item 1005006906337621: '704B--Black', in the cart |
+| Kafuter K-704B, black RTV silicone, 45 g | 1 | 0 | 1 | AliExpress, YaoTool Store, item 1005006906337621: '704B--Black'; ordered 2026-11-19, order 3077897697438734 |
 | Nut ISO 4032 M3, steel | 15 | 0 | 15 | any |
 | Optic carrier, MJF PA12 dyed black | 7 | 0 | 7 | JLC3DP, in the JLC cart (D2026111615500272, -280, -287) |
 | SXH-001T-P0.6 (JST), XH crimp contact, 22-28 AWG | 30 | 0 | 30 | LCSC C140573 |
@@ -229,7 +229,7 @@ To finish every board of the open orders by hand: the assembled ones, or every P
 | Screw ISO 7380 M3 x 6, button head | 30 | 0 | 30 | any |
 | Screw ISO 7380 M3 x 8, button head, with nut M3 nylock (DIN 985) | 40 | 0 | 40 | any |
 | Screw M3 x 6, pan head, polyamide | 15 | 0 | 15 | any |
-| Silicone-coated fibreglass sleeve, black, 200 C, 2 m with 4 mm inner diameter and 2 m with 5 mm | 2 | 0 | 2 | AliExpress item 1005012524001363: 'black / 4mm / 2M' and 'black / 5mm / 2M', in the cart |
+| Silicone-coated fibreglass sleeve, black, 200 C, 2 m with 4 mm inner diameter and 2 m with 5 mm | 2 | 0 | 2 | AliExpress item 1005012524001363: 'black / 4mm / 2M' and 'black / 5mm / 2M'; ordered 2026-11-19, order 3077897697268734 |
 | Silverlight M3535O1YG6G12, 3535 LED, amber 590 nm | 5 | 0 | 5 | LCSC C22466168, in the cart 'nov-2026 message sign' |
 | Threaded rod M3 (DIN 976-1), cut to 45 mm | 15 | 0 | 15 | any; 1 m of rod gives 20 |
 | Washer DIN 125-A 3.2 (M3), steel | 15 | 0 | 15 | any |
