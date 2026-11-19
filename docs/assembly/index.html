@@ -21,7 +21,8 @@
   --ink-3: #7a867f;
   --rule: #d3d9d1;
   --accent: #1f5c46;
-  --gold: #a9821a;
+  --gold: #a9821a;        /* rules and borders */
+  --gold-ink: #7a5c0a;    /* text: 5.4:1 on --gold-bg, 6.1:1 on --panel */
   --gold-bg: #f6efd9;
   --alu: #c6cbcc;
   --alu-2: #9aa1a3;
@@ -38,14 +39,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #111714; --panel: #18201c; --ink: #e4eae5; --ink-2: #b3beb7; --ink-3: #7d8982; --rule: #2b3530;
-    --accent: #7cc3a1; --gold: #dcb44a; --gold-bg: #2a2614; --alu: #7c8486; --alu-2: #5a6163; --coat: #0c0f0e;
+    --accent: #7cc3a1; --gold: #dcb44a; --gold-ink: #dcb44a; --gold-bg: #2a2614; --alu: #7c8486; --alu-2: #5a6163; --coat: #0c0f0e;
     --wire-r: #e0604e; --wire-g: #4fb06e; --wire-b: #5d8ad8;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #111714; --panel: #18201c; --ink: #e4eae5; --ink-2: #b3beb7; --ink-3: #7d8982; --rule: #2b3530;
-  --accent: #7cc3a1; --gold: #dcb44a; --gold-bg: #2a2614; --alu: #7c8486; --alu-2: #5a6163; --coat: #0c0f0e;
+  --accent: #7cc3a1; --gold: #dcb44a; --gold-ink: #dcb44a; --gold-bg: #2a2614; --alu: #7c8486; --alu-2: #5a6163; --coat: #0c0f0e;
   --wire-r: #e0604e; --wire-g: #4fb06e; --wire-b: #5d8ad8;
   color-scheme: dark;
 }
@@ -95,7 +96,7 @@ section.panel { background: var(--panel); border: 1px solid var(--rule); padding
 
 /* Status tags */
 .tag { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.03em; border: 1px solid var(--ink-3); padding: 1px 8px; color: var(--ink-2); white-space: nowrap; display: inline-block; }
-.tag.open { border-color: var(--gold); color: var(--gold); background: var(--gold-bg); }
+.tag.open { border-color: var(--gold); color: var(--gold-ink); background: var(--gold-bg); }
 .tag.built { border-color: var(--accent); background: var(--accent); color: var(--panel); }
 dl.key { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 16px; align-items: baseline; }
 dl.key dd { margin: 0; color: var(--ink-2); font-size: 14px; }
@@ -159,7 +160,7 @@ ol.do li::marker { font-family: var(--font-mono); font-size: 13px; color: var(--
 .check { border: 1px solid var(--rule); border-left: 3px solid var(--accent); color: var(--ink-2); }
 .openpt { border: 1px solid var(--gold); background: var(--gold-bg); color: var(--ink); }
 .check h4, .openpt h4 { color: var(--accent); }
-.openpt h4 { color: var(--gold); }
+.openpt h4 { color: var(--gold-ink); }
 .openpt ul, .check ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 
 /* Chain and bench rows */
@@ -177,7 +178,7 @@ table.expect td:last-child { font-family: var(--font-mono); font-size: 13px; whi
 ol.qs { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; counter-reset: q; }
 ol.qs li { counter-increment: q; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
 ol.qs li:last-child { border-bottom: none; }
-ol.qs li::before { content: "O" counter(q); font-family: var(--font-mono); font-weight: 500; color: var(--gold); }
+ol.qs li::before { content: "O" counter(q); font-family: var(--font-mono); font-weight: 500; color: var(--gold-ink); }
 ol.qs p { color: var(--ink-2); font-size: 14px; margin-top: 2px; }
 .sources { font-size: 13px; color: var(--ink-2); }
 .sources ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
@@ -655,7 +656,7 @@ pre { margin: 0; font-family: var(--font-mono); font-size: 12.5px; background: v
           <li>If all three light at full with no data, check +5 V (review R12).</li>
         </ul>
       </div>
-      <p class="muted small">The rest of the bench list (full white, a chain, brightness against level, the data-pin fault) needs the closed lamp: step 14.</p>
+      <p class="muted small">The rest of the bench list follows in step 14: full white in the closed lamp, a chain, and brightness against level. Its last check, the data-pin fault, probes the driver's front, so it needs the driver out of the housing again.</p>
     </div>
   </div>
 </section>
@@ -929,7 +930,7 @@ pre { margin: 0; font-family: var(--font-mono); font-size: 12.5px; background: v
           <li>No wire is pinched under the driver. The plugs stand 9.8 mm high in the 14.9 mm.</li>
         </ul>
       </div>
-      <p class="muted small"><b>First lamp:</b> step 14 measures D1's temperature in the closed housing. D1 is on the driver's front, so a thermocouple has to be taped to it now and led out through a cap cut-out. A proposal: the bench list does not say how to reach D1.</p>
+      <p class="muted small"><b>First lamp:</b> step 14 measures D1's temperature in the closed housing. D1 is on the driver's front, so a thermocouple has to be taped to it now and led out through a cap cut-out. The same goes for a scope lead on U7 pin 2, if this lamp will sit at the end of the longest chain cable. A proposal: the bench list does not say how to reach either.</p>
       <p class="muted small">How 8 cm leads fold into that space has not been tried.</p>
     </div>
   </div>
@@ -1030,7 +1031,7 @@ pre { margin: 0; font-family: var(--font-mono); font-size: 12.5px; background: v
   </div>
 
   <div class="step" id="s14">
-    <div class="step-head"><span class="step-no">14</span><h3>First light and the closed-housing checks</h3><span class="tag">from the design</span></div>
+    <div class="step-head"><span class="step-no">14</span><h3>First light and the closed-housing checks</h3><span class="tag open">open</span></div>
     <div class="step-pics">
       <table class="expect" aria-label="What to expect in the closed lamp">
         <tr><td>Shell to GND and to +5 V, unpowered</td><td>open</td></tr>
@@ -1049,9 +1050,15 @@ pre { margin: 0; font-family: var(--font-mono); font-size: 12.5px; background: v
         <li><b>Unpowered:</b> from the shell to GND and to +5 V, no connection.</li>
         <li><b>Power</b> as in step 4, limited to 0.15 A, no data: the lamp stays dark.</li>
         <li><b>Full white, 30 minutes,</b> with the limit at 0.6 A. Read the current and D1's case temperature, and listen for singing at mid levels (R13). On the first lamp of a chain, measure J2's temperature too.</li>
-        <li><b>Then the bench list's steps 6 to 8:</b> two lamps on a pin-1-to-pin-1 cable and five on one feed, brightness against level for a gamma table, and the data-pin fault on one board.</li>
+        <li><b>A chain</b> (bench list, step 6): two lamps on a pin-1-to-pin-1 cable, then five on one feed at full white. The scope point, U7 pin 2, is on the driver's front. On the lamp at the end of the longest cable, bring a lead out from it before the driver is seated, or run that lamp with its cap off and the driver lifted off its standoffs.</li>
+        <li><b>Brightness against level</b> (step 7), for a gamma table.</li>
+        <li><b>The data-pin fault</b> (step 8), on one board, is not a closed-lamp check. It watches +5 V at U1 pin 8, D5's anode and R10's temperature, all on the driver's front. Switch the power off, take the cap off, undo the three polyamide screws and lift the driver off its standoffs before starting it. Or run it on a driver that is not built in, with its LED board as in step 4.</li>
         <li>Write down what happened, and change the tags in this guide to <span class="tag built">built</span> with the date.</li>
       </ol>
+      <div class="openpt">
+        <h4>Open</h4>
+        <ul><li><b>Reach.</b> The bench list puts the data-pin fault after the closed-housing checks, but its probe points face the stack once the driver is seated. How far the 8 cm leads let the driver lift, and whether that is enough to probe it, has not been tried.</li></ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1125,7 +1132,7 @@ pre { margin: 0; font-family: var(--font-mono); font-size: 12.5px; background: v
     <li><div><b>The studs' depth and the thread-lock's cure</b> <span class="src">step 5</span><p>0.2 mm below the plate's front face is recorded, not how to set it. No product is chosen, so no cure time.</p></div></li>
     <li><div><b>The doors</b> <span class="src">step 11</span><p>Before or after the cap, and how tight the nylocks go.</p></div></li>
     <li><div><b>JLC's rails on the aluminium boards</b> <span class="src">step 3</span><p>How they are joined and how clean they break. The carrier's skirt clears the board's edge by 0.3 mm.</p></div></li>
-    <li><div><b>D1's temperature in the closed housing</b> <span class="src">steps 10, 14</span><p>The bench list asks for it. D1 faces the stack, so a thermocouple has to go on before the driver is seated.</p></div></li>
+    <li><div><b>Probe points on the driver's front</b> <span class="src">steps 10, 14</span><p>The driver's parts face the stack once it is seated. D1's temperature in the closed housing needs a thermocouple fitted before that. The chain check scopes U7 pin 2, and the data-pin fault watches U1 pin 8, D5 and R10: for those the driver has to come off its standoffs again, or a lead has to be brought out first.</p></div></li>
     <li><div><b>Fits never tried</b> <span class="src">model only</span><p>A plug down the 12 mm bore beside two pairs (1.3 mm at its corners). 8 cm leads folded into the 14.9 mm behind the stack. The fins in the shell, 0.5 mm a side. The 0.8 mm washer in the yoke's 1.0 mm gap. The lenses in the 20.4 mm pockets. Wires and joints under the carrier's 2.5 mm.</p></div></li>
     <li><div><b>Photos</b><p>The pictures are drawn. A photo of each step from the first build would show what the model cannot: paste, wires, the real parts' finish.</p></div></li>
   </ol>
