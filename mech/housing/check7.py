@@ -1,6 +1,7 @@
 """Fit checks for round 7 (round7.py): the yoke pivot and cap screws as real parts.
 
 ROT=45 uv run --python 3.12 --with cadquery python check7.py OUTDIR
+ROT=45 ROUND=round8 uv run --python 3.12 --with cadquery python check7.py OUTDIR    (the same checks with round 8's hood)
 
 1. Every part and fastener against every other, doors standing, closed as far as a pair goes, and folded back.
 2. The tilt in the yoke: the lamp, its nuts and screws turned about the pivot against the yoke, knobs and washers.
@@ -23,7 +24,9 @@ from cadquery import Vector as V  # noqa: E402
 
 import math  # noqa: E402
 
-import round7 as R  # noqa: E402
+import importlib  # noqa: E402
+
+R = importlib.import_module(os.environ.get("ROUND", "round7"))   # round8: round 7 with round 8's hood
 import sheet as S  # noqa: E402
 
 # parts that touch by design: the stack's tie rods, the LED screws in the plate, the doors' corner standoffs
@@ -52,7 +55,7 @@ def overlaps(items, only=None, tol=0.05):
 P = R.build()
 HW = R.hardware()
 res = {"rot": R.R6.ROT}
-print(f"=== round 7: pivot M4 (Elesa VC.692/25 p-M4x10, PEM S-M4-2), cap rims to z {R.CAP_FRONT} ===")
+print(f"=== {R.__name__}: pivot M4 (Elesa VC.692/25 p-M4x10, PEM S-M4-2), cap rims to z {R.CAP_FRONT} ===")
 for dd in ((90, 90), (32, 90), (180, 180)):
     o = overlaps(R.lamp(P, *dd) + HW)
     print(f"1. assembled, doors {dd}, boards and hardware in:", o or "no overlaps")
@@ -150,4 +153,4 @@ for k, v in harness.items():
     print(f"7. {k:86s} {v:6.2f} mm")
 res["harness"] = {k: round(v, 2) for k, v in harness.items()}
 os.makedirs(OUT, exist_ok=True)
-json.dump(res, open(os.path.join(OUT, f"check7-rot{R.R6.ROT:g}.json"), "w"), indent=1)
+json.dump(res, open(os.path.join(OUT, f"check7{'' if R.__name__ == 'round7' else '-' + R.__name__}-rot{R.R6.ROT:g}.json"), "w"), indent=1)
