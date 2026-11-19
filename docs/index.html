@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- The project's front page, served by GitHub Pages from docs/. Opens on its own in a browser too.
+     It shares its look and its pictures (assembly/img/) with the assembly guide. -->
+<title>RGB Spotlight</title>
+<meta name="description" content="A chainable, addressable 3 × 3 W RGB spotlight for 12 V: three LEDs, three lenses, four barn doors. Design files, status and the assembly guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Same sheet-and-rule language as the assembly guide. The one loud thing is the lamp's lit face in the hero:
+   everything below it stays quiet. */
+:root {
+  --bg: #eef0eb;
+  --panel: #fbfcf9;
+  --plate: #fbfcf9;       /* the pictures' own background: they stay light in the dark theme */
+  --ink: #17211c;
+  --ink-2: #47534c;
+  --ink-3: #7a867f;
+  --rule: #d3d9d1;
+  --accent: #1f5c46;
+  --on-accent: #fbfcf9;
+  --gold: #a9821a;
+  --stage: #0d0f10;       /* behind the lit face, in both themes */
+  --font-text: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-head: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111714; --panel: #18201c; --ink: #e4eae5; --ink-2: #b3beb7; --ink-3: #7d8982; --rule: #2b3530;
+    --accent: #7cc3a1; --on-accent: #10201a; --gold: #dcb44a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111714; --panel: #18201c; --ink: #e4eae5; --ink-2: #b3beb7; --ink-3: #7d8982; --rule: #2b3530;
+  --accent: #7cc3a1; --on-accent: #10201a; --gold: #dcb44a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+img { max-width: 100%; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; margin: 0; line-height: 1.1; }
+h1 { font-size: clamp(46px, 9vw, 92px); font-weight: 700; letter-spacing: -0.02em; line-height: 0.95; }
+h2 { font-size: 28px; font-weight: 600; }
+h3 { font-size: 19px; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+code { font-family: var(--font-mono); font-size: 0.9em; }
+.muted { color: var(--ink-2); }
+.small { font-size: 14px; }
+
+/* Hero: what it is on the left, the lamp's lit face on the right */
+header.hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); border: 1.5px solid var(--ink); background: var(--panel); }
+.hero .say { padding: clamp(22px, 4vw, 44px); display: grid; gap: 22px; align-content: center; }
+.hero .lede { font-size: clamp(18px, 2.1vw, 21px); line-height: 1.45; color: var(--ink-2); max-width: 34ch; }
+.hero .status { border-top: 1px solid var(--rule); padding-top: 16px; font-size: 15px; color: var(--ink-2); max-width: 46ch; }
+.hero .status b { color: var(--ink); font-weight: 600; }
+.go { display: flex; flex-wrap: wrap; gap: 10px; }
+.go a { display: inline-block; padding: 11px 18px; font-family: var(--font-head); font-weight: 600; font-size: 17px; text-decoration: none; border: 1.5px solid var(--accent); }
+.go a.main { background: var(--accent); color: var(--on-accent); }
+.go a:hover { text-decoration: underline; }
+.stage { background: var(--stage); color: #d9dedb; display: grid; align-content: center; gap: 14px; padding: clamp(16px, 3vw, 30px); border-left: 1.5px solid var(--ink); }
+.stage svg { display: block; width: 100%; height: auto; max-height: 440px; }
+.face { --r: 1; --g: 1; --b: 1; }
+.face .r { opacity: var(--r); } .face .g { opacity: var(--g); } .face .b { opacity: var(--b); }
+.face .halo { mix-blend-mode: screen; }
+.levels { display: grid; gap: 8px; font-size: 14px; }
+.levels label { display: grid; grid-template-columns: 52px minmax(0, 1fr) 3ch; gap: 12px; align-items: center; }
+.levels output { font-family: var(--font-mono); font-size: 13px; text-align: right; color: #aab2ad; }
+.levels input { width: 100%; margin: 0; accent-color: var(--c); }
+.stage .cap { font-size: 13px; color: #8f9893; max-width: 46ch; }
+
+/* Sheets */
+section.sheet { background: var(--panel); border: 1px solid var(--rule); padding: clamp(18px, 3vw, 28px); display: grid; gap: 20px; min-width: 0; }
+.head { display: grid; gap: 8px; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.wide-left { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+figure { margin: 0; display: grid; gap: 8px; align-content: start; min-width: 0; }
+figure img { display: block; width: 100%; height: auto; }
+figure.plate img { background: var(--plate); border: 1px solid var(--rule); }
+figcaption { font-size: 14px; color: var(--ink-2); max-width: 66ch; }
+.pn { display: inline-grid; place-items: center; min-width: 1.62em; height: 1.62em; padding: 0 0.2em; border: 1.5px solid var(--ink); border-radius: 1em; font-family: var(--font-mono); font-size: 0.78em; font-weight: 500; line-height: 1; background: var(--panel); color: var(--ink); vertical-align: 0.1em; }
+
+/* Facts */
+dl.facts { margin: 0; display: grid; grid-template-columns: minmax(96px, max-content) minmax(0, 1fr); border-top: 1.5px solid var(--ink); }
+dl.facts dt, dl.facts dd { margin: 0; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+dl.facts dt { font-weight: 600; padding-right: 20px; }
+dl.facts dd { color: var(--ink-2); }
+dl.facts dd b { color: var(--ink); font-weight: 500; font-family: var(--font-mono); font-size: 0.92em; }
+ul.plain { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--ink-2); max-width: 66ch; }
+ul.plain b { color: var(--ink); font-weight: 600; }
+.note { border-left: 3px solid var(--gold); padding: 4px 0 4px 14px; color: var(--ink-2); font-size: 15px; max-width: 66ch; }
+
+/* Boards */
+.boards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.boards figure img { max-width: 300px; margin: 0 auto; }
+
+/* Chain */
+.chain { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.node { border: 1px solid var(--ink-3); padding: 8px 12px; background: var(--bg); font-size: 14px; display: grid; gap: 2px; min-width: 0; align-content: start; }
+.node b { font-family: var(--font-head); font-size: 16px; font-weight: 600; }
+.node.feed { border-color: var(--gold); }
+.arrow { align-self: center; font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); display: grid; justify-items: center; line-height: 1.2; }
+.arrow::after { content: "→"; font-size: 18px; color: var(--ink-2); }
+
+/* Documents */
+ul.docs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; border-top: 1.5px solid var(--ink); }
+ul.docs li { padding: 12px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+ul.docs a { font-family: var(--font-head); font-size: 18px; font-weight: 600; }
+ul.docs span { font-size: 14px; color: var(--ink-2); }
+ul.docs span a { font: inherit; }
+footer { font-size: 13px; color: var(--ink-3); padding: 0 4px; }
+
+@media (max-width: 860px) {
+  header.hero { grid-template-columns: 1fr; }
+  .stage { border-left: none; border-top: 1.5px solid var(--ink); }
+  .two, .wide-left, .boards, ul.docs { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  dl.facts { grid-template-columns: 1fr; }
+  dl.facts dt { border-bottom: none; padding-bottom: 0; }
+  dl.facts dd { padding-top: 2px; }
+}
+@media print {
+  body { background: #fff; padding: 0; }
+  section.sheet { border: none; padding: 0; break-inside: avoid; }
+  .levels { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="say">
+    <h1>RGB Spotlight</h1>
+    <p class="lede">A small spotlight with three 3 W LEDs, red, green and blue, each behind its own lens. It runs on 12 V, takes its colour over one data wire, and passes power and data on to the next lamp.</p>
+    <div class="go">
+      <a class="main" href="assembly/">Read the assembly guide</a>
+      <a href="https://github.com/somebox/rgb-spotlight">Design files on GitHub</a>
+    </div>
+    <p class="status"><b>Where it stands, 19 November 2026.</b> The design is released and the parts for five lamps are being ordered. No lamp has been built yet, so the figures on this page are calculated or simulated, not measured.</p>
+  </div>
+  <div class="stage">
+    <svg class="face" viewBox="-62 -56 124 130" role="img" aria-label="The lamp seen from the front: a square hood with three round lenses lit red, green and blue, four barn doors around it and the yoke below">
+      <defs>
+        <radialGradient id="gr"><stop offset="0" stop-color="#ffd9d2"/><stop offset="0.3" stop-color="#ff4a37"/><stop offset="1" stop-color="#8e1408"/></radialGradient>
+        <radialGradient id="gg"><stop offset="0" stop-color="#dcffe4"/><stop offset="0.3" stop-color="#34e06c"/><stop offset="1" stop-color="#0b6a2b"/></radialGradient>
+        <radialGradient id="gb"><stop offset="0" stop-color="#dbe6ff"/><stop offset="0.3" stop-color="#3f74ff"/><stop offset="1" stop-color="#0c2a8c"/></radialGradient>
+        <filter id="blur" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+      </defs>
+      <!-- yoke and knobs, behind the hood -->
+      <g fill="#202327" stroke="#454b51" stroke-width="0.4">
+        <path d="M-36.5 20 V66 a3 3 0 0 0 3 3 H33.5 a3 3 0 0 0 3 -3 V20 h-3 V66 H-33.5 V20 Z"/>
+        <rect x="42" y="-9" width="15.5" height="18" rx="5"/><rect x="-57.5" y="-9" width="15.5" height="18" rx="5"/>
+      </g>
+      <!-- four doors, opened outwards and seen end-on from the front -->
+      <g fill="#2b2f34" stroke="#50575e" stroke-width="0.4">
+        <rect x="-35.5" y="-50.3" width="71" height="17.3" rx="2"/><rect x="-35.5" y="33" width="71" height="17.3" rx="2"/>
+        <rect x="-50.3" y="-35.5" width="17.3" height="71" rx="2"/><rect x="33" y="-35.5" width="17.3" height="71" rx="2"/>
+      </g>
+      <!-- hood, 84 mm square -->
+      <rect x="-42" y="-42" width="84" height="84" rx="2.75" fill="#1c1f22" stroke="#555c63" stroke-width="0.5"/>
+      <g fill="#08090a"><circle cx="4.92" cy="-18.35" r="2.85"/><circle cx="-18.35" cy="4.92" r="2.85"/><circle cx="13.44" cy="13.44" r="2.85"/></g>
+      <!-- three lenses over the LEDs: red at 135°, green at 255°, blue at 15°, 12 mm from the middle -->
+      <g fill="#0a0c0d" stroke="#2c3034" stroke-width="0.5"><circle cx="-8.49" cy="-8.49" r="9.3"/><circle cx="-3.11" cy="11.59" r="9.3"/><circle cx="11.59" cy="-3.11" r="9.3"/></g>
+      <g class="halo" filter="url(#blur)">
+        <circle class="r" cx="-8.49" cy="-8.49" r="15" fill="#ff4a37" fill-opacity="0.55"/>
+        <circle class="g" cx="-3.11" cy="11.59" r="15" fill="#34e06c" fill-opacity="0.55"/>
+        <circle class="b" cx="11.59" cy="-3.11" r="15" fill="#3f74ff" fill-opacity="0.55"/>
+      </g>
+      <circle class="r" cx="-8.49" cy="-8.49" r="9.05" fill="url(#gr)"/>
+      <circle class="g" cx="-3.11" cy="11.59" r="9.05" fill="url(#gg)"/>
+      <circle class="b" cx="11.59" cy="-3.11" r="9.05" fill="url(#gb)"/>
+    </svg>
+    <div class="levels" aria-label="Set the three channels">
+      <label style="--c:#ff4a37">Red <input type="range" name="r" min="0" max="255" value="255"><output>255</output></label>
+      <label style="--c:#34e06c">Green <input type="range" name="g" min="0" max="255" value="255"><output>255</output></label>
+      <label style="--c:#3f74ff">Blue <input type="range" name="b" min="0" max="255" value="255"><output>255</output></label>
+    </div>
+    <p class="cap">The lamp from the front, drawn to its sizes. One lamp is one pixel on the data line: three levels from 0 to 255.</p>
+  </div>
+</header>
+
+<section class="sheet" id="lamp">
+  <div class="head">
+    <h2>The lamp</h2>
+    <p class="muted">A square aluminium housing on a yoke, about the size of a fist. Three lenses sit behind a hood, one over each LED, and four barn doors shape the beam.</p>
+  </div>
+  <div class="wide-left">
+    <figure class="plate">
+      <img src="assembly/img/lamp-front.webp" width="1500" height="1150" alt="The lamp from the front: black square housing on a U-shaped yoke, three lenses, four barn doors opened outwards">
+      <figcaption>Drawn from the housing's model, with the doors opened outwards.</figcaption>
+    </figure>
+    <dl class="facts">
+      <dt>Light</dt><dd>three 3 W LEDs, red, green, blue, at <b>455 mA</b> each</dd>
+      <dt>Optics</dt><dd>three 20 mm lenses, <b>30°</b>; four barn doors</dd>
+      <dt>Supply</dt><dd><b>12 V</b>; <b>5.0 W</b>, <b>0.42 A</b> at full white</dd>
+      <dt>Control</dt><dd>WS2811 protocol, <b>800 kHz</b>, one wire, 3.3 or 5 V</dd>
+      <dt>Chain</dt><dd>up to <b>5</b> lamps on one fused 12 V feed</dd>
+      <dt>Cooling</dt><dd>passive: a plate and four fins inside a vented shell</dd>
+      <dt>Size</dt><dd>shell <b>65 × 65 mm</b>, hood <b>84 × 84 mm</b>, <b>94 mm</b> long, 130 with the doors standing</dd>
+      <dt>Mount</dt><dd>a yoke with two knobs: the lamp tilts up to straight up and down to about 50°; one hole for a ¼ inch screw, two for M4</dd>
+      <dt>Weight</dt><dd>about <b>0.38 kg</b></dd>
+    </dl>
+  </div>
+</section>
+
+<section class="sheet" id="light">
+  <div class="head">
+    <h2>Three colours, kept apart</h2>
+  </div>
+  <div class="two">
+    <ul class="plain">
+      <li><b>Each LED has its own lens.</b> The three sit 12 mm off the lamp's axis, on a ring, and are not mixed inside the lamp.</li>
+      <li><b>The colours meet on the wall.</b> Where a door's edge cuts the beam, each colour is cut at a slightly different place, which leaves three colour bands along the shadow. That is the effect the design is after.</li>
+      <li><b>The LED board sits turned by 45°,</b> so each LED has its own height and its own place from left to right. A horizontal door edge and a vertical one then both give three bands.</li>
+      <li><b>The doors work in pairs.</b> One pair closes until its tips meet while the other stands open or folds back.</li>
+    </ul>
+    <div style="display:grid; gap:14px">
+      <p class="note">How the bands look, and how sharp the lenses draw them, is not known yet. The first order has lenses of 15°, 30° and 45°, with smooth, beaded and frosted faces, and two taller lens carriers to try the focus.</p>
+      <p class="muted">Dimming is by the pixel's own 8-bit level per colour. In simulation the brightness follows the level within 5 % above a fifth of full, and the lowest few levels are unreliable.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="inside">
+  <div class="head">
+    <h2>Inside</h2>
+    <p class="muted">Two round boards, 50 mm across, with the heat path between them.</p>
+  </div>
+  <figure class="plate">
+    <img src="assembly/img/lamp-section.webp" width="1500" height="1080" loading="lazy" alt="The lamp cut through the middle from front to back: lenses and LED board at the front, a stack of fins, the driver board at the back">
+    <figcaption>Cut through the middle, without doors and yoke. The LED board <b class="pn">10</b> lies on an aluminium plate <b class="pn">6</b>. Behind it, spacers <b class="pn">8</b> and fins <b class="pn">7</b> on three tie rods take about 2.7 W of heat to the air that passes the shell's slots. The driver <b class="pn">11</b> sits at the back on plastic standoffs, and three short leads <b class="pn">13</b> run to it through the middle of the stack. The numbers are the assembly guide's part numbers.</figcaption>
+  </figure>
+  <div class="boards">
+    <figure>
+      <img src="assembly/img/board-led-front.webp" width="1000" height="1000" loading="lazy" alt="The LED board: three LEDs on a ring, six wire pads around a centre hole">
+      <figcaption><b>LED board.</b> Aluminium, one layer. It carries only the three LEDs, each on its own copper island, and six pads for the wires. The ordered boards are white.</figcaption>
+    </figure>
+    <figure>
+      <img src="assembly/img/board-driver-front.webp" width="1000" height="1000" loading="lazy" alt="The driver board: three driver cells around three small sockets, logic chips along the lower edge">
+      <figcaption><b>Driver board.</b> A WS2811 pixel controller and three constant-current drivers (PT4115), one per colour, with a level shifter on the data input and protection on the 12 V input. <a href="previews/driver/schematic.pdf">Schematic (PDF)</a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sheet" id="chain">
+  <div class="head">
+    <h2>Wiring a chain</h2>
+    <p class="muted">Each lamp has an input and an output with the same three pins: 12 V, data, ground. Cables go pin 1 to pin 1.</p>
+  </div>
+  <div class="wide-left">
+  <div style="display:grid; gap:18px">
+  <div class="chain">
+    <div class="node feed"><b>12 V supply</b><span>regulated, under 15 V</span><span>3 A fuse per feed</span></div>
+    <div class="arrow">12 V, GND</div>
+    <div class="node"><b>Controller</b><span>WS2811 data, 800 kHz</span><span>common ground</span></div>
+    <div class="arrow">in</div>
+    <div class="node"><b>Lamp 1</b><span>in, out</span></div>
+    <div class="arrow">up to 3 m</div>
+    <div class="node"><b>Lamp 2</b></div>
+    <div class="arrow">and so on</div>
+    <div class="node"><b>Lamp 5</b><span>last on this feed</span></div>
+    <div class="arrow">12 V left open</div>
+    <div class="node feed"><b>Next group</b><span>its own feed and fuse</span></div>
+  </div>
+  <ul class="plain">
+    <li>Five lamps at full white draw about 2.5 A. Use a 36 W supply for four lamps and 60 W for five.</li>
+    <li>The data timing of FastLED's <code>WS2811</code> fits the controller chip's data sheet. ESPHome needs its timing set by hand. WLED has not been checked. None of this has run on a lamp yet.</li>
+  </ul>
+  </div>
+  <figure class="plate">
+    <img src="assembly/img/lamp-back.webp" width="1500" height="1150" loading="lazy" alt="The lamp from the back: the cap with two cable cut-outs, a knob on each side of the yoke">
+    <figcaption>The back. The two cut-outs open onto the input and the output. The four threads take a box for a controller and a supply.</figcaption>
+  </figure>
+  </div>
+</section>
+
+<section class="sheet" id="status">
+  <div class="head">
+    <h2>Where it stands</h2>
+  </div>
+  <div class="two">
+    <ul class="plain">
+      <li><b>Version 1</b> was one board, ordered in March 2026 and built. It never lit: the LED drivers were wired as the wrong kind of converter, and one logic chip had no supply.</li>
+      <li><b>Version 2</b> is a restart with two boards. Every block was checked against its data sheet in a review before ordering, and one LED channel was simulated.</li>
+      <li><b>Released:</b> driver board v2.4, LED board v2.0, a second LED board for 3.5 mm LEDs of other colours, and the sheet-metal housing in its eighth round.</li>
+    </ul>
+    <ul class="plain">
+      <li><b>Being ordered:</b> the boards and the housing for five lamps are in the maker's cart and review; the lenses and connectors are ordered.</li>
+      <li><b>Not done:</b> nothing of version 2 has been built or measured. The first lamp has to show the current, the temperatures in the closed housing, and the beam.</li>
+      <li><b>Next:</b> build one lamp by the <a href="assembly/">assembly guide</a>, which lists the points still open.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sheet" id="documents">
+  <div class="head">
+    <h2>Documents</h2>
+    <p class="muted">The design is made by scripts and recorded as it went: KiCad boards, a CadQuery housing, simulation and order files.</p>
+  </div>
+  <ul class="docs">
+    <li><a href="assembly/">Assembly guide</a><span>One lamp in 14 steps, with every part numbered</span></li>
+    <li><a href="https://github.com/somebox/rgb-spotlight#readme">Repository</a><span>All files, and how to rebuild them</span></li>
+    <li><a href="https://github.com/somebox/rgb-spotlight/blob/master/HANDOVER.md">Handover</a><span>How the project got here and what remains</span></li>
+    <li><a href="https://github.com/somebox/rgb-spotlight/blob/master/DESIGN.md">Design</a><span>Requirements, the numbered decisions, circuit and heat</span></li>
+    <li><a href="https://github.com/somebox/rgb-spotlight/blob/master/docs/reviews/2026-10-30-v2.md">Failure review</a><span>What could go wrong, and the bench list for the first boards</span></li>
+    <li><a href="https://github.com/somebox/rgb-spotlight/blob/master/mech/housing/README.md">Housing</a><span>The sheet-metal parts, the fasteners and the model's scripts</span></li>
+    <li><a href="https://github.com/somebox/rgb-spotlight/blob/master/PRODUCTION.md">Production</a><span>Order files, checklists, costs and the orders so far</span></li>
+    <li><a href="previews/driver/schematic.pdf">Driver schematic</a><span>PDF, with the <a href="previews/led/schematic.pdf">LED board's</a></span></li>
+  </ul>
+</section>
+
+<footer>Written on 19 November 2026 from the repository's documents. The pictures are drawn from the design files; none is a photo.</footer>
+
+</div>
+<script>
+// The three sliders set how brightly each lens is drawn. Without script the lamp shows full white.
+const face = document.querySelector(".face");
+document.querySelectorAll(".levels input").forEach((input) => {
+  const show = () => {
+    face.style.setProperty("--" + input.name, (input.value / 255).toFixed(3));
+    input.nextElementSibling.textContent = input.value;
+  };
+  input.addEventListener("input", show);
+  show();
+});
+</script>
+</body>
+</html>
