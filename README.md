@@ -16,7 +16,8 @@ Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: an aluminiu
 | [LAYOUT.md](LAYOUT.md) | both PCBs: floor plans, rules, scripted copper and routing, outline presets, checks |
 | [PRODUCTION.md](PRODUCTION.md) | order files, order checklist (polarity!), harness and bring-up, costs |
 | [docs/reviews/](docs/reviews/) | pre-order failure review: findings, bench list, firmware duties |
-| [docs/assembly/](docs/assembly/index.html) | assembly overview (HTML, open in a browser): exploded view of both boards, section sketch, outline presets, housing options and the questions to settle |
+| [docs/index.html](docs/index.html) | the project's front page: what the lamp is, where it stands, links. GitHub Pages serves `docs/` at <https://somebox.github.io/rgb-spotlight/> |
+| [docs/assembly/](docs/assembly/index.html) | assembly guide (HTML, open in a browser): the finished lamp, every part numbered, tools, and 14 steps with pictures drawn from the design files. Written before any part arrived: nothing in it is tried on hardware yet |
 
 ## What it does
 

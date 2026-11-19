@@ -81,6 +81,9 @@ Assembly order:
 5. Plug red into J3, green into J4, blue into J5; seat the driver on the standoffs, three polyamide M3 × 6 from the back.
 6. Door pins and nylocks; cables through the cap's cut-outs, cap in, two M3 × 6; yoke, washers and knobs.
 
+The same order step by step, with a picture for each step, the boards' bench steps before it and the points still
+open: [docs/assembly/index.html](../../docs/assembly/index.html) (not tried on hardware yet).
+
 **A box on the back (D31).** The cap's back face takes 4 × PEM S-M3-2 on a 46 × 46 mm square, centred, heads inside and
 flush outside, for a box with a controller and power supply. They sit 6.2 mm from the cable cut-outs (PEM's minimum
 4.8), the heads 1.8 mm short of the bends, and 8 mm or more from the driver's parts; nothing lies behind them for
@@ -110,4 +113,7 @@ uv run --python 3.12 --with cadquery python knob.py print
   carriers' walls against JLC3DP's (needs `--with trimesh --with rtree`). `leaks.py`, `spill_rays.py`, `door5.js`, `beam6.js`:
   the light-leak and beam studies behind D21–D23. `thermal_sheet.py`: the heat budget.
 - `knob.py`: the printable knob and its plug, exported to `print/`.
+- `assembly_views.py`: the assembly guide's pictures (`docs/assembly/img/`), drawn from round 8's model with the
+  guide's part numbers:
+  `ROT=45 uv run --python 3.12 --with cadquery --with pillow python assembly_views.py ../../docs/assembly/img`.
 - Renders, review pages and earlier rounds' STEPs stay in `build/heatsink/housing/sheet/` (git-ignored).
