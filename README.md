@@ -1,6 +1,6 @@
 # RGB Spotlight
 
-Status (2026-11-19): designed and released, not built yet. The driver is released as v2.4, the LED board as v2.0, a second LED board for 3.5 mm LEDs (`led35`) as v1.0, and the sheet-metal housing is in its eighth round. The first order, boards and housing for five lamps, was submitted to JLC on 2026-11-19: it is in JLC's reviews and not paid yet. The lenses were ordered the same day. Every figure on this page is calculated or simulated; none is measured. Start with [HANDOVER.md](HANDOVER.md).
+Status (2026-11-19): designed and released, not built yet. The driver is released as v2.4, the LED board as v2.0, a second LED board for 3.5 mm LEDs (`led35`) as v1.0, and the sheet-metal housing is in its eighth round. The first order, boards and housing for five lamps, was submitted to JLC on 2026-11-18: it is in JLC's reviews and not paid yet. The lenses were ordered on 2026-11-19. Every figure on this page is calculated or simulated; none is measured. Start with [HANDOVER.md](HANDOVER.md).
 
 Chainable, addressable 3 x 3 W RGB spotlight for 12 V installations: three LEDs, red, green and blue, each behind its own lens, in a square aluminium housing with four barn doors, on a yoke. One lamp is one WS2811 pixel.
 

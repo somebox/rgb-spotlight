@@ -1,13 +1,15 @@
 # RGB Spotlight: handover
 
-Status (2026-11-18): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
+Status (2026-11-19): the driver is **released as v2.4** (D5 clamps its data input, D28; R11 takes D5's current off the +5V rail, D29;
 three JST XH 2-pin LED sockets, D33; R10 rated for a feed voltage held on the data pin, D34), the LED board as **v2.0**,
-a second LED board for 3.5 mm LEDs, `led35`, as **v1.0** on 2026-11-18 (D35: bought bare, for trying other colours; 10 in the JLC cart, Y202),
-and the first order is **in the JLC cart, unpaid**, with driver v2.4 and the round-7 housing (D30–D33): all 5 of each
-board assembled, 10 bare led35 boards, and the housing (sheet metal and optic carriers) for 5 lamps, $385.90 with DHL
-before JLCCNC prices the threads and press nuts
-([order](production/orders/2026-11-16-v2-first/ORDER.md)). This page is
-the way in; the detail stays in the documents it links to.
+a second LED board for 3.5 mm LEDs, `led35`, as **v1.0** (D35: bought bare, for trying other colours), and the housing
+is round 8 of the sheet-metal design (D21–D27, D30–D33, D36). The first order was **submitted to JLC on 2026-11-18**,
+in JLC order W2026111905123922, and is **not paid yet**: JLC reviews the files first. It holds all 5 of each board
+assembled, 10 bare led35 boards, and the housing (sheet metal and optic carriers) for 5 lamps
+([order](production/orders/2026-11-16-v2-first/ORDER.md)): $292.76 of goods on JLC's order page on 2026-11-19, before
+the cap's press nuts and round 8's hood are priced. Shipping is charged on the whole JLC order, which holds other
+projects' boards too. The lenses, the sleeve and the silicone were ordered at AliExpress on 2026-11-19. Nothing is
+built or measured yet. This page is the way in; the detail stays in the documents it links to.
 
 ## How we got here
 
@@ -35,8 +37,25 @@ the way in; the detail stays in the documents it links to.
 5. **Planned changes applied (2026-11-14):** U6 is a 74HC14, C1 is 1 µF and R10 is 1 kΩ; the LED board has a "+" at
    pad 2 of each LED. The schematic and both boards were edited in place, keeping their UUIDs. Details and check
    results: DESIGN §6, "Planned changes".
+6. **The housing (2026-11-14 to 11-19):** the cylinder became a square sheet-metal lamp: a shell, a back cap, a hood
+   with four barn doors, a yoke, and a printed carrier for the three lenses (D21–D27). CadQuery scripts in
+   [mech/housing/](mech/housing/README.md) build it and check it.
+   - Round 6 was quoted on 2026-11-16.
+   - Round 7 made every fastener a real part, and added four nuts in the cap for a box and a 12 mm bore for the LED
+     plugs (D30–D33).
+   - Round 8 is a new hood, for JLCCNC's review of the order (D36).
+7. **The driver after the review (2026-11-16 to 11-17):** four releases, each edited in place: v2.1 and v2.2 for the
+   clamp on the data input (D28, D29), v2.3 for the three XH LED sockets (D33), v2.4 for R10's rating (D34).
+8. **`led35` (2026-11-18):** the LED board with pads for 3.5 mm LEDs, released as v1.0 to be bought bare (D35).
+9. **The order (2026-11-16 to 11-19):** in the JLC cart from 2026-11-16, submitted on 2026-11-18, in JLC's reviews
+   since ("Work remaining", item 3).
+10. **Assembly guide and front page (2026-11-19):** [docs/assembly/](docs/assembly/index.html) and
+    [docs/index.html](docs/index.html). The guide's pictures are drawn from the housing model; it was written before
+    any part arrived.
 
-## Decisions made in the review (DESIGN.md, D14–D20)
+## Decisions since the review (DESIGN.md: D14–D20, D28–D38)
+
+D21–D27 (the barn doors, the LED board's 45°, the harness wire, the finish, the first housing order) are in DESIGN.md.
 
 | # | Decision | State |
 | --- | --- | --- |
@@ -46,15 +65,18 @@ the way in; the detail stays in the documents it links to.
 | D17 | U6 74HC04 → 74HC14D (C5605), for the WS2811's slow output edges | applied 2026-11-14 |
 | D18 | C1 100 nF → 1 µF (C52923); R10 100 Ω → 1 kΩ (C11702) | applied 2026-11-14 |
 | D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | applied 2026-11-14 |
-| D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md |
+| D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md; the sleeve ordered 2026-11-19 |
 | D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
 | D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin | applied 2026-11-16, driver v2.2 |
-| D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/`, not yet in the cart |
+| D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/` and in the order |
 | D31 | Four M3 press nuts on a 46 mm square in the cap's back face, for a box with a controller and power supply (up to 64 × 64 × 40 mm keeps the full tilt) | in round 7's cap |
 | D32 | The heat stack's fasteners as real parts: M3 × 45 studs locked in the plate, steel washer and nut, 12 mm polyamide standoffs, polyamide screws under the driver; ISO 7380 LED and shell screws | hardware list in `mech/housing/README.md` and the order's extras |
 | D33 | The LED harness on three JST XH 2-pin plugs: J3 red, J4 green, J5 blue on the driver (B2B-XH-A), and a 12 mm bore down the heat stack that the plugs pass one at a time | applied 2026-11-16: driver v2.3, housing round 7 |
 | D34 | R10 a 1 kΩ 0402 rated 200 mW, for a feed voltage held on the data pin | applied 2026-11-17, driver v2.4 |
-| D35 | A second LED board with pads for 3.5 mm LEDs, `led35`, bought bare to try other colours on; the checked LEDs are listed in PRODUCTION.md | released 2026-11-18 as v1.0; not built |
+| D35 | A second LED board with pads for 3.5 mm LEDs, `led35`, bought bare to try other colours on; the checked LEDs are listed in PRODUCTION.md | released 2026-11-18 as v1.0; 10 bare boards in the order; not built |
+| D36 | Hood round 8: 84 mm square (was 78), each lug's window 12.5 mm along its bend line (was 8); the lugs, pins and doors as before | uploaded to the order in place of round 6's hood, 2026-11-19; in JLCCNC's file review |
+| D37 | No welding at the bends of the hood, cap and shell: the gaps where their walls meet stay open | answered to JLCCNC, 2026-11-19 |
+| D38 | The optic carriers are made from the files as ordered: JLC3DP's thin-wall and powder notes are accepted | answered to JLC3DP, 2026-11-19 |
 
 **Power, in short:**
 - Feed: regulated 12 V, never over 15 V (the TVS's standoff).
@@ -72,10 +94,20 @@ the way in; the detail stays in the documents it links to.
     `courtyards` unchanged; released as v2.1.
   - Again with R11 (D29), after the PR review found D5's current had nowhere to go: ERC 0, `netcheck.py` 66
     checks, DRC 0/0 with parity, `check` and `courtyards` unchanged; released as v2.2.
+  - v2.3 with the XH sockets (D33): ERC 0, `netcheck.py` 66 checks, DRC 0/0 with parity. v2.4 changes R10's part
+    number only (D34). `led35` v1.0: ERC as the LED board, DRC 0/0 with parity (D35).
+  - The housing, on its model: `check7.py` finds no overlaps with every fastener as its real part, and gives round 7's
+    results with round 8's hood. `check8.py` measures the hood against JLCCNC's bending limits and the carriers' walls
+    against JLC3DP's (D36, D38; [mech/housing/](mech/housing/README.md)).
 - **Not proven on hardware:**
   - **The WS2811 (F3, review R2).** The owner recalls PWM from the chip on v1, but v1 had too many faults for that to
     count.
   - **The PT4115 stage.** v1's was miswired, so it has only been simulated.
+  - **The housing and the optics.** No part is made yet. The heat budget (`thermal_sheet.py`) is a calculation, the
+    beam and the colour bands come from a model, and the assembly guide's steps are untried.
+  - **The lens fit.** The lenses' listing gives 20 × 10.8 mm, the model's height, and no drawing. Another seller's
+    drawing shows 10.4 mm, a 1.9 mm flange and a Ø6.4 cavity, against the model's 10.8, 2.0 and Ø6.1. Measure them
+    when they arrive.
 
   The first v2 boards are the test. The order assembles all 5 of each (the user's decision, 2026-11-17: $5.78 more than
   2 of each, against about $94 for a second assembly run); bring-up starts with one board of each.
@@ -99,17 +131,44 @@ the way in; the detail stays in the documents it links to.
    The same day driver v2.4 (R10 rated 200 mW, D34) took v2.3's place: Y185, $49.66, whole order $374.26. U7 and J3–J5
    were turned as before; U7 (C350557) had 1,086 in stock at JLC that evening, enough for the 9 the order buys.
    On 2026-11-18 another session re-saved the driver and LED board lines as Y200 and Y198, and 10 bare led35 boards
-   went in (Y202, $5.00); whole order $385.90. Their LEDs and spare HD2525s are in the LCSC cart ($26.18).
+   went in (Y202, $5.00); whole order $385.90 when quoted alone.
+
+   **Submitted on 2026-11-18** (22:12) as JLC order W2026111905123922, together with other projects' boards
+   and prints. JLC advised paying once its reviews are done, so it is unpaid. The same evening J1/J2 (JST
+   B3B-XH-A, C144394), the LEDs for led35 and spare HD2525s were ordered and paid at LCSC (order WM2611190181).
+
+   **JLC's reviews, 2026-11-19** (PRODUCTION.md, Costs). Three questions, all answered that day:
+   - JLCCNC can't bend round 6's hood. Round 8's hood took its place through the order's "Replace File" (D36).
+   - JLCCNC asked whether to weld the gaps at the bends of the hood, cap and shell: no (D37).
+   - JLC3DP noted thin walls and trapped powder on the carriers: accepted, they are made as ordered (D38).
+
+   JLC's order page, read on 2026-11-19 at 22:28:
+
+   | Lines | State | Price |
+   | --- | --- | --- |
+   | driver v2.4, PCB and assembly (Y200) | approved | $49.66 |
+   | LED board v2.0, PCB (Y198) | approved | $4.00 |
+   | LED board v2.0, assembly | in review ("Advanced option review") | $43.65 |
+   | led35 v1.0, 10 bare boards (Y202) | approved | $5.00 |
+   | plate, fins, spacers, doors, yoke | approved, awaiting payment | $100.35; the plate is $11.65 with its 10 threads (was $5.80) |
+   | round 8's hood, the cap, the shell | in file review | $63.45: the hood still at round 6's $19.55, the cap before its press nuts |
+   | the three carriers | "Pending", still asking for the confirmation that was answered that day | $26.65 |
+
    Left to do:
-   - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers; M3 rod
-     for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 and × 20; thermal paste; and for the harness JST XHP-2 housings and SXH-001T-P0.6 contacts (D33);
-   - submit the order at checkout. JLCCNC prices the threads and press nuts when it reviews a submitted order, not
-     while the parts sit in the cart: its help page ("How to place a sheet metal order", read 2026-11-17) says the
-     review takes 10 minutes to 4 hours on working days and the Pay button comes on once it has passed. Then pay,
-     and add a `submitted` event to the order;
-   - buy J1/J2 (JST B3B-XH-A, C144394) for the five drivers: 10, plus a few spare;
-   - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`), so the next release turns U7 and the LEDs itself;
-     J3–J5 need a rule there too (PRODUCTION.md, order checklist).
+   - pay once every line has passed JLC's review; JLC ships the order together. Then add a `submitted` event with the
+     order number and the price to the order's `order.toml`, name round 8's hood there (it still says round 6's), and
+     run `pcbkit production`;
+   - if the carriers still show "Pending" on JLC's next working day, ask JLC3DP;
+   - buy the housing's fasteners (the order's extras, D30 and D32): 10 Elesa VC.692/25 p-M4x10 knobs and M4 washers;
+     M3 rod for 15 studs, M3 washers, nuts, 12 mm polyamide standoffs and screws; ISO 7380 M3 × 6, × 8 with nylock
+     nuts, and × 20; thermal paste and medium thread-lock. None of it is in a cart;
+   - the harness: the XHP-2 plugs, the contacts and the leads come from the owner's stock. Check the leads against
+     D24 (24 AWG, high-temperature insulation at most 1.5 mm across, not silicone) before use;
+   - when the AliExpress parcels arrive (ordered 2026-11-19, estimated 2026-12-03 to 12-23): measure the lenses
+     against the carrier's pockets, and try which sleeve (4 or 5 mm) passes the LED board's 6.4 mm hole with the six
+     wires in it;
+   - merge pcb-kit's rotation fix (branch `jlc-rotations-spotlight`, not merged on 2026-11-19), so the next release
+     turns U7 and the LEDs itself; J3–J5 need a rule there too (PRODUCTION.md, order checklist).
 4. **Bring-up:** the review's bench list. Use a current-limited first power, then one colour at a time. Record the
    results in the review, dated:
    - D1's temperature (R10);
@@ -117,10 +176,14 @@ the way in; the detail stays in the documents it links to.
    - the 5 V rail current (R3);
    - five lights on one feed;
    - the data-pin fault on one board (R6, step 8): the +5V rail, U7's input and resistor R10's temperature.
+5. **Build the first lamp:** the assembly guide, [docs/assembly/](docs/assembly/index.html). It was written before
+   any part arrived, so note where a step differs. Then the focus test with the two taller carriers (D27) and the
+   lenses bought to compare (15°, 45°, beaded, frosted).
 
 ## Open questions
 
-- Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 7 of the sheet-metal design, `mech/housing/` (D21–D27, D30): round 6 with the yoke pivot from real parts.
+- Housing: answered 2026-11-16. The boards stay `disc50`: the LED board sits in the shell's Ø54 window and the back cap's cut-outs face J1/J2 (DESIGN §6 item 5). The housing is round 8 of the sheet-metal design, `mech/housing/` (D21–D27, D30–D33, D36): round 6 with every fastener a real part, and a new hood for JLCCNC's review.
+- The knobs: buy Elesa's (D30), or print them (`mech/housing/knob.py`, not printed or tried yet)?
 - Home Assistant path: ESPHome (timing given) or WLED (not checked)?
 - Test access: untent one via per key net (review, "Test points")? Free, but not yet decided.
 - R10 in the data-pin fault (the open finding of PR #1's review): answered 2026-11-17. A 1 kΩ 0402 rated 200 mW takes
@@ -133,6 +196,8 @@ the way in; the detail stays in the documents it links to.
 | Design notes, decisions, planned changes | [DESIGN.md](DESIGN.md) |
 | Layout and checks | [LAYOUT.md](LAYOUT.md) |
 | Ordering, harness, bring-up | [PRODUCTION.md](PRODUCTION.md) |
+| The first order: the versions it pins, the parts to buy besides, its events | [production/orders/2026-11-16-v2-first/](production/orders/2026-11-16-v2-first/ORDER.md) |
 | Housing scripts, order STEPs and drawings | [mech/housing/](mech/housing/README.md) |
+| Assembly guide; the project's front page | [docs/assembly/](docs/assembly/index.html), [docs/index.html](docs/index.html) |
 | Failure review, bench list, firmware duties | [docs/reviews/2026-10-30-v2.md](docs/reviews/2026-10-30-v2.md) |
 | Simulations and their tables | `sim/` and `sim/results/` |
