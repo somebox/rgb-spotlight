@@ -69,7 +69,9 @@ The LED board is drawn with a green mask; the ordered ones are white.
 - **Chaining:** JST XH connectors (3 A) pass 12 V/GND through: up to 5 lights per 12 V feed, 2.2–2.6 A, with a 3 A fuse at the supply end (DESIGN.md §2.4, D14, D15). Use a 36 W supply for 4 lights and 60 W for 5, and add a feed per group after that.
 - **Heat:** about 2.7 W in the LED board, which goes into the housing's heat plate and fins. About 0.9 W in the driver, mostly in the three Schottky diodes. See DESIGN.md §2.6–2.7.
 - **Dimming:** brightness follows the 8-bit level within 5 % above 20 % and within 20 % down to 5 %. The lowest few levels are unreliable (DESIGN.md §2.7).
-- **12 V on the data pin** (a mis-crimped cable): simulated with up to 15 V there, the level shifter's input stays at 5.43 V or less and the 5 V rail at 5.0 V (D28, D29). On the bench list.
+- **12 V on the data pin** (a mis-crimped cable, or the plug mated at an angle; review R6), simulated with up to 15 V there (D28, D29, `sim/results/data_cable.txt`). On the bench list.
+  - With the light powered as well: the 5 V rail stays at 5.0 V and the level shifter's input at 5.43 V or less.
+  - With the 12 V and data wires swapped, the light has no feed and the data pin alone holds the 5 V rail up: 2.9–3.5 V with 12 V on the pin, 3.7–4.4 V with 15 V. The level shifter's input stays at 4.84 V or less.
 - **Firmware:** FastLED's `WS2811` (800 kHz) fits the WS2811's timing. ESPHome needs its timing set by hand (the review's firmware duties). WLED hasn't been checked. None of it has run on a lamp yet.
 
 ## Connections

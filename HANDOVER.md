@@ -67,7 +67,7 @@ D21–D27 (the barn doors, the LED board's 45°, the harness wire, the finish, t
 | D19 | "+" silk at pad 2 of each LED; polarity stated in the order remark | applied 2026-11-14 |
 | D20 | Nylon hardware on the driver; a sleeve through the LED board's wire hole (the housing floats) | in PRODUCTION.md; the sleeve ordered 2026-11-19 |
 | D28 | D5 (RB751V-40) clamps U7's input to +5V: 12 V on the data pin leaves 5.4 V there, not 10.9 V | applied 2026-11-16, driver v2.1 |
-| D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin | applied 2026-11-16, driver v2.2 |
+| D29 | R11 (470 Ω, +5V to GND) sinks D5's current, which the 78L05 can't: the rail stays at 5.0 V with up to 15 V on the data pin while the light is powered. With the 12 V and data wires swapped (no feed) the pin holds it at 2.9–3.5 V at 12 V | applied 2026-11-16, driver v2.2 |
 | D30 | Housing round 7: the yoke pivot from real parts (Elesa M4 knob, DIN washers, PEM S-M4-2 in the cap, Ø4.5 holes, cap rims 1.5 mm longer); only the shell, cap and yoke change | in `mech/housing/order7/` and in the order |
 | D31 | Four M3 press nuts on a 46 mm square in the cap's back face, for a box with a controller and power supply (up to 64 × 64 × 40 mm keeps the full tilt) | in round 7's cap |
 | D32 | The heat stack's fasteners as real parts: M3 × 45 studs locked in the plate, steel washer and nut, 12 mm polyamide standoffs, polyamide screws under the driver; ISO 7380 LED and shell screws | hardware list in `mech/housing/README.md` and the order's extras |
